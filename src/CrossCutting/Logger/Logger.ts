@@ -1,0 +1,66 @@
+/// <reference path="LoggerInterface.ts" />
+
+class Logger implements LoggerInterface {
+	private logLevel: LogLevel;
+	private modulesRegisteredToLog: string[];
+	private modulesToLog: string[];
+
+	constructor() {
+		this.logLevel = LogLevel.Error;
+	}
+
+	setLogLevel(logLevel: LogLevel): void {
+		this.logLevel = logLevel;
+		this.modulesToLog = [];
+		this.modulesRegisteredToLog = [];
+	}
+
+	registerModuleForLogging(moduleName: string): void {
+		this.modulesRegisteredToLog.push(moduleName);
+	}
+
+	activateModuleForLogging(moduleName: string): void {
+		this.modulesToLog.push(moduleName);
+	}
+
+	info(module: string, msg: string): void {
+		this.printMessage(module, LogLevel.Info, msg);
+	}
+	warn(module: string, msg: string): void {
+		this.printMessage(module, LogLevel.Warn, msg);
+	}
+	error(module: string, msg: string): void {
+		this.printMessage(module, LogLevel.Error, msg);
+	}
+
+	private printMessage(module: string, logLevel: LogLevel, msg: string): void {
+		if (logLevel > this.logLevel) {
+			return;
+		}
+		if (this.modulesToLog.length === 0 || (!this.modulesToLog.some(m => m.toLowerCase() === "all") && !this.modulesToLog.some(m => m === module))) {
+			return;
+		}
+		var prefix = this.getPrefix(module, logLevel);
+		switch (logLevel) {
+			case LogLevel.Debug:
+				console.debug(prefix + msg);
+				break;
+			case LogLevel.Error:
+				console.error(prefix + msg);
+				break;
+			case LogLevel.Info:
+				console.info(prefix + msg);
+				break;
+			case LogLevel.Warn:
+				console.warn(prefix + msg);
+				break;
+			default:
+				console.info(prefix + msg);
+		}
+	}
+
+	private getPrefix(module: string, logLevel: LogLevel): string {
+		var currentDate = new Date();
+		return currentDate.toLocaleString('en-GB') + '|' + LogLevel[logLevel] + '| ' + module + ': ';
+	}
+}
