@@ -26,6 +26,9 @@ class Logger implements LoggerInterface {
 	info(module: string, msg: string): void {
 		this.printMessage(module, LogLevel.Info, msg);
 	}
+	debug(module: string, msg: string): void {
+		this.printMessage(module, LogLevel.Debug, msg);
+	}
 	warn(module: string, msg: string): void {
 		this.printMessage(module, LogLevel.Warn, msg);
 	}
