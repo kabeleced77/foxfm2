@@ -1,6 +1,6 @@
+/// <reference path="../../typings/main.d.ts" />
 /// <reference path="../CrossCutting/Logger/LoggerInterface.ts" />
 /// <reference path="../CrossCutting/Messageing/SettingMessage.ts" />
-/// <reference path="../Typings/tsd.d.ts" />
 
 class SettingsManager {
 	public appSettings: AppSettings = new AppSettings();

@@ -1,4 +1,4 @@
-// <reference path="../CrossCutting/Logger/LoggerInterface.ts" />
+/// <reference path="../CrossCutting/Logger/LoggerInterface.ts" />
 /// <reference path="../CrossCutting/Toolkit/DOMHelper.ts" />
 /// <reference path="../CrossCutting/Toolkit/NumberHelper.ts" />
 /// <reference path="../CrossCutting/Toolkit/XpathHelper.ts" />

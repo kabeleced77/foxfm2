@@ -1,7 +1,7 @@
+/// <reference path="../../typings/main.d.ts" />
 /// <reference path="../CrossCutting/Logger/LoggerInterface.ts" />
 /// <reference path="../CrossCutting/Logger/Logger.ts" />
 /// <reference path="../CrossCutting/Messageing/SettingMessage.ts" />
-/// <reference path="../Typings/tsd.d.ts" />
 /// <reference path="./SettingsRepositoryInterface.ts" />
 /// <reference path="../AppSettings.ts" />
 

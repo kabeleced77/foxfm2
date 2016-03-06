@@ -1,0 +1,10 @@
+{
+  "name": "foxfm",
+  "ambientDependencies": {
+    "MediaStream": "github:DefinitelyTyped/DefinitelyTyped/webrtc/MediaStream.d.ts#4c30420aac18a0ed3f506c357af7f1148b2f317d",
+    "es6-promise": "github:DefinitelyTyped/DefinitelyTyped/es6-promise/es6-promise.d.ts#4c30420aac18a0ed3f506c357af7f1148b2f317d",
+    "filewriter": "github:DefinitelyTyped/DefinitelyTyped/filewriter/filewriter.d.ts#4c30420aac18a0ed3f506c357af7f1148b2f317d",
+    "filesystem": "github:DefinitelyTyped/DefinitelyTyped/filesystem/filesystem.d.ts#4c30420aac18a0ed3f506c357af7f1148b2f317d",
+    "chrome": "github:DefinitelyTyped/DefinitelyTyped/chrome/chrome.d.ts#4c30420aac18a0ed3f506c357af7f1148b2f317d"
+  }
+}
