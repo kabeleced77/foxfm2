@@ -1,0 +1,45 @@
+{
+    "manifest_version": 2,
+    "name": "foxfm",
+    "version": "1.0",
+    "default_locale": "de",
+    "options_page": "UI/Settings/options.html",
+    "permissions": [
+        "contextMenus",
+        "tabs",
+        "storage"
+    ],
+    "background": {
+        "scripts": [
+            "CrossCutting/Logger/LoggerInterface.js",
+            "CrossCutting/Logger/Logger.js",
+            "DataAccess/SettingsRepositoryInterface.js",
+            "DataAccess/SettingsRepository.js",
+            "CrossCutting/Messageing/SettingMessage.js",
+            "AppSettings.js",
+            "foxfmBackground.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "all_frames": true,
+            "matches": [
+                "*://v7.www.onlinefussballmanager.de/*"
+            ],
+            "js": [
+                "CrossCutting/Logger/LoggerInterface.js",
+                "CrossCutting/Logger/Logger.js",
+                "CrossCutting/Toolkit/DOMHelper.js",
+                "CrossCutting/Toolkit/NumberHelper.js",
+                "CrossCutting/Toolkit/XpathHelper.js",
+                "DataAccess/SettingsRepositoryInterface.js",
+                "DataAccess/SettingsRepository.js",
+                "CrossCutting/Messageing/SettingMessage.js",
+                "BusinessLogic/StadiumManagerUi.js",
+                "BusinessLogic/SettingsManager.js",
+                "AppSettings.js",
+                "foxfmApp.js"
+            ]
+        }
+    ]
+}

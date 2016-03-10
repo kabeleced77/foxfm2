@@ -91,7 +91,7 @@ class StadiumManagerUi {
                         var result = XPathHelper.getXpathResult(xpathToStadiumRenameHeader);
                         if (result.snapshotLength == 1) {
                             var element = <HTMLElement>result.snapshotItem(0);
-                            element.style.width = "782px";
+                            element.style.width = "758px";
                         }
                     }
                 } else {
@@ -168,7 +168,7 @@ class StadiumManagerUi {
         var eventTargetId = eventTarget.id;
         this.changeStadiumPricesOnEvent(eventTargetId, minPrice, maxPrice);
     }
-    
+
     private changeStadiumPricesOnEvent(eventTargetId: string, minPrice: number, maxPrice: number) {
         var gameType = this.getTypeOfGame(eventTargetId);
         var blockOfStadium = this.getStadiumBlock(eventTargetId);
@@ -194,7 +194,7 @@ class StadiumManagerUi {
             }
         }
     }
-    
+
     private getStadiumOffsetStadiumPriceOfBlock(gameType: string, block: number): number {
         try {
             var offsetPrice = 0;
@@ -223,8 +223,9 @@ class StadiumManagerUi {
                     newBlockCore = 'block_price[' + block + '][epreispok]';
                     break;
             }
-            var index = <HTMLSelectElement>document.getElementsByName(newBlockCore)[0];
-            index.options[price].selected = true;
+            var blockPriceSelectElement = <HTMLSelectElement>document.getElementsByName(newBlockCore)[0];
+            var priceOptionElement = <HTMLOptionElement>blockPriceSelectElement.options[price];
+            priceOptionElement.selected = true;
         } catch (e) {
             this.error(e);
         }
@@ -232,7 +233,7 @@ class StadiumManagerUi {
 
     private createDropDownPrice(dropdownId: string, dropdownTooltip: string, dropdownDefault: number) {
         try {
-            var newSelect = DOMHelper.createDropdown(dropdownId, null, 'forminput_60px', '{width:50px;}', dropdownTooltip);
+            var newSelect = DOMHelper.createDropdown(dropdownId, null, 'forminput_60px', 'width:50px;', dropdownTooltip);
             for (var i = this.ofmStadiumMinPrice; i <= this.ofmStadiumMaxPrice; i++) {
                 var localeCurrencySign = this.getLocalisedString("currencysign");
                 var newOption = document.createElement('option');
@@ -241,7 +242,8 @@ class StadiumManagerUi {
                 newSelect.add(newOption, null);
             }
             if (dropdownDefault < this.ofmStadiumMaxPrice) {
-                newSelect.options[dropdownDefault].defaultSelected = true;
+                var priceOptionElement = <HTMLOptionElement>newSelect.options[dropdownDefault];
+                priceOptionElement.selected = true;
             }
             return newSelect;
         } catch (e) {
@@ -274,7 +276,7 @@ class StadiumManagerUi {
         }
         return typeOfGame;
     }
-    
+
     private getStadiumBlock(block: string): number {
         var blockOfStadium: number;
         if (block.match(/\wblock1\w*/i)) {
@@ -290,19 +292,19 @@ class StadiumManagerUi {
         }
         return blockOfStadium;
     }
-    
+
     private info(msg: string): void {
         this.log.info(this.thisModule, msg);
     }
-    
+
     private warn(msg: string): void {
         this.log.warn(this.thisModule, msg);
     }
-    
+
     private error(msg: string): void {
         this.log.error(this.thisModule, msg);
     }
-    
+
     private debug(msg: string): void {
         this.log.debug(this.thisModule, msg);
     }

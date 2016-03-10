@@ -1,0 +1,23 @@
+{
+    "league": {
+        "message": "Liga: "
+    },
+    "friendly": {
+        "message": "Friendly"
+    },
+    "cup": {
+        "message": "OFM-Pokal"
+    },
+    "generalpriceleague": {
+        "message": "Allg. Liga Eintrittspreis"
+    },
+    "generalpricefriendly": {
+        "message": "Allg. Freundschaftsspiel Eintrittspreis"
+    },
+    "generalpricecup": {
+        "message": "Allg. OFM-Pokal Eintrittspreis"
+    },
+    "currencysign": {
+        "message": "€"
+    }
+}
