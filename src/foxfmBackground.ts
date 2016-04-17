@@ -26,7 +26,7 @@ class foxfmBackground {
     }
 
     private contextMenuSettingCallback(info: any, tab: any) {
-        chrome.tabs.create({ url: "UI/Settings/options.html" });
+        chrome.tabs.create({ url: "UI/Settings/index.html" });
     }
 }
 
