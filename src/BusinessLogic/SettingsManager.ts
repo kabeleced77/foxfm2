@@ -44,10 +44,23 @@ class SettingsManager {
 	private debug(msg: string): void {
 		this.log.debug(this.thisModule, msg);
 	}
+	private warn(msg: string): void {
+		this.log.warn(this.thisModule, msg);
+	}
+
 
 	// overwrite obj1 with content of same properties of obj2
 	private synchroniseObjects(obj1: any, obj2: any): any {
 		this.info("syncObjects(): started");
+
+		if (obj1 === undefined || obj1 === null) {
+			this.warn("syncObjects(): obj1 is undefined or null");
+			return;
+		}
+		if (obj2 === undefined || obj2 === null) {
+			this.warn("syncObjects(): obj2 is undefined or null");
+			return;
+		}
 
 		var propNames1 = Object.getOwnPropertyNames(obj1);
 		propNames1.forEach((propName) => {
