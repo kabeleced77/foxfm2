@@ -3,16 +3,9 @@ module.exports = function (grunt) {
     var outDirectoryChrome = "app-chrome";
 
     grunt.initConfig({
-        cleanempty: {
-            options: {
-                // Task-specific options go here. 
-            },
-            chrome: {
-                src: [outDirectoryChrome + "/*"]
-            },
-            firefox: {
-                src: [outDirectoryFirefox + "/*"]
-            },
+        clean: {
+            chrome: [ outDirectoryChrome ],
+            firefox: [ outDirectoryFirefox ]
         },
         ts: {
             options: {
@@ -118,11 +111,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-merge-json");
     grunt.loadNpmTasks("grunt-processhtml");
     grunt.loadNpmTasks('grunt-bowercopy');
-    grunt.loadNpmTasks('grunt-cleanempty');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.registerTask("chrome", [
+        "clean:chrome",
         "ts:chrome",
-        "cleanempty:chrome",
         "merge-json:en-chrome",
         "merge-json:de-chrome",
         "merge-json:manifest-chrome",
@@ -130,8 +123,8 @@ module.exports = function (grunt) {
         "bowercopy:scripts-chrome",
         "bowercopy:styles-chrome"]);
     grunt.registerTask("firefox", [
+        "clean:firefox",
         "ts:firefox",
-        "cleanempty:firefox",
         "merge-json:en-firefox",
         "merge-json:de-firefox",
         "merge-json:manifest-firefox",
