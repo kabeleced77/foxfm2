@@ -4,8 +4,8 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         clean: {
-            chrome: [ outDirectoryChrome ],
-            firefox: [ outDirectoryFirefox ]
+            chrome: [outDirectoryChrome],
+            firefox: [outDirectoryFirefox]
         },
         ts: {
             options: {
@@ -53,12 +53,28 @@ module.exports = function (grunt) {
         },
         processhtml: {
             chrome: {
-                src: ['src/UI/Settings/index.html'],
+                src: ['src/UI/Settings/index.html',
+                    'src/UI/Settings/app.js'],
                 dest: outDirectoryChrome + '/UI/Settings/index.html'
             },
             firefox: {
-                src: ['src/UI/Settings/index.html'],
-                dest: outDirectoryFirefox + '/UI/Settings/index.html'
+                src: ['src/UI/Settings/index.html',
+                    'src/UI/Settings/app.js'],
+                dest: outDirectoryFirefox + '/UI/Settings'
+            }
+        },
+        copy: {
+            chrome: {
+                files: [
+                    // includes files within path 
+                    { expand: true, cwd: 'src/UI/Settings/', src: ['**'], dest: outDirectoryChrome + '/UI/Settings' }
+                ],
+            },
+            firefox: {
+                files: [
+                    // includes files within path 
+                    { expand: true, cwd: 'src/UI/Settings/', src: ['**'], dest: outDirectoryFirefox + '/UI/Settings' }
+                ],
             }
         },
         bowercopy: {
@@ -107,11 +123,11 @@ module.exports = function (grunt) {
             }
         }
     });
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks("grunt-ts");
     grunt.loadNpmTasks("grunt-merge-json");
-    grunt.loadNpmTasks("grunt-processhtml");
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-bowercopy');
-    grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.registerTask("chrome", [
         "clean:chrome",
@@ -119,7 +135,7 @@ module.exports = function (grunt) {
         "merge-json:en-chrome",
         "merge-json:de-chrome",
         "merge-json:manifest-chrome",
-        "processhtml:chrome",
+        "copy:chrome",
         "bowercopy:scripts-chrome",
         "bowercopy:styles-chrome"]);
     grunt.registerTask("firefox", [
@@ -128,7 +144,7 @@ module.exports = function (grunt) {
         "merge-json:en-firefox",
         "merge-json:de-firefox",
         "merge-json:manifest-firefox",
-        "processhtml:firefox",
+        "copy:firefox",
         "bowercopy:scripts-firefox",
         "bowercopy:styles-firefox"]);
     grunt.registerTask("default", [
