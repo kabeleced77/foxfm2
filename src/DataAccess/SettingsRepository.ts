@@ -16,28 +16,28 @@ class SettingsRepository implements SettingsRepositoryInterface {
 		this.getSettingListener();
 	}
 
-/*
-	private updateSettings(): void {
-		this.log.debug(this.thisModule, "update appSettings: " + JSON.stringify(this.appSettings));
-		var item = { "foxfm": this.appSettings };
-		chrome.storage.local.get(this.appSettingsKey, (items: any) => {
-			if (items !== null && items !== undefined) {
-				var appSettings = items.foxfm2;
-				if (appSettings !== null && appSettings !== undefined) {
-					this.log.debug(this.thisModule, "received '" + this.appSettingsKey + "' items: " + JSON.stringify(items.foxfm));
-					chrome.storage.local.set(item, () => {
-						this.log.debug(this.thisModule, "setting updated");
-						this.loadAppSettings();
-					});
+	/*
+		private updateSettings(): void {
+			this.log.debug(this.thisModule, "update appSettings: " + JSON.stringify(this.appSettings));
+			var item = { "foxfm": this.appSettings };
+			chrome.storage.local.get(this.appSettingsKey, (items: any) => {
+				if (items !== null && items !== undefined) {
+					var appSettings = items.foxfm2;
+					if (appSettings !== null && appSettings !== undefined) {
+						this.log.debug(this.thisModule, "received '" + this.appSettingsKey + "' items: " + JSON.stringify(items.foxfm));
+						chrome.storage.local.set(item, () => {
+							this.log.debug(this.thisModule, "setting updated");
+							this.loadAppSettings();
+						});
+					} else {
+						this.error("Could not retrieve app settings.");
+					}
 				} else {
-					this.error("Could not retrieve app settings.");
+					this.error("Could not retrieve items from chrome.storage: " + chrome.runtime.lastError);
 				}
-			} else {
-				this.error("Could not retrieve items from chrome.storage: " + chrome.runtime.lastError);
-			}
-		});
-	}
-	*/
+			});
+		}
+		*/
 
 	public saveAppSettings(as: AppSettings): void {
 		var obj: any = {};
@@ -54,6 +54,35 @@ class SettingsRepository implements SettingsRepositoryInterface {
 			this.appSettings = items.AppSettings;
 			this.debug("AppSettings: " + JSON.stringify(this.appSettings));
 			callback(this.appSettings);
+		});
+	}
+
+	public getCategoriesAsync(): PromiseLike<string[]> {
+		return this.loadAppSettingsAsync()
+			.then((appSettings: AppSettings) => {
+				var categories = ["tst1", "tst2", "tst3"];
+				return categories;
+			});
+	}
+
+	public loadAppSettingsAsync(): PromiseLike<AppSettings> {
+		var settings: AppSettings;
+		return this.getFromStorage(this.appSettingsKey)
+			.then((appSettings: AppSettings) => {
+				this.debug("AppSettings in promise:" + JSON.stringify(appSettings));
+				return appSettings;
+			});
+		// return settings;
+	}
+
+	private getFromStorage(key: string): PromiseLike<AppSettings> {
+		return new Promise((resolve, reject) => {
+			chrome.storage.local.get(key, (items: any) => {
+				this.debug("items: " + JSON.stringify(items));
+				this.appSettings = items.AppSettings;
+				this.debug("AppSettings: " + JSON.stringify(this.appSettings));
+				resolve(this.appSettings);
+			});
 		});
 	}
 

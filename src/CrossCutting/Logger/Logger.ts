@@ -7,12 +7,12 @@ class Logger implements LoggerInterface {
 
 	constructor() {
 		this.logLevel = LogLevel.Error;
+		this.modulesToLog = [];
+		this.modulesRegisteredToLog = [];
 	}
 
 	setLogLevel(logLevel: LogLevel): void {
 		this.logLevel = logLevel;
-		this.modulesToLog = [];
-		this.modulesRegisteredToLog = [];
 	}
 
 	registerModuleForLogging(moduleName: string): void {

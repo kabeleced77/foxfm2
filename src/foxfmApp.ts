@@ -15,7 +15,7 @@ class foxfmApp {
 	constructor() {
 		this.log = new Logger();
 		this.log.setLogLevel(LogLevel.All);
-		this.log.activateModuleForLogging("");
+		this.log.activateModuleForLogging("all");
 		this.settingsManager = new SettingsManager(this.log);
 		this.stadiumManagerUi = new StadiumManagerUi(this.log, this.settingsManager);
 	}

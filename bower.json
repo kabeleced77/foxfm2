@@ -22,7 +22,7 @@
     "jquery": "^2.2.2",
     "requirejs": "^2.2.0",
     "angular": "^1.5.3",
-    "angular-route": "^1.5.3",
+    "angular-route": "^1.5.5",
     "semantic": "semantic-ui#^2.1.8",
     "bootstrap": "^3.3.6"
   }

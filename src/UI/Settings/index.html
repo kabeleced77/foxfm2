@@ -1,13 +1,25 @@
-<html ng-app>
+﻿<!DOCTYPE html>
+<html ng-app="tsAngularApp">
 
 <head>
-  <meta charset="utf8" />
-  <title>AngularJS Tutorial</title>
-  <link rel="stylesheet" href="../../styles/bootstrap.min.css">
+    <title>AngularJS With TypeScript</title>
+    <link rel="stylesheet" href="../../styles/bootstrap.min.css">
 </head>
 
 <body>
-  <script src="../../scripts/angular.js"></script>
+    <h1>To-Do</h1>
+    <to-do-list name="My Test List"></to-do-list>
+    <script src="../../scripts/angular.js"></script>
+    <script src="../../scripts/angular-route.js"></script>
+    <script src="controllers/to-do-list-controller.js"></script>
+    <script src="directives/to-do-list.js"></script>
+    <script src="models/list-item.js"></script>
+    <script src="main.js"></script>
+    <script src="../../CrossCutting/Logger/Logger.js"></script>
+    <script src="../../CrossCutting/Logger/LoggerInterface.js"></script>
+    <script src="../../CrossCutting/Messageing/SettingMessage.js"></script>
+    <script src="../../BusinessLogic/SettingsManager.js"></script>
+    <script src="../../AppSettings.js"></script>
 </body>
 
 </html>

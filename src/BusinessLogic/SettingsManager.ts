@@ -1,8 +1,9 @@
 /// <reference path="../../typings/main.d.ts" />
+/// <reference path="SettingsManagerInterface.ts" />
 /// <reference path="../CrossCutting/Logger/LoggerInterface.ts" />
 /// <reference path="../CrossCutting/Messageing/SettingMessage.ts" />
 
-class SettingsManager {
+class SettingsManager implements SettingsManagerInterface {
 	public appSettings: AppSettings = new AppSettings();
 
 	private log: LoggerInterface;
@@ -35,6 +36,34 @@ class SettingsManager {
 		chrome.runtime.sendMessage(message, (as: AppSettings) => {
 			this.synchroniseObjects(this.appSettings, as);
 			callback(this.appSettings);
+		});
+	}
+
+	public getCategoriesAsync(): PromiseLike<string[]> {
+		return this.getAppSettingsAsync()
+			.then((appSettings: AppSettings) => {
+				var categories = ["tst1", "tst2", "tst3"];
+				return categories;
+			});
+	}
+
+	public getAppSettingsAsync(): PromiseLike<AppSettings> {
+		var message = new SettingMessage();
+		message.settingKey = "AppSettings";
+		message.settingAction = SettingAction.Load;
+		this.debug("Request app settings using messaging: " + JSON.stringify(message));
+
+		return this.sendMessage(message).then((appSettings: AppSettings) => {
+			return appSettings
+		});
+	}
+
+	private sendMessage(message: SettingMessage): PromiseLike<AppSettings> {
+		return new Promise((resolve, reject) => {
+			chrome.runtime.sendMessage(message, (appSettings: AppSettings) => {
+				this.debug("Received message with app settings: " + JSON.stringify(appSettings));
+				resolve(appSettings);
+			});
 		});
 	}
 

@@ -1,0 +1,23 @@
+<div class="toDoList">
+    <h2>{{ vm.name }}</h2>
+
+    <form ng-submit="vm.save()">
+        <input ng-model="vm.newItemName" placeholder="Task name" type="text">
+        <button style="" class="btn btn-default" type="submit">Add Item</button>
+    </form>
+
+    <ul>
+        <li ng-repeat="item in vm.listItems" ng-class="{ complete: item.isComplete }">
+            <label>
+                <input ng-click="vm.toggle(item)" ng-checked="item.isComplete" type="checkbox">
+                {{ item.name }}
+            </label>
+        </li>
+    </ul>
+    
+    <ul class="list-group">
+        <li ng-show="vm.categories" ng-repeat="t in vm.categories">
+            {{t}}
+        </li>
+    </ul>
+</div>
