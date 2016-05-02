@@ -9,31 +9,24 @@ module.exports = function (grunt) {
         },
         ts: {
             options: {
-                "target": "es6",
-                "module": "es6",
+                "target": "es5",
+                "module": "es5",
                 "noImplicitAny": true,
                 "removeComments": true,
                 "preserveConstEnums": true,
                 "sourceMap": true
             },
-            firefox: {
-                src: ["src/**/*.ts", "!src/UI/Settings/**/*.ts", "!node_modules/**/*.ts", "!typings/**/*.ts"],
-                outDir: [outDirectoryFirefox]
-            },
+
             chrome: {
-                src: ["src/**/*.ts", "!src/UI/Settings/**/*.ts", "!node_modules/**/*.ts", "!typings/**/*.ts"],
+                src: ["src/**/*.ts", "!node_modules/**/*.ts", "!typings/**/*.ts"],
                 outDir: [outDirectoryChrome]
+            },
+            firefox: {
+                src: ["src/**/*.ts", "!node_modules/**/*.ts", "!typings/**/*.ts"],
+                outDir: [outDirectoryFirefox]
             }
         },
         "merge-json": {
-            "en-firefox": {
-                src: ["src/**/*-en.json"],
-                dest: outDirectoryFirefox + "/_locales/en/messages.json"
-            },
-            "de-firefox": {
-                src: ["src/**/*-de.json"],
-                dest: outDirectoryFirefox + "/_locales/de/messages.json"
-            },
             "en-chrome": {
                 src: ["src/**/*-en.json"],
                 dest: outDirectoryChrome + "/_locales/en/messages.json"
@@ -41,6 +34,14 @@ module.exports = function (grunt) {
             "de-chrome": {
                 src: ["src/**/*-de.json"],
                 dest: outDirectoryChrome + "/_locales/de/messages.json"
+            },
+            "en-firefox": {
+                src: ["src/**/*-en.json"],
+                dest: outDirectoryFirefox + "/_locales/en/messages.json"
+            },
+            "de-firefox": {
+                src: ["src/**/*-de.json"],
+                dest: outDirectoryFirefox + "/_locales/de/messages.json"
             },
             "manifest-chrome": {
                 src: ["configurations/manifest-base.json"],
@@ -51,23 +52,11 @@ module.exports = function (grunt) {
                 dest: outDirectoryFirefox + "/manifest.json"
             }
         },
-        processhtml: {
-            chrome: {
-                src: ['src/UI/Settings/index.html',
-                    'src/UI/Settings/app.js'],
-                dest: outDirectoryChrome + '/UI/Settings/index.html'
-            },
-            firefox: {
-                src: ['src/UI/Settings/index.html',
-                    'src/UI/Settings/app.js'],
-                dest: outDirectoryFirefox + '/UI/Settings'
-            }
-        },
         copy: {
             chrome: {
                 files: [
                     // includes files within path 
-                    { expand: true, cwd: 'src/UI/Settings/', src: ['**'], dest: outDirectoryChrome + '/UI/Settings' }
+                    { expand: true, cwd: 'src/UI/Settings/', src: ['**/*.html'], dest: outDirectoryChrome + '/UI/Settings' }
                 ],
             },
             firefox: {
