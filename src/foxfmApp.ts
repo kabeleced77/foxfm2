@@ -1,8 +1,4 @@
-/// <reference path="AppSettings.ts" />
-/// <reference path="CrossCutting/Logger/LoggerInterface.ts" />
-/// <reference path="CrossCutting/Logger/Logger.ts" />
-/// <reference path="BusinessLogic/StadiumManagerUi.ts" />
-/// <reference path="BusinessLogic/SettingsManager.ts" />
+/// <reference path="_all.ts" />
 
 class foxfmApp {
 	public appSettings: AppSettings;
@@ -10,7 +6,7 @@ class foxfmApp {
 	private log: LoggerInterface;
 	private thisModule: string = "foxfmApp";
 	private stadiumManagerUi: StadiumManagerUi;
-	private settingsManager: SettingsManager;
+	private settingsManager: SettingsManagerInterface;
 
 	constructor() {
 		this.log = new Logger();

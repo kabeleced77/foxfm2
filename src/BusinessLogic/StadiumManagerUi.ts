@@ -1,19 +1,15 @@
-/// <reference path="../CrossCutting/Logger/LoggerInterface.ts" />
-/// <reference path="../CrossCutting/Toolkit/DOMHelper.ts" />
-/// <reference path="../CrossCutting/Toolkit/NumberHelper.ts" />
-/// <reference path="../CrossCutting/Toolkit/XpathHelper.ts" />
-/// <reference path="SettingsManager.ts" />
+/// <reference path="../_all.ts" />
 
 class StadiumManagerUi {
     private log: LoggerInterface;
     private numberHelper = new NumberHelper();
-    private settingsManager: SettingsManager;
+    private settingsManager: SettingsManagerInterface;
     private thisModule: string = "StadiumManagerUi";
     private ofmUrlStadium: string = "stadium/stadium.php";
     private ofmStadiumMinPrice = 1;
     private ofmStadiumMaxPrice = 69;
 
-    constructor(logger: LoggerInterface, settingsManager: SettingsManager) {
+    constructor(logger: LoggerInterface, settingsManager: SettingsManagerInterface) {
         this.log = logger;
         this.settingsManager = settingsManager;
     }

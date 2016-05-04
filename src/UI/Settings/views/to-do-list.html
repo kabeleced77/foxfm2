@@ -1,4 +1,5 @@
 <div class="toDoList">
+
     <h2>{{ vm.name }}</h2>
 
     <form ng-submit="vm.save()">
@@ -14,10 +15,10 @@
             </label>
         </li>
     </ul>
-    
-    <ul class="list-group">
-        <li ng-show="vm.categories" ng-repeat="t in vm.categories">
-            {{t}}
+
+    <ul class="list-group nav nav-tabs">
+        <li ng-show="vm.categories" ng-repeat="t in vm.categories" role="presentation">
+            <a href="#">{{t}}</a>
         </li>
     </ul>
 </div>

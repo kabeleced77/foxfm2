@@ -18,10 +18,10 @@
             "styles/semantic.css",
             "CrossCutting/Logger/LoggerInterface.js",
             "CrossCutting/Logger/Logger.js",
+            "CrossCutting/Settings/AppSettings.js",
             "DataAccess/SettingsRepositoryInterface.js",
             "DataAccess/SettingsRepository.js",
             "CrossCutting/Messageing/SettingMessage.js",
-            "AppSettings.js",
             "foxfmBackground.js"
         ]
     },
@@ -37,12 +37,12 @@
                 "CrossCutting/Toolkit/DOMHelper.js",
                 "CrossCutting/Toolkit/NumberHelper.js",
                 "CrossCutting/Toolkit/XpathHelper.js",
+                "CrossCutting/Settings/AppSettings.js",
                 "DataAccess/SettingsRepositoryInterface.js",
                 "DataAccess/SettingsRepository.js",
                 "CrossCutting/Messageing/SettingMessage.js",
                 "BusinessLogic/StadiumManagerUi.js",
                 "BusinessLogic/SettingsManager.js",
-                "AppSettings.js",
                 "foxfmApp.js"
             ]
         }

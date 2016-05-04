@@ -1,9 +1,4 @@
-/// <reference path="../../typings/main.d.ts" />
-/// <reference path="../CrossCutting/Logger/LoggerInterface.ts" />
-/// <reference path="../CrossCutting/Logger/Logger.ts" />
-/// <reference path="../CrossCutting/Messageing/SettingMessage.ts" />
-/// <reference path="./SettingsRepositoryInterface.ts" />
-/// <reference path="../AppSettings.ts" />
+/// <reference path="../_all.ts" />
 
 class SettingsRepository implements SettingsRepositoryInterface {
 	private log: LoggerInterface;
@@ -60,7 +55,16 @@ class SettingsRepository implements SettingsRepositoryInterface {
 	public getCategoriesAsync(): PromiseLike<string[]> {
 		return this.loadAppSettingsAsync()
 			.then((appSettings: AppSettings) => {
-				var categories = ["tst1", "tst2", "tst3"];
+				var categories = Object.getOwnPropertyNames(appSettings).map(element => {
+					var property = <any> appSettings[<any>element];
+					var elementType = typeof (property);
+					if (elementType === "object") {
+						return element;
+					}
+				});
+				
+				this.debug(categories.join("::"));
+				// var categories = ["tst1", "tst2", "tst3"];
 				return categories;
 			});
 	}

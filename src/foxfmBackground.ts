@@ -1,8 +1,4 @@
-/// <reference path="CrossCutting/Logger/LoggerInterface.ts" />
-/// <reference path="CrossCutting/Logger/Logger.ts" />
-/// <reference path="DataAccess/SettingsRepositoryInterface.ts" />
-/// <reference path="DataAccess/SettingsRepository.ts" />
-/// <reference path="./AppSettings.ts" />
+/// <reference path="_all.ts" />
 
 class foxfmBackground {
     private log: LoggerInterface;

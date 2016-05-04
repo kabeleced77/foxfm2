@@ -1,7 +1,4 @@
-/// <reference path="../../typings/main.d.ts" />
-/// <reference path="SettingsManagerInterface.ts" />
-/// <reference path="../CrossCutting/Logger/LoggerInterface.ts" />
-/// <reference path="../CrossCutting/Messageing/SettingMessage.ts" />
+/// <reference path="../_all.ts" />
 
 class SettingsManager implements SettingsManagerInterface {
 	public appSettings: AppSettings = new AppSettings();
@@ -42,14 +39,19 @@ class SettingsManager implements SettingsManagerInterface {
 	public getCategoriesAsync(): PromiseLike<string[]> {
 		return this.getAppSettingsAsync()
 			.then((appSettings: AppSettings) => {
-				var categories = ["tst1", "tst2", "tst3"];
+				var categories = Object.getOwnPropertyNames(appSettings).map(element => {
+					if (typeof (appSettings[element]) === "object") {
+						return element;
+					}
+				});
+
 				return categories;
 			});
 	}
 
 	public getAppSettingsAsync(): PromiseLike<AppSettings> {
 		var message = new SettingMessage();
-		message.settingKey = "AppSettings";
+		message.settingKey = this.appSettingsKey;
 		message.settingAction = SettingAction.Load;
 		this.debug("Request app settings using messaging: " + JSON.stringify(message));
 

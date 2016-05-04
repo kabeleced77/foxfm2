@@ -1,3 +1,5 @@
+/// <reference path="../_all.ts" />
+
 "use strict";
 
 interface SettingsRepositoryInterface {
@@ -5,5 +7,4 @@ interface SettingsRepositoryInterface {
 	saveAppSettings(appSettings: AppSettings): void;
 	loadAppSettings(callback: (appSettings: AppSettings) => void): void;
 	loadAppSettingsAsync(): PromiseLike<AppSettings>;
-	getCategoriesAsync(): PromiseLike<string[]>;
 }
