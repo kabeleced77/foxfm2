@@ -12,6 +12,7 @@ module.exports = function (grunt) {
                 "target": "es5",
                 "module": "es5",
                 "noImplicitAny": true,
+                "suppressImplicitAnyIndexErrors": true,
                 "removeComments": true,
                 "preserveConstEnums": true,
                 "sourceMap": true
