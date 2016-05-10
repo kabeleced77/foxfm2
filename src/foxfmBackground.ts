@@ -1,4 +1,4 @@
-/// <reference path="_all.ts" />
+/// <reference path="allReferences.ts" />
 
 class foxfmBackground {
     private log: LoggerInterface;

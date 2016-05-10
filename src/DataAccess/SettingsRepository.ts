@@ -1,4 +1,4 @@
-/// <reference path="../_all.ts" />
+/// <reference path="../allReferences.ts" />
 
 class SettingsRepository implements SettingsRepositoryInterface {
 	private log: LoggerInterface;
@@ -52,22 +52,6 @@ class SettingsRepository implements SettingsRepositoryInterface {
 		});
 	}
 
-	public getCategoriesAsync(): PromiseLike<string[]> {
-		return this.loadAppSettingsAsync()
-			.then((appSettings: AppSettings) => {
-				var categories = Object.getOwnPropertyNames(appSettings).map(element => {
-					var property = <any> appSettings[<any>element];
-					var elementType = typeof (property);
-					if (elementType === "object") {
-						return element;
-					}
-				});
-				
-				this.debug(categories.join("::"));
-				// var categories = ["tst1", "tst2", "tst3"];
-				return categories;
-			});
-	}
 
 	public loadAppSettingsAsync(): PromiseLike<AppSettings> {
 		var settings: AppSettings;
@@ -102,14 +86,13 @@ class SettingsRepository implements SettingsRepositoryInterface {
 					this.debug("Load response has been sent: " + JSON.stringify(setting));
 				});
 			} else if (message.settingAction === SettingAction.Save) {
-				var as = message.appSettings;
-				this.debug("Will save app settings to chrome.storage: app settings: " + JSON.stringify(as));
+				var appSettings = message.appSettings;
+				this.debug("Will save app settings to chrome.storage: app settings: " + JSON.stringify(appSettings));
 				var obj: any = {};
-				obj[this.appSettingsKey] = as;
+				obj[this.appSettingsKey] = appSettings;
 				chrome.storage.local.set(obj, () => {
-					var msgResponse = "App settings saved!";
-					sendResponse(msgResponse);
-					this.debug("Save response has been sent: " + msgResponse);
+					sendResponse(appSettings);
+					this.debug("Save response has been sent: " + JSON.stringify(appSettings));
 				});
 			} else {
 				var msgResponse = "Wrong message action!";

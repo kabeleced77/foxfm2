@@ -1,4 +1,4 @@
-/// <reference path="../_all.ts" />
+/// <reference path="../allReferences.ts" />
 
 class SettingsManager implements SettingsManagerInterface {
 	public appSettings: AppSettings = new AppSettings();
@@ -37,10 +37,10 @@ class SettingsManager implements SettingsManagerInterface {
 	}
 
 	public getCategoriesAsync(): PromiseLike<string[]> {
-		return this.getAppSettingsAsync()
+		return this.getOrSetAppSettingsAsync()
 			.then((appSettings: AppSettings) => {
 				var categories = Object.getOwnPropertyNames(appSettings).map(element => {
-					if (typeof (appSettings[element]) === "object") {
+					if (appSettings != null && appSettings != undefined && typeof (appSettings[element]) === "object") {
 						return element;
 					}
 				});
@@ -49,15 +49,43 @@ class SettingsManager implements SettingsManagerInterface {
 			});
 	}
 
-	public getAppSettingsAsync(): PromiseLike<AppSettings> {
+	public getSettingsByCategoryAsync(category: string): PromiseLike<Object> {
+		return this.getOrSetAppSettingsAsync()
+			.then((appSettings: AppSettings) => {
+				return appSettings[category];
+			});
+	}
+
+	public setAppSettingsAsync(): PromiseLike<AppSettings> {
+		var message = new SettingMessage();
+		message.settingKey = this.appSettingsKey;
+		message.settingAction = SettingAction.Save;
+		message.appSettings = this.appSettings;
+
+		this.debug("Save app settings using messaging: " + JSON.stringify(message));
+
+		return this.sendMessage(message).then((appSettings: AppSettings) => {
+			return appSettings;
+		});
+	}
+
+	public getOrSetAppSettingsAsync(): PromiseLike<AppSettings> {
 		var message = new SettingMessage();
 		message.settingKey = this.appSettingsKey;
 		message.settingAction = SettingAction.Load;
 		this.debug("Request app settings using messaging: " + JSON.stringify(message));
 
-		return this.sendMessage(message).then((appSettings: AppSettings) => {
-			return appSettings
-		});
+		return this.sendMessage(message)
+			.then((appSettings: AppSettings) => {
+				if (appSettings === null || appSettings === undefined) {
+					this.debug("App settings were empty - save them now (async)");
+					return this.setAppSettingsAsync();
+				}
+				return appSettings;
+			}).then((appSettings: AppSettings) => {
+				this.debug("Return app settings: " + JSON.stringify(appSettings));
+				return appSettings
+			});
 	}
 
 	private sendMessage(message: SettingMessage): PromiseLike<AppSettings> {

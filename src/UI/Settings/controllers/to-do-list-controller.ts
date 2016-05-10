@@ -1,5 +1,7 @@
-module TypeScriptAndAngular.Controllers {
+/// <reference path="../../../allReferences.ts" />
 
+module TypeScriptAndAngular.Controllers {
+    
     export class ToDoListController {
         name: string;
         listItems: ListItem[];
@@ -25,6 +27,7 @@ module TypeScriptAndAngular.Controllers {
             this.settingsManager = new SettingsManager(this.logger);
             
             this.getCategories(isolateScope);
+            this.getSettingsByCategory();
         }
 
         save() {
@@ -51,10 +54,9 @@ module TypeScriptAndAngular.Controllers {
                 });
         }
 
-        getSettings = () => {
-            this.settingsManager.getAppSettingsAsync().then((appSettings: AppSettings) => {
-                this.logger.debug("TSDemoController", "AppSettings in promise: " + JSON.stringify(appSettings));
-                this.settings = appSettings.stadium;
+        getSettingsByCategory = () => {
+            this.settingsManager.getSettingsByCategoryAsync("stadium").then((settings: Object) => {
+                this.logger.debug("TSDemoController", "Settings of stadium: " + JSON.stringify(settings));
             });
         }
     }

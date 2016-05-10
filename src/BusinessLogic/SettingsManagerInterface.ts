@@ -1,4 +1,4 @@
-/// <reference path="../_all.ts" />
+/// <reference path="../allReferences.ts" />
 
 "use strict";
 
@@ -7,7 +7,8 @@ interface SettingsManagerInterface {
     //	getSetting(key: string): any;
     saveAppSettingsMessaging(appSettings: AppSettings): void;
     loadAppSettingsMessaging(callback: (appSettings: AppSettings) => void): void;
-
-    getAppSettingsAsync(): PromiseLike<AppSettings>;
+    setAppSettingsAsync(): PromiseLike<AppSettings>;
+    getOrSetAppSettingsAsync(): PromiseLike<AppSettings>;
     getCategoriesAsync(): PromiseLike<string[]>;
+    getSettingsByCategoryAsync(category: string): PromiseLike<Object>;
 }
