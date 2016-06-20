@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D54208F-B1F7-4433-B5EB-218BC890A79E}"
+	ProjectSection(SolutionItems) = preProject
+		src\allReferences.ts = src\allReferences.ts
+		bower.json = bower.json
+		foxfm-webextension-ui-settings.ep = foxfm-webextension-ui-settings.ep
+		foxfm@foxfm.org = foxfm@foxfm.org
+		src\foxfmApp.ts = src\foxfmApp.ts
+		src\foxfmBackground.ts = src\foxfmBackground.ts
+		gruntfile.js = gruntfile.js
+		LICENSE = LICENSE
+		configurations\manifest-base.json = configurations\manifest-base.json
+		configurations\manifest-firefox.json = configurations\manifest-firefox.json
+		package.json = package.json
+		src\BusinessLogic\SettingsManager.ts = src\BusinessLogic\SettingsManager.ts
+		src\BusinessLogic\SettingsManagerInterface.ts = src\BusinessLogic\SettingsManagerInterface.ts
+		src\BusinessLogic\StadiumManagerUi.ts = src\BusinessLogic\StadiumManagerUi.ts
+		typings.json = typings.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{B24C1928-123A-4E97-A918-A96B52991A70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{36D17E07-E6E7-4086-9517-24B9A1A1144C}"
+	ProjectSection(SolutionItems) = preProject
+		src\CrossCutting\Logger\Logger.ts = src\CrossCutting\Logger\Logger.ts
+		src\CrossCutting\Logger\LoggerInterface.ts = src\CrossCutting\Logger\LoggerInterface.ts
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Messaging", "Messaging", "{FAED95AB-195E-4542-A46D-A4810EF97B88}"
+	ProjectSection(SolutionItems) = preProject
+		src\CrossCutting\Messageing\SettingMessage.ts = src\CrossCutting\Messageing\SettingMessage.ts
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Settings", "Settings", "{99F7FB83-CCA5-4AD9-A7DC-1A8C9DC86FF3}"
+	ProjectSection(SolutionItems) = preProject
+		src\CrossCutting\Settings\AppSettings.ts = src\CrossCutting\Settings\AppSettings.ts
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Toolkit", "Toolkit", "{2AF50D5A-E17C-4B81-98DB-AD167040C3E5}"
+	ProjectSection(SolutionItems) = preProject
+		src\CrossCutting\Toolkit\DOMHelper.ts = src\CrossCutting\Toolkit\DOMHelper.ts
+		src\CrossCutting\Toolkit\NumberHelper.ts = src\CrossCutting\Toolkit\NumberHelper.ts
+		src\CrossCutting\Toolkit\XPathHelper.ts = src\CrossCutting\Toolkit\XPathHelper.ts
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{B7118AE6-D134-47A4-A5E2-C3BA9263E286}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stadium", "Stadium", "{CFAF3A12-D079-4EAE-80A9-07647E843678}"
+	ProjectSection(SolutionItems) = preProject
+		src\BusinessLogic\Stadium\stadium-de.json = src\BusinessLogic\Stadium\stadium-de.json
+		src\BusinessLogic\Stadium\stadium-en.json = src\BusinessLogic\Stadium\stadium-en.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{36D17E07-E6E7-4086-9517-24B9A1A1144C} = {B24C1928-123A-4E97-A918-A96B52991A70}
+		{FAED95AB-195E-4542-A46D-A4810EF97B88} = {B24C1928-123A-4E97-A918-A96B52991A70}
+		{99F7FB83-CCA5-4AD9-A7DC-1A8C9DC86FF3} = {B24C1928-123A-4E97-A918-A96B52991A70}
+		{2AF50D5A-E17C-4B81-98DB-AD167040C3E5} = {B24C1928-123A-4E97-A918-A96B52991A70}
+		{CFAF3A12-D079-4EAE-80A9-07647E843678} = {B7118AE6-D134-47A4-A5E2-C3BA9263E286}
+	EndGlobalSection
+EndGlobal
