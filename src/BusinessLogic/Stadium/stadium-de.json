@@ -19,5 +19,8 @@
     },
     "currencysign": {
         "message": "€"
+    },
+    "addOverallPrices": {
+        "message": "Füge allgemeine Stadiumspreise ein"
     }
 }
