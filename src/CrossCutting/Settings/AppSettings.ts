@@ -8,6 +8,7 @@ class AppSettings {
 
 class StadiumSettings {
 	public addOverallPrices: boolean = true;
+	public active: boolean = true;
 	public overallLeauge: number = 0;
 	public overallCup: number = 0;
 	public overallFriendly: number = 0;

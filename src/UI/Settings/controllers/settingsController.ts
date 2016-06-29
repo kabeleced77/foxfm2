@@ -1,26 +1,26 @@
 /// <reference path="../../../allReferences.ts" />
 /// <reference path="../models/list-item.ts" />
+/// <reference path="../directives/settingsDirective.ts" />
 
 module TypeScriptAndAngular.Controllers {
 
-    export class ToDoListController {
+    export class SettingsController {
         name: string;
-        listItems: ListItem[];
-
-        newItemName: string;
-
-        settingsManager: SettingsManagerInterface;
-        logger: LoggerInterface;
-
         stadiumSettings: StadiumSettingsUi;
         categories: string[];
 
+        settingsManager: SettingsManagerInterface;
+        logger: LoggerInterface;
+        
+        tabs = [
+            { title: 'Dynamic Title 1', content: 'Dynamic content 1' },
+            { title: 'Dynamic Title 2', content: 'Dynamic content 2', disabled: true }
+        ];
         static $inject = [
             "$scope"
         ];
-        constructor(isolateScope: Directives.IToDoListScope) {
+        constructor(isolateScope: Directives.ISettingsScope) {
             this.name = isolateScope.name;
-            this.listItems = [];
             this.stadiumSettings = new StadiumSettingsUi();
 
             this.logger = new Logger();
@@ -32,23 +32,7 @@ module TypeScriptAndAngular.Controllers {
             this.getSettingsByCategory(isolateScope);
         }
 
-        save() {
-            if (this.newItemName && this.newItemName.length > 0) {
-                var newItem = new ListItem(this.newItemName);
-                this.listItems.push(newItem);
-
-                this.newItemName = null;
-            }
-        }
-
-        toggle(listItem: ListItem): boolean {
-            listItem.isComplete = !listItem.isComplete;
-            return listItem.isComplete;
-        }
-
-
-        getCategories = (isolateScope: Directives.IToDoListScope) => {
-            // this.settingsRepository.getCategoriesAsync()
+        getCategories = (isolateScope: Directives.ISettingsScope) => {
             this.settingsManager.getCategoriesAsync()
                 .then((cat: string[]) => {
                     this.categories = cat;
@@ -56,14 +40,14 @@ module TypeScriptAndAngular.Controllers {
                 });
         }
 
-        getSettingsByCategory = (isolateScope: Directives.IToDoListScope) => {
+        getSettingsByCategory = (isolateScope: Directives.ISettingsScope) => {
             this.settingsManager.getSettingsByCategoryAsync("stadium").then((settings: StadiumSettings) => {
                 this.logger.debug("TSDemoController", "Settings of stadium: " + JSON.stringify(settings));
                 // Object.keys(settings).forEach(element => {
-                    // this.logger.debug("TSDemoController", "Setting of stadium: " + element + ":: type: " + typeof(settings[element]) + ":: " + chrome.i18n.getMessage(element));
-                    this.stadiumSettings.addOverallPrices = settings.active;
-                    this.stadiumSettings.addOverallPrices = true; 
-                    isolateScope.$apply();
+                // this.logger.debug("TSDemoController", "Setting of stadium: " + element + ":: type: " + typeof(settings[element]) + ":: " + chrome.i18n.getMessage(element));
+                this.stadiumSettings.addOverallPrices = settings.active;
+                this.stadiumSettings.addOverallPrices = true;
+                isolateScope.$apply();
                 // });
             });
         }

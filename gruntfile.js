@@ -98,6 +98,7 @@ module.exports = function (grunt) {
                 files: {
                     'angular.js': 'angular/angular.js',
                     'angular-route.js': 'angular-route/angular-route.js',
+                    'ui-bootstrap.min.js': 'angular-bootstrap/ui-bootstrap.min.js',
                     'jquery.js': 'jquery/dist/jquery.js',
                     'require.js': 'requirejs/require.js'
                 }
