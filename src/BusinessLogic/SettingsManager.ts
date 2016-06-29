@@ -82,9 +82,6 @@ class SettingsManager implements SettingsManagerInterface {
 					return this.setAppSettingsAsync();
 				}
 				return appSettings;
-			}).then((appSettings: AppSettings) => {
-				this.debug("Return app settings: " + JSON.stringify(appSettings));
-				return appSettings
 			});
 	}
 
