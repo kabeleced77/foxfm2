@@ -1,10 +1,36 @@
 module.exports = {
   "bundles": {
-    "dist/Scripts/app-build": {
+    "dist/Scripts/app-common-build": {
       "includes": [
-        "[**/*.js]",
-        "**/*.html!text",
-        "**/*.css!text"
+        "[Common/**/*.js]",
+        "Common/**/*.html!text",
+        "Common/**/*.css!text"
+      ],
+      "options": {
+        "inject": true,
+        "minify": false,
+        "depCache": true,
+        "rev": false
+      }
+    },
+    "dist/Scripts/app-backgroundpage-build": {
+      "includes": [
+        "[BackgroundPage/**/*.js]",
+        "BackgroundPage/**/*.html!text",
+        "BackgroundPage/**/*.css!text"
+      ],
+      "options": {
+        "inject": true,
+        "minify": false,
+        "depCache": true,
+        "rev": false
+      }
+    },
+    "dist/Scripts/app-settingspage-build": {
+      "includes": [
+        "[SettingsPage/**/*.js]",
+        "SettingsPage/**/*.html!text",
+        "SettingsPage/**/*.css!text"
       ],
       "options": {
         "inject": true,
