@@ -3,7 +3,10 @@
     "name": "foxfm",
     "version": "1.0",
     "default_locale": "de",
-    "options_page": "UI/Settings/index.html",
+	"options_ui": {
+		"page": "UI/Settings/index.html"
+	},
+	"content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-D93wm0Me7s52MX53A0Mu/M8/VSTJ07JyhE5IME7DUXs=' 'sha256-E8WV6VvuObH6nVPLMJ3PhAOt10VjZeatCqItFmhHmi8='; object-src 'self'",
     "permissions": [
         "contextMenus",
         "tabs",
@@ -11,11 +14,6 @@
     ],
     "background": {
         "scripts": [
-            "scripts/require.js",
-            "scripts/jquery.js",
-            "scripts/angular.js",
-            "scripts/angular-route.js",
-            "styles/semantic.css",
             "CrossCutting/Logger/LoggerInterface.js",
             "CrossCutting/Logger/Logger.js",
             "CrossCutting/Settings/AppSettings.js",
