@@ -30,6 +30,7 @@ System.config({
     "aurelia-templating-router": "npm:aurelia-templating-router@1.0.0-rc.1.0.0",
     "bluebird": "npm:bluebird@3.4.1",
     "bootstrap": "github:twbs/bootstrap@3.3.7",
+    "chrome": "npm:chrome@0.1.0",
     "fetch": "github:github/fetch@1.0.0",
     "font-awesome": "npm:font-awesome@4.6.3",
     "jquery": "npm:jquery@2.2.4",
@@ -40,8 +41,17 @@ System.config({
     "github:jspm/nodelibs-buffer@0.1.0": {
       "buffer": "npm:buffer@3.6.0"
     },
+    "github:jspm/nodelibs-events@0.1.1": {
+      "events": "npm:events@1.0.2"
+    },
+    "github:jspm/nodelibs-os@0.1.0": {
+      "os-browserify": "npm:os-browserify@0.1.2"
+    },
+    "github:jspm/nodelibs-path@0.1.0": {
+      "path-browserify": "npm:path-browserify@0.0.0"
+    },
     "github:jspm/nodelibs-process@0.1.2": {
-      "process": "npm:process@0.11.5"
+      "process": "npm:process@0.11.6"
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
@@ -188,16 +198,59 @@ System.config({
       "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:chrome@0.1.0": {
+      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
+      "exeq": "npm:exeq@2.4.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "plist": "npm:plist@1.2.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:exeq@2.4.0": {
+      "bluebird": "npm:bluebird@3.4.1",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
+      "events": "github:jspm/nodelibs-events@0.1.1",
+      "native-or-bluebird": "npm:native-or-bluebird@1.2.0",
+      "os": "github:jspm/nodelibs-os@0.1.0",
+      "path": "github:jspm/nodelibs-path@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "util": "github:jspm/nodelibs-util@0.1.0"
+    },
     "npm:font-awesome@4.6.3": {
       "css": "github:systemjs/plugin-css@0.1.23"
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:process@0.11.5": {
+    "npm:lodash@3.10.1": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:native-or-bluebird@1.2.0": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:os-browserify@0.1.2": {
+      "os": "github:jspm/nodelibs-os@0.1.0"
+    },
+    "npm:path-browserify@0.0.0": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:plist@1.2.0": {
+      "base64-js": "npm:base64-js@0.0.8",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "util-deprecate": "npm:util-deprecate@1.0.2",
+      "xmlbuilder": "npm:xmlbuilder@4.0.0",
+      "xmldom": "npm:xmldom@0.1.22"
+    },
+    "npm:process@0.11.6": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "vm": "github:jspm/nodelibs-vm@0.1.0"
+    },
+    "npm:util-deprecate@1.0.2": {
+      "util": "github:jspm/nodelibs-util@0.1.0"
     },
     "npm:util@0.10.3": {
       "inherits": "npm:inherits@2.0.1",
@@ -205,75 +258,21 @@ System.config({
     },
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"
+    },
+    "npm:xmlbuilder@4.0.0": {
+      "lodash": "npm:lodash@3.10.1",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:xmldom@0.1.22": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     }
   },
-  depCache: {
-    "BackgroundPage/background.js": [
-      "../Common/CrossCutting/Logger/LoggerInterface",
-      "../Common/CrossCutting/Logger/Logger",
-      "../Common/DataAccess/SettingsRepository"
-    ],
-    "Common/CrossCutting/Logger/Logger.js": [
-      "./LoggerInterface"
-    ],
-    "SettingsPage/src/app.js": [
-      "aurelia-framework",
-      "../../Common/CrossCutting/Logger/LoggerInterface",
-      "../../Common/CrossCutting/Logger/Logger"
-    ],
-    "SettingsPage/src/blur-image.js": [
-      "aurelia-framework"
-    ],
-    "SettingsPage/src/main.js": [
-      "bootstrap"
-    ],
-    "SettingsPage/src/settings-stadium.js": [
-      "aurelia-framework",
-      "../../Common/BusinessLogic/SettingsManager",
-      "../../Common/CrossCutting/Logger/Logger"
-    ],
-    "SettingsPage/src/users.js": [
-      "aurelia-framework",
-      "aurelia-fetch-client",
-      "fetch"
-    ]
-  },
+  depCache: {},
   bundles: {
-    "Scripts/app-backgroundpage-build.js": [
-      "BackgroundPage/background.html!github:systemjs/plugin-text@0.0.8.js",
-      "BackgroundPage/background.js"
-    ],
-    "Scripts/app-common-build.js": [
-      "Common/BusinessLogic/SettingsManager.js",
-      "Common/BusinessLogic/SettingsManagerInterface.js",
-      "Common/BusinessLogic/StadiumManagerUi.js",
-      "Common/CrossCutting/Logger/Logger.js",
-      "Common/CrossCutting/Logger/LoggerInterface.js",
-      "Common/CrossCutting/Messageing/SettingMessage.js",
-      "Common/CrossCutting/Settings/AppSettings.js",
-      "Common/CrossCutting/Toolkit/DOMHelper.js",
-      "Common/CrossCutting/Toolkit/NumberHelper.js",
-      "Common/CrossCutting/Toolkit/XPathHelper.js",
-      "Common/DataAccess/SettingsRepository.js",
-      "Common/DataAccess/SettingsRepositoryInterface.js"
-    ],
-    "Scripts/app-settingspage-build.js": [
-      "SettingsPage/index.html!github:systemjs/plugin-text@0.0.8.js",
-      "SettingsPage/src/app.html!github:systemjs/plugin-text@0.0.8.js",
-      "SettingsPage/src/app.js",
-      "SettingsPage/src/blur-image.js",
-      "SettingsPage/src/child-router.html!github:systemjs/plugin-text@0.0.8.js",
-      "SettingsPage/src/child-router.js",
-      "SettingsPage/src/main.js",
-      "SettingsPage/src/nav-bar.html!github:systemjs/plugin-text@0.0.8.js",
-      "SettingsPage/src/settings-stadium.html!github:systemjs/plugin-text@0.0.8.js",
-      "SettingsPage/src/settings-stadium.js",
-      "SettingsPage/src/users.html!github:systemjs/plugin-text@0.0.8.js",
-      "SettingsPage/src/users.js",
-      "SettingsPage/src/welcome.html!github:systemjs/plugin-text@0.0.8.js",
-      "SettingsPage/src/welcome.js"
-    ],
-    "Scripts/aurelia.js": [
+    "dist/Scripts/app-common-build.js": [],
+    "dist/Scripts/app-backgroundpage-build.js": [],
+    "dist/Scripts/app-settingspage-build.js": [],
+    "dist/Scripts/aurelia.js": [
       "github:github/fetch@1.0.0.js",
       "github:github/fetch@1.0.0/fetch.js",
       "github:twbs/bootstrap@3.3.7.js",
