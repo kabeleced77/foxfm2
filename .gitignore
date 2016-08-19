@@ -6,8 +6,8 @@ Directories
 ===========
 .vs
 .vscode
-build
 dist
 export
+jspm_packages
 node_modules
 typings
