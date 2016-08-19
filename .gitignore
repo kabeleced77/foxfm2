@@ -6,7 +6,6 @@ Directories
 ===========
 .vs
 .vscode
-build
 dist
 export
 node_modules
