@@ -3,10 +3,10 @@
 import {autoinject} from 'aurelia-framework';
 import {inject} from 'aurelia-framework';
 import {computedFrom} from 'aurelia-framework';
-// import {SettingsManagerInterface} from '../../Common/BusinessLogic/SettingsManagerInterface';
-import {SettingsManager} from '../../Common/BusinessLogic/SettingsManager';
-import {LogLevel, LoggerInterface} from '../../Common/CrossCutting/Logger/LoggerInterface';
-import {Logger} from '../../Common/CrossCutting/Logger/Logger';
+// import {SettingsManagerInterface} from '../Common/BusinessLogic/SettingsManagerInterface';
+import {SettingsManager} from '../Common/BusinessLogic/SettingsManager';
+import {LogLevel, LoggerInterface} from '../Common/CrossCutting/Logger/LoggerInterface';
+import {Logger} from '../Common/CrossCutting/Logger/Logger';
 // import {SettingsManager} from 'BusinessLogic/SettingsManager';
 
 @autoinject
