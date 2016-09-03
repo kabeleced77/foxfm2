@@ -61,7 +61,7 @@ gulp.task('export-copy-common', function() {
 });
 
 gulp.task('export-copy-bundles', function() {
-  return gulp.src(getBundles(), { base: './dist' })
+  return gulp.src(getBundles(), { base: '.' })
     .pipe(gulp.dest(paths.exportSrv));
 });
 

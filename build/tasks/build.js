@@ -49,11 +49,6 @@ gulp.task('build-locales-de', function() {
     .pipe(gulp.dest('./dist/_locales/de')); 
 });
 
-gulp.task('build-systemjs-config', function() {
-  gulp.src('./config.js')
-    .pipe(gulp.dest('./dist')); 
-});
-
 // copies changed html files to the output directory
 gulp.task('build-html', function() {
   return gulp.src(paths.html)
@@ -81,7 +76,6 @@ gulp.task('build', function(callback) {
      'build-locales-en',
      'build-locales-de',
      'build-manifest',
-     'build-systemjs-config',
      'build-html',
      'build-css'],
     callback

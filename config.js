@@ -2,7 +2,7 @@ System.config({
   defaultJSExtensions: true,
   transpiler: false,
   paths: {
-    "*": "Scripts/*",
+    "*": "dist/*",
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },
@@ -267,12 +267,81 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     }
   },
-  depCache: {},
+  depCache: {
+    "BackgroundPage/background.js": [
+      "../Common/CrossCutting/Logger/LoggerInterface",
+      "../Common/CrossCutting/Logger/Logger",
+      "../Common/DataAccess/SettingsRepository"
+    ],
+    "Common/BusinessLogic/SettingsManager.js": [
+      "../CrossCutting/Messageing/SettingMessage",
+      "../CrossCutting/Settings/AppSettings",
+      "aurelia-framework",
+      "../CrossCutting/Logger/Logger"
+    ],
+    "Common/CrossCutting/Logger/Logger.js": [
+      "./LoggerInterface"
+    ],
+    "Common/DataAccess/SettingsRepository.js": [
+      "../CrossCutting/Messageing/SettingMessage"
+    ],
+    "SettingsPage/app.js": [
+      "aurelia-framework",
+      "../Common/CrossCutting/Logger/LoggerInterface",
+      "../Common/CrossCutting/Logger/Logger"
+    ],
+    "SettingsPage/blur-image.js": [
+      "aurelia-framework"
+    ],
+    "SettingsPage/main.js": [
+      "bootstrap"
+    ],
+    "SettingsPage/settings-stadium.js": [
+      "aurelia-framework",
+      "../Common/BusinessLogic/SettingsManager",
+      "../Common/CrossCutting/Logger/Logger"
+    ],
+    "SettingsPage/users.js": [
+      "aurelia-framework",
+      "aurelia-fetch-client",
+      "fetch"
+    ]
+  },
   bundles: {
-    "dist/Scripts/app-common-build.js": [],
-    "dist/Scripts/app-backgroundpage-build.js": [],
-    "dist/Scripts/app-settingspage-build.js": [],
-    "dist/Scripts/aurelia.js": [
+    "app-backgroundpage-build.js": [
+      "BackgroundPage/background.js"
+    ],
+    "app-common-build.js": [
+      "Common/BusinessLogic/SettingsManager.js",
+      "Common/BusinessLogic/SettingsManagerInterface.js",
+      "Common/BusinessLogic/StadiumManagerUi.js",
+      "Common/CrossCutting/Logger/Logger.js",
+      "Common/CrossCutting/Logger/LoggerInterface.js",
+      "Common/CrossCutting/Messageing/SettingMessage.js",
+      "Common/CrossCutting/Settings/AppSettings.js",
+      "Common/CrossCutting/Toolkit/DOMHelper.js",
+      "Common/CrossCutting/Toolkit/NumberHelper.js",
+      "Common/CrossCutting/Toolkit/XPathHelper.js",
+      "Common/DataAccess/SettingsRepository.js",
+      "Common/DataAccess/SettingsRepositoryInterface.js"
+    ],
+    "app-settingspage-build.js": [
+      "SettingsPage/app.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/app.js",
+      "SettingsPage/blur-image.js",
+      "SettingsPage/child-router.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/child-router.js",
+      "SettingsPage/index.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/main.js",
+      "SettingsPage/nav-bar.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/settings-stadium.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/settings-stadium.js",
+      "SettingsPage/users.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/users.js",
+      "SettingsPage/welcome.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/welcome.js"
+    ],
+    "aurelia.js": [
       "github:github/fetch@1.0.0.js",
       "github:github/fetch@1.0.0/fetch.js",
       "github:twbs/bootstrap@3.3.7.js",

@@ -3,20 +3,20 @@
 // for production.
 module.exports = {
   'list_dist': [
-    'dist/BackgroundPage/background.html',
-    'dist/SettingsPage/index.html',
     'dist/_locales/**',
     'dist/manifest.json',
-    'dist/config.js',
     'dist/Styles/styles.css'
   ],
   'list_common': [
     'favicon.ico',
     'LICENSE',
+    'config.js',
     "jspm_packages/npm/bluebird@3.4.1/js/browser/bluebird.min.js", 
     'jspm_packages/system.js',
     'jspm_packages/system-polyfills.js',
-    'jspm_packages/system-csp-production.js'
+    'jspm_packages/system-csp-production.js',
+    'background.html',
+    'settings.html'
   ],
   // this section lists any jspm packages that have
   // unbundled resources that need to be exported.

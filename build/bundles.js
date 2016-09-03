@@ -1,10 +1,8 @@
 module.exports = {
   "bundles": {
-    "dist/Scripts/app-common-build": {
+    "dist/app-common-build": {
       "includes": [
-        "[Common/**/*.js]",
-        "Common/**/*.html!text",
-        "Common/**/*.css!text"
+        "[Common/**/*.js]"
       ],
       "options": {
         "inject": true,
@@ -13,11 +11,9 @@ module.exports = {
         "rev": false
       }
     },
-    "dist/Scripts/app-backgroundpage-build": {
+    "dist/app-backgroundpage-build": {
       "includes": [
-        "[BackgroundPage/**/*.js]",
-        "BackgroundPage/**/*.html!text",
-        "BackgroundPage/**/*.css!text"
+        "[BackgroundPage/**/*.js]"
       ],
       "options": {
         "inject": true,
@@ -26,7 +22,7 @@ module.exports = {
         "rev": false
       }
     },
-    "dist/Scripts/app-settingspage-build": {
+    "dist/app-settingspage-build": {
       "includes": [
         "[SettingsPage/**/*.js]",
         "SettingsPage/**/*.html!text",
@@ -39,7 +35,7 @@ module.exports = {
         "rev": false
       }
     },
-    "dist/Scripts/aurelia": {
+    "dist/aurelia": {
       "includes": [
         "aurelia-framework",
         "aurelia-bootstrapper",
