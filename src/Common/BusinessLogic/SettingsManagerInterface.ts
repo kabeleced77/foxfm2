@@ -1,8 +1,8 @@
-/// <reference path="../../allReferences.ts" />
+import {AppSettings} from "../CrossCutting/Settings/AppSettings"
 
 "use strict";
 
-interface SettingsManagerInterface {
+export interface SettingsManagerInterface {
     appSettings: AppSettings;
     //	getSetting(key: string): any;
     saveAppSettingsMessaging(appSettings: AppSettings): void;

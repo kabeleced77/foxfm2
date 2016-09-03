@@ -1,5 +1,7 @@
 /// <reference path="../../allReferences.ts" />
 import {LoggerInterface, LogLevel} from "../CrossCutting/Logger/LoggerInterface"
+import {SettingMessage, SettingAction} from "../CrossCutting/Messageing/SettingMessage"
+import {SettingsManagerInterface} from "./SettingsManagerInterface"
 
 export class StadiumManagerUi {
     private log: LoggerInterface;

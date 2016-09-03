@@ -1,7 +1,9 @@
-class SettingMessage {
+import {AppSettings} from "../Settings/AppSettings"
+
+export class SettingMessage {
 	public settingKey: string;
 	public settingAction: SettingAction;
 	public appSettings: AppSettings;
 }	
 
-enum SettingAction { Load, Save };
+export enum SettingAction { Load, Save };

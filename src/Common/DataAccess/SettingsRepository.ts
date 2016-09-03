@@ -1,5 +1,8 @@
 /// <reference path="../../allReferences.ts" />
 import {LoggerInterface, LogLevel} from "../CrossCutting/Logger/LoggerInterface"
+import {AppSettings} from "../CrossCutting/Settings/AppSettings"
+import {SettingMessage, SettingAction} from "../CrossCutting/Messageing/SettingMessage"
+import {SettingsRepositoryInterface} from "./SettingsRepositoryInterface"
 
 export class SettingsRepository implements SettingsRepositoryInterface {
 	private log: LoggerInterface;

@@ -1,4 +1,4 @@
-class AppSettings {
+export class AppSettings {
 	public stadium: StadiumSettings;
 
 	constructor() {
