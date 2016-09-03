@@ -1,6 +1,7 @@
 import {LoggerInterface, LogLevel} from "../Common/CrossCutting/Logger/LoggerInterface"
 import {Logger} from "../Common/CrossCutting/Logger/Logger"
 import {SettingsRepository} from "../Common/DataAccess/SettingsRepository"
+import {SettingsRepositoryInterface} from "../Common/DataAccess/SettingsRepositoryInterface"
 
 class foxfmBackground {
   private log: LoggerInterface;
@@ -24,7 +25,7 @@ class foxfmBackground {
   }
 
   private contextMenuSettingCallback(info: any, tab: any) {
-    chrome.tabs.create({ url: "UI/Settings/index.html" });
+    chrome.tabs.create({ url: "settings.html" });
   }
 }
 

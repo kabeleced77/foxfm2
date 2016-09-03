@@ -4,15 +4,15 @@
     "version": "1.0",
     "default_locale": "de",
 	"options_ui": {
-		"page": "SettingsPage/index.html"
+		"page": "settings.html"
 	},
-	"content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-D93wm0Me7s52MX53A0Mu/M8/VSTJ07JyhE5IME7DUXs=' 'sha256-E8WV6VvuObH6nVPLMJ3PhAOt10VjZeatCqItFmhHmi8='; object-src 'self'",
+	"content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-E8WV6VvuObH6nVPLMJ3PhAOt10VjZeatCqItFmhHmi8=' 'sha256-FkAEMQlvFMFUVr9kAPCNHRjpluxyMt2s898SncHW1+Y='; object-src 'self'",
     "permissions": [
         "contextMenus",
         "tabs",
         "storage"
     ],
     "background": {
-        "page": "BackgroundPage/background.html"
+        "page": "background.html"
     }
 }
