@@ -1,14 +1,21 @@
 /// <reference path="../../allReferences.ts" />
 import {LoggerInterface, LogLevel} from "../CrossCutting/Logger/LoggerInterface"
+import {SettingMessage, SettingAction} from "../CrossCutting/Messageing/SettingMessage"
+import {AppSettings} from "../CrossCutting/Settings/AppSettings"
+import {SettingsManagerInterface} from "./SettingsManagerInterface"
+import {autoinject} from 'aurelia-framework';
+import {inject} from 'aurelia-framework';
+import {Logger} from '../CrossCutting/Logger/Logger';
 
+@autoinject
 export class SettingsManager implements SettingsManagerInterface {
 	public appSettings: AppSettings = new AppSettings();
 
-	private log: LoggerInterface;
+	private log: Logger;
 	private thisModule: string = "SettingsManager";
 	private appSettingsKey: string = "AppSettings";
 
-	constructor(logger: LoggerInterface) {
+	constructor(logger: Logger) {
 		this.log = logger;
 	}
 
