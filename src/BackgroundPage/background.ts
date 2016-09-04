@@ -3,16 +3,16 @@ import {Logger} from "../Common/CrossCutting/Logger/Logger"
 import {SettingsRepository} from "../Common/DataAccess/SettingsRepository"
 import {SettingsRepositoryInterface} from "../Common/DataAccess/SettingsRepositoryInterface"
 
-class foxfmBackground {
+class FoxfmBackground {
   private log: LoggerInterface;
   private settingsRepository: SettingsRepositoryInterface;
-  private thisModule: string = "foxfmBackground";
+  private thisModule: string = "FoxfmBackground";
 
-  constructor() {
-    this.log = new Logger();
+  constructor(logger: LoggerInterface, settingsRepository: SettingsRepositoryInterface) {
+    this.log = logger;
     this.log.setLogLevel(LogLevel.All);
     this.log.activateModuleForLogging("all");
-    this.settingsRepository = new SettingsRepository(this.log);
+    this.settingsRepository = settingsRepository;
   }
 
   main(): void {
@@ -29,5 +29,7 @@ class foxfmBackground {
   }
 }
 
-var foxfmBckgrnd = new foxfmBackground();
-foxfmBckgrnd.main();
+var logger = new Logger();
+var settingsRepository = new SettingsRepository(logger);
+var background = new FoxfmBackground(logger, settingsRepository);
+background.main();
