@@ -1,18 +1,30 @@
 {
-    "manifest_version": 2,
-    "name": "foxfm",
-    "version": "1.0",
-    "default_locale": "de",
-	"options_ui": {
-		"page": "settings.html"
-	},
-	"content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-E8WV6VvuObH6nVPLMJ3PhAOt10VjZeatCqItFmhHmi8=' 'sha256-FkAEMQlvFMFUVr9kAPCNHRjpluxyMt2s898SncHW1+Y='; object-src 'self'",
-    "permissions": [
-        "contextMenus",
-        "tabs",
-        "storage"
-    ],
-    "background": {
-        "page": "background.html"
+  "manifest_version": 2,
+  "name": "foxfm",
+  "version": "1.0",
+  "default_locale": "de",
+  "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-E8WV6VvuObH6nVPLMJ3PhAOt10VjZeatCqItFmhHmi8=' 'sha256-FkAEMQlvFMFUVr9kAPCNHRjpluxyMt2s898SncHW1+Y='; object-src 'self'",
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "storage"
+  ],
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "matches": [
+        "*://www.onlinefussballmanager.de/*"
+      ],
+      "js": [
+        "jspm_packages/system.js",
+        "config.js",
+        "dist/app-common-build.js",
+        "dist/app-contentscript-build.js",
+        "loadContentScript.js"
+      ]
     }
+  ]
 }

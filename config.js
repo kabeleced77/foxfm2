@@ -273,11 +273,20 @@ System.config({
       "../Common/CrossCutting/Logger/Logger",
       "../Common/DataAccess/SettingsRepository"
     ],
+    "ContentScript/foxfmApp.js": [
+      "../Common/CrossCutting/Logger/LoggerInterface",
+      "../Common/CrossCutting/Logger/Logger",
+      "../Common/BusinessLogic/SettingsManager",
+      "../Common/BusinessLogic/StadiumManagerUi"
+    ],
     "Common/BusinessLogic/SettingsManager.js": [
       "../CrossCutting/Messageing/SettingMessage",
-      "../CrossCutting/Settings/AppSettings",
-      "aurelia-framework",
-      "../CrossCutting/Logger/Logger"
+      "../CrossCutting/Settings/AppSettings"
+    ],
+    "Common/BusinessLogic/StadiumManagerUi.js": [
+      "../CrossCutting/Toolkit/NumberHelper",
+      "../CrossCutting/Toolkit/XPathHelper",
+      "../CrossCutting/Toolkit/DOMHelper"
     ],
     "Common/CrossCutting/Logger/Logger.js": [
       "./LoggerInterface"
@@ -299,6 +308,7 @@ System.config({
     "SettingsPage/settings-stadium.js": [
       "aurelia-framework",
       "../Common/BusinessLogic/SettingsManager",
+      "../Common/CrossCutting/Logger/LoggerInterface",
       "../Common/CrossCutting/Logger/Logger"
     ],
     "SettingsPage/users.js": [
@@ -310,6 +320,9 @@ System.config({
   bundles: {
     "app-backgroundpage-build.js": [
       "BackgroundPage/background.js"
+    ],
+    "app-contentscript-build.js": [
+      "ContentScript/foxfmApp.js"
     ],
     "app-common-build.js": [
       "Common/BusinessLogic/SettingsManager.js",
@@ -331,7 +344,6 @@ System.config({
       "SettingsPage/blur-image.js",
       "SettingsPage/child-router.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/child-router.js",
-      "SettingsPage/index.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/main.js",
       "SettingsPage/nav-bar.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/settings-stadium.html!github:systemjs/plugin-text@0.0.8.js",

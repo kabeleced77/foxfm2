@@ -35,6 +35,17 @@ module.exports = {
         "rev": false
       }
     },
+    "dist/app-contentscript-build": {
+      "includes": [
+        "[ContentScript/**/*.js]"
+      ],
+      "options": {
+        "inject": true,
+        "minify": false,
+        "depCache": true,
+        "rev": false
+      }
+    },
     "dist/aurelia": {
       "includes": [
         "aurelia-framework",
