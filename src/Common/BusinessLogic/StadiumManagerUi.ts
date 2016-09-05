@@ -1,6 +1,8 @@
-/// <reference path="../../allReferences.ts" />
 import {LoggerInterface, LogLevel} from "../CrossCutting/Logger/LoggerInterface"
 import {SettingMessage, SettingAction} from "../CrossCutting/Messageing/SettingMessage"
+import {NumberHelper} from "../CrossCutting/Toolkit/NumberHelper"
+import {XPathHelper} from "../CrossCutting/Toolkit/XPathHelper"
+import {DOMHelper} from "../CrossCutting/Toolkit/DOMHelper"
 import {SettingsManagerInterface} from "./SettingsManagerInterface"
 
 export class StadiumManagerUi {

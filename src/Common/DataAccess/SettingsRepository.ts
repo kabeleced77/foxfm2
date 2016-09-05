@@ -1,4 +1,3 @@
-/// <reference path="../../allReferences.ts" />
 import {LoggerInterface, LogLevel} from "../CrossCutting/Logger/LoggerInterface"
 import {AppSettings} from "../CrossCutting/Settings/AppSettings"
 import {SettingMessage, SettingAction} from "../CrossCutting/Messageing/SettingMessage"
