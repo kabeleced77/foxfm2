@@ -1,9 +1,4 @@
-Files
-=====
 *.swp
-
-Directories
-===========
 .vs
 .vscode
 dist

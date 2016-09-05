@@ -10,20 +10,22 @@ module.exports = function (grunt) {
         ts: {
             options: {
                 "target": "es5",
-                "module": "es5",
+                "module": "amd",
                 "noImplicitAny": true,
                 "suppressImplicitAnyIndexErrors": true,
                 "removeComments": true,
                 "preserveConstEnums": true,
-                "sourceMap": true
+                "sourceMap": true,
+                "emitDecoratorMetadata": true,
+                "experimentalDecorators": true
             },
 
             chrome: {
-                src: ["src/**/*.ts", "!node_modules/**/*.ts", "!typings/**/*.ts"],
+                src: ["src/**/*.ts", "!src/background/**/*.ts", "!src/UI/Settings/**/*.ts", "!**/jspm_packages/**/*.ts", "!**/node_modules/**/*.ts", "!**/typings/**/*.ts", "!**/custom_typings/**/*.ts", "!**/test/**/*.ts"],
                 outDir: [outDirectoryChrome]
             },
             firefox: {
-                src: ["src/**/*.ts", "!node_modules/**/*.ts", "!typings/**/*.ts"],
+                src: ["src/**/*.ts", "!src/background/**/*.ts", "!src/UI/Settings/**/*.ts", "!**/jspm_packages/**/*.ts", "!**/node_modules/**/*.ts", "!**/typings/**/*.ts", "!**/custom_typings/**/*.ts", "!**/test/**/*.ts"],
                 outDir: [outDirectoryFirefox]
             }
         },
@@ -57,13 +59,15 @@ module.exports = function (grunt) {
             chrome: {
                 files: [
                     // includes files within path 
-                    { expand: true, cwd: 'src/UI/Settings/', src: ['**/*.html'], dest: outDirectoryChrome + '/UI/Settings' }
+                    { expand: true, cwd: 'src/UI/Settings/export', src: ['**/*.html'], dest: outDirectoryChrome + '/UI/Settings' },
+                    { cwd: 'src', src: ['*.html'], dest: outDirectoryChrome }
                 ],
             },
             firefox: {
                 files: [
                     // includes files within path 
-                    { expand: true, cwd: 'src/UI/Settings/', src: ['**'], dest: outDirectoryFirefox + '/UI/Settings' }
+                    { expand: true, cwd: 'src/UI/Settings/export', src: ['**'], dest: outDirectoryFirefox + '/UI/Settings' },
+                    { expand: true, cwd: 'src', src: ['*.html'], dest: outDirectoryChrome }
                 ],
             }
         },
