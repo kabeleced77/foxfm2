@@ -4,11 +4,11 @@
 module.exports = {
   'list_dist': [
     'dist/_locales/**',
-    'dist/manifest.json',
-    'dist/Styles/styles.css'
+    'dist/manifest.json'
   ],
   'list_common': [
     'favicon.ico',
+    'Styles/styles.css',
     'LICENSE',
     'config.js',
     "jspm_packages/npm/bluebird@3.4.1/js/browser/bluebird.min.js", 
