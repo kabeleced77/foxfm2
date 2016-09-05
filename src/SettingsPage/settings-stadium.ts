@@ -1,29 +1,26 @@
-// /// <reference path="allReferences.ts" />
-
-import {autoinject} from 'aurelia-framework';
-import {inject} from 'aurelia-framework';
 import {computedFrom} from 'aurelia-framework';
-// import {SettingsManagerInterface} from '../Common/BusinessLogic/SettingsManagerInterface';
+import {SettingsManagerInterface} from '../Common/BusinessLogic/SettingsManagerInterface';
 import {SettingsManager} from '../Common/BusinessLogic/SettingsManager';
 import {LogLevel, LoggerInterface} from '../Common/CrossCutting/Logger/LoggerInterface';
 import {Logger} from '../Common/CrossCutting/Logger/Logger';
-// import {SettingsManager} from 'BusinessLogic/SettingsManager';
 
-@autoinject
 export class SettingsStadium {
-  private settingsManager: SettingsManager;
 	private thisModule: string = "SettingsStadium";
-  private log: Logger;
+  private settingsManager: SettingsManagerInterface;
+  private log: LoggerInterface;
 
   heading = 'Foxfm settings for the stadium';
   firstName = 'John2';
   lastName = 'Doe';
   // previousValue = this.fullName;
 
-	constructor(logger: Logger, settingsManager: SettingsManager) {
-      this.log = logger;
+	constructor() {
+      this.log = new Logger();
+      this.log.setLogLevel(LogLevel.All);
       this.log.registerModuleForLogging(this.thisModule);
-      this.settingsManager = settingsManager;
+      this.log.activateModuleForLogging("all");
+
+      this.settingsManager = new SettingsManager(this.log);
 	}
 
   //Getters can't be directly observed, so they must be dirty checked.
