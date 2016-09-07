@@ -34,19 +34,19 @@ gulp.task('build-system', function() {
 gulp.task('build-manifest', function() {
   gulp.src('configurations/**/*.json')
     .pipe(merge('manifest.json'))
-    .pipe(gulp.dest('./dist')); 
+    .pipe(gulp.dest(paths.output)); 
 });
 
 gulp.task('build-locales-en', function() {
-  gulp.src('src/**/*-en.json')
+  gulp.src(paths.ressourcesEn)
     .pipe(merge('messages.json'))
-    .pipe(gulp.dest('./dist/_locales/en')); 
+    .pipe(gulp.dest(paths.ressourcesEnDir)); 
 });
 
 gulp.task('build-locales-de', function() {
-  gulp.src('src/**/*-de.json')
+  gulp.src(paths.ressourcesDe)
     .pipe(merge('messages.json'))
-    .pipe(gulp.dest('./dist/_locales/de')); 
+    .pipe(gulp.dest(paths.ressourcesDeDir)); 
 });
 
 // copies changed html files to the output directory

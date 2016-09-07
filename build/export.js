@@ -3,10 +3,10 @@
 // for production.
 module.exports = {
   'list_dist': [
-    'dist/_locales/**',
     'dist/manifest.json'
   ],
   'list_common': [
+    '_locales/**',
     'favicon.ico',
     'styles/styles.css',
     'LICENSE',
