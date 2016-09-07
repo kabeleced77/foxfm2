@@ -8,7 +8,7 @@ module.exports = {
   ],
   'list_common': [
     'favicon.ico',
-    'Styles/styles.css',
+    'styles/styles.css',
     'LICENSE',
     'config.js',
     "jspm_packages/npm/bluebird@3.4.1/js/browser/bluebird.min.js", 
