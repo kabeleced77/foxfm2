@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var paths = require('../paths');
 var browserSync = require('browser-sync');
+var merge = require('gulp-merge-json');
 
 // outputs changes to files to the console
 function reportChange(event) {
@@ -12,6 +13,8 @@ function reportChange(event) {
 // reportChange method. Also, by depending on the
 // serve task, it will instantiate a browserSync session
 gulp.task('watch', ['serve'], function() {
+  gulp.watch(paths.ressourcesEn, ['build-locales-en', browserSync.reload]).on('change', reportChange);
+  gulp.watch(paths.ressourcesDe, ['build-locales-de', browserSync.reload]).on('change', reportChange);
   gulp.watch(paths.source, ['build-system', browserSync.reload]).on('change', reportChange);
   gulp.watch(paths.html, ['build-html', browserSync.reload]).on('change', reportChange);
   gulp.watch(paths.css, ['build-css', browserSync.reload]).on('change', reportChange);
