@@ -1,6 +1,7 @@
 *.swp
 .vs
 .vscode
+manifest.json
 dist
 export
 node_modules

@@ -2,9 +2,6 @@
 // need to be included when exporting the application
 // for production.
 module.exports = {
-  'list_dist': [
-    'dist/manifest.json'
-  ],
   'list_common': [
     '_locales/**',
     'favicon.ico',
@@ -15,6 +12,7 @@ module.exports = {
     'jspm_packages/system.js',
     'jspm_packages/system-polyfills.js',
     'jspm_packages/system-csp-production.js',
+    'manifest.json',
     'background.html',
     'settings.html',
     'loadContentScript.js'

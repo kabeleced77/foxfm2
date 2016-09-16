@@ -13,6 +13,7 @@ module.exports = {
   ressourcesEnDir: '_locales/en',
   ressourcesDeDir: '_locales/de',
   output: outputRoot,
+  root: '.',
   exportSrv: exporSrvtRoot,
   doc: './doc',
   e2eSpecsSrc: 'test/e2e/src/**/*.ts',

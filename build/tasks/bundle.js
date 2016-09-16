@@ -10,7 +10,11 @@ var config = {
   bundles: bundles.bundles
 };
 
-gulp.task('bundle', ['build'], function() {
+gulp.task('bundle-chrome', ['build-chrome'], function() {
+  return bundler.bundle(config);
+});
+
+gulp.task('bundle-firefox', ['build-firefox'], function() {
   return bundler.bundle(config);
 });
 

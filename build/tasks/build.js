@@ -31,10 +31,16 @@ gulp.task('build-system', function() {
     .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('build-manifest', function() {
+gulp.task('build-manifest-chrome', function() {
+  gulp.src('configurations/manifest-base.json')
+    .pipe(merge('manifest.json'))
+    .pipe(gulp.dest(paths.root)); 
+});
+
+gulp.task('build-manifest-firefox', function() {
   gulp.src('configurations/**/*.json')
     .pipe(merge('manifest.json'))
-    .pipe(gulp.dest(paths.output)); 
+    .pipe(gulp.dest(paths.root)); 
 });
 
 gulp.task('build-locales-en', function() {
@@ -69,13 +75,30 @@ gulp.task('build-css', function() {
 // in ./clean.js), then runs the build-system
 // and build-html tasks in parallel
 // https://www.npmjs.com/package/gulp-run-sequence
-gulp.task('build', function(callback) {
+gulp.task('build-chrome', function(callback) {
   return runSequence(
     'clean',
     ['build-system',
      'build-locales-en',
      'build-locales-de',
-     'build-manifest',
+     'build-manifest-chrome',
+     'build-html',
+     'build-css'],
+    callback
+  );
+});
+
+// this task calls the clean task (located
+// in ./clean.js), then runs the build-system
+// and build-html tasks in parallel
+// https://www.npmjs.com/package/gulp-run-sequence
+gulp.task('build-firefox', function(callback) {
+  return runSequence(
+    'clean',
+    ['build-system',
+     'build-locales-en',
+     'build-locales-de',
+     'build-manifest-firefox',
      'build-html',
      'build-css'],
     callback

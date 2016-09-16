@@ -17,10 +17,6 @@ function getBundles() {
   return bl;
 }
 
-function getExportListDist() {
-  return resources.list_dist.concat();
-}
-
 function getExportListCommon() {
   return resources.list_common.concat();
 }
@@ -50,11 +46,6 @@ gulp.task('clean-export', function() {
     .pipe(vinylPaths(del));
 });
 
-gulp.task('export-copy-dist', function() {
-  return gulp.src(getExportListDist(), { base: './dist' })
-    .pipe(gulp.dest(paths.exportSrv));
-});
-
 gulp.task('export-copy-common', function() {
   return gulp.src(getExportListCommon(), { base: '.' })
     .pipe(gulp.dest(paths.exportSrv));
@@ -73,12 +64,23 @@ gulp.task('export-normalized-resources', function() {
 });
 
 // use after prepare-release
-gulp.task('export', function(callback) {
+gulp.task('export-chrome', function(callback) {
   return runSequence(
-    'bundle',
+    'bundle-chrome',
     'clean-export',
     'export-normalized-resources',
-    'export-copy-dist',
+    'export-copy-common',
+    'export-copy-bundles',
+    callback
+  );
+});
+
+// use after prepare-release
+gulp.task('export-firefox', function(callback) {
+  return runSequence(
+    'bundle-firefox',
+    'clean-export',
+    'export-normalized-resources',
     'export-copy-common',
     'export-copy-bundles',
     callback
