@@ -21,7 +21,7 @@ class FoxfmBackground {
   }
 
   private createContextMenu() {
-    chrome.contextMenus.create({ "title": "foxfm - Options", "onclick": this.contextMenuSettingCallback });
+    chrome.contextMenus.create({ "title": "Foxfm settings", "onclick": this.contextMenuSettingCallback });
   }
 
   private contextMenuSettingCallback(info: any, tab: any) {
