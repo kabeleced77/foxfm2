@@ -21,6 +21,10 @@
         "message": "€"
     },
     "addOverallPrices": {
-        "message": "Füge allgemeine Stadiumspreise ein"
+        "message": "Füge allgemeine Stadiumspreise ein, die den entsprechenden Eintrittspreis aller Blöcke auf einmal ändert."
+    },
+    "addOffsetPrices": {
+        "message": "Füge Stadiumblockpreise ein, die blockweise den allgemeinen Stadiumspreis hinzuaddiert werden."
     }
+
 }
