@@ -26,7 +26,6 @@ export class SettingsStadium {
     this.log.activateModuleForLogging("all");
 
     this.stadium = new Stadium(
-      "Eckcouche",
       new SettingInStorage<StadiumOverallEntryPrices>(
         "foxfm2.stadium",
         new StadiumOverallEntryPrices(
