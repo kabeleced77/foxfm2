@@ -3,28 +3,27 @@
         "message": "Liga: "
     },
     "friendly": {
-        "message": "Friendly"
+        "message": "Friendly: "
     },
     "cup": {
-        "message": "OFM-Pokal"
+        "message": "OFM-Pokal: "
     },
     "generalpriceleague": {
-        "message": "Allg. Liga Eintrittspreis"
+        "message": "Allg. Eintrittspreis: Liga"
     },
     "generalpricefriendly": {
-        "message": "Allg. Freundschaftsspiel Eintrittspreis"
+        "message": "Allg. Eintrittspreis: Freundschaftsspiel"
     },
     "generalpricecup": {
-        "message": "Allg. OFM-Pokal Eintrittspreis"
+        "message": "Allg. Eintrittspreis: OFM-Pokal"
     },
     "currencysign": {
         "message": "€"
     },
     "addOverallPrices": {
-        "message": "Füge allgemeine Stadiumspreise ein, die den entsprechenden Eintrittspreis aller Blöcke auf einmal ändert."
+        "message": "Füge Funktion 'Allgemeine Stadiumspreise' ein. Die Eintrittspreise für das entsprechende Spiel werden für alle Blöcke auf einmal geändert."
     },
     "addOffsetPrices": {
-        "message": "Füge Stadiumblockpreise ein, die blockweise den allgemeinen Stadiumspreis hinzuaddiert werden."
+        "message": "Füge Funktion 'Aufpreis Stadiumblock' ein. Die Aufpreis des jeweiligen Blocks für das entsprechende Spiel, wird dem allgemeinen Stadiumspreis hinzuaddiert."
     }
-
 }

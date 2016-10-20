@@ -4,9 +4,9 @@
     <form role="form" submit.delegate="submit()">
       <div class="form-group">
         <div class="checkbox">
-          <label> <input type="checkbox" checked.bind="settingStadiumOverallPrices">Füge allgemeine Stadiumspreise ein, die den entsprechenden Eintrittspreis aller Blöcke auf einmal ändert.</label>
+          <label> <input type="checkbox" checked.bind="stadiumOverallPricesActivated">Füge allgemeine Stadiumspreise ein, die den entsprechenden Eintrittspreis aller Blöcke auf einmal ändert.</label>
           <div class="checkbox check-margin20">
-            <label> <input type="checkbox" checked.bind="settingStadiumOffsetPrices" disabled.bind='!settingStadiumOverallPrices'>Füge Stadiumblockpreise ein, die blockweise den allgemeinen Stadiumspreis hinzuaddiert werden.</label>
+            <label> <input type="checkbox" checked.bind="stadiumOffsetPricesActivated" disabled.bind='!stadiumOverallPricesActivated'>Füge Stadiumblockpreise ein, die blockweise den allgemeinen Stadiumspreis hinzuaddiert werden.</label>
           </div>
         </div>
       </div>

@@ -2,8 +2,11 @@ import { computedFrom } from 'aurelia-framework';
 import { bindable } from 'aurelia-framework';
 import { LogLevel, LoggerInterface } from '../Common/CrossCutting/Logger/LoggerInterface';
 import { Logger } from '../Common/CrossCutting/Logger/Logger';
-import { IStadium } from '../Common/DataAccess/Stadium';
-import { Stadium } from '../Common/DataAccess/Stadium';
+import { IStadiumBlocks} from '../Common/DataAccess/stadiumBlocks';
+import { IStadiumBlocksSetting } from '../Common/DataAccess/StadiumBlocksSetting';
+import { StadiumBlocksSetting } from '../Common/DataAccess/StadiumBlocksSetting';
+import { IStadiumOverallEntryPricesSetting } from '../Common/DataAccess/StadiumOverallEntryPricesSetting';
+import { StadiumOverallEntryPricesSetting } from '../Common/DataAccess/StadiumOverallEntryPricesSetting';
 import { StadiumOverallEntryPrices } from '../Common/DataAccess/StadiumOverallEntryPrices';
 import { StadiumEntryPrices } from '../Common/DataAccess/StadiumEntryPrices';
 import { StadiumEntryPrice } from '../Common/DataAccess/StadiumEntryPrice';
@@ -13,11 +16,12 @@ import { SettingInStorage } from "../Common/DataAccess/SettingInStorage"
 export class SettingsStadium {
   private thisModule: string = "SettingsStadium";
   private log: LoggerInterface;
-  private stadium: IStadium;
+  private stadiumOverallPrices: IStadiumOverallEntryPricesSetting;
+  private stadiumBlocks: IStadiumBlocksSetting;
 
   heading = 'Stadium Settings';
-  settingStadiumOverallPrices: Boolean;
-  settingStadiumOffsetPrices: Boolean;
+  stadiumOverallPricesActivated: Boolean;
+  stadiumOffsetPricesActivated: Boolean;
 
   constructor() {
     this.log = new Logger();
@@ -25,46 +29,24 @@ export class SettingsStadium {
     this.log.registerModuleForLogging(this.thisModule);
     this.log.activateModuleForLogging("all");
 
-    this.stadium = new Stadium(
-      new SettingInStorage<StadiumOverallEntryPrices>(
-        "foxfm2.stadium",
-        new StadiumOverallEntryPrices(
-          true,
-          new StadiumEntryPrices(
-            new StadiumEntryPrice(
-              new GameKindLeague(),
-              5
-            ),
-            new StadiumEntryPrice(
-              new GameKindFriendly(),
-              6
-            ),
-            new StadiumEntryPrice(
-              new GameKindCup(),
-              7
-            )
-          )
-        )
-      )
-    );
-
-    //      this.lastName = chrome.i18n.getMessage("addOverallPrices");
-    this.stadium.overallEntryPrices().then((stadiumEntryPrices: StadiumOverallEntryPrices) => {
-      this.settingStadiumOverallPrices = stadiumEntryPrices.activated();
+    this.stadiumBlocks = new StadiumBlocksSetting();
+    this.stadiumOverallPrices = new StadiumOverallEntryPricesSetting();
+    this.stadiumOverallPrices.overallEntryPrices().then((stadiumEntryPrices: StadiumOverallEntryPrices) => {
+      this.stadiumOverallPricesActivated = stadiumEntryPrices.activated();
     });
+    this.stadiumBlocks.blocksEntryPricesOffsetActivated().then((status: Boolean) => {
+      this.stadiumOffsetPricesActivated = status;
+    });
+
+    // this.lastName = chrome.i18n.getMessage("addOverallPrices");
   }
 
   submit() {
-    this.info(`status:${this.settingStadiumOverallPrices}`);
+    this.info(`status overall prices: ${this.stadiumOverallPricesActivated}`);
+    this.info(`status offset prices: ${this.stadiumOffsetPricesActivated}`);
 
-    this.stadium.overallEntryPrices().then(
-      (overallEntryPrices: StadiumOverallEntryPrices) => {
-        this.stadium.changeOverallEntryPrices(
-          new StadiumOverallEntryPrices(
-            this.settingStadiumOverallPrices,
-            overallEntryPrices.prices()
-          ));
-      });
+    this.stadiumOverallPrices.changeOverallEntryPricesStatus(this.stadiumOverallPricesActivated);
+    this.stadiumBlocks.changeBlockEntryPricesOffsetStatus(this.stadiumOffsetPricesActivated);
   }
 
   private info(msg: string): void {

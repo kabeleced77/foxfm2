@@ -27,5 +27,4 @@ export class StadiumEntryPrice implements IStadiumEntryPrice {
       jsonString["entryPrice"]
     );
   }
-
 }

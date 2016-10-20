@@ -1,4 +1,5 @@
 import { IStadiumEntryPrices } from './StadiumEntryPrices'
+import { IStadiumEntryPrice } from './StadiumEntryPrice'
 
 export interface IStadiumOverallEntryPrices {
   activated(): Boolean;

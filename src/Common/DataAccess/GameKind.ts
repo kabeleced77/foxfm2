@@ -24,7 +24,7 @@ export class GameKindLeague implements IGameKind {
   private kindName: String;
 
   constructor() {
-    this.kindName = "league";
+    this.kindName = "League";
   }
 
   public name(): String {
@@ -39,7 +39,7 @@ export class GameKindFriendly implements IGameKind {
   private kindName: String;
 
   constructor() {
-    this.kindName = "friendly";
+    this.kindName = "Friendly";
   }
 
   public name(): String {
@@ -54,7 +54,7 @@ export class GameKindCup implements IGameKind {
   private kindName: String;
 
   constructor() {
-    this.kindName = "cup";
+    this.kindName = "Cup";
   }
 
   public name(): String {

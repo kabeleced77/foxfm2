@@ -3,24 +3,27 @@
         "message": "League: "
     },
     "friendly": {
-        "message": "Friendly"
+        "message": "Friendly: "
     },
     "cup": {
-        "message": "OFM Cup"
+        "message": "OFM Cup: "
     },
     "generalpriceleague": {
-        "message": "Allg. Liga Eintrittspreis"
+        "message": "General entry price: League"
     },
     "generalpricefriendly": {
-        "message": "Allg. Freundschaftsspiel Eintrittspreis"
+        "message": "General entry price: Friendly"
     },
     "generalpricecup": {
-        "message": "Allg. OFM-Pokal Eintrittspreis"
+        "message": "General entry price: Cup"
     },
     "currencysign": {
-        "message": "€"
+        "message": "£"
     },
     "addOverallPrices": {
-        "message": "Add overall stadium prices"
+        "message": "Add function 'Overall stadium prices'. Changing the overall price will change the entry prices of all blocks of the correspondent kind of game."
+    },
+    "addOffsetPrices": {
+        "message": "Add function 'Block offset prices'. The offset price of a block will be added to the overall stadium price of the correspondent kind of game."
     }
 }
