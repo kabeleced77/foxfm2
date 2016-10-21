@@ -2,7 +2,7 @@ import { computedFrom } from 'aurelia-framework';
 import { bindable } from 'aurelia-framework';
 import { LogLevel, LoggerInterface } from '../Common/CrossCutting/Logger/LoggerInterface';
 import { Logger } from '../Common/CrossCutting/Logger/Logger';
-import { IStadiumBlocks} from '../Common/DataAccess/stadiumBlocks';
+import { IStadiumBlocks } from '../Common/DataAccess/stadiumBlocks';
 import { IStadiumBlocksSetting } from '../Common/DataAccess/StadiumBlocksSetting';
 import { StadiumBlocksSetting } from '../Common/DataAccess/StadiumBlocksSetting';
 import { IStadiumOverallEntryPricesSetting } from '../Common/DataAccess/StadiumOverallEntryPricesSetting';
@@ -12,6 +12,9 @@ import { StadiumEntryPrices } from '../Common/DataAccess/StadiumEntryPrices';
 import { StadiumEntryPrice } from '../Common/DataAccess/StadiumEntryPrice';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/DataAccess/GameKind';
 import { SettingInStorage } from "../Common/DataAccess/SettingInStorage"
+import { RessourceStadiumHeading} from "../Common/DataAccess/Ressource"
+import { RessourceStadiumAddOverallPrices } from "../Common/DataAccess/Ressource"
+import { RessourceStadiumAddOffsetPrices } from "../Common/DataAccess/Ressource"
 
 export class SettingsStadium {
   private thisModule: string = "SettingsStadium";
@@ -19,7 +22,9 @@ export class SettingsStadium {
   private stadiumOverallPrices: IStadiumOverallEntryPricesSetting;
   private stadiumBlocks: IStadiumBlocksSetting;
 
-  heading = 'Stadium Settings';
+  ressourceHeading: String;
+  ressourceStadiumAddOverallPrices: String;
+  ressourceStadiumAddOffsetPrices: String;
   stadiumOverallPricesActivated: Boolean;
   stadiumOffsetPricesActivated: Boolean;
 
@@ -38,7 +43,9 @@ export class SettingsStadium {
       this.stadiumOffsetPricesActivated = status;
     });
 
-    // this.lastName = chrome.i18n.getMessage("addOverallPrices");
+    this.ressourceHeading = new RessourceStadiumHeading().value();
+    this.ressourceStadiumAddOverallPrices = new RessourceStadiumAddOverallPrices().value();
+    this.ressourceStadiumAddOffsetPrices = new RessourceStadiumAddOffsetPrices().value();
   }
 
   submit() {

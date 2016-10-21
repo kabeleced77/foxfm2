@@ -1,29 +1,47 @@
 {
-    "league": {
-        "message": "Liga: "
-    },
-    "friendly": {
-        "message": "Friendly: "
-    },
-    "cup": {
-        "message": "OFM-Pokal: "
-    },
-    "generalpriceleague": {
-        "message": "Allg. Eintrittspreis: Liga"
-    },
-    "generalpricefriendly": {
-        "message": "Allg. Eintrittspreis: Freundschaftsspiel"
-    },
-    "generalpricecup": {
-        "message": "Allg. Eintrittspreis: OFM-Pokal"
-    },
-    "currencysign": {
-        "message": "€"
-    },
-    "addOverallPrices": {
-        "message": "Füge Funktion 'Allgemeine Stadiumspreise' ein. Die Eintrittspreise für das entsprechende Spiel werden für alle Blöcke auf einmal geändert."
-    },
-    "addOffsetPrices": {
-        "message": "Füge Funktion 'Aufpreis Stadiumblock' ein. Die Aufpreis des jeweiligen Blocks für das entsprechende Spiel, wird dem allgemeinen Stadiumspreis hinzuaddiert."
-    }
+  "stadium": {
+    "message": "Stadion"
+  },
+  "stadiumSettings": {
+    "message": "Stadion Einstellungen"
+  },
+  "league": {
+    "message": "Liga: "
+  },
+  "friendly": {
+    "message": "Friendly: "
+  },
+  "cup": {
+    "message": "OFM-Pokal: "
+  },
+  "currencySign": {
+    "message": "€"
+  },
+  "addOverallPrices": {
+    "message": "Füge Funktion 'Allgemeine Stadiumspreise' ein. Die Eintrittspreise für das entsprechende Spiel werden für alle Blöcke auf einmal geändert."
+  },
+  "generalPriceLeague": {
+    "message": "Allg. Eintrittspreis: Liga"
+  },
+  "generalPriceFriendly": {
+    "message": "Allg. Eintrittspreis: Freundschaftsspiel"
+  },
+  "generalPriceCup": {
+    "message": "Allg. Eintrittspreis: OFM-Pokal"
+  },
+  "addOffsetPrices": {
+    "message": "Füge Funktion 'Aufpreis Stadiumblock' ein. Die Aufpreis des jeweiligen Blocks für das entsprechende Spiel, wird dem allgemeinen Stadiumspreis hinzuaddiert."
+  },
+  "offset": {
+    "message": "Aufschlag"
+  },
+  "offsetPriceLeague": {
+    "message": "Aufschlag: Liga"
+  },
+  "offsetPriceFriendly": {
+    "message": "Aufschlag: Friendly"
+  },
+  "offsetPriceCup": {
+    "message": "Aufschlag: OFM-Pokal"
+  }
 }

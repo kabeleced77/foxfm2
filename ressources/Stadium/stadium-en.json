@@ -1,29 +1,47 @@
 {
-    "league": {
-        "message": "League: "
-    },
-    "friendly": {
-        "message": "Friendly: "
-    },
-    "cup": {
-        "message": "OFM Cup: "
-    },
-    "generalpriceleague": {
-        "message": "General entry price: League"
-    },
-    "generalpricefriendly": {
-        "message": "General entry price: Friendly"
-    },
-    "generalpricecup": {
-        "message": "General entry price: Cup"
-    },
-    "currencysign": {
-        "message": "£"
-    },
-    "addOverallPrices": {
-        "message": "Add function 'Overall stadium prices'. Changing the overall price will change the entry prices of all blocks of the correspondent kind of game."
-    },
-    "addOffsetPrices": {
-        "message": "Add function 'Block offset prices'. The offset price of a block will be added to the overall stadium price of the correspondent kind of game."
-    }
+  "stadium": {
+    "message": "Stadium"
+  },
+  "stadiumSettings": {
+    "message": "Stadium Settings"
+  },
+  "league": {
+    "message": "League: "
+  },
+  "friendly": {
+    "message": "Friendly: "
+  },
+  "cup": {
+    "message": "OFM Cup: "
+  },
+  "currencySign": {
+    "message": "£"
+  },
+  "addOverallPrices": {
+    "message": "Add function 'Overall stadium prices'. Changing the overall price will change the entry prices of all blocks of the correspondent kind of game."
+  },
+  "generalPriceLeague": {
+    "message": "General entry price: League"
+  },
+  "generalPriceFriendly": {
+    "message": "General entry price: Friendly"
+  },
+  "generalPriceCup": {
+    "message": "General entry price: Cup"
+  },
+  "addOffsetPrices": {
+    "message": "Add function 'Block offset prices'. The offset price of a block will be added to the overall stadium price of the correspondent kind of game."
+  },
+  "offset": {
+    "message": "Offset"
+  },
+  "offsetPriceLeague": {
+    "message": "Offset: League"
+  },
+  "offsetPriceFriendly": {
+    "message": "Offset: Friendly"
+  },
+  "offsetPriceCup": {
+    "message": "Offset: Cup"
+  }
 }

@@ -13,7 +13,19 @@ import { StadiumOverallEntryPricesSetting } from "../../Common/DataAccess/Stadiu
 import { StadiumEntryPrice } from "../../Common/DataAccess/StadiumEntryPrice"
 import { IStadiumEntryPrices } from "../../Common/DataAccess/StadiumEntryPrices"
 
-export class StadiumManagerUi { 
+import { RessourceStadiumCurrencySign } from "../../Common/DataAccess/Ressource"
+import { RessourceStadiumLeague } from "../../Common/DataAccess/Ressource"
+import { RessourceStadiumFriendly } from "../../Common/DataAccess/Ressource"
+import { RessourceStadiumCup } from "../../Common/DataAccess/Ressource"
+import { RessourceStadiumOverallPriceLeague } from "../../Common/DataAccess/Ressource"
+import { RessourceStadiumOverallPriceFriendly } from "../../Common/DataAccess/Ressource"
+import { RessourceStadiumOverallPriceCup } from "../../Common/DataAccess/Ressource"
+import { RessourceStadiumOffset } from "../../Common/DataAccess/Ressource"
+import { RessourceStadiumOffsetPriceLeague } from "../../Common/DataAccess/Ressource"
+import { RessourceStadiumOffsetPriceFriendly } from "../../Common/DataAccess/Ressource"
+import { RessourceStadiumOffsetPriceCup } from "../../Common/DataAccess/Ressource"
+
+export class StadiumManagerUi {
   private log: LoggerInterface;
   private numberHelper = new NumberHelper();
   private thisModule: string = "StadiumManagerUi";
@@ -24,6 +36,18 @@ export class StadiumManagerUi {
   private ofmStadiumOffsetMaxPrice = 68;
   private stadiumOverallEntryPrices: IStadiumOverallEntryPricesSetting;
   private stadiumBlocks: IStadiumBlocksSetting;
+  /* ressources */
+  private ressourceStadiumCurrencySign: String;
+  private ressourceStadiumLeague: String;
+  private ressourceStadiumFriendly: String;
+  private ressourceStadiumCup: String;
+  private ressourceStadiumOverallPriceLeague: String;
+  private ressourceStadiumOverallPriceFriendly: String;
+  private ressourceStadiumOverallPriceCup: String;
+  private ressourceStadiumOffset: String;
+  private ressourceStadiumOffsetPriceLeague: String;
+  private ressourceStadiumOffsetPriceFriendly: String;
+  private ressourceStadiumOffsetPriceCup: String;
 
   constructor(
     logger: LoggerInterface,
@@ -31,6 +55,18 @@ export class StadiumManagerUi {
     this.log = logger;
     this.stadiumBlocks = new StadiumBlocksSetting();
     this.stadiumOverallEntryPrices = new StadiumOverallEntryPricesSetting();
+
+    this.ressourceStadiumCurrencySign = new RessourceStadiumCurrencySign().value();
+    this.ressourceStadiumLeague = new RessourceStadiumLeague().value();
+    this.ressourceStadiumFriendly = new RessourceStadiumFriendly().value();
+    this.ressourceStadiumCup = new RessourceStadiumCup().value();
+    this.ressourceStadiumOverallPriceLeague = new RessourceStadiumOverallPriceLeague().value();
+    this.ressourceStadiumOverallPriceFriendly = new RessourceStadiumOverallPriceFriendly().value();
+    this.ressourceStadiumOverallPriceCup = new RessourceStadiumOverallPriceCup().value();
+    this.ressourceStadiumOffset = new RessourceStadiumOffset().value();
+    this.ressourceStadiumOffsetPriceLeague = new RessourceStadiumOffsetPriceLeague().value();
+    this.ressourceStadiumOffsetPriceFriendly = new RessourceStadiumOffsetPriceFriendly().value();
+    this.ressourceStadiumOffsetPriceCup = new RessourceStadiumOffsetPriceCup().value();
   }
 
   public getLocalisedString(key: string): string {
@@ -65,17 +101,18 @@ export class StadiumManagerUi {
     }
   }
   private showOverallPricingControlElementsINTERN(overallEntryPrices: IStadiumOverallEntryPrices): void {
-    // get localisation strings
-    var localeLeague = this.getLocalisedString("league");
-    var localeFriendly = this.getLocalisedString("friendly");
-    var localeCup = this.getLocalisedString("cup");
-
-    var tooltipGeneralPriceLeague = this.getLocalisedString("generalpriceleague");
-    var tooltipGeneralPriceFriendly = this.getLocalisedString("generalpricefriendly");
-    var tooltipGeneralPriceCup = this.getLocalisedString("generalpricecup");
-
-    var overallPricingTable = this.createPricingTable('overall', overallEntryPrices.prices(), tooltipGeneralPriceLeague, localeLeague, tooltipGeneralPriceFriendly, localeFriendly, tooltipGeneralPriceCup, localeCup, this.ofmStadiumMinPrice, this.ofmStadiumMaxPrice);
-
+    var overallPricingTable = this.createPricingTable(
+      'overall',
+      overallEntryPrices.prices(),
+      this.ressourceStadiumOverallPriceLeague,
+      this.ressourceStadiumLeague,
+      this.ressourceStadiumOverallPriceFriendly,
+      this.ressourceStadiumFriendly,
+      this.ressourceStadiumOverallPriceCup,
+      this.ressourceStadiumCup,
+      this.ofmStadiumMinPrice,
+      this.ofmStadiumMaxPrice
+    );
     // find table where to put the overall pricing table
     // IMPORTANT: the last item of the XPATH must be 'table' or if included 'tbody'!
     var tableByXpath = '/html/body[1]/div[1]/div[1]/form[1]/table[1]/tbody[1]';
@@ -106,21 +143,25 @@ export class StadiumManagerUi {
         var blockTableCol = XPathHelper.getColumnNumberByXPATH(document, tribuneXpath);
         var blockTableRow = XPathHelper.getRowNumberByXPATH(document, tribuneXpath);
         if (tribuneTable !== undefined && blockTableCol !== null && blockTableRow !== null) {
-          // get localisation strings
-          var localeOffset = "Aufschlag";
-          var localeOffsetLeague = "Aufschlag L";
-          var localeOffsetFriendly = "A F";
-          var localeOffsetCup = "A C";
           var prices = blocks.blocks();
-          // var blockNumber = i + 1;
           var blockNumber = prices[i].name().name();
-          // var pricingTable = this.createPricingTable(blockNumber, prices[i].pricesOffset().pricesOffset(), localeOffsetLeague, null, localeOffsetFriendly, null, localeOffsetCup, null, this.ofmStadiumOffsetMinPrice, this.ofmStadiumOffsetMaxPrice);
-          var pricingTable = this.createPricingTable(blockNumber, prices[i].pricesOffset(), localeOffsetLeague, null, localeOffsetFriendly, null, localeOffsetCup, null, this.ofmStadiumOffsetMinPrice, this.ofmStadiumOffsetMaxPrice);
+          var pricingTable = this.createPricingTable(
+            blockNumber,
+            prices[i].pricesOffset(),
+            this.ressourceStadiumOffsetPriceLeague,
+            null,
+            this.ressourceStadiumOffsetPriceFriendly,
+            null,
+            this.ressourceStadiumOffsetPriceCup,
+            null,
+            this.ofmStadiumOffsetMinPrice,
+            this.ofmStadiumOffsetMaxPrice
+          );
           var lastRow = <HTMLTableRowElement>tribuneTable.rows[tribuneTable.rows.length - 1];
           var lastCell = lastRow.insertCell(-1);
           var header = DOMHelper.createElement('B', null, null, 'minitext dsR42', null, null, null);
           lastCell.appendChild(header);
-          var headerText = document.createTextNode(localeOffset);
+          var headerText = document.createTextNode(this.ressourceStadiumOffset.valueOf());
           header.appendChild(headerText);
           lastCell.appendChild(pricingTable);
           // enlarge colspan of row containing name of tribune
@@ -128,7 +169,7 @@ export class StadiumManagerUi {
           var tableCell = <HTMLTableDataCellElement>cells.cells[blockTableCol];
           tableCell.colSpan = 6;
         } else {
-          this.warn(': Could not get tribune - will skip it: ' + tribuneXpath);
+          this.warn('Could not get tribune - will skip it: ' + tribuneXpath);
         }
       }
       // change width of table containing stadium - find by attribute 'bgcolor' using XPath
@@ -151,12 +192,12 @@ export class StadiumManagerUi {
   private createPricingTable(
     block: String,
     entryPrices: IStadiumEntryPrices,
-    ddTooltipPriceLeague: string,
-    ddLabelPriceLeague: string,
-    ddTooltipPriceFriendly: string,
-    ddLabelPriceFriendly: string,
-    ddTooltipPriceCup: string,
-    ddLabelPriceCup: string,
+    ddTooltipPriceLeague: String,
+    ddLabelPriceLeague: String,
+    ddTooltipPriceFriendly: String,
+    ddLabelPriceFriendly: String,
+    ddTooltipPriceCup: String,
+    ddLabelPriceCup: String,
     ddMinPrice: Number,
     ddMaxPrice: Number
   ) {
@@ -283,9 +324,9 @@ export class StadiumManagerUi {
       this.error(e);
     }
   }
-  private createDropDownPrice(dropdownId: string, ddName: String, dropdownTooltip: string, dropdownDefault: Number, ddMinPrice: Number, ddMaxPrice: Number) {
+  private createDropDownPrice(dropdownId: string, ddName: String, dropdownTooltip: String, dropdownDefault: Number, ddMinPrice: Number, ddMaxPrice: Number) {
     try {
-      var newSelect = DOMHelper.createDropdown(dropdownId, ddName.toString(), 'forminput_60px', 'width:50px;', dropdownTooltip);
+      var newSelect = DOMHelper.createDropdown(dropdownId, ddName.valueOf(), 'forminput_60px', 'width:50px;', dropdownTooltip.valueOf());
       for (var i = ddMinPrice.valueOf(); i <= ddMaxPrice.valueOf(); i++) {
         var localeCurrencySign = this.getLocalisedString("currencysign");
         var newOption = document.createElement('option');
@@ -303,7 +344,7 @@ export class StadiumManagerUi {
     }
   }
 
-  private createRowStadiumPrice(selectId: string, selectName: String, selectTooltip: string, selectDefault: Number, label: string, selectMinPrice: Number, selectMaxPrice: Number) {
+  private createRowStadiumPrice(selectId: string, selectName: String, selectTooltip: String, selectDefault: Number, label: String, selectMinPrice: Number, selectMaxPrice: Number) {
     try {
       var newSelect = this.createDropDownPrice(selectId, selectName, selectTooltip, selectDefault, selectMinPrice, selectMaxPrice);
       var newCellDropdown = DOMHelper.createCell(null, null, null, null, null, null);
@@ -311,7 +352,7 @@ export class StadiumManagerUi {
       var newRow = DOMHelper.createRow();
       if (label) {
         var cellLabel = `<font color="black">${label}:</font>`;
-        var newCellLabel = DOMHelper.createCell(null, null, null, label, null, 'minitext');
+        var newCellLabel = DOMHelper.createCell(null, null, null, label.valueOf(), null, 'minitext');
         newRow.appendChild(newCellLabel);
       }
       newRow.appendChild(newCellDropdown);
