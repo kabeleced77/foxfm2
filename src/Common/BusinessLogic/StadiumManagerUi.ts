@@ -172,13 +172,6 @@ export class StadiumManagerUi {
           this.warn('Could not get tribune - will skip it: ' + tribuneXpath);
         }
       }
-      // change width of table containing stadium - find by attribute 'bgcolor' using XPath
-      var xpathToStadiumRenameHeader = "/html/body/div[1]/div/form/div[1]";
-      var result = XPathHelper.getXpathResult(xpathToStadiumRenameHeader);
-      if (result.snapshotLength == 1) {
-        var element = <HTMLElement>result.snapshotItem(0);
-        element.style.width = "758px";
-      }
     }
   }
 
