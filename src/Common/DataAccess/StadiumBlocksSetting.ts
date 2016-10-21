@@ -33,7 +33,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
         [
           new StadiumBlock(
             new StadiumBlockName1(),
-            true,
+            false,
             new StadiumEntryPrices(
               new StadiumEntryPrice(
                 new GameKindLeague(),
@@ -51,7 +51,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
           ),
           new StadiumBlock(
             new StadiumBlockName2(),
-            true,
+            false,
             new StadiumEntryPrices(
               new StadiumEntryPrice(
                 new GameKindLeague(),
@@ -69,7 +69,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
           ),
           new StadiumBlock(
             new StadiumBlockName3(),
-            true,
+            false,
             new StadiumEntryPrices(
               new StadiumEntryPrice(
                 new GameKindLeague(),
@@ -87,7 +87,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
           ),
           new StadiumBlock(
             new StadiumBlockName4(),
-            true,
+            false,
             new StadiumEntryPrices(
               new StadiumEntryPrice(
                 new GameKindLeague(),

@@ -23,7 +23,7 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
     this.stadiumOverallEntryPrices = new SettingInStorage<StadiumOverallEntryPrices>(
       "foxfm2.stadium.overallEntryPrices",
       new StadiumOverallEntryPrices(
-        true,
+        false,
         new StadiumEntryPrices(
           new StadiumEntryPrice(
             new GameKindLeague(),
