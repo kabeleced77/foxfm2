@@ -2,7 +2,7 @@ import { Router, RouterConfiguration } from 'aurelia-router'
 import { autoinject } from 'aurelia-framework';
 import { LogLevel, LoggerInterface } from '../Common/Logger/LoggerInterface';
 import { Logger } from '../Common/Logger/Logger';
-import { RessourceStadium } from "../Common/DataAccess/Ressource"
+import { RessourceStadium } from "../Common/Ressource"
 
 @autoinject
 export class App {

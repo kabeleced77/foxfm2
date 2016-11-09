@@ -2,19 +2,19 @@ import { computedFrom } from 'aurelia-framework';
 import { bindable } from 'aurelia-framework';
 import { LogLevel, LoggerInterface } from '../Common/Logger/LoggerInterface';
 import { Logger } from '../Common/Logger/Logger';
-import { IStadiumBlocks } from '../Common/DataAccess/stadiumBlocks';
-import { IStadiumBlocksSetting } from '../Common/DataAccess/StadiumBlocksSetting';
-import { StadiumBlocksSetting } from '../Common/DataAccess/StadiumBlocksSetting';
-import { IStadiumOverallEntryPricesSetting } from '../Common/DataAccess/StadiumOverallEntryPricesSetting';
-import { StadiumOverallEntryPricesSetting } from '../Common/DataAccess/StadiumOverallEntryPricesSetting';
-import { StadiumOverallEntryPrices } from '../Common/DataAccess/StadiumOverallEntryPrices';
-import { StadiumEntryPrices } from '../Common/DataAccess/StadiumEntryPrices';
-import { StadiumEntryPrice } from '../Common/DataAccess/StadiumEntryPrice';
-import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/DataAccess/GameKind';
-import { SettingInStorage } from "../Common/DataAccess/SettingInStorage"
-import { RessourceStadiumHeading} from "../Common/DataAccess/Ressource"
-import { RessourceStadiumAddOverallPrices } from "../Common/DataAccess/Ressource"
-import { RessourceStadiumAddOffsetPrices } from "../Common/DataAccess/Ressource"
+import { IStadiumBlocks } from '../Common/stadiumBlocks';
+import { IStadiumBlocksSetting } from '../Common/StadiumBlocksSetting';
+import { StadiumBlocksSetting } from '../Common/StadiumBlocksSetting';
+import { IStadiumOverallEntryPricesSetting } from '../Common/StadiumOverallEntryPricesSetting';
+import { StadiumOverallEntryPricesSetting } from '../Common/StadiumOverallEntryPricesSetting';
+import { StadiumOverallEntryPrices } from '../Common/StadiumOverallEntryPrices';
+import { StadiumEntryPrices } from '../Common/StadiumEntryPrices';
+import { StadiumEntryPrice } from '../Common/StadiumEntryPrice';
+import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/GameKind';
+import { SettingInStorage } from "../Common/SettingInStorage"
+import { RessourceStadiumHeading} from "../Common/Ressource"
+import { RessourceStadiumAddOverallPrices } from "../Common/Ressource"
+import { RessourceStadiumAddOffsetPrices } from "../Common/Ressource"
 
 export class SettingsStadium {
   private thisModule: string = "SettingsStadium";
