@@ -1,6 +1,6 @@
 import { LoggerInterface, LogLevel } from "../Common/CrossCutting/Logger/LoggerInterface"
 import { Logger } from "../Common/CrossCutting/Logger/Logger"
-import { StadiumManagerUi } from "../Common/BusinessLogic/StadiumManagerUi"
+import { StadiumManagerUi } from "./StadiumManagerUi"
 
 class foxfmApp {
   private log: LoggerInterface;
