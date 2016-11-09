@@ -1,7 +1,7 @@
 import { computedFrom } from 'aurelia-framework';
 import { bindable } from 'aurelia-framework';
-import { LogLevel, LoggerInterface } from '../Common/CrossCutting/Logger/LoggerInterface';
-import { Logger } from '../Common/CrossCutting/Logger/Logger';
+import { LogLevel, LoggerInterface } from '../Common/Logger/LoggerInterface';
+import { Logger } from '../Common/Logger/Logger';
 import { IStadiumBlocks } from '../Common/DataAccess/stadiumBlocks';
 import { IStadiumBlocksSetting } from '../Common/DataAccess/StadiumBlocksSetting';
 import { StadiumBlocksSetting } from '../Common/DataAccess/StadiumBlocksSetting';

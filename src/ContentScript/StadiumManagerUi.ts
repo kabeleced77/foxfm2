@@ -1,7 +1,7 @@
-import { LoggerInterface, LogLevel } from "../Common/CrossCutting/Logger/LoggerInterface"
-import { NumberHelper } from "../Common/CrossCutting/Toolkit/NumberHelper"
-import { XPathHelper } from "../Common/CrossCutting/Toolkit/XPathHelper"
-import { DOMHelper } from "../Common/CrossCutting/Toolkit/DOMHelper"
+import { LoggerInterface, LogLevel } from "../Common/Logger/LoggerInterface"
+import { NumberHelper } from "../Common/Toolkit/NumberHelper"
+import { XPathHelper } from "../Common/Toolkit/XPathHelper"
+import { DOMHelper } from "../Common/Toolkit/DOMHelper"
 import { IGameKind } from '../Common/DataAccess/GameKind';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/DataAccess/GameKind';
 import { IStadiumBlocks } from "../Common/DataAccess/StadiumBlocks"

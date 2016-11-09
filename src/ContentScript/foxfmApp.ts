@@ -1,5 +1,5 @@
-import { LoggerInterface, LogLevel } from "../Common/CrossCutting/Logger/LoggerInterface"
-import { Logger } from "../Common/CrossCutting/Logger/Logger"
+import { LoggerInterface, LogLevel } from "../Common/Logger/LoggerInterface"
+import { Logger } from "../Common/Logger/Logger"
 import { StadiumManagerUi } from "./StadiumManagerUi"
 
 class foxfmApp {

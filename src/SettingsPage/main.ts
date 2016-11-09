@@ -1,7 +1,7 @@
 import 'bootstrap';
 import {Aurelia} from 'aurelia-framework';
-import {LogLevel, LoggerInterface} from '../Common/CrossCutting/Logger/LoggerInterface';
-import {Logger} from '../Common/CrossCutting/Logger/Logger';
+import {LogLevel, LoggerInterface} from '../Common/Logger/LoggerInterface';
+import {Logger} from '../Common/Logger/Logger';
 
 export function configure(aurelia: Aurelia) {
   aurelia.use

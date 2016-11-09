@@ -1,7 +1,7 @@
 import { Router, RouterConfiguration } from 'aurelia-router'
 import { autoinject } from 'aurelia-framework';
-import { LogLevel, LoggerInterface } from '../Common/CrossCutting/Logger/LoggerInterface';
-import { Logger } from '../Common/CrossCutting/Logger/Logger';
+import { LogLevel, LoggerInterface } from '../Common/Logger/LoggerInterface';
+import { Logger } from '../Common/Logger/Logger';
 import { RessourceStadium } from "../Common/DataAccess/Ressource"
 
 @autoinject
