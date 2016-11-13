@@ -9,6 +9,12 @@
     "tabs",
     "storage"
   ],
+  "icons": {
+    "16": "foxfm16.png",
+    "32": "foxfm32.png",
+    "64": "foxfm64.png",
+    "128": "foxfm128.png"
+  },
   "background": {
     "page": "background.html"
   },
@@ -17,7 +23,7 @@
       "all_frames": true,
       "matches": [
         "*://www.onlinefussballmanager.de/*",
-				"*://en.onlinefootballmanager.com/*",
+        "*://en.onlinefootballmanager.com/*",
         "*://server2.onlinefussballmanager.de/*"
       ],
       "js": [
