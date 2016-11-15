@@ -5,6 +5,10 @@ module.exports = {
   'list_common': [
     '_locales/**',
     'favicon.ico',
+    'foxfm16.png',
+    'foxfm32.png',
+    'foxfm64.png',
+    'foxfm128.png',
     'styles/styles.css',
     'LICENSE',
     'config.js',
