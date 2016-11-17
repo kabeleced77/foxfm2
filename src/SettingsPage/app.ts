@@ -3,23 +3,23 @@ import { autoinject } from 'aurelia-framework';
 import { LogLevel, LoggerInterface } from '../Common/Logger/LoggerInterface';
 import { Logger } from '../Common/Logger/Logger';
 import { RessourceStadium } from "../Common/Ressource"
+import { RessourceSettingsPageAddonName } from "../Common/Ressource"
 
 @autoinject
 export class App {
   router: Router;
   ressourceStadium: string;
+  ressourceSettingsPageAddonName: string;
 
-  constructor(logger: Logger) {
-    logger.activateModuleForLogging("all");
-    logger.setLogLevel(LogLevel.All);
-
+  constructor() {
     this.ressourceStadium = new RessourceStadium().value().valueOf();
+    this.ressourceSettingsPageAddonName = new RessourceSettingsPageAddonName().value().valueOf();
   }
 
   configureRouter(config: RouterConfiguration, router: Router) {
-    config.title = 'Foxfm';
+    config.title = this.ressourceSettingsPageAddonName;
     config.map([
-      { route: ['', 'SettingsPage/welcome'], name: 'welcome', moduleId: 'SettingsPage/welcome', nav: true, title: 'Welcome' },
+      { route: ['', 'SettingsPage/welcome'], name: 'welcome', moduleId: 'SettingsPage/welcome', nav: false, title: 'Welcome' },
       { route: 'SettingsPage/settings-stadium', name: 'settings-stadium', moduleId: 'SettingsPage/settings-stadium', nav: true, title: this.ressourceStadium }
     ]);
 

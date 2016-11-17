@@ -18,6 +18,9 @@ class Ressource implements IRessource {
   }
 }
 
+export class RessourceSettingsPageAddonName extends Ressource { constructor() { super("addonName"); } }
+export class RessourceSettingsPageIntro extends Ressource { constructor() { super("settingsIntro"); } }
+
 export class RessourceStadium extends Ressource { constructor() { super("stadium"); } }
 export class RessourceStadiumHeading extends Ressource { constructor() { super("stadiumSettings"); } }
 export class RessourceStadiumLeague extends Ressource { constructor() { super("league"); } }
@@ -33,3 +36,4 @@ export class RessourceStadiumOffset extends Ressource { constructor() { super("o
 export class RessourceStadiumOffsetPriceLeague extends Ressource { constructor() { super("offsetPriceLeague"); } }
 export class RessourceStadiumOffsetPriceFriendly extends Ressource { constructor() { super("offsetPriceFriendly"); } }
 export class RessourceStadiumOffsetPriceCup extends Ressource { constructor() { super("offsetPriceCup"); } }
+
