@@ -2,7 +2,11 @@ import { ISetting } from './Setting'
 import { IStorage } from './Storage'
 import { StorageLocal } from './Storage'
 
-export class SettingInStorage<T> implements ISetting<T> {
+export interface ISettingInStorageType<T> {
+  fromJson(jsonString: String): T;
+}
+
+export class SettingInStorage<T extends ISettingInStorageType<T>> implements ISetting<T> {
   private storage: IStorage<T>;
   private settingKey: String;
   private settingDefaultValue: T;
@@ -16,14 +20,17 @@ export class SettingInStorage<T> implements ISetting<T> {
   public key(): String {
     return this.storage.key();
   }
+
   public defaultValue(): T {
     return this.settingDefaultValue;
   }
-  public value(): Promise<String> {
+
+  public value(): Promise<T> {
     return this.storage.value().then((value: string) => {
-      return value == undefined ? this.settingDefaultValue : value;
+      return value == undefined ? this.settingDefaultValue : this.settingDefaultValue.fromJson(value);
     });
   }
+
   public change(value: T): Promise<void> {
     return this.storage.save(value);
   }

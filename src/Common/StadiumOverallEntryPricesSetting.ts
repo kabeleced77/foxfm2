@@ -20,7 +20,7 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
   private stadiumOverallEntryPrices: ISetting<IStadiumOverallEntryPrices>;
 
   constructor() {
-    this.stadiumOverallEntryPrices = new SettingInStorage<StadiumOverallEntryPrices>(
+    this.stadiumOverallEntryPrices = new SettingInStorage<IStadiumOverallEntryPrices>(
       "foxfm2.stadium.overallEntryPrices",
       new StadiumOverallEntryPrices(
         false,
@@ -43,10 +43,9 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
   }
 
   public overallEntryPrices(): Promise<IStadiumOverallEntryPrices> {
-    return this.stadiumOverallEntryPrices.value().then((jsonString: String) => {
-      return this.stadiumOverallEntryPrices.defaultValue().fromJson(jsonString);
-    });
+    return this.stadiumOverallEntryPrices.value();
   }
+
   public changeOverallEntryPricesStatus(status: Boolean): void {
     this.overallEntryPrices().then((overallEntryPrices) => {
       this.stadiumOverallEntryPrices.change(new StadiumOverallEntryPrices(
@@ -55,6 +54,7 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
       ));
     });
   }
+
   public changeOverallEntryPrice(kindOfGame: IGameKind, price: Number): void {
     switch (kindOfGame.name()) {
       case new GameKindLeague().name():
@@ -70,6 +70,7 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
         break;
     }
   }
+
   public changeOverallEntryPriceLeague(price: Number): void {
     this.overallEntryPrices().then((overallEntryPrices) => {
       this.stadiumOverallEntryPrices.change(new StadiumOverallEntryPrices(
@@ -85,6 +86,7 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
       ));
     });
   }
+
   public changeOverallEntryPriceFriendly(price: Number): void {
     this.overallEntryPrices().then((overallEntryPrices) => {
       this.stadiumOverallEntryPrices.change(new StadiumOverallEntryPrices(
@@ -100,6 +102,7 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
       ));
     });
   }
+
   public changeOverallEntryPriceCup(price: Number): void {
     this.overallEntryPrices().then((overallEntryPrices) => {
       this.stadiumOverallEntryPrices.change(new StadiumOverallEntryPrices(

@@ -14,6 +14,7 @@ export class StorageLocal<T> implements IStorage<T> {
   public key() {
     return this.storageKey;
   }
+
   public save(value: T): Promise<void> {
     var obj: { [key: string]: T } = {};
     obj[this.storageKey.toString()] = value;
@@ -24,6 +25,7 @@ export class StorageLocal<T> implements IStorage<T> {
       });
     });
   }
+
   public value(): Promise<String> {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get(this.storageKey, (items: { [key: string]: String }) => {

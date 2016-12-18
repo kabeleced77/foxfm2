@@ -16,9 +16,11 @@ export class StadiumBlocks implements IStadiumBlocks {
   public blocks(): Array<IStadiumBlock> {
     return this.stadiumBlocks;
   }
+
   public blocksPricesOffsetActivated(): Boolean {
     return this.stadiumBlocks.every((block: IStadiumBlock) => block.pricesOffsetActivated().valueOf());
   } 
+
   public fromJson(jsonString: String): IStadiumBlocks {
     if (this.stadiumBlocks.length) {
       return new StadiumBlocks(

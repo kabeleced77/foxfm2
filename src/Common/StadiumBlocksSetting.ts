@@ -108,9 +108,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
   }
 
   public blocks(): Promise<IStadiumBlocks> {
-    return this.stadiumBlocks.value().then((jsonString: String) => {
-      return this.stadiumBlocks.defaultValue().fromJson(jsonString);
-    });
+    return this.stadiumBlocks.value();
   }
   public blocksEntryPricesOffsetActivated(): Promise<Boolean> {
     return this.blocks()
