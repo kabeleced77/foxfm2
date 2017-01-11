@@ -8,12 +8,17 @@ function reportChange(event) {
   console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 }
 
-// this task wil watch for changes
-// to js, html, and css files and call the
+// this task will watch for changes
+// to js, html, css and ressource files and call the
 // reportChange method. Also, by depending on the
-// serve task, it will instantiate a browserSync session
-gulp.task('watch-chrome', ['serve'], function() {
+// serve task, it will instantiate a browserSync session 
+//   --> deactivated as not usable when developing a WebExtension
+// gulp.task('watch-chrome', ['serve'], function() {
+gulp.task('watch-chrome', function() {
   gulp.watch(paths.source, ['bundle-chrome']).on('change', reportChange);
+  gulp.watch(paths.html, ['bundle-chrome']).on('change', reportChange);
+  gulp.watch(paths.ressourcesDe, ['bundle-chrome']).on('change', reportChange);
+  gulp.watch(paths.ressourcesEn, ['bundle-chrome']).on('change', reportChange);
   gulp.watch(paths.style, browserSync.reload).on('change', reportChange);
 });
 
@@ -21,7 +26,12 @@ gulp.task('watch-chrome', ['serve'], function() {
 // to js, html, and css files and call the
 // reportChange method. Also, by depending on the
 // serve task, it will instantiate a browserSync session
-gulp.task('watch-firefox', ['serve'], function() {
+//   --> deactivated as not usable when developing a WebExtension
+// gulp.task('watch-firefox', ['serve'], function() {
+gulp.task('watch-firefox', function() {
   gulp.watch(paths.source, ['bundle-firefox']).on('change', reportChange);
+  gulp.watch(paths.html, ['bundle-firefox']).on('change', reportChange);
+  gulp.watch(paths.ressourcesDe, ['bundle-chrome']).on('change', reportChange);
+  gulp.watch(paths.ressourcesEn, ['bundle-chrome']).on('change', reportChange);
   gulp.watch(paths.style, browserSync.reload).on('change', reportChange);
 });
