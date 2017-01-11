@@ -1,0 +1,8 @@
+{
+  "loggerSettingHeading": {
+    "message": "Logger Einstellungen"
+  },
+  "loggerSettingIntro": {
+    "message": "On this page you can adjust the behaviour of the addon logger."
+  }
+}

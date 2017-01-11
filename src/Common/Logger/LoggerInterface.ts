@@ -1,11 +1,14 @@
 "use strict";
 
-export enum LogLevel { Off, Error, Warn, Info, Debug, All };
+import {ILoggerLogLevelSetting} from "./LoggerLogLevelSetting"
+import {IRegisteredLoggingModule} from "./RegisteredLoggingModule"
+import {IRegisteredLoggingModulesSetting} from "./RegisteredLoggingModulesSetting"
 
 export interface LoggerInterface {
-	setLogLevel(logLevel: LogLevel): void;
-	registerModuleForLogging(moduleName: string): void;
-	activateModuleForLogging(moduleName: string): void;
+	registerModuleForLogging(module: IRegisteredLoggingModule): void;
+	activateModuleForLogging(module: IRegisteredLoggingModule): void;
+  registeredModulesSetting(): IRegisteredLoggingModulesSetting;
+  loggerLogLevelSetting(): ILoggerLogLevelSetting;
 	info(module: string, msg: string): void;
 	debug(module: string, msg: string): void;
 	warn(module: string, msg: string): void;

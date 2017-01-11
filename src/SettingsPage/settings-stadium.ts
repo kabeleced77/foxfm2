@@ -1,7 +1,11 @@
 import { computedFrom } from 'aurelia-framework';
 import { bindable } from 'aurelia-framework';
-import { LogLevel, LoggerInterface } from '../Common/Logger/LoggerInterface';
+import { LoggerInterface } from '../Common/Logger/LoggerInterface';
 import { Logger } from '../Common/Logger/Logger';
+import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
+import { RegisteredLoggingModulesSetting } from '../Common/Logger/RegisteredLoggingModulesSetting';
+import { ILogLevel } from '../Common/Logger/LogLevel';
+import { LogLevelError } from '../Common/Logger/LogLevel';
 import { IStadiumBlocks } from '../Common/stadiumBlocks';
 import { IStadiumBlocksSetting } from '../Common/StadiumBlocksSetting';
 import { StadiumBlocksSetting } from '../Common/StadiumBlocksSetting';
@@ -30,9 +34,8 @@ export class SettingsStadium {
 
   constructor() {
     this.log = new Logger();
-    this.log.setLogLevel(LogLevel.All);
-    this.log.registerModuleForLogging(this.thisModule);
-    this.log.activateModuleForLogging("all");
+    var loggingModule = new RegisteredLoggingModule(this.thisModule, false, new LogLevelError());
+    this.log.registerModuleForLogging(loggingModule);
 
     this.stadiumBlocks = new StadiumBlocksSetting();
     this.stadiumOverallPrices = new StadiumOverallEntryPricesSetting();

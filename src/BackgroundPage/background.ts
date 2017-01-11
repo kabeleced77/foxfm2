@@ -1,5 +1,9 @@
-import {LoggerInterface, LogLevel} from "../Common/Logger/LoggerInterface"
-import {Logger} from "../Common/Logger/Logger"
+import { LoggerInterface } from "../Common/Logger/LoggerInterface"
+import { Logger } from "../Common/Logger/Logger"
+import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
+import { RegisteredLoggingModulesSetting } from '../Common/Logger/RegisteredLoggingModulesSetting';
+import { ILogLevel } from '../Common/Logger/LogLevel';
+import { LogLevelError } from '../Common/Logger/LogLevel';
 
 class FoxfmBackground {
   private log: LoggerInterface;
@@ -7,12 +11,12 @@ class FoxfmBackground {
 
   constructor(logger: LoggerInterface) {
     this.log = logger;
-    this.log.setLogLevel(LogLevel.All);
-    this.log.activateModuleForLogging("all");
+    var loggingModule = new RegisteredLoggingModule(this.thisModule, false, new LogLevelError());
+    this.log.registerModuleForLogging(loggingModule);
   }
 
   main(): void {
-    this.log.debug(this.thisModule, "S t a r t e d");
+    this.log.info(this.thisModule, "S t a r t e d");
     this.createContextMenu();
   }
 

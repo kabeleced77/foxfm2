@@ -1,4 +1,6 @@
-import { LoggerInterface, LogLevel } from "../Common/Logger/LoggerInterface"
+import { LoggerInterface } from "../Common/Logger/LoggerInterface"
+import { RegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule"
+import { LogLevelError } from "../Common/Logger/LogLevel"
 import { NumberHelper } from "../Common/Toolkit/NumberHelper"
 import { XPathHelper } from "../Common/Toolkit/XPathHelper"
 import { DOMHelper } from "../Common/Toolkit/DOMHelper"
@@ -26,7 +28,7 @@ import { RessourceStadiumOffsetPriceFriendly } from "../Common/Ressource"
 import { RessourceStadiumOffsetPriceCup } from "../Common/Ressource"
 
 export class StadiumManagerUi {
-  private log: LoggerInterface;
+  private logger: LoggerInterface;
   private numberHelper = new NumberHelper();
   private thisModule: string = "StadiumManagerUi";
   private ofmUrlStadium: string = "stadium/stadium.php";
@@ -52,7 +54,9 @@ export class StadiumManagerUi {
   constructor(
     logger: LoggerInterface,
   ) {
-    this.log = logger;
+    this.logger = logger;
+    var loggingModule = new RegisteredLoggingModule(this.thisModule, false, new LogLevelError());
+    this.logger.registerModuleForLogging(loggingModule);
     this.stadiumBlocks = new StadiumBlocksSetting();
     this.stadiumOverallEntryPrices = new StadiumOverallEntryPricesSetting();
 
@@ -78,6 +82,7 @@ export class StadiumManagerUi {
     try {
       this.info("started: " + window.document.location.href + ": " + window.document.location.href.match(this.ofmUrlStadium));
       if (window.document.location.href.match(this.ofmUrlStadium)) {
+        this.info("will extend stadium according to activated settings")
         this.stadiumOverallEntryPrices
           .overallEntryPrices()
           .then((overallEntryPrices) => {
@@ -367,18 +372,18 @@ export class StadiumManagerUi {
   }
 
   private info(msg: string): void {
-    this.log.info(this.thisModule, msg);
+    this.logger.info(this.thisModule, msg);
   }
 
   private warn(msg: string): void {
-    this.log.warn(this.thisModule, msg);
+    this.logger.warn(this.thisModule, msg);
   }
 
   private error(msg: string): void {
-    this.log.error(this.thisModule, msg);
+    this.logger.error(this.thisModule, msg);
   }
 
   private debug(msg: string): void {
-    this.log.debug(this.thisModule, msg);
+    this.logger.debug(this.thisModule, msg);
   }
 }

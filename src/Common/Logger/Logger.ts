@@ -1,69 +1,95 @@
-import {LoggerInterface, LogLevel} from "./LoggerInterface"
+import { LoggerInterface } from "./LoggerInterface"
+import { ILogLevel } from "./LogLevel"
+import { LogLevelOff } from "./LogLevel"
+import { LogLevelInfo } from "./LogLevel"
+import { LogLevelWarn } from "./LogLevel"
+import { LogLevelDebug } from "./LogLevel"
+import { LogLevelError } from "./LogLevel"
+import { ILoggerLogLevelSetting } from "./LoggerLogLevelSetting"
+import { LoggerLogLevelSetting } from "./LoggerLogLevelSetting"
+import { IRegisteredLoggingModulesSetting } from "./RegisteredLoggingModulesSetting"
+import { RegisteredLoggingModulesSetting } from "./RegisteredLoggingModulesSetting"
+import { IRegisteredLoggingModule } from "./RegisteredLoggingModule"
+import { RegisteredLoggingModule } from "./RegisteredLoggingModule"
+import { IRegisteredLoggingModules } from "./RegisteredLoggingModules"
+import { RegisteredLoggingModules } from "./RegisteredLoggingModules"
 
 export class Logger implements LoggerInterface {
-	private logLevel: LogLevel;
-	private modulesRegisteredToLog: string[];
-	private modulesToLog: string[];
+  private registeredLoggingModulesSetting: IRegisteredLoggingModulesSetting;
+  private loggerLogLevel: ILoggerLogLevelSetting;
 
-	constructor() {
-		this.logLevel = LogLevel.Error;
-		this.modulesToLog = [];
-		this.modulesRegisteredToLog = [];
-	}
+  constructor() {
+    this.registeredLoggingModulesSetting = new RegisteredLoggingModulesSetting();
+    this.loggerLogLevel = new LoggerLogLevelSetting();
+  }
 
-	setLogLevel(logLevel: LogLevel): void {
-		this.logLevel = logLevel;
-	}
+  public registeredModulesSetting(): IRegisteredLoggingModulesSetting {
+    return this.registeredLoggingModulesSetting;
+  }
 
-	registerModuleForLogging(moduleName: string): void {
-		this.modulesRegisteredToLog.push(moduleName);
-	}
+  public loggerLogLevelSetting(): ILoggerLogLevelSetting {
+    return this.loggerLogLevel;
+  }
 
-	activateModuleForLogging(moduleName: string): void {
-		this.modulesToLog.push(moduleName);
-	}
+  public registerModuleForLogging(module: IRegisteredLoggingModule): void {
+    this.registeredLoggingModulesSetting.addModule(module);
+  }
 
-	info(module: string, msg: string): void {
-		this.printMessage(module, LogLevel.Info, msg);
-	}
-	debug(module: string, msg: string): void {
-		this.printMessage(module, LogLevel.Debug, msg);
-	}
-	warn(module: string, msg: string): void {
-		this.printMessage(module, LogLevel.Warn, msg);
-	}
-	error(module: string, msg: string): void {
-		this.printMessage(module, LogLevel.Error, msg);
-	}
+  public activateModuleForLogging(module: IRegisteredLoggingModule): void {
+    module.changeLoggingState(true);
+    this.registeredLoggingModulesSetting.changeModule(module);
+  }
 
-	private printMessage(module: string, logLevel: LogLevel, msg: string): void {
-		if (logLevel > this.logLevel) {
-			return;
-		}
-		if (this.modulesToLog.length === 0 || (!this.modulesToLog.some(m => m.toLowerCase() === "all") && !this.modulesToLog.some(m => m === module))) {
-			return;
-		}
-		var prefix = this.getPrefix(module, logLevel);
-		switch (logLevel) {
-			case LogLevel.Debug:
-				console.debug(prefix + msg);
-				break;
-			case LogLevel.Error:
-				console.error(prefix + msg);
-				break;
-			case LogLevel.Info:
-				console.info(prefix + msg);
-				break;
-			case LogLevel.Warn:
-				console.warn(prefix + msg);
-				break;
-			default:
-				console.info(prefix + msg);
-		}
-	}
+  public error(module: string, msg: string): void {
+    this.checkIfLogLevelIsActivated(module, new LogLevelError(), msg);
+  }
 
-	private getPrefix(module: string, logLevel: LogLevel): string {
-		var currentDate = new Date();
-		return currentDate.toLocaleString('en-GB') + '|' + LogLevel[logLevel] + '| ' + module + ': ';
-	}
+  public info(module: string, msg: string): void {
+    this.checkIfLogLevelIsActivated(module, new LogLevelInfo(), msg);
+  }
+
+  public debug(module: string, msg: string): void {
+    this.checkIfLogLevelIsActivated(module, new LogLevelDebug(), msg);
+  }
+
+  public warn(module: string, msg: string): void {
+    this.checkIfLogLevelIsActivated(module, new LogLevelWarn(), msg);
+  }
+
+  private checkIfLogLevelIsActivated(module: String, logLevel: ILogLevel, msg: String) {
+    this.loggerLogLevel.logLevel().then(level => {
+      if (logLevel.level() <= level.level()) this.printMessage(module, logLevel, msg);
+    });
+  }
+
+  private printMessage(moduleName: String, logLevel: ILogLevel, msg: String): void {
+    this.registeredLoggingModulesSetting.modules().then(modules => {
+      var module = modules.moduleByName(moduleName);
+      if (!module.loggingActivated()) return;
+      if (logLevel.level() > module.logLevel().level()) return;
+
+      var prefix = this.getPrefix(moduleName, logLevel.name());
+      switch (logLevel.name()) {
+        case new LogLevelError().name():
+          console.error(prefix + msg);
+          break;
+        case new LogLevelInfo().name():
+          console.info(prefix + msg);
+          break;
+        case new LogLevelWarn().name():
+          console.warn(prefix + msg);
+          break;
+        case new LogLevelDebug().name():
+          console.debug(prefix + msg);
+          break;
+        default:
+          console.info(prefix + msg);
+      }
+    });
+  }
+
+  private getPrefix(moduleName: String, logLevelName: String): string {
+    var currentDate = new Date();
+    return currentDate.toLocaleString('en-GB') + '|' + logLevelName + '| ' + moduleName + ': ';
+  }
 }

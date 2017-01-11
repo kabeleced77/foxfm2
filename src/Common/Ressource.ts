@@ -21,6 +21,9 @@ class Ressource implements IRessource {
 export class RessourceSettingsPageAddonName extends Ressource { constructor() { super("addonName"); } }
 export class RessourceSettingsPageIntro extends Ressource { constructor() { super("settingsIntro"); } }
 
+export class RessourceSettingsPageLoggerHeading extends Ressource { constructor() { super("loggerSettingHeading"); } }
+export class RessourceSettingsPageLoggerIntro extends Ressource { constructor() { super("loggerSettingIntro"); } }
+
 export class RessourceStadium extends Ressource { constructor() { super("stadium"); } }
 export class RessourceStadiumHeading extends Ressource { constructor() { super("stadiumSettings"); } }
 export class RessourceStadiumLeague extends Ressource { constructor() { super("league"); } }

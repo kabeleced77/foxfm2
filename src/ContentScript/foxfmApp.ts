@@ -1,5 +1,9 @@
-import { LoggerInterface, LogLevel } from "../Common/Logger/LoggerInterface"
+import { LoggerInterface } from "../Common/Logger/LoggerInterface"
 import { Logger } from "../Common/Logger/Logger"
+import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
+import { RegisteredLoggingModulesSetting } from '../Common/Logger/RegisteredLoggingModulesSetting';
+import { ILogLevel } from '../Common/Logger/LogLevel';
+import { LogLevelError } from '../Common/Logger/LogLevel';
 import { StadiumManagerUi } from "./StadiumManagerUi"
 
 class foxfmApp {
@@ -7,12 +11,10 @@ class foxfmApp {
   private thisModule: string = "foxfmApp";
   private stadiumManagerUi: StadiumManagerUi;
 
-  constructor(
-    log: LoggerInterface
-  ) {
+  constructor(log: LoggerInterface) {
     this.log = log;
-    this.log.setLogLevel(LogLevel.All);
-    this.log.activateModuleForLogging("all");
+    var loggingModule = new RegisteredLoggingModule(this.thisModule, false, new LogLevelError());
+    this.log.registerModuleForLogging(loggingModule);
     this.stadiumManagerUi = new StadiumManagerUi(this.log);
   }
 
