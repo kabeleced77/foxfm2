@@ -27,7 +27,12 @@ export class SettingInStorage<T extends ISettingInStorageType<T>> implements ISe
 
   public value(): Promise<T> {
     return this.storage.value().then((value: string) => {
-      return value == undefined ? this.settingDefaultValue : this.settingDefaultValue.fromJson(value);
+      if (value === undefined) {
+        this.change(this.settingDefaultValue);
+        return this.settingDefaultValue;
+      } else {
+        return this.settingDefaultValue.fromJson(value);
+      }
     });
   }
 
