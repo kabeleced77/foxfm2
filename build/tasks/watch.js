@@ -19,7 +19,7 @@ gulp.task('watch-chrome', function() {
   gulp.watch(paths.html, ['bundle-chrome']).on('change', reportChange);
   gulp.watch(paths.ressourcesDe, ['bundle-chrome']).on('change', reportChange);
   gulp.watch(paths.ressourcesEn, ['bundle-chrome']).on('change', reportChange);
-  gulp.watch(paths.style, browserSync.reload).on('change', reportChange);
+//  gulp.watch(paths.style, browserSync.reload).on('change', reportChange);
 });
 
 // this task wil watch for changes
@@ -33,5 +33,5 @@ gulp.task('watch-firefox', function() {
   gulp.watch(paths.html, ['bundle-firefox']).on('change', reportChange);
   gulp.watch(paths.ressourcesDe, ['bundle-chrome']).on('change', reportChange);
   gulp.watch(paths.ressourcesEn, ['bundle-chrome']).on('change', reportChange);
-  gulp.watch(paths.style, browserSync.reload).on('change', reportChange);
+//  gulp.watch(paths.style, browserSync.reload).on('change', reportChange);
 });
