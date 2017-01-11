@@ -18,7 +18,7 @@ export class StorageLocal<T> implements IStorage<T> {
   public save(value: T): Promise<void> {
     var obj: { [key: string]: T } = {};
     obj[this.storageKey.toString()] = value;
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       chrome.storage.local.set(obj, () => {
         console.debug("saved in storage [" + this.key() + "]: " + JSON.stringify(obj));
         resolve();
@@ -27,7 +27,7 @@ export class StorageLocal<T> implements IStorage<T> {
   }
 
   public value(): Promise<String> {
-    return new Promise((resolve, reject) => {
+    return new Promise<String>((resolve, reject) => {
       chrome.storage.local.get(this.storageKey, (items: { [key: string]: String }) => {
         var value = items[this.storageKey.toString()];
         console.debug("loaded from storage [" + this.key() + "]: " + JSON.stringify(value));
