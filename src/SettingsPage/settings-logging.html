@@ -20,7 +20,6 @@
             </td>
             <td repeat.for="level of loggingLevels2">
               <label class="radio-inline">
-              <!--<label>-->
                 <input type="radio"
                 name="loggerLogLevel"
                 model.bind="level" 
@@ -34,12 +33,10 @@
 
           <tr repeat.for="module of loggingModules"> 
             <td>
-                ${module.name}
+              ${module.name}
             </td>
-
             <td repeat.for="level of loggingLevels2">
               <label class="radio-inline">
-              <!--<label>-->
                 <input type="radio"
                 name="${$parent.module.name}" 
                 model.bind="level" 
@@ -52,7 +49,6 @@
           </tr>
         </table>
         
-
       <div class="form-group">
         <button class="btn btn-primary " name="submit" type="submit">
           OK
