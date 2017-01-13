@@ -43,7 +43,7 @@ export class RegisteredLoggingModules implements IRegisteredLoggingModules {
   public fromJson(string: String): IRegisteredLoggingModules {
     return new RegisteredLoggingModules(
       string["loggingModules"].map((module: String, i: number) => {
-        return new RegisteredLoggingModule("", false, new LogLevelOff()).fromJson(module);
+        return new RegisteredLoggingModule("", new LogLevelOff()).fromJson(module);
       })
     );
   }

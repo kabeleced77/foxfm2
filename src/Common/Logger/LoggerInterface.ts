@@ -6,7 +6,6 @@ import {IRegisteredLoggingModulesSetting} from "./RegisteredLoggingModulesSettin
 
 export interface LoggerInterface {
 	registerModuleForLogging(module: IRegisteredLoggingModule): void;
-	activateModuleForLogging(module: IRegisteredLoggingModule): void;
   registeredModulesSetting(): IRegisteredLoggingModulesSetting;
   loggerLogLevelSetting(): ILoggerLogLevelSetting;
 	info(module: string, msg: string): void;

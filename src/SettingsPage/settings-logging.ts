@@ -29,7 +29,7 @@ export class SettingsLogging {
   constructor() {
     this.log = new Logger();
     this.registeredLoggingModulesSetting = this.log.registeredModulesSetting();
-    this.loggingModule = new RegisteredLoggingModule(this.thisModule, false, new LogLevelOff());
+    this.loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
     this.log.registerModuleForLogging(this.loggingModule);
     this.loggerLogLevelSetting = this.log.loggerLogLevelSetting();
 
@@ -44,8 +44,8 @@ export class SettingsLogging {
     this.loggingModules = new Array<LoggingModule>();
     this.registeredLoggingModulesSetting.modules().then(modules => {
       modules.modules().forEach(m => {
-        this.debug(`Loaded logging modules: ${m.name()}, ${m.loggingActivated()}, ${JSON.stringify(m.logLevel())}`);
-        this.loggingModules.push(new LoggingModule(m.name(), m.loggingActivated(), m.logLevel()));
+        this.debug(`Loaded logging modules: ${m.name()}, ${JSON.stringify(m.logLevel())}`);
+        this.loggingModules.push(new LoggingModule(m.name(), m.logLevel()));
       });
     });
   }
@@ -57,7 +57,7 @@ export class SettingsLogging {
       .changeLogLevel(new LogLevel(this.loggerLogLevel.name(), this.loggerLogLevel.level()));
 
     this.registeredLoggingModulesSetting.changeModules(
-      this.loggingModules.map(m => new RegisteredLoggingModule(m.name, m.activated, m.logLevel)));
+      this.loggingModules.map(m => new RegisteredLoggingModule(m.name, m.logLevel)));
   }
 
   public logLevelMatcher = (logLevel1: ILogLevel, logLevel2: ILogLevel): Boolean => logLevel1.name() === logLevel2.name();
@@ -86,12 +86,10 @@ export class SettingsLogging {
 
 class LoggingModule {
   public name: String;
-  public activated: Boolean;
   public logLevel: ILogLevel;
 
-  constructor(name: String, activated: Boolean, logLevel: ILogLevel) {
+  constructor(name: String, logLevel: ILogLevel) {
     this.name = name;
-    this.activated = activated;
     this.logLevel = logLevel;
   }
 }

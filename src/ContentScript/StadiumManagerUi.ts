@@ -55,7 +55,7 @@ export class StadiumManagerUi {
     logger: LoggerInterface,
   ) {
     this.logger = logger;
-    var loggingModule = new RegisteredLoggingModule(this.thisModule, false, new LogLevelError());
+    var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
     this.logger.registerModuleForLogging(loggingModule);
     this.stadiumBlocks = new StadiumBlocksSetting();
     this.stadiumOverallEntryPrices = new StadiumOverallEntryPricesSetting();

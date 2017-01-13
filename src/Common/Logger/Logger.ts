@@ -35,11 +35,6 @@ export class Logger implements LoggerInterface {
     this.registeredLoggingModulesSetting.addModule(module);
   }
 
-  public activateModuleForLogging(module: IRegisteredLoggingModule): void {
-    module.changeLoggingState(true);
-    this.registeredLoggingModulesSetting.changeModule(module);
-  }
-
   public error(module: string, msg: string): void {
     this.checkIfLogLevelIsActivated(module, new LogLevelError(), msg);
   }
@@ -65,7 +60,6 @@ export class Logger implements LoggerInterface {
   private printMessage(moduleName: String, logLevel: ILogLevel, msg: String): void {
     this.registeredLoggingModulesSetting.modules().then(modules => {
       var module = modules.moduleByName(moduleName);
-      if (!module.loggingActivated()) return;
       if (logLevel.level() > module.logLevel().level()) return;
 
       var prefix = this.getPrefix(moduleName, logLevel.name());

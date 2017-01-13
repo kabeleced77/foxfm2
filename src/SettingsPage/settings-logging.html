@@ -15,8 +15,8 @@
             </th>
           </tr>
           <tr>
-            <td class="checkbox-inline">
-              Logger Log Level:
+            <td>
+              Application Log Level
             </td>
             <td repeat.for="level of loggingLevels2">
               <label class="radio-inline">
@@ -33,14 +33,8 @@
           </tr>
 
           <tr repeat.for="module of loggingModules"> 
-            <td class="checkbox-inline">
-              <div class="checkbox">
-              <!--<div class="checkbox" class="checkbox-inline">-->
-                <label for="${module.name}">
-                  <input type="checkbox" name="${module.name}" model.bind="module" checked.bind="module.activated" />
-                  ${module.name}
-                </label>
-              </div>
+            <td>
+                ${module.name}
             </td>
 
             <td repeat.for="level of loggingLevels2">

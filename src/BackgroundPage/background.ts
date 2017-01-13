@@ -11,7 +11,7 @@ class FoxfmBackground {
 
   constructor(logger: LoggerInterface) {
     this.log = logger;
-    var loggingModule = new RegisteredLoggingModule(this.thisModule, false, new LogLevelError());
+    var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
     this.log.registerModuleForLogging(loggingModule);
   }
 

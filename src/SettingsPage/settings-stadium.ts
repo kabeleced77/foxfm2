@@ -34,7 +34,7 @@ export class SettingsStadium {
 
   constructor() {
     this.log = new Logger();
-    var loggingModule = new RegisteredLoggingModule(this.thisModule, false, new LogLevelError());
+    var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
     this.log.registerModuleForLogging(loggingModule);
 
     this.stadiumBlocks = new StadiumBlocksSetting();

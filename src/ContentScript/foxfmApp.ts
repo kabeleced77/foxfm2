@@ -13,7 +13,7 @@ class foxfmApp {
 
   constructor(log: LoggerInterface) {
     this.log = log;
-    var loggingModule = new RegisteredLoggingModule(this.thisModule, false, new LogLevelError());
+    var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
     this.log.registerModuleForLogging(loggingModule);
     this.stadiumManagerUi = new StadiumManagerUi(this.log);
   }
