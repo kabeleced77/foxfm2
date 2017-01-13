@@ -70,6 +70,8 @@ export class SettingsLogging {
     this.loggingLevels2.push(new LogLevelWarn());
     this.loggingLevels2.push(new LogLevelError());
     this.loggingLevels2.push(new LogLevelInfo());
+    this.loggingLevels2 = this.loggingLevels2.sort((a, b) =>
+      (a.level().valueOf() - b.level().valueOf()).valueOf());
     this.debug(`Created array of log levels: ${this.loggingLevels2.map(ll => JSON.stringify(ll)).join(", ")}`);
   }
 
