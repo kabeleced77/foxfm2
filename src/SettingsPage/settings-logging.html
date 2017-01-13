@@ -5,40 +5,65 @@
 
     <form role="form" submit.delegate="submit()">
       <div class="form-group">
-        Logger Log Level: 
-        <label repeat.for="level of loggingLevels2" class="radio-inline">
-            <input type="radio"
-            name="loggerLogLevel"
-            model.bind="level" 
-            matcher.bind="logLevelMatcher" 
-            checked.bind="$parent.loggerLogLevel"/>
-              ${level.name()}
-          </label>
-      </div>
+        <table class="table table-striped">
+          <tr>
+            <th>
+              Modules
+            </th>
+            <th colspan="${loggingLevels2.length}">
+              Log Levels
+            </th>
+          </tr>
+          <tr>
+            <td class="checkbox-inline">
+              Logger Log Level:
+            </td>
+            <td repeat.for="level of loggingLevels2">
+              <label class="radio-inline">
+              <!--<label>-->
+                <input type="radio"
+                name="loggerLogLevel"
+                model.bind="level" 
+                matcher.bind="logLevelMatcher" 
+                checked.bind="$parent.loggerLogLevel"
+                />
+                ${level.name()}
+              </label>
+            </td>
+          </tr>
+
+          <tr repeat.for="module of loggingModules"> 
+            <td class="checkbox-inline">
+              <div class="checkbox">
+              <!--<div class="checkbox" class="checkbox-inline">-->
+                <label for="${module.name}">
+                  <input type="checkbox" name="${module.name}" model.bind="module" checked.bind="module.activated" />
+                  ${module.name}
+                </label>
+              </div>
+            </td>
+
+            <td repeat.for="level of loggingLevels2">
+              <label class="radio-inline">
+              <!--<label>-->
+                <input type="radio"
+                name="${$parent.module.name}" 
+                model.bind="level" 
+                matcher.bind="logLevelMatcher" 
+                checked.bind="$parent.module.logLevel"
+                />
+                ${level.name()}
+              </label>
+            </td>
+          </tr>
+        </table>
+        
 
       <div class="form-group">
-        <div class="checkbox" repeat.for="module of loggingModules">
-          <label>
-            <input type="checkbox" 
-            model.bind="module" 
-            checked.bind="module.activated"/>
-            ${module.name}
-          </label>
-          <label repeat.for="level of loggingLevels2" class="radio-inline">
-            <input type="radio"
-            name="${$parent.module.name}" 
-            model.bind="level" 
-            matcher.bind="logLevelMatcher" 
-            checked.bind="$parent.module.logLevel"/>
-              ${level.name()}
-          </label>
-        </div>
-
-        <div class="form-group">
-          <button class="btn btn-primary " name="submit" type="submit">
+        <button class="btn btn-primary " name="submit" type="submit">
           OK
         </button>
-        </div>
+      </div>
     </form>
   </section>
 </template>
