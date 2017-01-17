@@ -147,12 +147,9 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
       });
   }
   public changeBlockEntryPricesOffset(blockName: IStadiumBlockName, kindOfGame: IGameKind, price: Number): void {
-    console.debug(`block shall be changed - name: ${blockName.name()} : ${kindOfGame.name()} : ${price.valueOf()}`);
     this.blocks().then((stadiumBlocks: IStadiumBlocks) => {
       var newBlocks = stadiumBlocks.blocks().map((block: IStadiumBlock) => {
-        console.debug("block: " + block.name().name());
         if (block.name().name() == blockName.name().toString()) {
-          console.debug(`block will be changed - name: ${block.name().name()} : ${JSON.stringify(block.pricesOffset())}`);
           var stadiumEntryPrices: IStadiumEntryPrices;
           switch (kindOfGame.name()) {
             case new GameKindLeague().name():

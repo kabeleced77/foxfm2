@@ -45,7 +45,6 @@ export class RegisteredLoggingModulesSetting implements IRegisteredLoggingModule
   public changeModules(modules: Array<IRegisteredLoggingModule>): void {
     this.modules().then(registeredLoggingModules => {
       modules.forEach(m => {
-        //this.info(`${m.name}, ${m.loggingActivated()}, ${m.logLevel()}`);
         registeredLoggingModules.change(m);
         this.saveModules(registeredLoggingModules);
       });
@@ -56,7 +55,7 @@ export class RegisteredLoggingModulesSetting implements IRegisteredLoggingModule
     return this.modules().then(registeredLoggingModules => {
       registeredLoggingModules.change(module);
       this.saveModules(registeredLoggingModules).then(() =>
-        console.info(JSON.stringify(registeredLoggingModules))
+        // console.info(JSON.stringify(registeredLoggingModules))
       );
     });
   }
