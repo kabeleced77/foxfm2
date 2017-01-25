@@ -54,9 +54,7 @@ export class RegisteredLoggingModulesSetting implements IRegisteredLoggingModule
   public changeModule(module: IRegisteredLoggingModule): Promise<void> {
     return this.modules().then(registeredLoggingModules => {
       registeredLoggingModules.change(module);
-      this.saveModules(registeredLoggingModules).then(() =>
-        // console.info(JSON.stringify(registeredLoggingModules))
-      );
+      this.saveModules(registeredLoggingModules);
     });
   }
 
