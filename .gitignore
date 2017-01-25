@@ -3,7 +3,8 @@
 .vscode
 manifest.json
 dist
-export
+export-chrome
+export-firefox
 node_modules
 typings
 jspm_packages
