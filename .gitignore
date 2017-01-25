@@ -2,6 +2,8 @@
 .vs
 .vscode
 manifest.json
+foxfm-chrome.crx
+foxfm-firefox.xpi
 dist
 export-chrome
 export-firefox
