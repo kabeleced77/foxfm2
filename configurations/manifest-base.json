@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "foxfm",
-  "version": "1.0",
+  "name": "foxfm2",
+  "version": "1.0.0",
   "default_locale": "de",
   "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-E8WV6VvuObH6nVPLMJ3PhAOt10VjZeatCqItFmhHmi8=' 'sha256-FkAEMQlvFMFUVr9kAPCNHRjpluxyMt2s898SncHW1+Y='; object-src 'self'",
   "permissions": [
