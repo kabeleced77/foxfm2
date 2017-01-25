@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var bundler = require('aurelia-bundler');
 var bundles = require('../bundles.js');
-var paths = require('../paths.js');
 
 var config = {
   force: true,
