@@ -19,7 +19,8 @@ module.exports = {
     'manifest.json',
     'background.html',
     'settings.html',
-    'loadContentScript.js'
+    'loadContentScript.js',
+    'loadBackground.js'
   ],
   // this section lists any jspm packages that have
   // unbundled resources that need to be exported.
