@@ -3,7 +3,6 @@
   "name": "foxfm2",
   "version": "1.0.0",
   "default_locale": "de",
-  "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-E8WV6VvuObH6nVPLMJ3PhAOt10VjZeatCqItFmhHmi8=' 'sha256-FkAEMQlvFMFUVr9kAPCNHRjpluxyMt2s898SncHW1+Y='; object-src 'self'",
   "permissions": [
     "contextMenus",
     "tabs",
@@ -16,7 +15,13 @@
     "128": "foxfm128.png"
   },
   "background": {
-    "page": "background.html"
+    "scripts": [
+      "jspm_packages/system-csp-production.js",
+      "config.js",
+      "dist/app-common-build.js",
+      "dist/app-backgroundpage-build.js",
+      "loadBackground.js"
+    ]
   },
   "content_scripts": [
     {
@@ -27,7 +32,7 @@
         "*://server2.onlinefussballmanager.de/*"
       ],
       "js": [
-        "jspm_packages/system.js",
+        "jspm_packages/system-csp-production.js",
         "config.js",
         "dist/app-common-build.js",
         "dist/app-contentscript-build.js",
