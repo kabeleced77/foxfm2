@@ -24,7 +24,10 @@ export class DOMHelper {
     if (verticalAlign) newCell.vAlign = verticalAlign;
     if (height) newCell.height = height;
     if (value) newCell.nodeValue = value;
-    if (innerHtml) newCell.innerHTML = innerHtml;
+    if (innerHtml) {
+      var newTextNode = document.createTextNode(innerHtml);
+      newCell.appendChild(newTextNode);
+    }
     if (child) newCell.appendChild(child);
     if (className) newCell.className = className;
     return newCell;
