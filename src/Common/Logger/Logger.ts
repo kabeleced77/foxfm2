@@ -74,7 +74,7 @@ export class Logger implements LoggerInterface {
           console.warn(prefix + msg);
           break;
         case new LogLevelDebug().name():
-          console.debug(prefix + msg);
+          console.info(prefix + msg);
           break;
         default:
           console.info(prefix + msg);
