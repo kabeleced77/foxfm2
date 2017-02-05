@@ -19,13 +19,13 @@ export class DOMHelper {
     if (cellPadding) newTable.cellPadding = cellPadding;
     return newTable;
   }
-  public static createCell(verticalAlign?: string, height?: string, value?: string, innerHtml?: string, child?: Node, className?: string): HTMLTableDataCellElement {
+  public static createCell(verticalAlign?: string, height?: string, value?: string, cellText?: string, child?: Node, className?: string): HTMLTableDataCellElement {
     var newCell = document.createElement('td');
     if (verticalAlign) newCell.vAlign = verticalAlign;
     if (height) newCell.height = height;
     if (value) newCell.nodeValue = value;
-    if (innerHtml) {
-      var newTextNode = document.createTextNode(innerHtml);
+    if (cellText) {
+      var newTextNode = document.createTextNode(cellText);
       newCell.appendChild(newTextNode);
     }
     if (child) newCell.appendChild(child);
