@@ -1,5 +1,6 @@
 import { LoggerInterface } from "../Common/Logger/LoggerInterface"
 import { Logger } from "../Common/Logger/Logger"
+import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { RegisteredLoggingModulesSetting } from '../Common/Logger/RegisteredLoggingModulesSetting';
 import { ILogLevel } from '../Common/Logger/LogLevel';
@@ -7,21 +8,22 @@ import { LogLevelError } from '../Common/Logger/LogLevel';
 import { StadiumManagerUi } from "./StadiumManagerUi"
 
 class foxfmApp {
-  private log: LoggerInterface;
-  private thisModule: string = "foxfmApp";
+  private logger: LoggerInterface;
+  private loggingModule: IRegisteredLoggingModule;
   private stadiumManagerUi: StadiumManagerUi;
 
-  constructor(log: LoggerInterface) {
-    this.log = log;
-    var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
-    this.log.registerModuleForLogging(loggingModule);
-    this.stadiumManagerUi = new StadiumManagerUi(this.log);
+  constructor(logger: LoggerInterface) {
+    this.logger = logger;
+    this.loggingModule = new RegisteredLoggingModule("foxfmApp", new LogLevelError());
   }
 
   public main(): void {
     this.info("S t a r t e d");
     try {
-      this.run();
+      this.logger.registerModuleForLogging(this.loggingModule).then(() => {
+        this.stadiumManagerUi = new StadiumManagerUi(this.logger);
+        this.run();
+      });
     } catch (error) {
       this.error(error);
     }
@@ -30,15 +32,14 @@ class foxfmApp {
   private run(): void {
     this.stadiumManagerUi.addPricingControlElements();
   }
-
   private info(msg: string): void {
-    this.log.info(this.thisModule, msg);
+    this.logger.info(this.loggingModule.name().toString(), msg);
   }
   private error(msg: string): void {
-    this.log.error(this.thisModule, msg);
+    this.logger.error(this.loggingModule.name().toString(), msg);
   }
   private debug(msg: string): void {
-    this.log.debug(this.thisModule, msg);
+    this.logger.debug(this.loggingModule.name().toString(), msg);
   }
 }
 

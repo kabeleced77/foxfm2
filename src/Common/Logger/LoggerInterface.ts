@@ -5,7 +5,7 @@ import {IRegisteredLoggingModule} from "./RegisteredLoggingModule"
 import {IRegisteredLoggingModulesSetting} from "./RegisteredLoggingModulesSetting"
 
 export interface LoggerInterface {
-	registerModuleForLogging(module: IRegisteredLoggingModule): void;
+	registerModuleForLogging(module: IRegisteredLoggingModule): Promise<void>;
   registeredModulesSetting(): IRegisteredLoggingModulesSetting;
   loggerLogLevelSetting(): ILoggerLogLevelSetting;
 	info(module: string, msg: string): void;

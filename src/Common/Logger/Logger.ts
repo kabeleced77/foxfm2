@@ -31,8 +31,8 @@ export class Logger implements LoggerInterface {
     return this.loggerLogLevel;
   }
 
-  public registerModuleForLogging(module: IRegisteredLoggingModule): void {
-    this.registeredLoggingModulesSetting.addModule(module);
+  public registerModuleForLogging(module: IRegisteredLoggingModule): Promise<void> {
+    return this.registeredLoggingModulesSetting.addModule(module);
   }
 
   public error(module: string, msg: string): void {

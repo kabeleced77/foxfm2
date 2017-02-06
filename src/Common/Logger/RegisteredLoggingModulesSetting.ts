@@ -11,7 +11,7 @@ export interface IRegisteredLoggingModulesSetting {
   findOrAdd(module: IRegisteredLoggingModule): Promise<IRegisteredLoggingModule>;
   changeModule(module: IRegisteredLoggingModule): Promise<void>;
   changeModules(modules: Array<IRegisteredLoggingModule>): void;
-  addModule(module: IRegisteredLoggingModule): void;
+  addModule(module: IRegisteredLoggingModule): Promise<void>;
 }
 
 export class RegisteredLoggingModulesSetting implements IRegisteredLoggingModulesSetting {
@@ -58,8 +58,8 @@ export class RegisteredLoggingModulesSetting implements IRegisteredLoggingModule
     });
   }
 
-  public addModule(module: IRegisteredLoggingModule): void {
-    this.modules().then(registeredLoggingModules => {
+  public addModule(module: IRegisteredLoggingModule): Promise<void> {
+    return this.modules().then(registeredLoggingModules => {
       registeredLoggingModules.add(module);
       this.saveModules(registeredLoggingModules);
     });
