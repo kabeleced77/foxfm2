@@ -1,7 +1,7 @@
 import { ISetting } from "../Setting"
 import { SettingInStorage } from "../SettingInStorage"
 import { ILogLevel } from "./LogLevel"
-import { LogLevelOff } from "./LogLevel"
+import { LogLevelError } from "./LogLevel"
 
 export interface ILoggerLogLevelSetting {
   logLevel(): Promise<ILogLevel>;
@@ -14,7 +14,7 @@ export class LoggerLogLevelSetting implements ILoggerLogLevelSetting {
   constructor() {
     this.level = new SettingInStorage<ILogLevel>(
       "foxfm2.logger.logLevel",
-      new LogLevelOff()
+      new LogLevelError()
     );
   }
 
