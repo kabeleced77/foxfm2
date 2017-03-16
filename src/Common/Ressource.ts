@@ -3,7 +3,7 @@ export interface IRessource {
   value(): String;
 }
 
-class Ressource implements IRessource {
+export class Ressource implements IRessource {
   private ressourceKey: String;
 
   constructor(key: String) {
