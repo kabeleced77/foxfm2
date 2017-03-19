@@ -118,11 +118,15 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
   }
   public stadiumBlockByName(name: String): Promise<IStadiumBlock> {
     return this.blocks().then((stadiumBlocks: IStadiumBlocks) => {
-      var blocks = stadiumBlocks.blocks().map((block: IStadiumBlock) => {
-        if (block.name().name() === name) {
-          return block;
-        }
-      }).filter(block => block !== undefined);
+      var blocks = stadiumBlocks
+        .blocks()
+        .map((block: IStadiumBlock) => {
+          if (block.name().name() === name) {
+            return block;
+          }
+        })
+        .filter(block => block !== undefined);
+
       if (blocks.length == 1) {
         return blocks[0];
       }
