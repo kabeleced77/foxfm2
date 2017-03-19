@@ -19,7 +19,7 @@ class FoxfmBackground {
     this.ressourceSettings = new Ressource("backgroundPageContextMenuAddonSettings");
   }
 
-  main(): void {
+  public main(): void {
     this.log.info(this.thisModule, "S t a r t e d");
     this.createContextMenu();
   }
