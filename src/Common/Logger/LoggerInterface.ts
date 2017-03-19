@@ -8,8 +8,8 @@ export interface LoggerInterface {
 	registerModuleForLogging(module: IRegisteredLoggingModule): Promise<void>;
   registeredModulesSetting(): IRegisteredLoggingModulesSetting;
   loggerLogLevelSetting(): ILoggerLogLevelSetting;
-	info(module: string, msg: string): void;
-	debug(module: string, msg: string): void;
-	warn(module: string, msg: string): void;
-	error(module: string, msg: string): void;
+	info(module: String, msg: string): void;
+	debug(module: String, msg: string): void;
+	warn(module: String, msg: string): void;
+	error(module: String, msg: string): void;
 }

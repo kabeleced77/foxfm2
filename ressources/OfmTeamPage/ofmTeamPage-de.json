@@ -1,0 +1,17 @@
+{
+  "ofmTeamPagePlayerName": {
+    "message": "Spielername"
+  },
+  "ofmTeamPosition": {
+    "message": "Pos"
+  },
+  "ofmTeamPageCurrentStrength": {
+    "message": "Aktuelle Stärke"
+  },
+  "ofmTeamPageAwpsToNextStrength": {
+    "message": "AWPs Diff"
+  },
+  "ofmTeamPageNextStrength": {
+    "message": "Nächste Stärke"
+  }
+}

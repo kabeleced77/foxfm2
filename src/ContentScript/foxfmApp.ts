@@ -6,11 +6,15 @@ import { RegisteredLoggingModulesSetting } from '../Common/Logger/RegisteredLogg
 import { ILogLevel } from '../Common/Logger/LogLevel';
 import { LogLevelError } from '../Common/Logger/LogLevel';
 import { StadiumManagerUi } from "./StadiumManagerUi"
+import { TeamUi } from "./TeamUi"
+import { StrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
+
 
 class foxfmApp {
   private logger: LoggerInterface;
   private loggingModule: IRegisteredLoggingModule;
   private stadiumManagerUi: StadiumManagerUi;
+  private teamUi: TeamUi;
 
   constructor(logger: LoggerInterface) {
     this.logger = logger;
@@ -22,6 +26,7 @@ class foxfmApp {
     try {
       this.logger.registerModuleForLogging(this.loggingModule).then(() => {
         this.stadiumManagerUi = new StadiumManagerUi(this.logger);
+        this.teamUi = new TeamUi(this.logger, new StrengthLevelsSetting());
         this.run();
       });
     } catch (error) {
@@ -31,6 +36,7 @@ class foxfmApp {
 
   private run(): void {
     this.stadiumManagerUi.addPricingControlElements();
+    this.teamUi.addAdditionalInformation(document);
   }
   private info(msg: string): void {
     this.logger.info(this.loggingModule.name().toString(), msg);
