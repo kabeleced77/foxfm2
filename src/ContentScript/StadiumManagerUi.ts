@@ -2,10 +2,10 @@ import { LoggerInterface } from "../Common/Logger/LoggerInterface"
 import { RegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule"
 import { LogLevelError } from "../Common/Logger/LogLevel"
 import { NumberHelper } from "../Common/Toolkit/NumberHelper"
-import { XPathHelper } from "../Common/Toolkit/XPathHelper"
 import { DOMHelper } from "../Common/Toolkit/DOMHelper"
 import { IGameKind } from '../Common/GameKind';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/GameKind';
+import { IStadiumBlock } from "../Common/StadiumBlock"
 import { IStadiumBlocks } from "../Common/StadiumBlocks"
 import { IStadiumBlocksSetting } from "../Common/StadiumBlocksSetting"
 import { StadiumBlocksSetting } from "../Common/StadiumBlocksSetting"
@@ -14,6 +14,13 @@ import { IStadiumOverallEntryPricesSetting } from "../Common/StadiumOverallEntry
 import { StadiumOverallEntryPricesSetting } from "../Common/StadiumOverallEntryPricesSetting"
 import { StadiumEntryPrice } from "../Common/StadiumEntryPrice"
 import { IStadiumEntryPrices } from "../Common/StadiumEntryPrices"
+
+import { IXPathSingleResult } from "../Common/Toolkit/XPathSingleResult"
+import { XPathSingleResult } from "../Common/Toolkit/XPathSingleResult"
+import { IXPathAllResults } from "../Common/Toolkit/XPathAllResults"
+import { XPathAllResults } from "../Common/Toolkit/XPathAllResults"
+import { IHtmlTableDataCell } from "../Common/Toolkit/HtmlTableDataCell"
+import { HtmlTableDataCell } from "../Common/Toolkit/HtmlTableDataCell"
 
 import { RessourceStadiumCurrencySign } from "../Common/Ressource"
 import { RessourceStadiumLeague } from "../Common/Ressource"
@@ -90,7 +97,14 @@ export class StadiumManagerUi {
               this.showOverallPricingControlElementsINTERN(overallEntryPrices);
               this.stadiumBlocks.blocks()
                 .then((blocks: IStadiumBlocks) => {
-                  this.addStadiumEntryPricesOffsetControls(blocks);
+                  if (blocks.blocksPricesOffsetActivated()) {
+                    blocks.blocks().forEach(block => {
+                      var tribuneTableCell = new HtmlTableDataCell(
+                        new XPathSingleResult<HTMLTableDataCellElement>(
+                          new XPathAllResults(document, block.xPathToTribune())));
+                      this.addStadiumEntryPricesOffsetControls(block.name().name(), block.pricesOffset(), tribuneTableCell);
+                    });
+                  }
                 })
                 .catch((error) => {
                   this.error(`Could not add controls for stadium blocks offset prices: ${error}`);
@@ -120,8 +134,10 @@ export class StadiumManagerUi {
     );
     // find table where to put the overall pricing table
     // IMPORTANT: the last item of the XPATH must be 'table' or if included 'tbody'!
-    var tableByXpath = '/html/body[1]/div[1]/div[1]/form[1]/table[1]/tbody[1]';
-    var tblStadiumTribunes = XPathHelper.getTableByXpath(tableByXpath);
+    var tblStadiumTribunes = new XPathSingleResult<HTMLTableElement>(
+      new XPathAllResults(document, "/html/body/div[1]/div/form/table"))
+      .element();
+
     if (tblStadiumTribunes) {
       // add a new row for overall price table
       var rowNewOverallPrices = <HTMLTableRowElement>tblStadiumTribunes.insertRow(1);
@@ -132,51 +148,37 @@ export class StadiumManagerUi {
     }
   }
 
-  private addStadiumEntryPricesOffsetControls(blocks: IStadiumBlocks) {
-    // add offset price table if activated
-    if (blocks.blocksPricesOffsetActivated()) {
-      var arrayTribuneXpath = new Array(
-        '/html/body[1]/div[1]/div[1]/form[1]/table[1]/tbody[1]/tr[3]/td[1]/table[1]/tbody[1]/tr[1]/td[1]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[1]/td[1]/div[1]/span[1]',
-        '/html/body[1]/div[1]/div[1]/form[1]/table[1]/tbody[1]/tr[3]/td[1]/table[1]/tbody[1]/tr[1]/td[2]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[1]/td[1]/div[1]/span[1]',
-        '/html/body[1]/div[1]/div[1]/form[1]/table[1]/tbody[1]/tr[3]/td[1]/table[1]/tbody[1]/tr[2]/td[1]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[1]/td[1]',
-        '/html/body[1]/div[1]/div[1]/form[1]/table[1]/tbody[1]/tr[3]/td[1]/table[1]/tbody[1]/tr[2]/td[2]/div[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[1]/td[1]/div[1]/span[1]'
+  private addStadiumEntryPricesOffsetControls(blockNumber: String, prices: IStadiumEntryPrices, tribuneTableCell: IHtmlTableDataCell) {
+    var tribuneTable = tribuneTableCell.table();
+    var blockTableCol = tribuneTableCell.column().valueOf();
+    var blockTableRow = tribuneTableCell.row().valueOf();
+
+    if (tribuneTable !== undefined && blockTableCol !== null && blockTableRow !== null) {
+      var pricingTable = this.createPricingTable(
+        blockNumber,
+        prices,
+        this.ressourceStadiumOffsetPriceLeague,
+        null,
+        this.ressourceStadiumOffsetPriceFriendly,
+        null,
+        this.ressourceStadiumOffsetPriceCup,
+        null,
+        this.ofmStadiumOffsetMinPrice,
+        this.ofmStadiumOffsetMaxPrice
       );
-      for (var i = 0; i < arrayTribuneXpath.length; i++) {
-        // find table where to put the pricing table
-        var tribuneXpath = arrayTribuneXpath[i];
-        var tribuneTable = XPathHelper.getTableByXpath(tribuneXpath);
-        var blockTableCol = XPathHelper.getColumnNumberByXPATH(document, tribuneXpath);
-        var blockTableRow = XPathHelper.getRowNumberByXPATH(document, tribuneXpath);
-        if (tribuneTable !== undefined && blockTableCol !== null && blockTableRow !== null) {
-          var prices = blocks.blocks();
-          var blockNumber = prices[i].name().name();
-          var pricingTable = this.createPricingTable(
-            blockNumber,
-            prices[i].pricesOffset(),
-            this.ressourceStadiumOffsetPriceLeague,
-            null,
-            this.ressourceStadiumOffsetPriceFriendly,
-            null,
-            this.ressourceStadiumOffsetPriceCup,
-            null,
-            this.ofmStadiumOffsetMinPrice,
-            this.ofmStadiumOffsetMaxPrice
-          );
-          var lastRow = <HTMLTableRowElement>tribuneTable.rows[tribuneTable.rows.length - 1];
-          var lastCell = lastRow.insertCell(-1);
-          var header = DOMHelper.createElement('B', null, null, 'minitext dsR42', null, null, null);
-          lastCell.appendChild(header);
-          var headerText = document.createTextNode(this.ressourceStadiumOffset.valueOf());
-          header.appendChild(headerText);
-          lastCell.appendChild(pricingTable);
-          // enlarge colspan of row containing name of tribune
-          var cells = <HTMLTableRowElement>tribuneTable.rows[blockTableRow];
-          var tableCell = <HTMLTableDataCellElement>cells.cells[blockTableCol];
-          tableCell.colSpan = 6;
-        } else {
-          this.warn('Could not get tribune - will skip it: ' + tribuneXpath);
-        }
-      }
+      var lastRow = <HTMLTableRowElement>tribuneTable.rows[tribuneTable.rows.length - 1];
+      var lastCell = lastRow.insertCell(-1);
+      var header = DOMHelper.createElement('B', null, null, 'minitext dsR42', null, null, null);
+      lastCell.appendChild(header);
+      var headerText = document.createTextNode(this.ressourceStadiumOffset.valueOf());
+      header.appendChild(headerText);
+      lastCell.appendChild(pricingTable);
+      // enlarge colspan of row containing name of tribune
+      var cells = <HTMLTableRowElement>tribuneTable.rows[blockTableRow];
+      var tableCell = <HTMLTableDataCellElement>cells.cells[blockTableCol];
+      tableCell.colSpan = 6;
+    } else {
+      this.warn(`Could not get tribune - will skip it block number: ${blockNumber}`);
     }
   }
 
@@ -265,26 +267,27 @@ export class StadiumManagerUi {
     var overallPriceSelector = <HTMLSelectElement>document.getElementById('ddIdPrice' + gameType.name() + 'overall');
     var overallPrice = overallPriceSelector.selectedIndex;
 
-    this.stadiumBlocks.stadiumBlockByName(eventTargetName).then((blockOfStadium) => {
-      /* handle changes of the offset price */
-      this.info(`Will handle price change of block '${blockOfStadium.name().name()}'.`);
-      var offsetPrice = this.getStadiumOffsetStadiumPriceOfBlock(gameType, blockOfStadium.name().name());
-      var newPrice = NumberHelper.coerce(minPrice, maxPrice, overallPrice + offsetPrice);
-      this.setStadiumPriceOfBlock(gameType, blockOfStadium.name().name(), newPrice);
-      this.stadiumBlocks.changeBlockEntryPricesOffset(blockOfStadium.name(), gameType, offsetPrice);
-    }).catch(() => {
-      /* if no block could be found, it is expected that the overall price had been changed --> handle changes of the overall price */
-      /* TODO: make this case "nicer" */
-      this.info(`Will handle overall price change of kind '${gameType.name()}'.`);
-      this.stadiumBlocks.blocks().then((blocks) => {
-        for (var i = 0; i < blocks.blocks().length; i++) {
-          var offsetPrice = this.getStadiumOffsetStadiumPriceOfBlock(gameType, blocks.blocks()[i].name().name());
-          var newPrice = NumberHelper.coerce(minPrice, maxPrice, overallPrice + offsetPrice);
-          this.setStadiumPriceOfBlock(gameType, blocks.blocks()[i].name().name(), newPrice);
-        }
-        this.stadiumOverallEntryPrices.changeOverallEntryPrice(gameType, overallPrice);
+    this.stadiumBlocks.stadiumBlockByName(eventTargetName)
+      .then((blockOfStadium) => {
+        /* handle changes of the offset price */
+        this.info(`Will handle price change of block '${blockOfStadium.name().name()}'.`);
+        var offsetPrice = this.getStadiumOffsetStadiumPriceOfBlock(gameType, blockOfStadium.name().name());
+        var newPrice = NumberHelper.coerce(minPrice, maxPrice, overallPrice + offsetPrice);
+        this.setStadiumPriceOfBlock(gameType, blockOfStadium.name().name(), newPrice);
+        this.stadiumBlocks.changeBlockEntryPricesOffset(blockOfStadium.name(), gameType, offsetPrice);
+      }).catch(() => {
+        /* if no block could be found, it is expected that the overall price had been changed --> handle changes of the overall price */
+        /* TODO: make this case "nicer" */
+        this.info(`Will handle overall price change of kind '${gameType.name()}'.`);
+        this.stadiumBlocks.blocks().then((blocks) => {
+          for (var i = 0; i < blocks.blocks().length; i++) {
+            var offsetPrice = this.getStadiumOffsetStadiumPriceOfBlock(gameType, blocks.blocks()[i].name().name());
+            var newPrice = NumberHelper.coerce(minPrice, maxPrice, overallPrice + offsetPrice);
+            this.setStadiumPriceOfBlock(gameType, blocks.blocks()[i].name().name(), newPrice);
+          }
+          this.stadiumOverallEntryPrices.changeOverallEntryPrice(gameType, overallPrice);
+        });
       });
-    });
   }
 
   private getStadiumOffsetStadiumPriceOfBlock(gameType: IGameKind, block: String): number {
