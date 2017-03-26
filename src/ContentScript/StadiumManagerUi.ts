@@ -19,8 +19,8 @@ import { IXPathSingleResult } from "../Common/Toolkit/XPathSingleResult"
 import { XPathSingleResult } from "../Common/Toolkit/XPathSingleResult"
 import { IXPathAllResults } from "../Common/Toolkit/XPathAllResults"
 import { XPathAllResults } from "../Common/Toolkit/XPathAllResults"
-import { IHtmlTableDataCell } from "../Common/Toolkit/HtmlTableDataCell"
-import { HtmlTableDataCell } from "../Common/Toolkit/HtmlTableDataCell"
+import { IXPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell"
+import { XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell"
 
 import { RessourceStadiumCurrencySign } from "../Common/Ressource"
 import { RessourceStadiumLeague } from "../Common/Ressource"
@@ -99,8 +99,8 @@ export class StadiumManagerUi {
                 .then((blocks: IStadiumBlocks) => {
                   if (blocks.blocksPricesOffsetActivated()) {
                     blocks.blocks().forEach(block => {
-                      var tribuneTableCell = new HtmlTableDataCell(
-                        new XPathSingleResult<HTMLTableDataCellElement>(
+                      var tribuneTableCell = new XPathHtmlTableCell(
+                        new XPathSingleResult<HTMLTableCellElement>(
                           new XPathAllResults(document, block.xPathToTribune())));
                       this.addStadiumEntryPricesOffsetControls(block.name().name(), block.pricesOffset(), tribuneTableCell);
                     });
@@ -148,10 +148,10 @@ export class StadiumManagerUi {
     }
   }
 
-  private addStadiumEntryPricesOffsetControls(blockNumber: String, prices: IStadiumEntryPrices, tribuneTableCell: IHtmlTableDataCell) {
+  private addStadiumEntryPricesOffsetControls(blockNumber: String, prices: IStadiumEntryPrices, tribuneTableCell: IXPathHtmlTableCell) {
     var tribuneTable = tribuneTableCell.table();
-    var blockTableCol = tribuneTableCell.column().valueOf();
-    var blockTableRow = tribuneTableCell.row().valueOf();
+    var blockTableCol = tribuneTableCell.columnIndex().valueOf();
+    var blockTableRow = tribuneTableCell.rowIndex().valueOf();
 
     if (tribuneTable !== undefined && blockTableCol !== null && blockTableRow !== null) {
       var pricingTable = this.createPricingTable(

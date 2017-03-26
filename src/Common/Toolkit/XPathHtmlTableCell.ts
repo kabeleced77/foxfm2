@@ -1,32 +1,33 @@
 import { IXPathSingleResult } from '../Toolkit/XPathSingleResult'
 
-export interface IHtmlTableDataCell {
+export interface IXPathHtmlTableCell {
   table(): HTMLTableElement;
-  dataCell(): HTMLTableDataCellElement;
-  row(): Number;
-  column(): Number;
+  tableCell(): HTMLTableCellElement;
+  rowIndex(): Number;
+  columnIndex(): Number;
 }
 
-export class HtmlTableDataCell implements IHtmlTableDataCell {
-  private cell: IXPathSingleResult<HTMLTableDataCellElement>;
+export class XPathHtmlTableCell implements IXPathHtmlTableCell {
+  private cell: IXPathSingleResult<HTMLTableCellElement>;
 
-  constructor(dataCell: IXPathSingleResult<HTMLTableDataCellElement>) {
-    this.cell = dataCell;
+  constructor(tableCell: IXPathSingleResult<HTMLTableCellElement>) {
+    this.cell = tableCell;
   }
 
-  public dataCell(): HTMLTableDataCellElement {
+  public tableCell(): HTMLTableCellElement {
     return this.cell.element();
   }
 
   public table(): HTMLTableElement {
-    return <HTMLTableElement>this.get1stOccurenceOfNode(this.dataCell(), "table");
+    return <HTMLTableElement>this.get1stOccurenceOfNode(this.tableCell(), "table");
   }
 
-  public row(): Number {
-    return this.dataCell().cellIndex;
+  public columnIndex(): Number {
+    return this.tableCell().cellIndex;
   }
-  public column(): Number {
-    var row = <HTMLTableRowElement>this.dataCell().parentNode;
+
+  public rowIndex(): Number {
+    var row = <HTMLTableRowElement>this.tableCell().parentNode;
     return row.rowIndex;
   }
 

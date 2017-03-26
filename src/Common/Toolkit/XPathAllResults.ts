@@ -5,11 +5,10 @@ export interface IXPathAllResults {
   xPathNumberOfResults(): Number;
 }
 
+// TODO: Caching the result might be an improvement. Currently the result is calculated for each method again.
 export class XPathAllResults implements IXPathAllResults {
   private doc: Document;
   private xPathString: String;
-  private xPathResult: XPathResult;
-  private xPathResultLength: Number = 0;
 
   constructor(doc: Document, xPath: String) {
     this.doc = doc;
@@ -21,26 +20,19 @@ export class XPathAllResults implements IXPathAllResults {
   }
 
   public xPathAllResults(): XPathResult {
-    this.xPathResult = this.getXpathResult();
-    return this.xPathResult;
+    return this.doc.evaluate(this.xPathString.toString(), this.doc.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
   }
 
   public xPathFirstResult(): Node {
-    return this.xPathResult.snapshotItem(0);
+    var result = this.xPathAllResults();
+    if (result && result.snapshotLength > 0) {
+      return result.snapshotItem(0);
+    } else {
+      throw `No result for XPath '${this.xPath()}'.`;
+    }
   }
 
   public xPathNumberOfResults(): Number {
-    return this.xPathResultLength;
-  }
-
-  private getXpathResult(): XPathResult {
-    try {
-      var xPathResults = this.doc.evaluate(this.xPathString.toString(), this.doc.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-      this.xPathResultLength = xPathResults.snapshotLength;
-      return xPathResults;
-    } catch (e) {
-      console.error(e);
-      throw e;
-    }
+    return this.xPathAllResults().snapshotLength;
   }
 }

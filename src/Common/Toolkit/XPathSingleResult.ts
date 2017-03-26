@@ -18,14 +18,11 @@ export class XPathSingleResult<T extends Node> implements IXPathSingleResult<T> 
   }
 
   public element(): T {
-    this.xPathAllResults.xPathAllResults();
     if (this.xPathAllResults.xPathNumberOfResults() === 1) {
       return <T>this.xPathAllResults.xPathFirstResult();
     }
     else {
-      var error = `XPath provided more than a single result: ${this.xPathAllResults.xPath()} -> ${this.xPathAllResults.xPathNumberOfResults()}`;
-      console.error(error);
-      throw error;
+      throw `XPath provided no or more than a single result: ${this.xPathAllResults.xPath()} -> ${this.xPathAllResults.xPathNumberOfResults()}`;
     }
   }
 }

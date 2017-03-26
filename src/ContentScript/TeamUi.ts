@@ -7,11 +7,13 @@ import { ILogLevel } from '../Common/Logger/LogLevel';
 import { LogLevelError } from '../Common/Logger/LogLevel';
 import { IRessource } from '../Common/Ressource';
 import { Ressource } from '../Common/Ressource';
-import { XPathHelper } from "../Common/Toolkit/XPathHelper"
-import { DOMHelper } from "../Common/Toolkit/DOMHelper"
 import { NumberHelper } from "../Common/Toolkit/NumberHelper"
 import { IStrengthLevels } from "../Common/StrengthLevels"
 import { IStrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
+
+import { XPathAllResults } from "../Common/Toolkit/XPathAllResults"
+import { XPathSingleResult } from "../Common/Toolkit/XPathSingleResult"
+import { XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell"
 
 export class TeamUi {
   private log: LoggerInterface;
@@ -19,8 +21,6 @@ export class TeamUi {
   private ofmUrlTeam: string = "team/players.php";
   private strengthLevelsSetting: IStrengthLevelsSetting;
 
-  private ressourcePlayerName: IRessource;
-  private ressourcePosition: IRessource;
   private ressourceCurrentStrength: IRessource;
   private ressourceAwpsToNextStrength: IRessource;
   private ressourceNextStrength: IRessource;
@@ -31,8 +31,6 @@ export class TeamUi {
     this.log.registerModuleForLogging(this.loggingModule);
     this.strengthLevelsSetting = strengthLevelsSetting;
 
-    this.ressourcePlayerName = new Ressource("ofmTeamPagePlayerName");
-    this.ressourcePosition = new Ressource("ofmTeamPagePosition");
     this.ressourceCurrentStrength = new Ressource("ofmTeamPageCurrentStrength");
     this.ressourceAwpsToNextStrength = new Ressource("ofmTeamPageAwpsToNextStrength");
     this.ressourceNextStrength = new Ressource("ofmTeamPageNextStrength");
@@ -42,19 +40,23 @@ export class TeamUi {
     try {
       var aColGroup;
       var lvlCol, awpCol;
-      var sThisFunction = "foxfm_team()";
 
-      this.info("started: " + doc.location.href + ": " + doc.location.href.match(this.ofmUrlTeam));
+      this.info("called from: " + doc.location.href + ": " + doc.location.href.match(this.ofmUrlTeam));
       if (doc.location.href.match(this.ofmUrlTeam)) {
-        this.info('foxfm_team(): started');
+        this.info('started');
         // get table of the team
         var teamTable = this.foxfm_team_getTeamTable(doc);
         if (teamTable) {
-          var headerRow = this.findRow(teamTable, this.ressourcePosition.value(), this.ressourcePlayerName.value());
-          lvlCol = this.foxfm_team_getCurrentStrengthColNo(doc);
-          awpCol = this.foxfm_team_getAWPColNo(doc);
+          var awpHeaderCell = new XPathHtmlTableCell(
+            new XPathSingleResult<HTMLTableCellElement>(
+              new XPathAllResults(doc, "//./table[1]/thead[1]/tr[1]/th[15]")));
+          var strengthHeaderCell = new XPathHtmlTableCell(
+            new XPathSingleResult<HTMLTableCellElement>(
+              new XPathAllResults(doc, "//./table[1]/thead[1]/tr[1]/th[10]")));
+          lvlCol = strengthHeaderCell.columnIndex();
+          awpCol = awpHeaderCell.columnIndex();
           if (awpCol >= 0 && lvlCol >= 0) {
-            this.info(sThisFunction + ": strength: " + lvlCol + ", AWPs: " + awpCol);
+            this.info("strength: " + lvlCol + ", AWPs: " + awpCol);
             var newColCurrStrength = awpCol + 2;
             var newColAWPDiff = awpCol + 3;
             var newColNextStrength = awpCol + 4;
@@ -70,9 +72,12 @@ export class TeamUi {
             aColGroup[0].insertBefore(col2, aColGroup[0].children[newColAWPDiff]);
             aColGroup[0].insertBefore(col3, aColGroup[0].children[newColNextStrength]);
             if (awpCol >= 0) {
+              var headerRow = awpHeaderCell.rowIndex();
               this.debug("calling: addCurrLvlAwpsDiffNextLvl(" + headerRow + ", " + awpCol + ", " + (awpCol + 1) + ", " + (awpCol + 2) + ", " + (awpCol + 3) + ")");
-              this.strengthLevelsSetting.strengthLevels()
-                .then(strengthLevels => this.addCurrLvlAwpsDiffNextLvl(doc, teamTable, headerRow, null, lvlCol, null, null, awpCol, newColCurrStrength, newColAWPDiff, newColNextStrength, strengthLevels));
+              this.strengthLevelsSetting
+                .strengthLevels()
+                .then(strengthLevels =>
+                  this.addCurrLvlAwpsDiffNextLvl(doc, teamTable, headerRow, null, lvlCol, null, null, awpCol, newColCurrStrength, newColAWPDiff, newColNextStrength, strengthLevels));
             }
             // extend 'colspan' in footer by the 3 added columns
             var teamTable_tFoot = teamTable.getElementsByTagName('tfoot')[0];
@@ -81,7 +86,7 @@ export class TeamUi {
             teamTable_tFoot.rows[0].cells[2].setAttribute('colspan', teamTable_tFoot_3rdCol_colspan_new);
             this.foxfm_team_changeTeamTableStyleWidth(doc, 178);
           } else {
-            this.error(sThisFunction + '(): Could not determine AWP/Up or Strength column.');
+            this.error('Could not determine AWP/Up or Strength column.');
           }
         }
         /*
@@ -92,7 +97,7 @@ export class TeamUi {
         */
       }
     } catch (e) {
-      this.error(e);
+      throw `Error while adding additional information to team table: ${e}`;
     }
   }
 
@@ -110,75 +115,6 @@ export class TeamUi {
     return tblTeam;
   }
 
-  // Try to find the row of the GIVEN table which contains the GIVEN
-  // two strings in adjacent cells and RETURN the row.
-  private findRow(table, strFirst, strSecond) {
-    // alert("foxfm: searchTable()");
-    //alert(strFirst + " " + strSecond);
-    var cell, cells, rows = table.rows;
-    var j, k, nextIndex;
-    // iterate through the rows
-    for (j = 0; j < rows.length; j++) {
-      // get cells of current row
-      cells = rows[j].cells;
-      // iterate through the cells
-      for (k = 0; k < cells.length; k++) {
-        //alert(cells[k].innerHTML);
-        cell = cells[k];
-        // check if the content is first search string 'strFirst'
-        if (cell.innerHTML.match(strFirst)) {
-          //alert(cell.innerHTML);	
-          nextIndex = k + 1;
-          // check if next cell in row contains second search string 'strSecond'
-          // --> found row
-          if (nextIndex < cells.length) {
-            if (cells[nextIndex].innerHTML.match(strSecond)) {
-              //alert(cell.innerHTML);
-              //alert("HIT: '" + lookFor1st + "' and '" + strSecond + "' in row " + j);
-              // return the row where the string was found
-              return j;
-            }
-          }
-        }
-      }
-    }
-    // nothing was found
-    return -1;
-  }
-
-  private foxfm_team_getCurrentStrengthColNo(document) {
-    var iColNo = null;
-    try {
-      this.info('foxfm_team_getCurrentStrengthColNo(): started');
-      var xpathresult = XPathHelper.getXpathResult('//./table[1]/thead[1]/tr[1]/th[10]/a[1]');
-      if (xpathresult.snapshotLength == 1) {
-        var parentCell = this.get1stOccurenceOfParentNode(xpathresult.snapshotItem(0), 'th');
-        iColNo = this.getNoOfColumn(parentCell);
-      } else {
-        throw 'foxfm_team_getCurrentStrengthColNo(): column current strength in team table not found.';
-      }
-    } catch (e) {
-      this.error(e);
-    }
-    return iColNo;
-  }
-
-  private foxfm_team_getAWPColNo(document) {
-    var iColNo = null;
-    try {
-      this.info('foxfm_team_getAWPColNo(): started');
-      var xpathresult = XPathHelper.getXpathResult('//./table[1]/thead[1]/tr[1]/th[15]/a[1]');
-      if (xpathresult.snapshotLength == 1) {
-        var parentCell = this.get1stOccurenceOfParentNode(xpathresult.snapshotItem(0), 'th');
-        iColNo = this.getNoOfColumn(parentCell);
-      } else {
-        throw 'foxfm_team_getAWPColNo(): column containing AWPs in team table not found.';
-      }
-    } catch (e) {
-      this.error(e);
-    }
-    return iColNo;
-  }
 
   private addCurrLvlAwpsDiffNextLvl(doc, playerTable, headerRow, ignoreRow, lvlCol, epCol, tpCol, awpCol, newColCurrLvl, newColAwpDiff, newColNextLvl, strengthLevels: IStrengthLevels) {
     // alert("foxfm::addCurrLvlAwpsDiffNextLvl: newColNextLvl - " + newColNextLvl);
@@ -263,47 +199,6 @@ export class TeamUi {
         }
       }
     }
-  }
-
-  private get1stOccurenceOfParentNode(node, parentTagName) {
-    var parentNode = null;
-    try {
-      this.info('get1stOccurenceOfParentNode(): started');
-      if (node && node.parentNode) {
-        this.info('get1stOccurenceOfParentNode(): parentNode.innerHTML: ' + node.parentNode.innerHTML);
-        var parent = node.parentNode;
-        do {
-          this.info('get1stOccurenceOfParentNode(): parent.tagName: ' + parent.tagName);
-          if (parent.tagName.toUpperCase() == parentTagName.toUpperCase()) {
-            parentNode = parent;
-          }
-          if (parent.parentNode) {
-            parent = parent.parentNode;
-          } else {
-            break;
-          }
-        } while (!parentNode);
-      }
-    } catch (e) {
-      this.error(e);
-    }
-    return parentNode;
-  }
-
-  private getNoOfColumn(cell) {
-    var noOfColumn = null;
-    try {
-      this.info('getNoOfColumn(): started');
-      if (cell) {
-        noOfColumn = cell.cellIndex;
-      } else {
-        this.error('Could not find the number of the column.');
-      }
-      this.info('getNoOfColumn: number of the column: ' + noOfColumn);
-    } catch (e) {
-      this.error(e);
-    }
-    return noOfColumn;
   }
 
   private addCell(doc, tbl, row, col, id, content, styleClass, styleAlign, styleBgColor, attrWidth) {
