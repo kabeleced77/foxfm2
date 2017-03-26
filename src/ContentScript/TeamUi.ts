@@ -15,6 +15,8 @@ import { XPathAllResults } from "../Common/Toolkit/XPathAllResults"
 import { XPathSingleResult } from "../Common/Toolkit/XPathSingleResult"
 import { XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell"
 
+import { HtmlTable } from "../Common/Toolkit/HtmlTable"
+
 export class TeamUi {
   private log: LoggerInterface;
   private loggingModule: IRegisteredLoggingModule;
@@ -38,57 +40,48 @@ export class TeamUi {
 
   public addAdditionalInformation(doc: Document) {
     try {
-      var aColGroup;
-      var lvlCol, awpCol;
-
       this.info("called from: " + doc.location.href + ": " + doc.location.href.match(this.ofmUrlTeam));
       if (doc.location.href.match(this.ofmUrlTeam)) {
         this.info('started');
         // get table of the team
-        var teamTable = this.foxfm_team_getTeamTable(doc);
-        if (teamTable) {
-          var awpHeaderCell = new XPathHtmlTableCell(
-            new XPathSingleResult<HTMLTableCellElement>(
-              new XPathAllResults(doc, "//./table[1]/thead[1]/tr[1]/th[15]")));
-          var strengthHeaderCell = new XPathHtmlTableCell(
-            new XPathSingleResult<HTMLTableCellElement>(
-              new XPathAllResults(doc, "//./table[1]/thead[1]/tr[1]/th[10]")));
-          lvlCol = strengthHeaderCell.columnIndex();
-          awpCol = awpHeaderCell.columnIndex();
-          if (awpCol >= 0 && lvlCol >= 0) {
-            this.info("strength: " + lvlCol + ", AWPs: " + awpCol);
-            var newColCurrStrength = awpCol + 2;
-            var newColAWPDiff = awpCol + 3;
-            var newColNextStrength = awpCol + 4;
-            // extend the HTML element 'colgroup'
-            aColGroup = teamTable.getElementsByTagName('colgroup');
-            var col1 = doc.createElement('col');
-            var col2 = doc.createElement('col');
-            var col3 = doc.createElement('col');
-            col1.id = 'foxfm_idTblColgroupTeam_CurrStrength';
-            col2.id = 'foxfm_idTblColgroupTeam_AWPDiff';
-            col3.id = 'foxfm_idTblColgrouppTeam_NextStrength';
-            aColGroup[0].insertBefore(col1, aColGroup[0].children[newColCurrStrength]);
-            aColGroup[0].insertBefore(col2, aColGroup[0].children[newColAWPDiff]);
-            aColGroup[0].insertBefore(col3, aColGroup[0].children[newColNextStrength]);
-            if (awpCol >= 0) {
-              var headerRow = awpHeaderCell.rowIndex();
-              this.debug("calling: addCurrLvlAwpsDiffNextLvl(" + headerRow + ", " + awpCol + ", " + (awpCol + 1) + ", " + (awpCol + 2) + ", " + (awpCol + 3) + ")");
-              this.strengthLevelsSetting
-                .strengthLevels()
-                .then(strengthLevels =>
-                  this.addCurrLvlAwpsDiffNextLvl(doc, teamTable, headerRow, null, lvlCol, null, null, awpCol, newColCurrStrength, newColAWPDiff, newColNextStrength, strengthLevels));
-            }
-            // extend 'colspan' in footer by the 3 added columns
-            var teamTable_tFoot = teamTable.getElementsByTagName('tfoot')[0];
-            var teamTable_tFoot_3rdCol_colspan = teamTable_tFoot.rows[0].cells[2].getAttribute('colspan');
-            var teamTable_tFoot_3rdCol_colspan_new = teamTable_tFoot_3rdCol_colspan + 3;
-            teamTable_tFoot.rows[0].cells[2].setAttribute('colspan', teamTable_tFoot_3rdCol_colspan_new);
-            this.foxfm_team_changeTeamTableStyleWidth(doc, 178);
-          } else {
-            this.error('Could not determine AWP/Up or Strength column.');
-          }
+        var teamTable = new HtmlTable(doc, "playerTable");
+        var awpHeaderCell = new XPathHtmlTableCell(
+          new XPathSingleResult<HTMLTableCellElement>(
+            new XPathAllResults(doc, "//./table[1]/thead[1]/tr[1]/th[15]")));
+        var strengthHeaderCell = new XPathHtmlTableCell(
+          new XPathSingleResult<HTMLTableCellElement>(
+            new XPathAllResults(doc, "//./table[1]/thead[1]/tr[1]/th[10]")));
+        var lvlCol = strengthHeaderCell.columnIndex();
+        var awpCol = awpHeaderCell.columnIndex();
+        this.info("strength: " + lvlCol + ", AWPs: " + awpCol);
+        var newColCurrStrength = awpCol.valueOf() + 2;
+        var newColAWPDiff = awpCol.valueOf() + 3;
+        var newColNextStrength = awpCol.valueOf() + 4;
+        // extend the HTML element 'colgroup'
+        var aColGroup = teamTable.firstTableColumnGroup();
+        var col1 = doc.createElement('col');
+        var col2 = doc.createElement('col');
+        var col3 = doc.createElement('col');
+        col1.id = 'foxfm_idTblColgroupTeam_CurrStrength';
+        col2.id = 'foxfm_idTblColgroupTeam_AWPDiff';
+        col3.id = 'foxfm_idTblColgrouppTeam_NextStrength';
+        aColGroup.insertBefore(col1, aColGroup.children[newColCurrStrength]);
+        aColGroup.insertBefore(col2, aColGroup.children[newColAWPDiff]);
+        aColGroup.insertBefore(col3, aColGroup.children[newColNextStrength]);
+        if (awpCol >= 0) {
+          var headerRow = awpHeaderCell.rowIndex();
+          this.debug("calling: addCurrLvlAwpsDiffNextLvl(" + headerRow + ", " + awpCol + ", " + newColCurrStrength + ", " + newColAWPDiff + ", " + newColNextStrength + ")");
+          this.strengthLevelsSetting
+            .strengthLevels()
+            .then(strengthLevels =>
+              this.addCurrLvlAwpsDiffNextLvl(doc, teamTable.table(), headerRow, null, lvlCol, null, null, awpCol, newColCurrStrength, newColAWPDiff, newColNextStrength, strengthLevels));
         }
+        // extend 'colspan' in footer by the 3 added columns
+        var teamTable_tFoot = teamTable.tableFooter();
+        var teamTable_tFoot_3rdCol_colspan = teamTable_tFoot.rows[0].cells[2].getAttribute('colspan');
+        var teamTable_tFoot_3rdCol_colspan_new = teamTable_tFoot_3rdCol_colspan + 3;
+        teamTable_tFoot.rows[0].cells[2].setAttribute('colspan', teamTable_tFoot_3rdCol_colspan_new);
+        this.foxfm_team_changeTeamTableStyleWidth(doc, 178);
         /*
         foxfm_team_addContractCosts(doc);
         foxfm_team_contractDurationWarning(doc);
@@ -100,21 +93,6 @@ export class TeamUi {
       throw `Error while adding additional information to team table: ${e}`;
     }
   }
-
-  private foxfm_team_getTeamTable(document: Document) {
-    var tblTeam = null;
-    try {
-      this.info('foxfm_team_getTeamTable(): started');
-      tblTeam = document.getElementById('playerTable');
-      if (!tblTeam) {
-        throw 'foxfm_team_getTeamTable(): could not find OFM Team table';
-      }
-    } catch (e) {
-      this.error(e);
-    }
-    return tblTeam;
-  }
-
 
   private addCurrLvlAwpsDiffNextLvl(doc, playerTable, headerRow, ignoreRow, lvlCol, epCol, tpCol, awpCol, newColCurrLvl, newColAwpDiff, newColNextLvl, strengthLevels: IStrengthLevels) {
     // alert("foxfm::addCurrLvlAwpsDiffNextLvl: newColNextLvl - " + newColNextLvl);
@@ -202,26 +180,21 @@ export class TeamUi {
   }
 
   private addCell(doc, tbl, row, col, id, content, styleClass, styleAlign, styleBgColor, attrWidth) {
-    try {
-      if (tbl.rows[row].cells.length >= col) {
-        this.info(row + '::' + col + ' max rows: ' + tbl.rows.length + ', max.cols: ' + tbl.rows[row].cells.length);
-        var newCell = tbl.rows[row].insertCell(col);
-        newCell.appendChild(doc.createTextNode(content));
-        if (styleClass) {
-          newCell.className = styleClass;
-        }
-        newCell.style = styleAlign;
-        newCell.style.backgroundColor = styleBgColor;
-        if (id) {
-          newCell.id = id;
-        }
-        if (attrWidth) {
-          newCell.setAttribute('width', attrWidth);
-        }
+    if (tbl.rows[row].cells.length >= col) {
+      this.info(row + '::' + col + ' max rows: ' + tbl.rows.length + ', max.cols: ' + tbl.rows[row].cells.length);
+      var newCell = tbl.rows[row].insertCell(col);
+      newCell.appendChild(doc.createTextNode(content));
+      if (styleClass) {
+        newCell.className = styleClass;
       }
-    } catch (e) {
-      this.error(row + '::' + col + ' max rows: ' + tbl.rows.length + ', max.cols: ' + tbl.rows[row].cells.length);
-      this.error(e);
+      newCell.style = styleAlign;
+      newCell.style.backgroundColor = styleBgColor;
+      if (id) {
+        newCell.id = id;
+      }
+      if (attrWidth) {
+        newCell.setAttribute('width', attrWidth);
+      }
     }
   }
 
