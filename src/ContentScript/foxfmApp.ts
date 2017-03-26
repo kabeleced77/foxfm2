@@ -24,11 +24,13 @@ class foxfmApp {
   public main(): void {
     this.info("S t a r t e d");
     try {
-      this.logger.registerModuleForLogging(this.loggingModule).then(() => {
+      this.logger.registerModuleForLogging(this.loggingModule)
+      .then(() => {
         this.stadiumManagerUi = new StadiumManagerUi(this.logger);
         this.teamUi = new TeamUi(this.logger, new StrengthLevelsSetting());
         this.run();
-      });
+      })
+      .catch(reason => this.error(reason));
     } catch (error) {
       this.error(error);
     }
