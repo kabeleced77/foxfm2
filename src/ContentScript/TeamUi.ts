@@ -16,6 +16,7 @@ import { XPathSingleResult } from "../Common/Toolkit/XPathSingleResult"
 import { XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell"
 
 import { HtmlTable } from "../Common/Toolkit/HtmlTable"
+import { HtmlTableColumn } from "../Common/Toolkit/HtmlTableColumn"
 
 export class TeamUi {
   private log: LoggerInterface;
@@ -59,15 +60,12 @@ export class TeamUi {
         var newColNextStrength = awpCol.valueOf() + 4;
         // extend the HTML element 'colgroup'
         var aColGroup = teamTable.firstTableColumnGroup();
-        var col1 = doc.createElement('col');
-        var col2 = doc.createElement('col');
-        var col3 = doc.createElement('col');
-        col1.id = 'foxfm_idTblColgroupTeam_CurrStrength';
-        col2.id = 'foxfm_idTblColgroupTeam_AWPDiff';
-        col3.id = 'foxfm_idTblColgrouppTeam_NextStrength';
-        aColGroup.insertBefore(col1, aColGroup.children[newColCurrStrength]);
-        aColGroup.insertBefore(col2, aColGroup.children[newColAWPDiff]);
-        aColGroup.insertBefore(col3, aColGroup.children[newColNextStrength]);
+        var col1 = new HtmlTableColumn(doc, 'foxfm_idTblColgroupTeam_CurrStrength');
+        var col2 = new HtmlTableColumn(doc, 'foxfm_idTblColgroupTeam_AWPDiff');
+        var col3 = new HtmlTableColumn(doc, 'foxfm_idTblColgrouppTeam_NextStrength');
+        aColGroup.insertBefore(col1.column(), aColGroup.children[newColCurrStrength]);
+        aColGroup.insertBefore(col2.column(), aColGroup.children[newColAWPDiff]);
+        aColGroup.insertBefore(col2.column(), aColGroup.children[newColNextStrength]);
         if (awpCol >= 0) {
           var headerRow = awpHeaderCell.rowIndex();
           this.debug("calling: addCurrLvlAwpsDiffNextLvl(" + headerRow + ", " + awpCol + ", " + newColCurrStrength + ", " + newColAWPDiff + ", " + newColNextStrength + ")");
