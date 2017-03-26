@@ -1,10 +1,4 @@
 {
-  "ofmTeamPagePlayerName": {
-    "message": "Spielername"
-  },
-  "ofmTeamPosition": {
-    "message": "Pos"
-  },
   "ofmTeamPageCurrentStrength": {
     "message": "Aktuelle Stärke"
   },
