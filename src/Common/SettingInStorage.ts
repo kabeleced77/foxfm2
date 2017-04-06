@@ -26,14 +26,16 @@ export class SettingInStorage<T extends ISettingInStorageType<T>> implements ISe
   }
 
   public value(): Promise<T> {
-    return this.storage.value().then((value: string) => {
-      if (value === undefined) {
-        this.change(this.settingDefaultValue);
-        return this.settingDefaultValue;
-      } else {
-        return this.settingDefaultValue.fromJson(value);
-      }
-    });
+    return this.storage.value()
+      .then((value: string) => {
+        if (value === undefined) {
+          this.change(this.settingDefaultValue);
+          return this.settingDefaultValue;
+        } else {
+          return this.settingDefaultValue.fromJson(value);
+        }
+      })
+      .catch(e => { throw new Error(`SettingInStorage: Cannot get the value of ${this.key()}: ${e}`); });
   }
 
   public change(value: T): Promise<void> {
