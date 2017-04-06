@@ -3,6 +3,7 @@ export interface IHtmlTable {
   tableHeader(): HTMLTableSectionElement;
   tableFooter(): HTMLTableSectionElement;
   firstTableColumnGroup(): HTMLTableColElement;
+  firstTableBody(): HTMLTableSectionElement;
 }
 
 export class HtmlTable implements IHtmlTable {
@@ -37,6 +38,16 @@ export class HtmlTable implements IHtmlTable {
     }
     else {
       throw `HTML table has no colgroup.`;
+    }
+  }
+
+  public firstTableBody(): HTMLTableSectionElement{
+    var tableBodies = this.table().tBodies;
+    if (tableBodies.length > 0) {
+      return <HTMLTableSectionElement>tableBodies[0];
+    }
+    else {
+      throw `HTML table has no table body.`;
     }
   }
 
