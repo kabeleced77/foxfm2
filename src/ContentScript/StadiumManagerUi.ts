@@ -5,7 +5,6 @@ import { NumberHelper } from "../Common/Toolkit/NumberHelper"
 import { DOMHelper } from "../Common/Toolkit/DOMHelper"
 import { IGameKind } from '../Common/GameKind';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/GameKind';
-import { IStadiumBlock } from "../Common/StadiumBlock"
 import { IStadiumBlocks } from "../Common/StadiumBlocks"
 import { IStadiumBlocksSetting } from "../Common/StadiumBlocksSetting"
 import { StadiumBlocksSetting } from "../Common/StadiumBlocksSetting"
@@ -15,9 +14,8 @@ import { StadiumOverallEntryPricesSetting } from "../Common/StadiumOverallEntryP
 import { StadiumEntryPrice } from "../Common/StadiumEntryPrice"
 import { IStadiumEntryPrices } from "../Common/StadiumEntryPrices"
 
-import { IXPathSingleResult } from "../Common/Toolkit/XPathSingleResult"
+import { XPathString } from "../Common/Toolkit/XPathString"
 import { XPathSingleResult } from "../Common/Toolkit/XPathSingleResult"
-import { IXPathAllResults } from "../Common/Toolkit/XPathAllResults"
 import { XPathAllResults } from "../Common/Toolkit/XPathAllResults"
 import { IXPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell"
 import { XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell"
@@ -86,37 +84,30 @@ export class StadiumManagerUi {
   }
 
   public addPricingControlElements(): void {
-    try {
-      this.info("started: " + window.document.location.href + ": " + window.document.location.href.match(this.ofmUrlStadium));
-      if (window.document.location.href.match(this.ofmUrlStadium)) {
-        this.info("will extend stadium according to activated settings")
-        this.stadiumOverallEntryPrices
-          .overallEntryPrices()
-          .then((overallEntryPrices) => {
-            if (overallEntryPrices.activated()) {
-              this.showOverallPricingControlElementsINTERN(overallEntryPrices);
-              this.stadiumBlocks.blocks()
-                .then((blocks: IStadiumBlocks) => {
-                  if (blocks.blocksPricesOffsetActivated()) {
-                    blocks.blocks().forEach(block => {
-                      var tribuneTableCell = new XPathHtmlTableCell(
-                        new XPathSingleResult<HTMLTableCellElement>(
-                          new XPathAllResults(document, block.xPathToTribune())));
-                      this.addStadiumEntryPricesOffsetControls(block.name().name(), block.pricesOffset(), tribuneTableCell);
-                    });
-                  }
-                })
-                .catch((error) => {
-                  this.error(`Could not add controls for stadium blocks offset prices: ${error}`);
-                });
-            }
-          })
-          .catch((error) => {
-            this.error(`Could not add controls for stadium overall prices: ${error}`);
-          });
-      }
-    } catch (error) {
-      throw error;
+    this.info("started: " + window.document.location.href + ": " + window.document.location.href.match(this.ofmUrlStadium));
+    if (window.document.location.href.match(this.ofmUrlStadium)) {
+      this.info("will extend stadium according to activated settings")
+      this.stadiumOverallEntryPrices
+        .overallEntryPrices()
+        .then((overallEntryPrices) => {
+          if (overallEntryPrices.activated()) {
+            this.showOverallPricingControlElementsINTERN(overallEntryPrices);
+            this.stadiumBlocks.blocks()
+              .then((blocks: IStadiumBlocks) => {
+                if (blocks.blocksPricesOffsetActivated()) {
+                  blocks.blocks().forEach(block => {
+                    var tribuneTableCell = new XPathHtmlTableCell(
+                      new XPathSingleResult<HTMLTableCellElement>(
+                        new XPathAllResults(document,
+                          new XPathString(block.xPathToTribune()))));
+                    this.addStadiumEntryPricesOffsetControls(block.name().name(), block.pricesOffset(), tribuneTableCell);
+                  });
+                }
+              })
+              .catch(e => { throw new Error(`Could not add controls for stadium blocks offset prices: ${e}`); });
+          }
+        })
+        .catch(e => { this.error(`Could not add controls for stadium overall prices: ${e}`); });
     }
   }
   private showOverallPricingControlElementsINTERN(overallEntryPrices: IStadiumOverallEntryPrices): void {
@@ -135,7 +126,8 @@ export class StadiumManagerUi {
     // find table where to put the overall pricing table
     // IMPORTANT: the last item of the XPATH must be 'table' or if included 'tbody'!
     var tblStadiumTribunes = new XPathSingleResult<HTMLTableElement>(
-      new XPathAllResults(document, "/html/body/div[1]/div/form/table"))
+      new XPathAllResults(document,
+        new XPathString("/html/body/div[1]/div/form/table")))
       .element();
 
     if (tblStadiumTribunes) {

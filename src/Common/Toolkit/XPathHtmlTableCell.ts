@@ -3,6 +3,7 @@ import { IXPathSingleResult } from '../Toolkit/XPathSingleResult'
 export interface IXPathHtmlTableCell {
   table(): HTMLTableElement;
   tableCell(): HTMLTableCellElement;
+  firstTableBody(): HTMLTableSectionElement;
   rowIndex(): Number;
   columnIndex(): Number;
 }
@@ -22,6 +23,10 @@ export class XPathHtmlTableCell implements IXPathHtmlTableCell {
     return <HTMLTableElement>this.get1stOccurenceOfNode(this.tableCell(), "table");
   }
 
+  public firstTableBody():HTMLTableSectionElement {
+    return this.table().tBodies.item(0);
+  }
+
   public columnIndex(): Number {
     return this.tableCell().cellIndex;
   }
@@ -29,6 +34,10 @@ export class XPathHtmlTableCell implements IXPathHtmlTableCell {
   public rowIndex(): Number {
     var row = <HTMLTableRowElement>this.tableCell().parentNode;
     return row.rowIndex;
+  }
+
+  public column(): HTMLTableColElement{
+    return this.table().cols[this.columnIndex().valueOf()];
   }
 
   private get1stOccurenceOfNode(node: Node, parentTagName: String): Node {

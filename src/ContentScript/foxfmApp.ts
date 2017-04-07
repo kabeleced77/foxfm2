@@ -8,6 +8,7 @@ import { LogLevelError } from '../Common/Logger/LogLevel';
 import { StadiumManagerUi } from "./StadiumManagerUi"
 import { TeamUi } from "./TeamUi"
 import { StrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
+import { TeamTableSetting } from "../Common/TeamTableSetting"
 
 
 class foxfmApp {
@@ -27,7 +28,7 @@ class foxfmApp {
       this.logger.registerModuleForLogging(this.loggingModule)
       .then(() => {
         this.stadiumManagerUi = new StadiumManagerUi(this.logger);
-        this.teamUi = new TeamUi(this.logger, new StrengthLevelsSetting());
+        this.teamUi = new TeamUi(this.logger, new StrengthLevelsSetting(), new TeamTableSetting());
         this.run();
       })
       .catch(reason => this.error(reason));
