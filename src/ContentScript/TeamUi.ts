@@ -25,20 +25,12 @@ export class TeamUi {
   private strengthLevelsSetting: IStrengthLevelsSetting;
   private teamTableSetting: ITeamTableSetting;
 
-  private ressourceCurrentStrength: IRessource;
-  private ressourceAwpsToNextStrength: IRessource;
-  private ressourceNextStrength: IRessource;
-
   constructor(logger: LoggerInterface, strengthLevelsSetting: IStrengthLevelsSetting, teamTableSetting: ITeamTableSetting) {
     this.log = logger;
     this.loggingModule = new RegisteredLoggingModule("TeamUi", new LogLevelError());
     this.log.registerModuleForLogging(this.loggingModule);
     this.strengthLevelsSetting = strengthLevelsSetting;
     this.teamTableSetting = teamTableSetting;
-
-    this.ressourceCurrentStrength = new Ressource("ofmTeamPageCurrentStrength");
-    this.ressourceAwpsToNextStrength = new Ressource("ofmTeamPageAwpsToNextStrength");
-    this.ressourceNextStrength = new Ressource("ofmTeamPageNextStrength");
   }
 
   public addAdditionalInformation(doc: Document) {
