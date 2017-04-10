@@ -28,7 +28,6 @@ System.config({
     "aurelia-templating-binding": "npm:aurelia-templating-binding@1.0.0-rc.1.0.0",
     "aurelia-templating-resources": "npm:aurelia-templating-resources@1.0.0-rc.1.0.0",
     "aurelia-templating-router": "npm:aurelia-templating-router@1.0.0-rc.1.0.0",
-    "bluebird": "npm:bluebird@3.4.1",
     "bootstrap": "github:twbs/bootstrap@3.3.7",
     "chrome": "npm:chrome@0.1.0",
     "fetch": "github:github/fetch@1.0.0",
@@ -269,35 +268,46 @@ System.config({
   },
   depCache: {
     "BackgroundPage/background.js": [
-      "../Common/CrossCutting/Logger/LoggerInterface",
-      "../Common/CrossCutting/Logger/Logger",
-      "../Common/DataAccess/SettingsRepository"
+      "../Common/Logger/Logger",
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/LogLevel",
+      "../Common/Ressource"
     ],
     "ContentScript/foxfmApp.js": [
-      "../Common/CrossCutting/Logger/LoggerInterface",
-      "../Common/CrossCutting/Logger/Logger",
-      "../Common/BusinessLogic/SettingsManager",
-      "../Common/BusinessLogic/StadiumManagerUi"
+      "../Common/Logger/Logger",
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/LogLevel",
+      "./StadiumManagerUi",
+      "./TeamUi",
+      "../Common/StrengthLevelsSetting",
+      "../Common/TeamTableSetting"
     ],
-    "Common/BusinessLogic/SettingsManager.js": [
-      "../CrossCutting/Messageing/SettingMessage",
-      "../CrossCutting/Settings/AppSettings"
+    "ContentScript/StadiumManagerUi.js": [
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/LogLevel",
+      "../Common/Toolkit/NumberHelper",
+      "../Common/Toolkit/DOMHelper",
+      "../Common/GameKind",
+      "../Common/StadiumBlocksSetting",
+      "../Common/StadiumOverallEntryPricesSetting",
+      "../Common/Toolkit/XPathString",
+      "../Common/Toolkit/XPathSingleResult",
+      "../Common/Toolkit/XPathAllResults",
+      "../Common/Toolkit/XPathHtmlTableCell",
+      "../Common/Ressource"
     ],
-    "Common/BusinessLogic/StadiumManagerUi.js": [
-      "../CrossCutting/Toolkit/NumberHelper",
-      "../CrossCutting/Toolkit/XPathHelper",
-      "../CrossCutting/Toolkit/DOMHelper"
-    ],
-    "Common/CrossCutting/Logger/Logger.js": [
-      "./LoggerInterface"
-    ],
-    "Common/DataAccess/SettingsRepository.js": [
-      "../CrossCutting/Messageing/SettingMessage"
+    "ContentScript/TeamUi.js": [
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/LogLevel",
+      "../Common/Toolkit/NumberHelper",
+      "../Common/Toolkit/XPathString",
+      "../Common/Toolkit/XPathAllResults",
+      "../Common/Toolkit/XPathSingleResult",
+      "../Common/Toolkit/XPathHtmlTableCell",
+      "../Common/Toolkit/HtmlTable"
     ],
     "SettingsPage/app.js": [
-      "aurelia-framework",
-      "../Common/CrossCutting/Logger/LoggerInterface",
-      "../Common/CrossCutting/Logger/Logger"
+      "../Common/Ressource"
     ],
     "SettingsPage/blur-image.js": [
       "aurelia-framework"
@@ -305,16 +315,76 @@ System.config({
     "SettingsPage/main.js": [
       "bootstrap"
     ],
-    "SettingsPage/settings-stadium.js": [
-      "aurelia-framework",
-      "../Common/BusinessLogic/SettingsManager",
-      "../Common/CrossCutting/Logger/LoggerInterface",
-      "../Common/CrossCutting/Logger/Logger"
+    "SettingsPage/settings-logging.js": [
+      "../Common/Logger/Logger",
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/LogLevel",
+      "../Common/Ressource"
     ],
-    "SettingsPage/users.js": [
-      "aurelia-framework",
-      "aurelia-fetch-client",
-      "fetch"
+    "SettingsPage/settings-stadium.js": [
+      "../Common/Logger/Logger",
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/LogLevel",
+      "../Common/StadiumBlocksSetting",
+      "../Common/StadiumOverallEntryPricesSetting",
+      "../Common/Ressource"
+    ],
+    "SettingsPage/welcome.js": [
+      "../Common/Ressource"
+    ],
+    "Common/Logger/Logger.js": [
+      "./LogLevel",
+      "./LoggerLogLevelSetting",
+      "./RegisteredLoggingModulesSetting"
+    ],
+    "Common/Logger/LoggerLogLevelSetting.js": [
+      "../SettingInStorage",
+      "./LogLevel"
+    ],
+    "Common/Logger/RegisteredLoggingModules.js": [
+      "./RegisteredLoggingModule",
+      "./LogLevel"
+    ],
+    "Common/Logger/RegisteredLoggingModulesSetting.js": [
+      "../SettingInStorage",
+      "./RegisteredLoggingModules"
+    ],
+    "Common/SettingInStorage.js": [
+      "./Storage"
+    ],
+    "Common/StadiumBlocksSetting.js": [
+      "./SettingInStorage",
+      "./GameKind",
+      "./StadiumBlocks",
+      "./StadiumBlock",
+      "./StadiumBlockName",
+      "./StadiumEntryPrices",
+      "./StadiumEntryPrice"
+    ],
+    "Common/StadiumOverallEntryPricesSetting.js": [
+      "./SettingInStorage",
+      "./GameKind",
+      "./StadiumOverallEntryPrices",
+      "./StadiumEntryPrices",
+      "./StadiumEntryPrice"
+    ],
+    "Common/StrengthLevels.js": [
+      "./StrengthLevel"
+    ],
+    "Common/StrengthLevelsSetting.js": [
+      "./SettingInStorage",
+      "./StrengthLevel",
+      "./StrengthLevels"
+    ],
+    "Common/TeamTableSetting.js": [
+      "./SettingInStorage",
+      "./TeamTable",
+      "./Toolkit/XPathString",
+      "./Toolkit/Url",
+      "./Toolkit/HtmlId",
+      "./TeamTableExistingColumns",
+      "./AwpColumn",
+      "./StrengthColumn"
     ]
   },
   bundles: {
@@ -322,36 +392,62 @@ System.config({
       "BackgroundPage/background.js"
     ],
     "app-contentscript-build.js": [
+      "ContentScript/StadiumManagerUi.js",
+      "ContentScript/TeamUi.js",
       "ContentScript/foxfmApp.js"
-    ],
-    "app-common-build.js": [
-      "Common/BusinessLogic/SettingsManager.js",
-      "Common/BusinessLogic/SettingsManagerInterface.js",
-      "Common/BusinessLogic/StadiumManagerUi.js",
-      "Common/CrossCutting/Logger/Logger.js",
-      "Common/CrossCutting/Logger/LoggerInterface.js",
-      "Common/CrossCutting/Messageing/SettingMessage.js",
-      "Common/CrossCutting/Settings/AppSettings.js",
-      "Common/CrossCutting/Toolkit/DOMHelper.js",
-      "Common/CrossCutting/Toolkit/NumberHelper.js",
-      "Common/CrossCutting/Toolkit/XPathHelper.js",
-      "Common/DataAccess/SettingsRepository.js",
-      "Common/DataAccess/SettingsRepositoryInterface.js"
     ],
     "app-settingspage-build.js": [
       "SettingsPage/app.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/app.js",
       "SettingsPage/blur-image.js",
-      "SettingsPage/child-router.html!github:systemjs/plugin-text@0.0.8.js",
-      "SettingsPage/child-router.js",
       "SettingsPage/main.js",
       "SettingsPage/nav-bar.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/settings-logging.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/settings-logging.js",
       "SettingsPage/settings-stadium.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/settings-stadium.js",
-      "SettingsPage/users.html!github:systemjs/plugin-text@0.0.8.js",
-      "SettingsPage/users.js",
       "SettingsPage/welcome.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/welcome.js"
+    ],
+    "app-common-build.js": [
+      "Common/AwpColumn.js",
+      "Common/GameKind.js",
+      "Common/Logger/LogLevel.js",
+      "Common/Logger/Logger.js",
+      "Common/Logger/LoggerInterface.js",
+      "Common/Logger/LoggerLogLevelSetting.js",
+      "Common/Logger/RegisteredLoggingModule.js",
+      "Common/Logger/RegisteredLoggingModules.js",
+      "Common/Logger/RegisteredLoggingModulesSetting.js",
+      "Common/Ressource.js",
+      "Common/Setting.js",
+      "Common/SettingInStorage.js",
+      "Common/StadiumBlock.js",
+      "Common/StadiumBlockName.js",
+      "Common/StadiumBlocks.js",
+      "Common/StadiumBlocksSetting.js",
+      "Common/StadiumEntryPrice.js",
+      "Common/StadiumEntryPrices.js",
+      "Common/StadiumOverallEntryPrices.js",
+      "Common/StadiumOverallEntryPricesSetting.js",
+      "Common/Storage.js",
+      "Common/StrengthColumn.js",
+      "Common/StrengthLevel.js",
+      "Common/StrengthLevels.js",
+      "Common/StrengthLevelsSetting.js",
+      "Common/TeamTable.js",
+      "Common/TeamTableExistingColumns.js",
+      "Common/TeamTableSetting.js",
+      "Common/Toolkit/DOMHelper.js",
+      "Common/Toolkit/ExisitingColumn.js",
+      "Common/Toolkit/HtmlId.js",
+      "Common/Toolkit/HtmlTable.js",
+      "Common/Toolkit/NumberHelper.js",
+      "Common/Toolkit/Url.js",
+      "Common/Toolkit/XPathAllResults.js",
+      "Common/Toolkit/XPathHtmlTableCell.js",
+      "Common/Toolkit/XPathSingleResult.js",
+      "Common/Toolkit/XPathString.js"
     ],
     "aurelia.js": [
       "github:github/fetch@1.0.0.js",
