@@ -16,7 +16,7 @@
   },
   "background": {
     "scripts": [
-      "jspm_packages/system-csp-production.js",
+      "jspm_packages/system-csp-production.src.js",
       "config.js",
       "dist/app-common-build.js",
       "dist/app-backgroundpage-build.js",
@@ -32,7 +32,7 @@
         "*://server2.onlinefussballmanager.de/*"
       ],
       "js": [
-        "jspm_packages/system-csp-production.js",
+        "jspm_packages/system-csp-production.src.js",
         "config.js",
         "dist/app-common-build.js",
         "dist/app-contentscript-build.js",
