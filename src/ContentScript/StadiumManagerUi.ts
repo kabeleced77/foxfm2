@@ -1,4 +1,5 @@
 import { LoggerInterface } from "../Common/Logger/LoggerInterface"
+import { IRegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule"
 import { RegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule"
 import { LogLevelError } from "../Common/Logger/LogLevel"
 import { NumberHelper } from "../Common/Toolkit/NumberHelper"
@@ -34,8 +35,8 @@ import { RessourceStadiumOffsetPriceCup } from "../Common/Ressource"
 
 export class StadiumManagerUi {
   private logger: LoggerInterface;
+  private loggingModule: IRegisteredLoggingModule;
   private numberHelper = new NumberHelper();
-  private thisModule: string = "StadiumManagerUi";
   private ofmUrlStadium: string = "stadium/stadium.php";
   private ofmStadiumMinPrice = 1;
   private ofmStadiumMaxPrice = 69;
@@ -60,8 +61,8 @@ export class StadiumManagerUi {
     logger: LoggerInterface,
   ) {
     this.logger = logger;
-    var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
-    this.logger.registerModuleForLogging(loggingModule);
+    this.loggingModule = new RegisteredLoggingModule("StadiumManagerUi", new LogLevelError());
+    this.logger.registerModuleForLogging(this.loggingModule);
     this.stadiumBlocks = new StadiumBlocksSetting();
     this.stadiumOverallEntryPrices = new StadiumOverallEntryPricesSetting();
 
@@ -367,18 +368,18 @@ export class StadiumManagerUi {
   }
 
   private info(msg: string): void {
-    this.logger.info(this.thisModule, msg);
+    this.logger.info(this.loggingModule.name(), msg);
   }
 
   private warn(msg: string): void {
-    this.logger.warn(this.thisModule, msg);
+    this.logger.warn(this.loggingModule.name(), msg);
   }
 
   private error(msg: string): void {
-    this.logger.error(this.thisModule, msg);
+    this.logger.error(this.loggingModule.name(), msg);
   }
 
   private debug(msg: string): void {
-    this.logger.debug(this.thisModule, msg);
+    this.logger.debug(this.loggingModule.name(), msg);
   }
 }
