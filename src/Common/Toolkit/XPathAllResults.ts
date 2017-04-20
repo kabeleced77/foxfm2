@@ -27,7 +27,7 @@ export class XPathAllResults2 implements IXPathAllResults2 {
   }
   public xPathAllResults(doc: Document): XPathResult {
     var url = doc.location.href;
-    if (this.xPath().xPathUrl().url().toString().match(url)) {
+    if (url.match(this.xPath().xPathUrl().url().toString())) {
       return doc.evaluate(this.xPath().xPathString().toString(), doc.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
     } else {
       throw new Error(`The URL '${url}' of the given document is not the same as of the XPath: ${this.xPath().xPathUrl().url()}. Will not look for any XPath results.`);
