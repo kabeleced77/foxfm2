@@ -1,55 +1,44 @@
 import { ITeamTableExistingColumns } from "./TeamTableExistingColumns"
 import { IUrl } from "./Toolkit/Url"
 import { IHtmlId } from "./Toolkit/HtmlId"
+import { IAwpAndStrengthColumns } from "./AwpAndStrengthColumns";
 
 export interface ITeamTable {
   url(): IUrl;
   id(): IHtmlId;
-  activateAdditionalColumns(status: Boolean): void;
-  additionalColumnsActivated(): Boolean;
-  existingColumns(): ITeamTableExistingColumns;
+  awpAndStrengthColumns(): IAwpAndStrengthColumns;
   fromJson(jsonString: String): ITeamTable;
 }
 
 export class TeamTable implements ITeamTable {
-  private teamUiUrl: IUrl;
+  private teamTableUiUrl: IUrl;
   private tableId: IHtmlId;
-  private showAdditionalColumns: Boolean;
-  private teamTableExistingColumns: ITeamTableExistingColumns;
+  private awpAndStrengthColumnsField: IAwpAndStrengthColumns;
 
   constructor(
     url: IUrl,
     id: IHtmlId,
-    activateAdditionalColumns: Boolean,
-    existingColumns: ITeamTableExistingColumns
+    awpAndStrengthColumns: IAwpAndStrengthColumns
   ) {
-    this.teamUiUrl = url;
+    this.teamTableUiUrl = url;
     this.tableId = id;
-    this.showAdditionalColumns = activateAdditionalColumns;
-    this.teamTableExistingColumns = existingColumns;
+    this.awpAndStrengthColumnsField = awpAndStrengthColumns;
   }
 
   public url(): IUrl {
-    return this.teamUiUrl;
+    return this.teamTableUiUrl;
   }
   public id(): IHtmlId {
     return this.tableId;
   }
-  public activateAdditionalColumns(activationStatus: Boolean): void {
-    this.showAdditionalColumns = activationStatus;
-  }
-  public additionalColumnsActivated(): Boolean {
-    return this.showAdditionalColumns;
-  }
-  public existingColumns(): ITeamTableExistingColumns {
-    return this.teamTableExistingColumns;
+  public awpAndStrengthColumns(): IAwpAndStrengthColumns {
+    return this.awpAndStrengthColumnsField;
   }
   public fromJson(jsonString: String): ITeamTable {
     return new TeamTable(
-      this.teamUiUrl.fromJson(jsonString["teamUiUrl"]),
+      this.teamTableUiUrl.fromJson(jsonString["teamUiUrl"]),
       this.tableId.fromJson(jsonString["tableId"]),
-      jsonString["showAdditionalInformation"],
-      this.teamTableExistingColumns.fromJson(jsonString["teamTableExistingColumns"])
+      this.awpAndStrengthColumnsField.fromJson(jsonString["awpAndStrengthColumnsField"]),
     )
   }
 }

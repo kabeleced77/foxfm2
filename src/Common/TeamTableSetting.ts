@@ -2,12 +2,13 @@ import { ISetting } from "./Setting"
 import { SettingInStorage } from "./SettingInStorage"
 import { ITeamTable } from "./TeamTable"
 import { TeamTable } from "./TeamTable"
-import { XPathString } from "./Toolkit/XPathString"
-import { Url } from "./Toolkit/Url"
+import { XPathInformation } from "./Toolkit/XPathString"
 import { HtmlId } from "./Toolkit/HtmlId"
-import { TeamTableExistingColumns } from "./TeamTableExistingColumns"
-import { AwpColumn } from "./AwpColumn"
-import { StrengthColumn } from "./StrengthColumn"
+import { AwpAndStrengthColumns } from "./AwpAndStrengthColumns";
+import { XPathHtmlTableCell2 } from "./Toolkit/XPathHtmlTableCell";
+import { XPathSingleResult2 } from "./Toolkit/XPathSingleResult";
+import { XPathAllResults2 } from "./Toolkit/XPathAllResults";
+import { TeamTableUiUrl } from "./TeamTableUiUrl";
 
 export interface ITeamTableSetting {
   setting(): Promise<ITeamTable>;
@@ -20,18 +21,22 @@ export class TeamTableSetting implements ITeamTableSetting {
     this.teamTableSetting = new SettingInStorage<ITeamTable>(
       "foxfm2.teamui.setting",
       new TeamTable(
-        new Url("team/players.php"),
+        new TeamTableUiUrl(),
         new HtmlId("playerTable"),
-        true,
-        new TeamTableExistingColumns(
-          new AwpColumn(
-            new XPathString("//./table[1]/thead[1]/tr[1]/th[15]"),
-            true
-          ),
-          new StrengthColumn(
-            new XPathString("//./table[1]/thead[1]/tr[1]/th[10]"),
-            true
-          )
+        new AwpAndStrengthColumns(
+          new XPathHtmlTableCell2(
+            new XPathSingleResult2<HTMLTableCellElement>(
+              new XPathAllResults2(
+                new XPathInformation(
+                  new TeamTableUiUrl(),
+                  "//./table[1]/thead[1]/tr[1]/th[15]")))),
+          new XPathHtmlTableCell2(
+            new XPathSingleResult2<HTMLTableCellElement>(
+              new XPathAllResults2(
+                new XPathInformation(
+                  new TeamTableUiUrl(),
+                  "//./table[1]/thead[1]/tr[1]/th[10]")))),
+          true
         )
       )
     );

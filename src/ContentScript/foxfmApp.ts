@@ -15,8 +15,7 @@ import { XPathHtmlTableCell2 } from "../Common/Toolkit/XPathHtmlTableCell";
 import { XPathSingleResult2 } from "../Common/Toolkit/XPathSingleResult";
 import { XPathAllResults2 } from "../Common/Toolkit/XPathAllResults";
 import { XPathInformation } from "../Common/Toolkit/XPathString";
-import { Url } from "../Common/Toolkit/Url";
-
+import { TransferTablePossibleOffersUiUrl } from "../Common/TransferTablePossibleOffersUiUrl";
 
 class foxfmApp {
   private logger: LoggerInterface;
@@ -38,7 +37,11 @@ class foxfmApp {
       this.logger.registerModuleForLogging(this.loggingModule)
         .then(() => {
           this.stadiumManagerUi = new StadiumManagerUi(this.logger);
-          this.teamUi = new TeamUi(this.logger, new StrengthLevelsSetting(), new TeamTableSetting());
+          this.teamUi = new TeamUi(
+            this.logger,
+            new StrengthLevelsSetting(),
+            new TeamTableSetting()
+          );
           this.transferTableUi = new TransferTableUi(
             this.logger,
             new StrengthLevelsSetting(),
@@ -50,18 +53,19 @@ class foxfmApp {
                     new XPathSingleResult2<HTMLTableCellElement>(
                       new XPathAllResults2(
                         new XPathInformation(
-                          new Url(doc.location.href),
+                          new TransferTablePossibleOffersUiUrl(),
                           '//*[@id="punkte"]')))),
                   new XPathHtmlTableCell2(
                     new XPathSingleResult2<HTMLTableCellElement>(
                       new XPathAllResults2(
                         new XPathInformation(
-                          new Url(doc.location.href),
+                          new TransferTablePossibleOffersUiUrl(),
                           '//*[@id="staerke"]')))),
                   true
                 )
               )
-            ));
+            )
+          );
           this.run(doc);
         })
         .catch(reason => this.error(reason));
