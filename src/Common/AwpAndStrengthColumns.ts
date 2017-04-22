@@ -53,10 +53,10 @@ export class AwpAndStrengthColumns implements IAwpAndStrengthColumns {
         var awpsNextStrength = strengthLevels.strengthLevel(actualStrengthLevel + 1).awpPoints().valueOf();
 
         this.xPathAwpColumn().tableCell(doc).style.width = "120px";
-        this.extendInnerHtml(row.cells[awpColumnIndex], ` | ${awpPoints - awpsNextStrength}`);
+        this.extendInnerHtml(doc, row.cells[awpColumnIndex], ` | ${awpPoints - awpsNextStrength}`);
         if (actualStrengthLevel !== currentStrengthLevel) {
           this.xPathStrengthColumn().tableCell(doc).style.width = "70px";
-          this.extendInnerHtml(row.cells[strengthColumnIndex], ` (${actualStrengthLevel})`);
+          this.extendInnerHtml(doc, row.cells[strengthColumnIndex], ` (${actualStrengthLevel})`);
         }
       }
     }
@@ -69,11 +69,23 @@ export class AwpAndStrengthColumns implements IAwpAndStrengthColumns {
     );
   }
 
-  private extendInnerHtml(element: Element, suffix: String) {
-    if (element.innerHTML) {
-      element.innerHTML += suffix;
+  private extendInnerHtml(doc: Document, element: Element, suffix: String): void {
+    if (element.nodeType === 1 && element.hasChildNodes() && this.allNodesOfType(element.childNodes, document.TEXT_NODE)) {
+      var textNode = doc.createTextNode(element.innerHTML + suffix);
+      element.replaceChild(textNode, element.firstChild);
     } else {
-      throw new Error(`Given element ${element} does not provide the innerHTML property.`);
+      for (var i = 0; i < element.childNodes.length; i++) {
+        this.extendInnerHtml(doc, <Element>element.childNodes[i], suffix);
+      }
     }
+  }
+
+  private allNodesOfType(nodes: NodeList, type: Number): Boolean {
+    var result = true;
+    for (var i = 0; i < nodes.length; i++) {
+      result = result && nodes[i].nodeType === type;
+      if (!result) return false;
+    }
+    return result;
   }
 }
