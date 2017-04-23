@@ -31,7 +31,7 @@ export class NumberHelper {
     return num;
   }
 
-  public static getNumberFromString(str, decimalPoint) {
+  public static getNumberFromString(str, decimalPoint = ",") {
     var sNum;
     var num = null;
       // infoMessage(4, 'getNumberFromString(): started: string: ' + str);
