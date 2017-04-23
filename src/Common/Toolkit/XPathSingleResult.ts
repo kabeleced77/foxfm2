@@ -22,7 +22,7 @@ export class XPathSingleResult2<T extends Node> implements IXPathSingleResult2<T
       return <T>this.xPathAllResults.xPathFirstResult(doc);
     }
     else {
-      throw `XPath provided no or more than a single result: ${this.xPathAllResults.xPath().xPathString()} -> ${this.xPathAllResults.xPathNumberOfResults(doc)}`;
+      throw `XPath provided no or more than a single result: ${this.xPathAllResults.xPath().xPathString()} -> results: ${this.xPathAllResults.xPathNumberOfResults(doc)}`;
     }
   }
   public fromJson(jsonString: String): IXPathSingleResult2<T> {
