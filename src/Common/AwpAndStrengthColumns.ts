@@ -43,7 +43,6 @@ export class AwpAndStrengthColumns implements IAwpAndStrengthColumns {
       var teamTableBody = this.xPathAwpColumn().firstTableBody(doc);
       var awpColumnIndex = this.xPathToAwpColumn.columnIndex(doc).valueOf();
       var strengthColumnIndex = this.xPathToStrengthColumn.columnIndex(doc).valueOf();
-      var ColumnIndex = this.xPathToAwpColumn.columnIndex(doc).valueOf();
 
       for (var i = 0; i < teamTableBody.rows.length; i++) {
         var row = <HTMLTableRowElement>teamTableBody.rows[i];
