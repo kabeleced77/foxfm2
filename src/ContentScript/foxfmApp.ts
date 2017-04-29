@@ -125,6 +125,7 @@ class foxfmApp {
   }
 }
 
-var logger = new Logger();
-var app = new foxfmApp(logger);
+var app = new foxfmApp(
+  new Logger()
+);
 app.main();
