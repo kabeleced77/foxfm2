@@ -4,6 +4,7 @@ import { IStrengthLevel } from './StrengthLevel'
 import { StrengthLevel } from './StrengthLevel'
 import { IStrengthLevels } from './StrengthLevels'
 import { StrengthLevels } from './StrengthLevels'
+import { ISettingName } from "./Toolkit/SettingName";
 
 export interface IStrengthLevelsSetting {
   strengthLevels(): Promise<IStrengthLevels>;
@@ -12,12 +13,20 @@ export interface IStrengthLevelsSetting {
   changeStrengthLevel(strengthLevels: IStrengthLevel): void;
 }
 
+export class SettingNameStrengthLevels implements ISettingName {
+  private settingName: String = "foxfm2.strengthLevels";
+  constructor() { }
+  public name(): String {
+    return this.settingName;
+  }
+}
+
 export class StrengthLevelsSetting implements IStrengthLevelsSetting {
   private strengthLevelsSetting: ISetting<IStrengthLevels>;
 
   constructor() {
     this.strengthLevelsSetting = new SettingInStorage<IStrengthLevels>(
-      "foxfm2.strengthLevels",
+      new SettingNameStrengthLevels(),
       new StrengthLevels([
         new StrengthLevel(1, 1111, 0),
         new StrengthLevel(2, 2222, 96),
@@ -46,7 +55,7 @@ export class StrengthLevelsSetting implements IStrengthLevelsSetting {
         new StrengthLevel(25, 131313, 20431),
         new StrengthLevel(26, 131313, 20783),
         new StrengthLevel(27, 131313, 21030)
-        ])
+      ])
     );
   }
 

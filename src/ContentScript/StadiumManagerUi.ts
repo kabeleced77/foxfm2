@@ -1,4 +1,3 @@
-import { LoggerInterface } from "../Common/Logger/LoggerInterface"
 import { IRegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule"
 import { RegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule"
 import { LogLevelError } from "../Common/Logger/LogLevel"
@@ -32,9 +31,10 @@ import { RessourceStadiumOffset } from "../Common/Ressource"
 import { RessourceStadiumOffsetPriceLeague } from "../Common/Ressource"
 import { RessourceStadiumOffsetPriceFriendly } from "../Common/Ressource"
 import { RessourceStadiumOffsetPriceCup } from "../Common/Ressource"
+import { ILogger } from "../Common/Logger/Logger";
 
 export class StadiumManagerUi {
-  private logger: LoggerInterface;
+  private logger: ILogger;
   private loggingModule: IRegisteredLoggingModule;
   private numberHelper = new NumberHelper();
   private ofmUrlStadium: string = "stadium/stadium.php";
@@ -58,7 +58,7 @@ export class StadiumManagerUi {
   private ressourceStadiumOffsetPriceCup: String;
 
   constructor(
-    logger: LoggerInterface,
+    logger: ILogger,
   ) {
     this.logger = logger;
     this.loggingModule = new RegisteredLoggingModule("StadiumManagerUi", new LogLevelError());

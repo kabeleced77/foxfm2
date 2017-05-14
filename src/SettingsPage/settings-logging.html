@@ -21,10 +21,10 @@
             <td repeat.for="level of loggingLevels2">
               <label class="radio-inline">
                 <input type="radio"
-                name="loggerLogLevel"
+                name="viewApplicationLogLevel"
                 model.bind="level" 
                 matcher.bind="logLevelMatcher" 
-                checked.bind="$parent.loggerLogLevel"
+                checked.bind="$parent.viewApplicationLogLevel"
                 />
                 ${level.name()}
               </label>

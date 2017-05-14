@@ -1,38 +1,53 @@
-export interface IStorage<T> {
-  key(): String;
-  save(value: T): Promise<void>;
-  value(): Promise<String>;
-}
+import { ISettingName } from "./Toolkit/SettingName";
+import { ISettingInStorageType } from "./SettingInStorage";
+import { ISetting } from "./Setting";
 
-export class StorageLocal<T> implements IStorage<T> {
-  private storageKey: String;
+export class StorageLocal<T extends ISettingInStorageType<T>> implements ISetting<T> {
+  private storageKey: ISettingName;
+  private defaultValue: T;
 
-  constructor(key: String) {
+  constructor(key: ISettingName, defaultValue: T) {
     this.storageKey = key;
+    this.defaultValue = defaultValue;
   }
 
-  public key() {
+  public key(): ISettingName {
     return this.storageKey;
+  }
+
+  public update(updateCurrentValue: (currentValue: T) => T): Promise<void> {
+    return this.value()
+      .then((currentValue: T) => {
+        var updatedValue = updateCurrentValue(currentValue);
+        this.save(updatedValue)
+      });
   }
 
   public save(value: T): Promise<void> {
     var obj: { [key: string]: T } = {};
-    obj[this.storageKey.toString()] = value;
+    obj[this.storageKey.name().toString()] = value;
     return new Promise<void>((resolve, reject) => {
       chrome.storage.local.set(obj, () => {
-        // console.debug("saved in storage [" + this.key() + "]: " + JSON.stringify(obj));
+        // console.debug("saved in storage [" + this.key().name() + "]: " + JSON.stringify(obj));
         resolve();
       });
     });
   }
 
-  public value(): Promise<String> {
-    return new Promise<String>((resolve, reject) => {
-      chrome.storage.local.get(this.storageKey, (items: { [key: string]: String }) => {
-        var value = items[this.storageKey.toString()];
-        // console.debug("loaded from storage [" + this.key() + "]: " + JSON.stringify(value));
-        resolve(value);
+  public value(): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      chrome.storage.local.get(this.storageKey.name(), (items: { [key: string]: String }) => {
+        var value = items[this.storageKey.name().toString()];
+        // console.debug("loaded from storage [" + this.key().name() + "]: " + JSON.stringify(value));
+        if (value === undefined) {
+          // console.debug(`${this.key().name()}: will use default value: ${JSON.stringify(this.defaultValue)}`);
+          this.save(this.defaultValue);
+          resolve(this.defaultValue);
+        } else {
+          // console.debug(`${this.key().name()}: will create object from JSON value: ${JSON.stringify(this.defaultValue)}`);
+          resolve(this.defaultValue.fromJson(value));
+        }
       });
-    });
+    }).catch((e) => { Error(`ERROR: Cannot get value of storage key ${this.storageKey.name()}`); });
   }
 }

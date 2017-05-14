@@ -1,7 +1,7 @@
-import { IExistingColumn } from "./Toolkit/ExisitingColumn"
+import { IExtendExistingColumn } from "./Toolkit/ExtendExisitingColumn"
 import { IXPathString } from "./Toolkit/XPathString"
 
-export class AwpColumn implements IExistingColumn {
+export class AwpColumn implements IExtendExistingColumn {
   private columnXPath: IXPathString;
   private additionalInformationStatus: Boolean;
 
@@ -22,7 +22,7 @@ export class AwpColumn implements IExistingColumn {
   public activateAdditionalInformation(status: Boolean): void {
     this.additionalInformationStatus = status;
   }
-  public fromJson(jsonString: String): IExistingColumn {
+  public fromJson(jsonString: String): IExtendExistingColumn {
     return new AwpColumn(
       this.columnXPath.fromJson(jsonString["columnXPath"]),
       jsonString["additionalInformationStatus"]

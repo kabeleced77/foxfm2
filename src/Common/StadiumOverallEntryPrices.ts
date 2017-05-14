@@ -1,9 +1,10 @@
 import { IStadiumEntryPrices } from './StadiumEntryPrices'
-import { IStadiumEntryPrice } from './StadiumEntryPrice'
 
 export interface IStadiumOverallEntryPrices {
   activated(): Boolean;
+  activate(status: Boolean): void;
   prices(): IStadiumEntryPrices;
+  updatePrices(prices: IStadiumEntryPrices): void;
   fromJson(jsonString: String): IStadiumOverallEntryPrices;
 }
 
@@ -20,8 +21,16 @@ export class StadiumOverallEntryPrices implements IStadiumOverallEntryPrices {
     return this.overallPricesActivated;
   }
 
+  public activate(status: Boolean): void {
+    this.overallPricesActivated = status;
+  }
+
   public prices(): IStadiumEntryPrices {
     return this.overallPrices;
+  }
+
+  public updatePrices(prices: IStadiumEntryPrices): void {
+    this.overallPrices = prices;
   }
 
   public fromJson(jsonString: String): IStadiumOverallEntryPrices {

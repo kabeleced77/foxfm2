@@ -1,7 +1,7 @@
-import { IExistingColumn } from "./Toolkit/ExisitingColumn"
+import { IExtendExistingColumn } from "./Toolkit/ExtendExisitingColumn"
 import { IXPathString } from "./Toolkit/XPathString"
 
-export class StrengthColumn implements IExistingColumn {
+export class StrengthColumn implements IExtendExistingColumn {
   private columnXPath: IXPathString;
   private additionalInformationStatus: Boolean;
 
@@ -22,7 +22,7 @@ export class StrengthColumn implements IExistingColumn {
   public activateAdditionalInformation(status: Boolean): void {
     this.additionalInformationStatus = status;
   }
-  public fromJson(jsonString: String): IExistingColumn {
+  public fromJson(jsonString: String): IExtendExistingColumn {
     return new StrengthColumn(
       this.columnXPath.fromJson(jsonString["columnXPath"]),
       jsonString["additionalInformationStatus"]

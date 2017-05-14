@@ -6,7 +6,7 @@ export interface IRegisteredLoggingModules {
   modules(): Array<IRegisteredLoggingModule>;
   moduleByName(name: String): IRegisteredLoggingModule;
   add(module: IRegisteredLoggingModule): void;
-  change(module: IRegisteredLoggingModule): void;
+  update(module: IRegisteredLoggingModule): void;
   fromJson(string: String): IRegisteredLoggingModules;
 }
 
@@ -32,12 +32,12 @@ export class RegisteredLoggingModules implements IRegisteredLoggingModules {
     if (this.moduleIndex(module) === -1) this.loggingModules.push(module);
   }
 
-  public change(module: IRegisteredLoggingModule): void {
+  public update(module: IRegisteredLoggingModule): void {
     var moduleIndex = this.moduleIndex(module);
     if (moduleIndex !== -1) {
       this.loggingModules[moduleIndex] = module;
     } else {
-      this.add(module);
+      throw Error(`Could not update module as it is not registered: ${module.name()}.`);
     }
   }
 
@@ -67,5 +67,4 @@ export class RegisteredLoggingModules implements IRegisteredLoggingModules {
   private modulesByName(moduleName: String): Array<IRegisteredLoggingModule> {
     return this.modules().filter(m => m.name() === moduleName);
   }
-
 }

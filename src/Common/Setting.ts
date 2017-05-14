@@ -1,6 +1,7 @@
+import { ISettingName } from "./Toolkit/SettingName";
+
 export interface ISetting<T> {
-    key(): String;
-    value(): Promise<T>;
-    defaultValue(): T;
-    change(value: T): Promise<void>;
+  key(): ISettingName;
+  value(): Promise<T>;
+  update(updateFunction: (value: T) => T): Promise<void>;
 }

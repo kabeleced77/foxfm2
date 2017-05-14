@@ -1,11 +1,5 @@
-import { ITeamTableExistingColumns } from "./TeamTableExistingColumns"
-import { IXPathString } from "./Toolkit/XPathString"
-import { IHtmlId } from "./Toolkit/HtmlId"
-import { IExistingColumn } from "./Toolkit/ExisitingColumn"
-import { AwpColumn } from "./AwpColumn"
 import { AwpAndStrengthColumns } from "./AwpAndStrengthColumns"
 
-// //./table/tbody/tr/td/table[2]
 export interface ITransferTablePossibleOffers {
   awpAndStrengthColumn(): AwpAndStrengthColumns;
   fromJson(jsonString: String): ITransferTablePossibleOffers;

@@ -4,7 +4,9 @@ import { IStadiumEntryPrices } from "./StadiumEntryPrices"
 export interface IStadiumBlock {
   name(): IStadiumBlockName;
   pricesOffsetActivated(): Boolean;
+  activatePricesOffset(status: Boolean): void;
   pricesOffset(): IStadiumEntryPrices;
+  updateOffsetPrices(prices: IStadiumEntryPrices): void;
   xPathToTribune(): String;
   fromJson(jsonString: String): IStadiumBlock;
 }
@@ -33,8 +35,14 @@ export class StadiumBlock implements IStadiumBlock {
   public pricesOffset(): IStadiumEntryPrices {
     return this.blockPricesOffset;
   }
+  public updateOffsetPrices(prices: IStadiumEntryPrices): void {
+    this.blockPricesOffset = prices;
+  }
   public pricesOffsetActivated(): Boolean {
     return this.blockPricesOffsetActivated;
+  }
+  public activatePricesOffset(status: Boolean): void {
+    this.blockPricesOffsetActivated = status;
   }
   public xPathToTribune(): String {
     return this.xPath;

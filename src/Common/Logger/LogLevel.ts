@@ -1,6 +1,7 @@
 export interface ILogLevel {
   name(): String;
   level(): Number;
+  update(level: ILogLevel): void;
   fromJson(jsonString: String): ILogLevel;
 }
 
@@ -18,6 +19,10 @@ export class LogLevel implements ILogLevel {
   }
   public level(): Number {
     return this.levelNumber;
+  }
+  public update(level: ILogLevel): void {
+    this.levelNumber = level.level();
+    this.levelName = level.name();
   }
   public fromJson(jsonString: String): ILogLevel {
     return new LogLevel(jsonString["levelName"], jsonString["levelNumber"]);

@@ -1,19 +1,19 @@
-import { LoggerInterface } from "../Common/Logger/LoggerInterface"
 import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { LogLevelError } from '../Common/Logger/LogLevel';
 import { IStrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
 import { ISetting } from "../Common/Setting";
 import { ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
+import { ILogger } from "../Common/Logger/Logger";
 
 export class TransferTableUi {
-  private log: LoggerInterface;
+  private log: ILogger;
   private loggingModule: IRegisteredLoggingModule;
   private strengthLevelsSetting: IStrengthLevelsSetting;
   private transferTablePossibleOffers2: ISetting<ITransferTablePossibleOffers>;
 
   constructor(
-    logger: LoggerInterface,
+    logger: ILogger,
     strengthLevelsSetting: IStrengthLevelsSetting,
     transferTablePossibleOffersSetting2: ISetting<ITransferTablePossibleOffers>
   ) {

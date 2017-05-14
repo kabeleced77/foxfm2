@@ -6,6 +6,7 @@ import { IStadiumOverallEntryPrices } from './StadiumOverallEntryPrices';
 import { StadiumOverallEntryPrices } from './StadiumOverallEntryPrices';
 import { StadiumEntryPrices } from './StadiumEntryPrices';
 import { StadiumEntryPrice } from './StadiumEntryPrice';
+import { ISettingName } from "./Toolkit/SettingName";
 
 export interface IStadiumOverallEntryPricesSetting {
   overallEntryPrices(): Promise<IStadiumOverallEntryPrices>;
@@ -16,12 +17,21 @@ export interface IStadiumOverallEntryPricesSetting {
   changeOverallEntryPriceCup(price: Number): void;
 }
 
+export class SettingNameStadiumOverllEntryPrices implements ISettingName {
+  private settingName: String = "foxfm2.stadium.overallEntryPrices";
+  constructor() {}
+  public name(): String {
+    return this.settingName;
+  }
+}
+
+
 export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPricesSetting {
   private stadiumOverallEntryPrices: ISetting<IStadiumOverallEntryPrices>;
 
   constructor() {
     this.stadiumOverallEntryPrices = new SettingInStorage<IStadiumOverallEntryPrices>(
-      "foxfm2.stadium.overallEntryPrices",
+      new SettingNameStadiumOverllEntryPrices(),
       new StadiumOverallEntryPrices(
         false,
         new StadiumEntryPrices(
@@ -47,11 +57,9 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
   }
 
   public changeOverallEntryPricesStatus(status: Boolean): void {
-    this.overallEntryPrices().then((overallEntryPrices) => {
-      this.stadiumOverallEntryPrices.change(new StadiumOverallEntryPrices(
-        status,
-        overallEntryPrices.prices()
-      ));
+    this.stadiumOverallEntryPrices.update((prices: IStadiumOverallEntryPrices) => {
+      prices.activate(status);
+      return prices;
     });
   }
 
@@ -72,9 +80,8 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
   }
 
   public changeOverallEntryPriceLeague(price: Number): void {
-    this.overallEntryPrices().then((overallEntryPrices) => {
-      this.stadiumOverallEntryPrices.change(new StadiumOverallEntryPrices(
-        overallEntryPrices.activated(),
+    this.stadiumOverallEntryPrices.update((overallEntryPrices: IStadiumOverallEntryPrices) => {
+      overallEntryPrices.updatePrices(
         new StadiumEntryPrices(
           new StadiumEntryPrice(
             new GameKindLeague(),
@@ -83,30 +90,30 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
           overallEntryPrices.prices().friendly(),
           overallEntryPrices.prices().cup()
         )
-      ));
+      );
+      return overallEntryPrices;
     });
   }
 
   public changeOverallEntryPriceFriendly(price: Number): void {
-    this.overallEntryPrices().then((overallEntryPrices) => {
-      this.stadiumOverallEntryPrices.change(new StadiumOverallEntryPrices(
-        overallEntryPrices.activated(),
+    this.stadiumOverallEntryPrices.update((overallEntryPrices: IStadiumOverallEntryPrices) => {
+      overallEntryPrices.updatePrices(
         new StadiumEntryPrices(
           overallEntryPrices.prices().league(),
           new StadiumEntryPrice(
-            new GameKindLeague(),
+            new GameKindFriendly(),
             price
           ),
           overallEntryPrices.prices().cup()
         )
-      ));
+      );
+      return overallEntryPrices;
     });
   }
 
   public changeOverallEntryPriceCup(price: Number): void {
-    this.overallEntryPrices().then((overallEntryPrices) => {
-      this.stadiumOverallEntryPrices.change(new StadiumOverallEntryPrices(
-        overallEntryPrices.activated(),
+    this.stadiumOverallEntryPrices.update((overallEntryPrices: IStadiumOverallEntryPrices) => {
+      overallEntryPrices.updatePrices(
         new StadiumEntryPrices(
           overallEntryPrices.prices().league(),
           overallEntryPrices.prices().friendly(),
@@ -115,7 +122,8 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
             price
           )
         )
-      ));
+      );
+      return overallEntryPrices;
     });
   }
 }

@@ -1,9 +1,6 @@
-import { computedFrom } from 'aurelia-framework';
-import { bindable } from 'aurelia-framework';
-import { LoggerInterface } from '../Common/Logger/LoggerInterface';
-import { Logger } from '../Common/Logger/Logger';
-import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { RegisteredLoggingModulesSetting } from '../Common/Logger/RegisteredLoggingModulesSetting';
+import { ILogger, Logger } from '../Common/Logger/Logger';
+import { RegisteredLoggingModule, IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
+import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/Logger/RegisteredLoggingModules";
 import { ILogLevel } from '../Common/Logger/LogLevel';
 import { LogLevelError } from '../Common/Logger/LogLevel';
 import { IStadiumBlocks } from '../Common/stadiumBlocks';
@@ -15,14 +12,18 @@ import { StadiumOverallEntryPrices } from '../Common/StadiumOverallEntryPrices';
 import { StadiumEntryPrices } from '../Common/StadiumEntryPrices';
 import { StadiumEntryPrice } from '../Common/StadiumEntryPrice';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/GameKind';
-import { SettingInStorage } from "../Common/SettingInStorage"
-import { RessourceStadiumHeading} from "../Common/Ressource"
+import { RessourceStadiumHeading } from "../Common/Ressource"
 import { RessourceStadiumAddOverallPrices } from "../Common/Ressource"
 import { RessourceStadiumAddOffsetPrices } from "../Common/Ressource"
+import { Mutex } from "../Common/Toolkit/Mutex";
+import { SettingNameLoggingModules } from "../Common/SettingNameLoggingModules";
+import { StorageLocal } from "../Common/Storage";
+import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
+import { SettingNameApplicationLogLevel } from "../Common/SettingNameApplicationLogLevel";
 
 export class SettingsStadium {
   private thisModule: string = "SettingsStadium";
-  private log: LoggerInterface;
+  private log: ILogger;
   private stadiumOverallPrices: IStadiumOverallEntryPricesSetting;
   private stadiumBlocks: IStadiumBlocksSetting;
 
@@ -33,7 +34,16 @@ export class SettingsStadium {
   stadiumOffsetPricesActivated: Boolean;
 
   constructor() {
-    this.log = new Logger();
+    this.log = new Logger(
+      new StorageLocal<ILogLevel>(
+        new SettingNameApplicationLogLevel(),
+        new LogLevelError()),
+      new StorageLocalSync<IRegisteredLoggingModules>(
+        new Mutex<IRegisteredLoggingModules>(),
+        new SettingNameLoggingModules(),
+        new RegisteredLoggingModules(
+          new Array<IRegisteredLoggingModule>()))
+    );
     var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
     this.log.registerModuleForLogging(loggingModule);
 

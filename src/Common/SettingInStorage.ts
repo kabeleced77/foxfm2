@@ -1,44 +1,35 @@
 import { ISetting } from './Setting'
-import { IStorage } from './Storage'
 import { StorageLocal } from './Storage'
+import { ISettingName } from "./Toolkit/SettingName";
 
 export interface ISettingInStorageType<T> {
   fromJson(jsonString: String): T;
 }
 
 export class SettingInStorage<T extends ISettingInStorageType<T>> implements ISetting<T> {
-  private storage: IStorage<T>;
-  private settingKey: String;
+  private storage: ISetting<T>;
+  private settingKey: ISettingName;
   private settingDefaultValue: T;
 
-  constructor(key: String, defaultValue: T) {
+  constructor(key: ISettingName, defaultValue: T) {
     this.settingKey = key;
-    this.storage = new StorageLocal<T>(key);
+    this.storage = new StorageLocal<T>(key, defaultValue);
     this.settingDefaultValue = defaultValue;
   }
 
-  public key(): String {
+  public key(): ISettingName {
     return this.storage.key();
   }
 
-  public defaultValue(): T {
-    return this.settingDefaultValue;
+  public update(updateCurrentValue: (currentValue: T) => T): Promise<void> {
+    return this.storage.update((currentValue: T) => {
+      var updatedValue = updateCurrentValue(currentValue);
+      return updatedValue;
+    });
   }
 
   public value(): Promise<T> {
     return this.storage.value()
-      .then((value: string) => {
-        if (value === undefined) {
-          this.change(this.settingDefaultValue);
-          return this.settingDefaultValue;
-        } else {
-          return this.settingDefaultValue.fromJson(value);
-        }
-      })
       .catch(e => { throw new Error(`SettingInStorage: Cannot get the value of ${this.key()}: ${e}`); });
-  }
-
-  public change(value: T): Promise<void> {
-    return this.storage.save(value);
   }
 }

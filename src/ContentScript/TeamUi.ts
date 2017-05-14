@@ -1,8 +1,6 @@
-import { LoggerInterface } from "../Common/Logger/LoggerInterface"
-import { Logger } from "../Common/Logger/Logger"
+import { Logger, ILogger } from "../Common/Logger/Logger"
 import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { RegisteredLoggingModulesSetting } from '../Common/Logger/RegisteredLoggingModulesSetting';
 import { LogLevelError } from '../Common/Logger/LogLevel';
 import { NumberHelper } from "../Common/Toolkit/NumberHelper"
 import { IStrengthLevels } from "../Common/StrengthLevels"
@@ -10,13 +8,13 @@ import { IStrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
 import { ITeamTableSetting } from "../Common/TeamTableSetting"
 
 export class TeamUi {
-  private log: LoggerInterface;
+  private log: ILogger;
   private loggingModule: IRegisteredLoggingModule;
   private strengthLevelsSetting: IStrengthLevelsSetting;
   private teamTableSetting: ITeamTableSetting;
 
   constructor(
-    logger: LoggerInterface,
+    logger: ILogger,
     strengthLevelsSetting: IStrengthLevelsSetting,
     teamTableSetting: ITeamTableSetting,
   ) {

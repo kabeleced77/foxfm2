@@ -1,38 +1,44 @@
-import { LoggerInterface } from "./LoggerInterface"
 import { ILogLevel } from "./LogLevel"
-import { LogLevelOff } from "./LogLevel"
 import { LogLevelInfo } from "./LogLevel"
 import { LogLevelWarn } from "./LogLevel"
 import { LogLevelDebug } from "./LogLevel"
 import { LogLevelError } from "./LogLevel"
-import { ILoggerLogLevelSetting } from "./LoggerLogLevelSetting"
-import { LoggerLogLevelSetting } from "./LoggerLogLevelSetting"
-import { IRegisteredLoggingModulesSetting } from "./RegisteredLoggingModulesSetting"
-import { RegisteredLoggingModulesSetting } from "./RegisteredLoggingModulesSetting"
 import { IRegisteredLoggingModule } from "./RegisteredLoggingModule"
-import { RegisteredLoggingModule } from "./RegisteredLoggingModule"
 import { IRegisteredLoggingModules } from "./RegisteredLoggingModules"
-import { RegisteredLoggingModules } from "./RegisteredLoggingModules"
+import { ISetting } from "../Setting";
 
-export class Logger implements LoggerInterface {
-  private registeredLoggingModulesSetting: IRegisteredLoggingModulesSetting;
-  private loggerLogLevel: ILoggerLogLevelSetting;
+export interface ILogger {
+	registerModuleForLogging(module: IRegisteredLoggingModule): Promise<void>;
+  registeredModules(): ISetting<IRegisteredLoggingModules>;
+  applicationLogLevel(): ISetting<ILogLevel>;
+	info(module: String, msg: string): void;
+	debug(module: String, msg: string): void;
+	warn(module: String, msg: string): void;
+	error(module: String, msg: string): void;
+}
 
-  constructor() {
-    this.registeredLoggingModulesSetting = new RegisteredLoggingModulesSetting();
-    this.loggerLogLevel = new LoggerLogLevelSetting();
+export class Logger implements ILogger {
+  private loggingModules: ISetting<IRegisteredLoggingModules>;
+  private loggerLogLevel: ISetting<ILogLevel>;
+
+  constructor(applicationLogLevel:ISetting<ILogLevel>, loggingModules: ISetting<IRegisteredLoggingModules>) {
+    this.loggingModules = loggingModules;
+    this.loggerLogLevel = applicationLogLevel;
   }
 
-  public registeredModulesSetting(): IRegisteredLoggingModulesSetting {
-    return this.registeredLoggingModulesSetting;
+  public registeredModules(): ISetting<IRegisteredLoggingModules> {
+    return this.loggingModules;
   }
 
-  public loggerLogLevelSetting(): ILoggerLogLevelSetting {
+  public applicationLogLevel(): ISetting<ILogLevel> {
     return this.loggerLogLevel;
   }
 
   public registerModuleForLogging(module: IRegisteredLoggingModule): Promise<void> {
-    return this.registeredLoggingModulesSetting.addModule(module);
+    return this.loggingModules.update((modules) => {
+      modules.add(module);
+      return modules;
+    });
   }
 
   public error(module: string, msg: string): void {
@@ -52,13 +58,13 @@ export class Logger implements LoggerInterface {
   }
 
   private checkIfLogLevelIsActivated(module: String, logLevel: ILogLevel, msg: String) {
-    this.loggerLogLevel.logLevel().then(level => {
+    this.loggerLogLevel.value().then(level => {
       if (logLevel.level() <= level.level()) this.printMessage(module, logLevel, msg);
     });
   }
 
   private printMessage(moduleName: String, logLevel: ILogLevel, msg: String): void {
-    this.registeredLoggingModulesSetting.modules().then(modules => {
+    this.loggingModules.value().then(modules => {
       var module = modules.moduleByName(moduleName);
       if (logLevel.level() > module.logLevel().level()) return;
 

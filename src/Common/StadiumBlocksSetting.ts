@@ -14,6 +14,7 @@ import { StadiumBlockName4 } from './StadiumBlockName';
 import { IStadiumEntryPrices } from './StadiumEntryPrices';
 import { StadiumEntryPrices } from './StadiumEntryPrices';
 import { StadiumEntryPrice } from './StadiumEntryPrice';
+import { ISettingName } from "./Toolkit/SettingName";
 
 export interface IStadiumBlocksSetting {
   blocksEntryPricesOffsetActivated(): Promise<Boolean>;
@@ -23,12 +24,23 @@ export interface IStadiumBlocksSetting {
   changeBlockEntryPricesOffset(block: IStadiumBlockName, kindOfGame: IGameKind, price: Number): void;
 }
 
+export class SettingNameStadiumBlocks implements ISettingName {
+  private settingName: String = "foxfm2.stadium.blocks";
+
+  constructor() {
+  }
+
+  public name(): String {
+    return this.settingName;
+  }
+}
+
 export class StadiumBlocksSetting implements IStadiumBlocksSetting {
   private stadiumBlocks: ISetting<IStadiumBlocks>;
 
   constructor() {
     this.stadiumBlocks = new SettingInStorage<IStadiumBlocks>(
-      "foxfm2.stadium.blocks",
+      new SettingNameStadiumBlocks(),
       new StadiumBlocks(
         [
           new StadiumBlock(
@@ -142,23 +154,15 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
     });
   }
   public changeBlockEntryPricesOffsetStatus(status: Boolean): void {
-    this.blocks()
-      .then((stadiumBlocks: IStadiumBlocks) => {
-        var newStatus = stadiumBlocks.blocks().map((block: IStadiumBlock) => {
-          return new StadiumBlock(
-            block.name(),
-            status,
-            block.pricesOffset(),
-            block.xPathToTribune()
-          );
-        });
-        this.stadiumBlocks.change(new StadiumBlocks(newStatus));
-      });
+    this.stadiumBlocks.update((stadiumBlocks: IStadiumBlocks) => {
+      stadiumBlocks.activateBlocksPricesOffset(status);
+      return stadiumBlocks;
+    });
   }
   public changeBlockEntryPricesOffset(blockName: IStadiumBlockName, kindOfGame: IGameKind, price: Number): void {
-    this.blocks().then((stadiumBlocks: IStadiumBlocks) => {
-      var newBlocks = stadiumBlocks.blocks().map((block: IStadiumBlock) => {
-        if (block.name().name() == blockName.name().toString()) {
+    this.stadiumBlocks.update((stadiumBlocks: IStadiumBlocks) => {
+      var updatedBlocks = stadiumBlocks.blocks().map((block: IStadiumBlock) => {
+        if (block.name().name() === blockName.name().toString()) {
           var stadiumEntryPrices: IStadiumEntryPrices;
           switch (kindOfGame.name()) {
             case new GameKindLeague().name():
@@ -204,7 +208,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
           return block;
         }
       });
-      this.stadiumBlocks.change(new StadiumBlocks(newBlocks));
+      return new StadiumBlocks(updatedBlocks);
     });
   }
 }

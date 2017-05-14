@@ -9,9 +9,18 @@ import { XPathHtmlTableCell2 } from "./Toolkit/XPathHtmlTableCell";
 import { XPathSingleResult2 } from "./Toolkit/XPathSingleResult";
 import { XPathAllResults2 } from "./Toolkit/XPathAllResults";
 import { TeamTableUiUrl } from "./TeamTableUiUrl";
+import { ISettingName } from "./Toolkit/SettingName";
 
 export interface ITeamTableSetting {
   setting(): Promise<ITeamTable>;
+}
+
+export class SettingNameTeamTable implements ISettingName {
+  private settingName: String = "foxfm2.teamui.setting";
+  constructor() { }
+  public name(): String {
+    return this.settingName;
+  }
 }
 
 export class TeamTableSetting implements ITeamTableSetting {
@@ -19,7 +28,7 @@ export class TeamTableSetting implements ITeamTableSetting {
 
   constructor() {
     this.teamTableSetting = new SettingInStorage<ITeamTable>(
-      "foxfm2.teamui.setting",
+      new SettingNameTeamTable(),
       new TeamTable(
         new TeamTableUiUrl(),
         new HtmlId("playerTable"),

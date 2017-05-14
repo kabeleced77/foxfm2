@@ -1,4 +1,3 @@
-import { LoggerInterface } from "../Common/Logger/LoggerInterface"
 import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { LogLevelError } from '../Common/Logger/LogLevel';
@@ -6,19 +5,20 @@ import { IStrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
 import { ISetting } from "../Common/Setting";
 import { ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
 import { ITransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
+import { ILogger } from "../Common/Logger/Logger";
 
 export interface ITransferMarketSearchResultTableUi {
   addAdditionalInformation(doc: Document);
 }
 
 export class TransferMarketSearchResultTableUi {
-  private log: LoggerInterface;
+  private log: ILogger;
   private loggingModule: IRegisteredLoggingModule;
   private strengthLevelsSetting: IStrengthLevelsSetting;
   private settings: ISetting<ITransferMarketSearchResultTable>;
 
   constructor(
-    logger: LoggerInterface,
+    logger: ILogger,
     strengthLevelsSetting: IStrengthLevelsSetting,
     transferMarketSearchResultTableSetting: ISetting<ITransferMarketSearchResultTable>
   ) {

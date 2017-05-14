@@ -1,9 +1,3 @@
-import { ITeamTableExistingColumns } from "./TeamTableExistingColumns"
-import { IXPathString } from "./Toolkit/XPathString"
-import { IHtmlId } from "./Toolkit/HtmlId"
-import { IExistingColumn } from "./Toolkit/ExisitingColumn"
-import { AwpColumn } from "./AwpColumn"
-import { AwpAndStrengthColumns } from "./AwpAndStrengthColumns"
 import { IUrl } from "./Toolkit/Url";
 import { IExperienceAndTrainingColumn } from "./ExperienceAndTrainingColumn";
 
