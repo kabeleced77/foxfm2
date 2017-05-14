@@ -1,12 +1,9 @@
 import { ISetting } from './Setting'
 import { StorageLocal } from '../Storage'
 import { ISettingName } from "./SettingName";
+import { ITypeInStorage } from "../TypeInStorage";
 
-export interface ISettingInStorageType<T> {
-  fromJson(jsonString: String): T;
-}
-
-export class SettingInStorage<T extends ISettingInStorageType<T>> implements ISetting<T> {
+export class SettingInStorage<T extends ITypeInStorage<T>> implements ISetting<T> {
   private storage: ISetting<T>;
   private settingKey: ISettingName;
   private settingDefaultValue: T;

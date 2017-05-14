@@ -1,8 +1,8 @@
 import { ISettingName } from "./Settings/SettingName";
-import { ISettingInStorageType } from "./Settings/SettingInStorage";
 import { ISetting } from "./Settings/Setting";
+import { ITypeInStorage } from "./TypeInStorage";
 
-export class StorageLocal<T extends ISettingInStorageType<T>> implements ISetting<T> {
+export class StorageLocal<T extends ITypeInStorage<T>> implements ISetting<T> {
   private storageKey: ISettingName;
   private defaultValue: T;
 
