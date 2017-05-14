@@ -8,7 +8,6 @@ import { StrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
 import { TeamTableSetting } from "../Common/TeamTableSetting"
 import { TransferTableUi } from "./TransferTableUi"
 import { TransferTablePossibleOffers, ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
-import { SettingInStorage } from "../Common/Settings/SettingInStorage";
 import { AwpAndStrengthColumns } from "../Common/AwpAndStrengthColumns";
 import { XPathHtmlTableCell2 } from "../Common/Toolkit/XPathHtmlTableCell";
 import { XPathSingleResult2, XPathSingleResult3 } from "../Common/Toolkit/XPathSingleResult";
@@ -80,7 +79,7 @@ class foxfmApp {
           this.transferTableUi = new TransferTableUi(
             this.logger,
             new StrengthLevelsSetting(),
-            new SettingInStorage<ITransferTablePossibleOffers>(
+            new StorageLocal<ITransferTablePossibleOffers>(
               new SettingNameTransferTablePossibleOffers(),
               new TransferTablePossibleOffers(
                 new AwpAndStrengthColumns(
@@ -257,7 +256,7 @@ var app = new foxfmApp(
           new LogLevelError())),
       doc,
       new StrengthLevelsSetting(),
-      new SettingInStorage<ITransferMarketAmateurTable>(
+      new StorageLocal<ITransferMarketAmateurTable>(
         new SettingNameTransferMarketAmateurTable(),
         new TransferMarketAmateurTable(
           true,

@@ -1,5 +1,4 @@
 import { ISetting } from "./Settings/Setting"
-import { SettingInStorage } from "./Settings/SettingInStorage"
 import { IGameKind } from './GameKind';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from './GameKind';
 import { IStadiumBlocks } from './StadiumBlocks';
@@ -15,6 +14,7 @@ import { IStadiumEntryPrices } from './StadiumEntryPrices';
 import { StadiumEntryPrices } from './StadiumEntryPrices';
 import { StadiumEntryPrice } from './StadiumEntryPrice';
 import { ISettingName } from "./Settings/SettingName";
+import { StorageLocal } from "./Storage";
 
 export interface IStadiumBlocksSetting {
   blocksEntryPricesOffsetActivated(): Promise<Boolean>;
@@ -39,7 +39,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
   private stadiumBlocks: ISetting<IStadiumBlocks>;
 
   constructor() {
-    this.stadiumBlocks = new SettingInStorage<IStadiumBlocks>(
+    this.stadiumBlocks = new StorageLocal<IStadiumBlocks>(
       new SettingNameStadiumBlocks(),
       new StadiumBlocks(
         [

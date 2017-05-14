@@ -1,10 +1,10 @@
 import { ISetting } from './Settings/Setting'
-import { SettingInStorage } from './Settings/SettingInStorage'
 import { IStrengthLevel } from './StrengthLevel'
 import { StrengthLevel } from './StrengthLevel'
 import { IStrengthLevels } from './StrengthLevels'
 import { StrengthLevels } from './StrengthLevels'
 import { ISettingName } from "./Settings/SettingName";
+import { StorageLocal } from "./Storage";
 
 export interface IStrengthLevelsSetting {
   strengthLevels(): Promise<IStrengthLevels>;
@@ -25,7 +25,7 @@ export class StrengthLevelsSetting implements IStrengthLevelsSetting {
   private strengthLevelsSetting: ISetting<IStrengthLevels>;
 
   constructor() {
-    this.strengthLevelsSetting = new SettingInStorage<IStrengthLevels>(
+    this.strengthLevelsSetting = new StorageLocal<IStrengthLevels>(
       new SettingNameStrengthLevels(),
       new StrengthLevels([
         new StrengthLevel(1, 1111, 0),

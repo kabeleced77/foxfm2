@@ -1,5 +1,4 @@
 import { ISetting } from "./Settings/Setting"
-import { SettingInStorage } from "./Settings/SettingInStorage"
 import { IGameKind } from './GameKind';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from './GameKind';
 import { IStadiumOverallEntryPrices } from './StadiumOverallEntryPrices';
@@ -7,6 +6,7 @@ import { StadiumOverallEntryPrices } from './StadiumOverallEntryPrices';
 import { StadiumEntryPrices } from './StadiumEntryPrices';
 import { StadiumEntryPrice } from './StadiumEntryPrice';
 import { ISettingName } from "./Settings/SettingName";
+import { StorageLocal } from "./Storage";
 
 export interface IStadiumOverallEntryPricesSetting {
   overallEntryPrices(): Promise<IStadiumOverallEntryPrices>;
@@ -30,7 +30,7 @@ export class StadiumOverallEntryPricesSetting implements IStadiumOverallEntryPri
   private stadiumOverallEntryPrices: ISetting<IStadiumOverallEntryPrices>;
 
   constructor() {
-    this.stadiumOverallEntryPrices = new SettingInStorage<IStadiumOverallEntryPrices>(
+    this.stadiumOverallEntryPrices = new StorageLocal<IStadiumOverallEntryPrices>(
       new SettingNameStadiumOverllEntryPrices(),
       new StadiumOverallEntryPrices(
         false,

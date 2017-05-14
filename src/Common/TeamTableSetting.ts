@@ -1,5 +1,4 @@
 import { ISetting } from "./Settings/Setting"
-import { SettingInStorage } from "./Settings/SettingInStorage"
 import { ITeamTable } from "./TeamTable"
 import { TeamTable } from "./TeamTable"
 import { XPathInformation } from "./Toolkit/XPathString"
@@ -10,6 +9,7 @@ import { XPathSingleResult2 } from "./Toolkit/XPathSingleResult";
 import { XPathAllResults2 } from "./Toolkit/XPathAllResults";
 import { TeamTableUiUrl } from "./TeamTableUiUrl";
 import { ISettingName } from "./Settings/SettingName";
+import { StorageLocal } from "./Storage";
 
 export interface ITeamTableSetting {
   setting(): Promise<ITeamTable>;
@@ -27,7 +27,7 @@ export class TeamTableSetting implements ITeamTableSetting {
   private teamTableSetting: ISetting<ITeamTable>;
 
   constructor() {
-    this.teamTableSetting = new SettingInStorage<ITeamTable>(
+    this.teamTableSetting = new StorageLocal<ITeamTable>(
       new SettingNameTeamTable(),
       new TeamTable(
         new TeamTableUiUrl(),
