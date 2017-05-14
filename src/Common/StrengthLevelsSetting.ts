@@ -1,10 +1,10 @@
-import { ISetting } from './Setting'
-import { SettingInStorage } from './SettingInStorage'
+import { ISetting } from './Settings/Setting'
+import { SettingInStorage } from './Settings/SettingInStorage'
 import { IStrengthLevel } from './StrengthLevel'
 import { StrengthLevel } from './StrengthLevel'
 import { IStrengthLevels } from './StrengthLevels'
 import { StrengthLevels } from './StrengthLevels'
-import { ISettingName } from "./Toolkit/SettingName";
+import { ISettingName } from "./Settings/SettingName";
 
 export interface IStrengthLevelsSetting {
   strengthLevels(): Promise<IStrengthLevels>;

@@ -8,7 +8,7 @@ import { StrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
 import { TeamTableSetting } from "../Common/TeamTableSetting"
 import { TransferTableUi } from "./TransferTableUi"
 import { TransferTablePossibleOffers, ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
-import { SettingInStorage } from "../Common/SettingInStorage";
+import { SettingInStorage } from "../Common/Settings/SettingInStorage";
 import { AwpAndStrengthColumns } from "../Common/AwpAndStrengthColumns";
 import { XPathHtmlTableCell2 } from "../Common/Toolkit/XPathHtmlTableCell";
 import { XPathSingleResult2, XPathSingleResult3 } from "../Common/Toolkit/XPathSingleResult";
@@ -26,14 +26,14 @@ import { TransferMarketAmateurTableUi } from "./TransferMarketAmateurTableUi";
 import { TrainingColumn } from "../Common/TrainingColumn";
 import { Mutex } from "../Common/Toolkit/Mutex";
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/Logger/RegisteredLoggingModules";
-import { SettingNameLoggingModules } from "../Common/SettingNameLoggingModules";
-import { ISettingName } from "../Common/Toolkit/SettingName";
-import { SettingNameTransferTablePossibleOffers } from "../Common/SettingNameTransferTablePossibleOffers";
-import { SettingNameTransferMarketProfessionalsSearchResultTable } from "../Common/SettingNameTransferMarketProfessionalsSearchResultTable";
-import { SettingNameTransferMarketAmateurTable } from "../Common/SettingNameTransferMarketAmateurTable";
+import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
+import { ISettingName } from "../Common/Settings/SettingName";
+import { SettingNameTransferTablePossibleOffers } from "../Common/Settings/SettingNameTransferTablePossibleOffers";
+import { SettingNameTransferMarketProfessionalsSearchResultTable } from "../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable";
+import { SettingNameTransferMarketAmateurTable } from "../Common/Settings/SettingNameTransferMarketAmateurTable";
 import { StorageLocal } from "../Common/Storage";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
-import { SettingNameApplicationLogLevel } from "../Common/SettingNameApplicationLogLevel";
+import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 
 export class SettingNameTeamTable implements ISettingName {
   private settingName: String = "foxfm2.teamui.setting";

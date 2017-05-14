@@ -1,12 +1,12 @@
-import { ISetting } from "./Setting"
-import { SettingInStorage } from "./SettingInStorage"
+import { ISetting } from "./Settings/Setting"
+import { SettingInStorage } from "./Settings/SettingInStorage"
 import { IGameKind } from './GameKind';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from './GameKind';
 import { IStadiumOverallEntryPrices } from './StadiumOverallEntryPrices';
 import { StadiumOverallEntryPrices } from './StadiumOverallEntryPrices';
 import { StadiumEntryPrices } from './StadiumEntryPrices';
 import { StadiumEntryPrice } from './StadiumEntryPrice';
-import { ISettingName } from "./Toolkit/SettingName";
+import { ISettingName } from "./Settings/SettingName";
 
 export interface IStadiumOverallEntryPricesSetting {
   overallEntryPrices(): Promise<IStadiumOverallEntryPrices>;

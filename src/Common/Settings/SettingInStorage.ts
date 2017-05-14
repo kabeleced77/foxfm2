@@ -1,6 +1,6 @@
 import { ISetting } from './Setting'
-import { StorageLocal } from './Storage'
-import { ISettingName } from "./Toolkit/SettingName";
+import { StorageLocal } from '../Storage'
+import { ISettingName } from "./SettingName";
 
 export interface ISettingInStorageType<T> {
   fromJson(jsonString: String): T;

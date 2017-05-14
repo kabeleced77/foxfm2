@@ -5,7 +5,7 @@ import { LogLevelDebug } from "./LogLevel"
 import { LogLevelError } from "./LogLevel"
 import { IRegisteredLoggingModule } from "./RegisteredLoggingModule"
 import { IRegisteredLoggingModules } from "./RegisteredLoggingModules"
-import { ISetting } from "../Setting";
+import { ISetting } from "../Settings/Setting";
 
 export interface ILogger {
 	registerModuleForLogging(module: IRegisteredLoggingModule): Promise<void>;

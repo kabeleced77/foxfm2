@@ -16,10 +16,10 @@ import { RessourceStadiumHeading } from "../Common/Ressource"
 import { RessourceStadiumAddOverallPrices } from "../Common/Ressource"
 import { RessourceStadiumAddOffsetPrices } from "../Common/Ressource"
 import { Mutex } from "../Common/Toolkit/Mutex";
-import { SettingNameLoggingModules } from "../Common/SettingNameLoggingModules";
+import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
 import { StorageLocal } from "../Common/Storage";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
-import { SettingNameApplicationLogLevel } from "../Common/SettingNameApplicationLogLevel";
+import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 
 export class SettingsStadium {
   private thisModule: string = "SettingsStadium";

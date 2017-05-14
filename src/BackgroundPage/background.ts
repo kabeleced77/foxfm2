@@ -6,10 +6,10 @@ import { LogLevelError } from '../Common/Logger/LogLevel';
 import { IRessource } from '../Common/Ressource';
 import { Ressource } from '../Common/Ressource';
 import { Mutex } from "../Common/Toolkit/Mutex";
-import { SettingNameLoggingModules } from "../Common/SettingNameLoggingModules";
+import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
 import { StorageLocal } from "../Common/Storage";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
-import { SettingNameApplicationLogLevel } from "../Common/SettingNameApplicationLogLevel";
+import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 
 class FoxfmBackground {
   private log: ILogger;

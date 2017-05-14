@@ -1,5 +1,5 @@
-import { ISetting } from "./Setting"
-import { SettingInStorage } from "./SettingInStorage"
+import { ISetting } from "./Settings/Setting"
+import { SettingInStorage } from "./Settings/SettingInStorage"
 import { ITeamTable } from "./TeamTable"
 import { TeamTable } from "./TeamTable"
 import { XPathInformation } from "./Toolkit/XPathString"
@@ -9,7 +9,7 @@ import { XPathHtmlTableCell2 } from "./Toolkit/XPathHtmlTableCell";
 import { XPathSingleResult2 } from "./Toolkit/XPathSingleResult";
 import { XPathAllResults2 } from "./Toolkit/XPathAllResults";
 import { TeamTableUiUrl } from "./TeamTableUiUrl";
-import { ISettingName } from "./Toolkit/SettingName";
+import { ISettingName } from "./Settings/SettingName";
 
 export interface ITeamTableSetting {
   setting(): Promise<ITeamTable>;

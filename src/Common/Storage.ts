@@ -1,6 +1,6 @@
-import { ISettingName } from "./Toolkit/SettingName";
-import { ISettingInStorageType } from "./SettingInStorage";
-import { ISetting } from "./Setting";
+import { ISettingName } from "./Settings/SettingName";
+import { ISettingInStorageType } from "./Settings/SettingInStorage";
+import { ISetting } from "./Settings/Setting";
 
 export class StorageLocal<T extends ISettingInStorageType<T>> implements ISetting<T> {
   private storageKey: ISettingName;

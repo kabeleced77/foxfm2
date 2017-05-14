@@ -8,11 +8,11 @@ import { LogLevel, LogLevelOff, LogLevelAll, LogLevelDebug, LogLevelError, LogLe
 import { RessourceSettingsPageLoggerHeading } from "../Common/Ressource"
 import { RessourceSettingsPageLoggerIntro } from "../Common/Ressource"
 import { Mutex } from "../Common/Toolkit/Mutex";
-import { SettingNameLoggingModules } from "../Common/SettingNameLoggingModules";
-import { ISetting } from "../Common/Setting";
+import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
+import { ISetting } from "../Common/Settings/Setting";
 import { StorageLocal } from "../Common/Storage";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
-import { SettingNameApplicationLogLevel } from "../Common/SettingNameApplicationLogLevel";
+import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 
 export class SettingsLogging {
   private thisModule: string = "SettingsLogging";
