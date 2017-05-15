@@ -33,6 +33,7 @@ import { SettingNameTransferMarketAmateurTable } from "../Common/Settings/Settin
 import { StorageLocal } from "../Common/Storage";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
+import { IEasyLogger, EasyLogger } from "../Common/Logger/EasyLogger";
 
 export class SettingNameTeamTable implements ISettingName {
   private settingName: String = "foxfm2.teamui.setting";
@@ -154,49 +155,18 @@ class foxfmApp {
   }
 }
 
-export interface IEasyLogging {
-  info(msg: String): void;
-  warn(msg: String): void;
-  debug(msg: String): void;
-  error(msg: String): void;
-}
-
-class EasyLogging implements IEasyLogging {
-  private log: ILogger;
-  private loggingModule: IRegisteredLoggingModule;
-
-  constructor(logger: ILogger, loggingModule: IRegisteredLoggingModule) {
-    this.log = logger;
-    this.loggingModule = loggingModule;
-    this.log.registerModuleForLogging(loggingModule);
-  }
-
-  info(msg: String): void {
-    this.log.info(this.loggingModule.name().toString(), msg.toString());
-  }
-  warn(msg: String): void {
-    this.log.warn(this.loggingModule.name().toString(), msg.toString());
-  }
-  debug(msg: String): void {
-    this.log.debug(this.loggingModule.name().toString(), msg.toString());
-  }
-  error(msg: String): void {
-    this.log.error(this.loggingModule.name().toString(), msg.toString());
-  }
-}
-
 export interface IExtendTargetWebPage {
   extend(): void;
 }
 
 export class ExtendTargetWebPage implements IExtendTargetWebPage {
-  private log: IEasyLogging;
+  private log: IEasyLogger;
   private currentUrl: IUrl;
   private targetUrl: IUrl;
   private page: IWebElementToExtend;
 
   constructor(
-    logger: IEasyLogging,
+    logger: IEasyLogger,
     currentUrl: IUrl,
     targetUrl: IUrl,
     page: IWebElementToExtend
@@ -217,7 +187,7 @@ export class ExtendTargetWebPage implements IExtendTargetWebPage {
 }
 
 export interface IWebElementToExtend {
-  extend(logger: IEasyLogging): void;
+  extend(logger: IEasyLogger): void;
 }
 
 var doc = window.document;
@@ -241,7 +211,7 @@ var app = new foxfmApp(
   logger,
   // Extend amateur transfer market
   new ExtendTargetWebPage(
-    new EasyLogging(
+    new EasyLogger(
       logger,
       new RegisteredLoggingModule(
         "ExtendWebPage",
@@ -249,7 +219,7 @@ var app = new foxfmApp(
     new Url(currentUrl),
     new TransferMarketAmateurUiUrl(),
     new TransferMarketAmateurTableUi(
-      new EasyLogging(
+      new EasyLogger(
         logger,
         new RegisteredLoggingModule(
           "TransferMarketAmateurTableUi",

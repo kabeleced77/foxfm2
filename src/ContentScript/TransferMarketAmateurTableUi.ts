@@ -5,17 +5,18 @@ import { IStrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
 import { ISetting } from "../Common/Settings/Setting";
 import { ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
 import { TransferMarketAmateurTable, ITransferMarketAmateurTable } from "../Common/TransferMarketAmateurTable";
-import { IWebElementToExtend, IEasyLogging } from "./foxfmApp";
+import { IWebElementToExtend } from "./foxfmApp";
+import { IEasyLogger } from "../Common/Logger/EasyLogger";
 
 export class TransferMarketAmateurTableUi implements IWebElementToExtend {
-  private log: IEasyLogging;
+  private log: IEasyLogger;
   private loggingModule: IRegisteredLoggingModule;
   private doc: Document;
   private strengthLevelsSetting: IStrengthLevelsSetting;
   private settings: ISetting<ITransferMarketAmateurTable>;
 
   constructor(
-    logger: IEasyLogging,
+    logger: IEasyLogger,
     doc: Document,
     strengthLevelsSetting: IStrengthLevelsSetting,
     transferMarketAmateurTableSetting: ISetting<ITransferMarketAmateurTable>
@@ -29,7 +30,7 @@ export class TransferMarketAmateurTableUi implements IWebElementToExtend {
     this.strengthLevelsSetting = strengthLevelsSetting;
     this.settings = transferMarketAmateurTableSetting;
   }
-  public extend(log: IEasyLogging) {
+  public extend(log: IEasyLogger) {
     this.settings
       .value()
       .then(setting => {
