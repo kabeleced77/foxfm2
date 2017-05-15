@@ -5,8 +5,8 @@ import { IStrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
 import { ISetting } from "../Common/Settings/Setting";
 import { ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
 import { TransferMarketAmateurTable, ITransferMarketAmateurTable } from "../Common/TransferMarketAmateurTable";
-import { IWebElementToExtend } from "./foxfmApp";
 import { IEasyLogger } from "../Common/Logger/EasyLogger";
+import { IWebElementToExtend } from "../Common/Toolkit/WebElementToExtend";
 
 export class TransferMarketAmateurTableUi implements IWebElementToExtend {
   private log: IEasyLogger;

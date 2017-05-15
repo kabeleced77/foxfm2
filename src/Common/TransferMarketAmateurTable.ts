@@ -4,7 +4,6 @@ import { IExtendExistingColumn } from "./Toolkit/ExtendExisitingColumn"
 import { AwpAndStrengthColumns } from "./AwpAndStrengthColumns"
 import { IUrl } from "./Toolkit/Url";
 import { IExperienceAndTrainingColumn } from "./ExperienceAndTrainingColumn";
-import { IWebElementToExtend } from "../ContentScript/foxfmApp";
 import { IExistingColumn } from "./Toolkit/ExisitingColumn";
 
 export interface ITransferMarketAmateurTable {

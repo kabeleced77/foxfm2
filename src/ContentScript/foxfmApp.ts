@@ -34,6 +34,7 @@ import { StorageLocal } from "../Common/Storage";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 import { IEasyLogger, EasyLogger } from "../Common/Logger/EasyLogger";
+import { ExtendTargetWebPage, IExtendTargetWebPage } from "../Common/Toolkit/ExtendTargetPage";
 
 export class SettingNameTeamTable implements ISettingName {
   private settingName: String = "foxfm2.teamui.setting";
@@ -153,41 +154,6 @@ class foxfmApp {
   private debug(msg: string): void {
     this.logger.debug(this.loggingModule.name().toString(), msg);
   }
-}
-
-export interface IExtendTargetWebPage {
-  extend(): void;
-}
-
-export class ExtendTargetWebPage implements IExtendTargetWebPage {
-  private log: IEasyLogger;
-  private currentUrl: IUrl;
-  private targetUrl: IUrl;
-  private page: IWebElementToExtend;
-
-  constructor(
-    logger: IEasyLogger,
-    currentUrl: IUrl,
-    targetUrl: IUrl,
-    page: IWebElementToExtend
-  ) {
-    this.log = logger;
-    this.currentUrl = currentUrl;
-    this.targetUrl = targetUrl;
-    this.page = page;
-  }
-
-  public extend(): void {
-    var currentUrl = this.currentUrl.url().toString();
-    var targetUrl = this.targetUrl.url().toString();
-    var extendPage = currentUrl.match(targetUrl) !== null;
-    this.log.info(`called from: ${currentUrl} compared to ${targetUrl}: ${extendPage}`);
-    if (extendPage) this.page.extend(this.log);
-  }
-}
-
-export interface IWebElementToExtend {
-  extend(logger: IEasyLogger): void;
 }
 
 var doc = window.document;
