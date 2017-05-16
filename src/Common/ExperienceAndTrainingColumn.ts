@@ -55,7 +55,7 @@ export class ExperienceAndTrainingColumn implements IExperienceAndTrainingColumn
         var trainingPoints = NumberHelper.getNumberFromString(expAndTrainingPoints[1].trim());
         var awp = new Awp(expPoints, trainingPoints);
         var awpPoints = awp.awpPoints().valueOf();
-        var actualStrengthLevel = strengthLevels.strengthLevelByAwp(awpPoints).strengthLevel().valueOf();
+        var actualStrengthLevel = strengthLevels.strengthLevelByAwp(awpPoints).level().valueOf();
         var currentStrengthLevel = NumberHelper.getNumberFromNode(row.cells[strengthColumnIndex]);
         var awpsNextStrength = strengthLevels.strengthLevel(actualStrengthLevel + 1).awpPoints().valueOf();
 

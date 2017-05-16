@@ -1,23 +1,27 @@
 export interface IStrengthLevel {
-  strengthLevel(): Number;
+  level(): Number;
   wage(): Number;
   awpPoints(): Number;
   fromJson(jsonString: String): IStrengthLevel;
 }
 
 export class StrengthLevel implements IStrengthLevel {
-  private level: Number;
+  private levelOfStrength: Number;
   private wageOfLevel: Number;
   private awps: Number;
 
-  constructor(strengthLevel: Number, wage: Number, awpPoints: Number) {
-    this.level = strengthLevel;
+  constructor(
+    level: Number,
+    wage: Number,
+    awpPoints: Number
+  ) {
+    this.levelOfStrength = level;
     this.wageOfLevel = wage;
     this.awps = awpPoints;
   }
 
-  public strengthLevel(): Number {
-    return this.level;
+  public level(): Number {
+    return this.levelOfStrength;
   }
 
   public wage(): Number {

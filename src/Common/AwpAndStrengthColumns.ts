@@ -47,7 +47,7 @@ export class AwpAndStrengthColumns implements IAwpAndStrengthColumns {
       for (var i = 0; i < teamTableBody.rows.length; i++) {
         var row = <HTMLTableRowElement>teamTableBody.rows[i];
         var awpPoints = NumberHelper.getNumberFromNode(row.cells[awpColumnIndex]);
-        var actualStrengthLevel = strengthLevels.strengthLevelByAwp(awpPoints).strengthLevel().valueOf();
+        var actualStrengthLevel = strengthLevels.strengthLevelByAwp(awpPoints).level().valueOf();
         var currentStrengthLevel = NumberHelper.getNumberFromNode(row.cells[strengthColumnIndex]);
         var awpsNextStrength = strengthLevels.strengthLevel(actualStrengthLevel + 1).awpPoints().valueOf();
 

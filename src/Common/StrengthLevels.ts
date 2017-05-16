@@ -16,7 +16,7 @@ export class StrengthLevels implements IStrengthLevels {
   }
 
   public strengthLevel(strength: Number): IStrengthLevel {
-    return this.strengthLevelArray.find(strengthLevel => strengthLevel.strengthLevel() === strength);
+    return this.strengthLevelArray.find(strengthLevel => strengthLevel.level() === strength);
   }
 
   public strengthLevelByAwp(awps: Number): IStrengthLevel {

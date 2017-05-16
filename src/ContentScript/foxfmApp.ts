@@ -34,7 +34,7 @@ import { StorageLocal } from "../Common/Storage";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 import { IEasyLogger, EasyLogger } from "../Common/Logger/EasyLogger";
-import { ExtendTargetWebPage, IExtendTargetWebPage } from "../Common/Toolkit/ExtendTargetPage";
+import { ExtendWebPage, IExtendWebPage } from "../Common/Toolkit/ExtendTargetPage";
 
 export class SettingNameTeamTable implements ISettingName {
   private settingName: String = "foxfm2.teamui.setting";
@@ -52,9 +52,9 @@ class foxfmApp {
   private transferTableUi: TransferTableUi;
   private transferMarketSearchResultTableUi: ITransferMarketSearchResultTableUi;
 
-  private extendTransferMarketAmateurTable: IExtendTargetWebPage;
+  private extendTransferMarketAmateurTable: IExtendWebPage;
 
-  constructor(logger: ILogger, extendTransferMarketAmateurTable: IExtendTargetWebPage) {
+  constructor(logger: ILogger, extendTransferMarketAmateurTable: IExtendWebPage) {
     this.logger = logger;
     this.loggingModule = new RegisteredLoggingModule("foxfmApp", new LogLevelError());
 
@@ -176,7 +176,7 @@ var logger = new Logger(
 var app = new foxfmApp(
   logger,
   // Extend amateur transfer market
-  new ExtendTargetWebPage(
+  new ExtendWebPage(
     new EasyLogger(
       logger,
       new RegisteredLoggingModule(
