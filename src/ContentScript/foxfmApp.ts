@@ -4,7 +4,7 @@ import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModul
 import { LogLevelError, ILogLevel } from '../Common/Logger/LogLevel';
 import { StadiumManagerUi } from "./StadiumManagerUi"
 import { TeamUi } from "./TeamUi"
-import { StrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
+import { StrengthLevelsSetting, IStrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
 import { TeamTableSetting } from "../Common/TeamTableSetting"
 import { TransferTableUi } from "./TransferTableUi"
 import { TransferTablePossibleOffers, ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
@@ -17,7 +17,7 @@ import { TransferTablePossibleOffersUiUrl } from "../Common/TransferTablePossibl
 import { ITransferMarketSearchResultTableUi, TransferMarketSearchResultTableUi } from "./TransferMarketSearchResultTableUi";
 import { ITransferMarketSearchResultTable, TransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
 import { TransferMarketProfessionalsUiUrl } from "../Common/TransferMarketProfessionalsUiUrl";
-import { TransferMarketAmateurUiUrl } from "../Common/TransferMarketAmateurUiUrl";
+import { TransferMarketAmateurWebPageUrl } from "../Common/TransferMarketAmateurWebPageUrl";
 import { ExperienceAndTrainingColumn } from "../Common/ExperienceAndTrainingColumn";
 import { IUrl, Url } from "../Common/Toolkit/Url";
 import { TransferMarketAmateurTable, ITransferMarketAmateurTable } from "../Common/TransferMarketAmateurTable";
@@ -35,6 +35,12 @@ import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 import { IEasyLogger, EasyLogger } from "../Common/Logger/EasyLogger";
 import { ExtendWebPage, IExtendWebPage } from "../Common/Toolkit/ExtendTargetPage";
+import { IWebElementToExtend } from "../Common/Toolkit/WebElementToExtend";
+import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
+import { ISetting } from "../Common/Settings/Setting";
+import { AwpColumn } from "../Common/AwpColumn";
+import { IExistingColumn } from "../Common/Toolkit/ExisitingColumn";
+import { IDom, Dom } from "../Common/Toolkit/Dom";
 
 export class SettingNameTeamTable implements ISettingName {
   private settingName: String = "foxfm2.teamui.setting";
@@ -156,6 +162,168 @@ class foxfmApp {
   }
 }
 
+/*** BEGIN needs to be exported into separate files */
+
+export class TransferMarketAmateurWebPage implements IWebPageToExtend {
+  private domField: IDom;
+  private urlField: IUrl;
+  private playerTableField: IWebElementToExtend;
+
+  constructor(
+    dom: IDom,
+    url: IUrl,
+    playerTable: IWebElementToExtend
+  ) {
+    this.domField = dom;
+    this.urlField = url;
+    this.playerTableField = playerTable;
+  }
+
+  public pageUrl(): IUrl {
+    return this.urlField;
+  }
+  public extend(logger: IEasyLogger): void {
+    this.playerTableField.extend(logger);
+  }
+}
+
+export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
+  private domField: IDom;
+  private strengthLevels: IStrengthLevelsSetting;
+  private amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>;
+  private log: IEasyLogger;
+
+  constructor(
+    dom: IDom,
+    strengthLevels: IStrengthLevelsSetting,
+    amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>,
+    log: IEasyLogger
+  ) {
+    this.domField = dom;
+    this.strengthLevels = strengthLevels;
+    this.amateurPlayerTableSettings = amateurPlayerTableSettings;
+    this.log = log;
+  }
+
+  public extend(logger: IEasyLogger): void {
+    this.log.info("start extension");
+    this.amateurPlayerTableSettings
+      .value()
+      .then(setting => {
+        if (setting.addAwpColumnActivated()) {
+          this.strengthLevels
+            .strengthLevels()
+            .then(strengthLevels => {
+              var idx = setting.trainingColumn().index(this.domField.dom());
+              this.log.debug(idx.toString());
+            })
+        }
+      });
+  }
+}
+
+export interface ITransferMarketAmateurPlayerTableExtensionSetting {
+  addAwpColumnActivated(): Boolean;
+  trainingColumn(): IExistingColumn;
+  fromJson(jsonString: String): ITransferMarketAmateurPlayerTableExtensionSetting;
+}
+export class TransferMarketAmateurPlayerTableExtensionSetting implements ITransferMarketAmateurPlayerTableExtensionSetting {
+  /*
+  private awpColumnToAdd: IColumnToAdd;
+  private strengthColumnToExtend: IColumnToExtend;
+
+  constructor(awpColumnToAdd: IColumnToAdd, strengthColumnToExtend: IColumnToExtend) {
+    this.awpColumnToAdd = awpColumnToAdd;
+    this.strengthColumnToExtend = strengthColumnToExtend;
+  }
+  */
+  private addAwpColumnField: Boolean;
+  private experienceColumnField: IExistingColumn;
+  private trainingColumnField: IExistingColumn;
+
+  constructor(
+    addAwpColumn: Boolean,
+    //    experienceColumn: IExperienceAndTrainingColumn,
+    trainingColumn: IExistingColumn
+  ) {
+    this.addAwpColumnField = addAwpColumn;
+    //    this.experienceColumnField = experienceColumn;
+    this.trainingColumnField = trainingColumn;
+  }
+
+  public addAwpColumnActivated(): Boolean {
+    return this.addAwpColumnField;
+  }
+  public trainingColumn(): IExistingColumn {
+    return this.trainingColumnField;
+  }
+  /*
+  public transferMarketProfessionalsUrl(): IUrl {
+    return this.transferMarketProfessionalsUrlField;
+  }
+  public experienceAndTrainingColumn(): IExperienceAndTrainingColumn {
+    return this.experienceAndTrainingColumnField;
+  }
+  */
+
+  public fromJson(jsonString: String): TransferMarketAmateurPlayerTableExtensionSetting {
+    return new TransferMarketAmateurPlayerTableExtensionSetting(
+      jsonString["addAwpColumnField"],
+      this.trainingColumnField.fromJson(jsonString["trainingColumnField"])
+    );
+
+  }
+}
+
+/***  END needs to be exported into separate files */
+
+/*
+new TransferMarketAmateurWebPage(
+  new EasyLogger(),
+  new Dom(doc),
+  new TransferMarketAmateurWebPageUrl(),
+  new TransferMarketAmateurTable(
+    new StrengthLevelsSetting(),
+    new StorageLocal<ITransferMarketAmateurTableSettings>(
+      new SettingNameTransferMarketAmateurTable(),
+      new TransferMarketAmateurTableSettings(
+        new AwpColumnToAdd(
+          true,
+          new TrainingColumnByXpath(
+            new XPathHtmlTableCell2(
+              new XPathSingleResult3<HTMLTableCellElement>(
+                new XPathAllResults3(
+                  new TransferMarketAmateurUiUrl(),
+                  new XPathString(
+                    '//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]'
+                  )
+                )
+              )
+            )
+          ),
+          new ExperienceColumnByXpath(
+            new XPathHtmlTableCell2(
+              new XPathSingleResult3<HTMLTableCellElement>(
+                new XPathAllResults3(
+                  new TransferMarketAmateurUiUrl(),
+                  new XPathString(
+                    '//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]'
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+),
+*/
+/*
+new TransferMarketAmateurWebPageUrl(),
+*/
+
+
 var doc = window.document;
 var currentUrl = doc.location.href;
 
@@ -177,40 +345,163 @@ var app = new foxfmApp(
   logger,
   // Extend amateur transfer market
   new ExtendWebPage(
+    new Url(currentUrl),
+    new TransferMarketAmateurWebPage(
+      new Dom(doc),
+      new TransferMarketAmateurWebPageUrl(),
+      new TransferMarketAmateurPlayerTable(
+        new Dom(doc),
+        new StrengthLevelsSetting(),
+        new StorageLocal<ITransferMarketAmateurPlayerTableExtensionSetting>(
+          new SettingNameTransferMarketAmateurTable(),
+          new TransferMarketAmateurPlayerTableExtensionSetting(
+            true,
+            new TrainingColumn(
+              new XPathHtmlTableCell2(
+                new XPathSingleResult3<HTMLTableCellElement>(
+                  new XPathAllResults3(
+                    new TransferMarketAmateurWebPageUrl(),
+                    new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]')))))
+          )
+        ),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "TransferMarketAmateurPlayerTable",
+            new LogLevelError())
+        )
+      )
+    ),
     new EasyLogger(
       logger,
       new RegisteredLoggingModule(
         "ExtendWebPage",
-        new LogLevelError())),
-    new Url(currentUrl),
-    new TransferMarketAmateurUiUrl(),
-    new TransferMarketAmateurTableUi(
-      new EasyLogger(
-        logger,
-        new RegisteredLoggingModule(
-          "TransferMarketAmateurTableUi",
-          new LogLevelError())),
-      doc,
-      new StrengthLevelsSetting(),
-      new StorageLocal<ITransferMarketAmateurTable>(
-        new SettingNameTransferMarketAmateurTable(),
-        new TransferMarketAmateurTable(
-          true,
-          new TrainingColumn(
-            new XPathHtmlTableCell2(
-              new XPathSingleResult3<HTMLTableCellElement>(
-                new XPathAllResults3(
-                  new TransferMarketAmateurUiUrl(),
-                  new XPathString(
-                    '//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]'
-                  )
-                )
-              )
-            )
-          )
-        )
-      )
+        new LogLevelError())
     )
   )
 );
 app.main();
+
+/*** BEGING experimental ***
+
+export class CurrentUrl implements IUrl {
+  private urlField: String;
+
+  constructor(url: String) {
+    this.urlField = url;
+  }
+  public url(): String {
+    return this.urlField;
+  }
+  public fromJson(jsonString: String): IUrl {
+    return new CurrentUrl(jsonString["urlField"]);
+  }
+
+}
+
+export interface IWebPage {
+}
+export interface IColumnToAdd {
+
+}
+export class AwpColumnToAdd implements IColumnToAdd {
+
+  constructor(trainingColumng: IColumn, experienceColumn: IColumn) {
+
+  }
+}
+export interface IColumnToExtend {
+
+}
+
+// Transfer market amateur - player table 
+new ExtendWebPage(
+  new EasyLogger(
+    logger,
+    new RegisteredLoggingModule(
+      "ExtendWebPage",
+      new LogLevelError())),
+  new CurrentUrl(
+    new String(document.location.href)),
+  new TransferMarketAmateurWebPage(
+    new Dom(),
+    new TransferMarketAmateurWebPageUrl(),
+    new TransferMarketAmateurPlayerTable(
+      new StrengthLevelsSetting(),
+      new StorageLocal<ITransferMarketAmateurExtendPlayerTableSetting>(
+        new SettingNameTransferMarketAmateurTable(),
+        new TransferMarketAmateurExtendPlayerTableSetting(
+          new TrainingColumnByXpath(),
+          new ExperienceColumnByXpath(),
+          new StrengthColumnByXpath(),
+          new AddAwpColumn(true),
+          new ExtendStrengthColumn(true)
+        ),
+        new StrengthColumnToExtend(
+        )
+      )
+    )
+  ),
+  new EasyLogger()
+)
+
+// Transfer market professionals - table watch list
+new TransferMarketProfessionalsExtendWatchTableSetting(
+  new AwpColumnToAdd(
+    new AwpColumn(
+      new TrainingColumnByXpath(),
+      new ExperienceColumnByXpath()
+    ),
+    new AddAwpColumn(true)
+  ),
+  new StrengthColumnToExtend(
+    new StrengthColumnByXpath(),
+    new AwpColumn(
+      new TrainingColumnByXpath(),
+      new ExperienceColumnByXpath()
+    ),
+    new ExtendStrengthColumn(true)
+  )
+
+)
+
+// Transfer market professionals - table search results
+new TransferMarketProfessionalsExtendSearchResultTableSetting(
+  new AwpColumnToAdd(
+    new AwpColumn(
+      new ExperienceAndTrainingColumnByXpath()
+    ),
+    new AddAwpColumn(true)
+  ),
+  new StrengthColumnToExtend(
+    new StrengthColumnByXpath(),
+    new AwpColumn(
+      new TrainingColumnByXpath(),
+      new ExperienceColumnByXpath()
+    ),
+    new ExtendStrengthColumn(true)
+  )
+)
+
+// Team - players table
+new TeamExtendPlayerTableSetting(
+  new AwpColumnToExtend(
+    new AwpColumnByXpath(),
+    new AwpColumn(
+      new TrainingColumnByXpath(),
+      new ExperienceColumnByXpath()
+    ),
+    new ExtendAwpColumn(true)
+  )
+)
+
+// Transfer market - possible offers
+new TransferMarketExtendOfferTableSetting(
+  new AwpColumnToExtend(
+    new AwpColumnByXpath(),
+    new StrengthColumnByXpath(),
+    new ExtendAwpColumn(true)
+  )
+)
+
+*** END experimental */
