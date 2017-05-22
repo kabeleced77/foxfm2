@@ -33,7 +33,7 @@ import { StorageLocal } from "../Common/Storage";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 import { IEasyLogger, EasyLogger } from "../Common/Logger/EasyLogger";
-import { ExtendWebPage, IExtendWebPage } from "../Common/Toolkit/ExtendTargetPage";
+import { ExtendWebPage, IExtendWebPage } from "../Common/Toolkit/ExtendWebPage";
 import { IWebElementToExtend } from "../Common/Toolkit/WebElementToExtend";
 import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
 import { ISetting } from "../Common/Settings/Setting";
