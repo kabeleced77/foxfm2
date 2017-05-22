@@ -30,7 +30,7 @@ export class TransferMarketAmateurTableUi implements IWebElementToExtend {
     this.strengthLevelsSetting = strengthLevelsSetting;
     this.settings = transferMarketAmateurTableSetting;
   }
-  public extend(log: IEasyLogger) {
+  public extend() {
     this.settings
       .value()
       .then(setting => {

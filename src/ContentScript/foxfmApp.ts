@@ -183,7 +183,7 @@ export class TransferMarketAmateurWebPage implements IWebPageToExtend {
     return this.urlField;
   }
   public extend(logger: IEasyLogger): void {
-    this.playerTableField.extend(logger);
+    this.playerTableField.extend();
   }
 }
 
@@ -205,7 +205,7 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
     this.log = log;
   }
 
-  public extend(logger: IEasyLogger): void {
+  public extend(): void {
     this.log.info("start extension");
     this.amateurPlayerTableSettings
       .value()
