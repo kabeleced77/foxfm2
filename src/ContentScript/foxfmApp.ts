@@ -21,7 +21,6 @@ import { TransferMarketAmateurWebPageUrl } from "../Common/TransferMarketAmateur
 import { ExperienceAndTrainingColumn } from "../Common/ExperienceAndTrainingColumn";
 import { IUrl, Url } from "../Common/Toolkit/Url";
 import { TransferMarketAmateurTable, ITransferMarketAmateurTable } from "../Common/TransferMarketAmateurTable";
-import { TransferMarketAmateurTableUi } from "./TransferMarketAmateurTableUi";
 import { TrainingColumn } from "../Common/TrainingColumn";
 import { Mutex } from "../Common/Toolkit/Mutex";
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/Logger/RegisteredLoggingModules";
