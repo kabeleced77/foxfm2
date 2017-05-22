@@ -14,7 +14,7 @@ import { IStadiumEntryPrices } from '../StadiumEntryPrices';
 import { StadiumEntryPrices } from '../StadiumEntryPrices';
 import { StadiumEntryPrice } from '../StadiumEntryPrice';
 import { ISettingName } from "./SettingName";
-import { StorageLocal } from "../Storage";
+import { StorageLocal } from "../Toolkit/StorageLocal";
 
 export interface IStadiumBlocksSetting {
   blocksEntryPricesOffsetActivated(): Promise<Boolean>;

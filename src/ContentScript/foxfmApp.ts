@@ -29,7 +29,7 @@ import { ISettingName } from "../Common/Settings/SettingName";
 import { SettingNameTransferTablePossibleOffers } from "../Common/Settings/SettingNameTransferTablePossibleOffers";
 import { SettingNameTransferMarketProfessionalsSearchResultTable } from "../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable";
 import { SettingNameTransferMarketAmateurTable } from "../Common/Settings/SettingNameTransferMarketAmateurTable";
-import { StorageLocal } from "../Common/Storage";
+import { StorageLocal } from "../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 import { IEasyLogger, EasyLogger } from "../Common/Logger/EasyLogger";
@@ -336,9 +336,10 @@ var logger = new Logger(
     new LogLevelError()),
   new StorageLocalSync<IRegisteredLoggingModules>(
     new Mutex<IRegisteredLoggingModules>(),
-    new SettingNameLoggingModules(),
-    new RegisteredLoggingModules(
-      new Array<IRegisteredLoggingModule>())));
+    new StorageLocal<IRegisteredLoggingModules>(
+      new SettingNameLoggingModules(),
+      new RegisteredLoggingModules(
+        new Array<IRegisteredLoggingModule>()))));
 
 var app = new foxfmApp(
   logger,
@@ -380,6 +381,7 @@ var app = new foxfmApp(
   )
 );
 app.main();
+
 
 /*** BEGING experimental ***
 

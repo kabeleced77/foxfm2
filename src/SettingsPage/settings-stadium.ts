@@ -17,7 +17,7 @@ import { RessourceStadiumAddOverallPrices } from "../Common/Ressource"
 import { RessourceStadiumAddOffsetPrices } from "../Common/Ressource"
 import { Mutex } from "../Common/Toolkit/Mutex";
 import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
-import { StorageLocal } from "../Common/Storage";
+import { StorageLocal } from "../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 
@@ -40,9 +40,10 @@ export class SettingsStadium {
         new LogLevelError()),
       new StorageLocalSync<IRegisteredLoggingModules>(
         new Mutex<IRegisteredLoggingModules>(),
-        new SettingNameLoggingModules(),
-        new RegisteredLoggingModules(
-          new Array<IRegisteredLoggingModule>()))
+        new StorageLocal<IRegisteredLoggingModules>(
+          new SettingNameLoggingModules(),
+          new RegisteredLoggingModules(
+            new Array<IRegisteredLoggingModule>())))
     );
     var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
     this.log.registerModuleForLogging(loggingModule);

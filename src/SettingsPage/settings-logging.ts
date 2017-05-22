@@ -10,7 +10,7 @@ import { RessourceSettingsPageLoggerIntro } from "../Common/Ressource"
 import { Mutex } from "../Common/Toolkit/Mutex";
 import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
 import { ISetting } from "../Common/Settings/Setting";
-import { StorageLocal } from "../Common/Storage";
+import { StorageLocal } from "../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 
@@ -34,9 +34,10 @@ export class SettingsLogging {
         new LogLevelError()),
       new StorageLocalSync<IRegisteredLoggingModules>(
         new Mutex(),
-        new SettingNameLoggingModules(),
-        new RegisteredLoggingModules(
-          new Array<IRegisteredLoggingModule>()))
+        new StorageLocal<IRegisteredLoggingModules>(
+          new SettingNameLoggingModules(),
+          new RegisteredLoggingModules(
+            new Array<IRegisteredLoggingModule>())))
     );
     this.registeredLoggingModulesSetting = this.log.registeredModules();
     this.loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());

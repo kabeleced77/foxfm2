@@ -7,7 +7,7 @@ import { IRessource } from '../Common/Ressource';
 import { Ressource } from '../Common/Ressource';
 import { Mutex } from "../Common/Toolkit/Mutex";
 import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
-import { StorageLocal } from "../Common/Storage";
+import { StorageLocal } from "../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 
@@ -43,9 +43,10 @@ var logger = new Logger(
     new LogLevelError()),
   new StorageLocalSync<IRegisteredLoggingModules>(
     new Mutex<IRegisteredLoggingModules>(),
-    new SettingNameLoggingModules(),
-    new RegisteredLoggingModules(
-      new Array<IRegisteredLoggingModule>()))
+    new StorageLocal<IRegisteredLoggingModules>(
+      new SettingNameLoggingModules(),
+      new RegisteredLoggingModules(
+        new Array<IRegisteredLoggingModule>())))
 );
 var background = new FoxfmBackground(logger);
 background.main();

@@ -6,7 +6,7 @@ import { StadiumOverallEntryPrices } from '../StadiumOverallEntryPrices';
 import { StadiumEntryPrices } from '../StadiumEntryPrices';
 import { StadiumEntryPrice } from '../StadiumEntryPrice';
 import { ISettingName } from "./SettingName";
-import { StorageLocal } from "../Storage";
+import { StorageLocal } from "../Toolkit/StorageLocal";
 
 export interface IStadiumOverallEntryPricesSetting {
   overallEntryPrices(): Promise<IStadiumOverallEntryPrices>;

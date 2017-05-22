@@ -9,7 +9,7 @@ import { XPathSingleResult2 } from "../Toolkit/XPathSingleResult";
 import { XPathAllResults2 } from "../Toolkit/XPathAllResults";
 import { TeamTableUiUrl } from "../Urls/TeamTableUiUrl";
 import { ISettingName } from "./SettingName";
-import { StorageLocal } from "../Storage";
+import { StorageLocal } from "../Toolkit/StorageLocal";
 
 export interface ITeamTableSetting {
   setting(): Promise<ITeamTable>;
