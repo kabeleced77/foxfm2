@@ -1,4 +1,4 @@
-import { IUrl } from "./Toolkit/Url"
+import { IUrl } from "../Toolkit/Url"
 
 export class TransferMarketProfessionalsUiUrl implements IUrl {
   private urlField: String;
