@@ -4,10 +4,10 @@ import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/L
 import { ILogLevel } from '../Common/Logger/LogLevel';
 import { LogLevelError } from '../Common/Logger/LogLevel';
 import { IStadiumBlocks } from '../Common/stadiumBlocks';
-import { IStadiumBlocksSetting } from '../Common/StadiumBlocksSetting';
-import { StadiumBlocksSetting } from '../Common/StadiumBlocksSetting';
-import { IStadiumOverallEntryPricesSetting } from '../Common/StadiumOverallEntryPricesSetting';
-import { StadiumOverallEntryPricesSetting } from '../Common/StadiumOverallEntryPricesSetting';
+import { IStadiumBlocksSetting } from '../Common/Settings/StadiumBlocksSetting';
+import { StadiumBlocksSetting } from '../Common/Settings/StadiumBlocksSetting';
+import { IStadiumOverallEntryPricesSetting } from '../Common/Settings/StadiumOverallEntryPricesSetting';
+import { StadiumOverallEntryPricesSetting } from '../Common/Settings/StadiumOverallEntryPricesSetting';
 import { StadiumOverallEntryPrices } from '../Common/StadiumOverallEntryPrices';
 import { StadiumEntryPrices } from '../Common/StadiumEntryPrices';
 import { StadiumEntryPrice } from '../Common/StadiumEntryPrice';

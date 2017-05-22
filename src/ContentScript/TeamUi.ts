@@ -4,8 +4,8 @@ import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModul
 import { LogLevelError } from '../Common/Logger/LogLevel';
 import { NumberHelper } from "../Common/Toolkit/NumberHelper"
 import { IStrengthLevels } from "../Common/StrengthLevels"
-import { IStrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
-import { ITeamTableSetting } from "../Common/TeamTableSetting"
+import { IStrengthLevelsSetting } from "../Common/Settings/StrengthLevelsSetting"
+import { ITeamTableSetting } from "../Common/Settings/TeamTableSetting"
 
 export class TeamUi {
   private log: ILogger;

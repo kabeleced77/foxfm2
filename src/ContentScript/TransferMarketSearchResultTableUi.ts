@@ -1,7 +1,7 @@
 import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { LogLevelError } from '../Common/Logger/LogLevel';
-import { IStrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
+import { IStrengthLevelsSetting } from "../Common/Settings/StrengthLevelsSetting"
 import { ISetting } from "../Common/Settings/Setting";
 import { ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
 import { ITransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";

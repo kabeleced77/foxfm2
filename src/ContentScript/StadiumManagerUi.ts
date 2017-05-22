@@ -6,11 +6,11 @@ import { DOMHelper } from "../Common/Toolkit/DOMHelper"
 import { IGameKind } from '../Common/GameKind';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/GameKind';
 import { IStadiumBlocks } from "../Common/StadiumBlocks"
-import { IStadiumBlocksSetting } from "../Common/StadiumBlocksSetting"
-import { StadiumBlocksSetting } from "../Common/StadiumBlocksSetting"
+import { IStadiumBlocksSetting } from "../Common/Settings/StadiumBlocksSetting"
+import { StadiumBlocksSetting } from "../Common/Settings/StadiumBlocksSetting"
 import { IStadiumOverallEntryPrices } from "../Common/StadiumOverallEntryPrices"
-import { IStadiumOverallEntryPricesSetting } from "../Common/StadiumOverallEntryPricesSetting"
-import { StadiumOverallEntryPricesSetting } from "../Common/StadiumOverallEntryPricesSetting"
+import { IStadiumOverallEntryPricesSetting } from "../Common/Settings/StadiumOverallEntryPricesSetting"
+import { StadiumOverallEntryPricesSetting } from "../Common/Settings/StadiumOverallEntryPricesSetting"
 import { StadiumEntryPrice } from "../Common/StadiumEntryPrice"
 import { IStadiumEntryPrices } from "../Common/StadiumEntryPrices"
 

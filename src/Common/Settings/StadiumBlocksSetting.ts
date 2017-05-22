@@ -1,20 +1,20 @@
-import { ISetting } from "./Settings/Setting"
-import { IGameKind } from './GameKind';
-import { GameKindLeague, GameKindFriendly, GameKindCup } from './GameKind';
-import { IStadiumBlocks } from './StadiumBlocks';
-import { StadiumBlocks } from './StadiumBlocks';
-import { IStadiumBlock } from './StadiumBlock';
-import { StadiumBlock } from './StadiumBlock';
-import { IStadiumBlockName } from './StadiumBlockName';
-import { StadiumBlockName1 } from './StadiumBlockName';
-import { StadiumBlockName2 } from './StadiumBlockName';
-import { StadiumBlockName3 } from './StadiumBlockName';
-import { StadiumBlockName4 } from './StadiumBlockName';
-import { IStadiumEntryPrices } from './StadiumEntryPrices';
-import { StadiumEntryPrices } from './StadiumEntryPrices';
-import { StadiumEntryPrice } from './StadiumEntryPrice';
-import { ISettingName } from "./Settings/SettingName";
-import { StorageLocal } from "./Storage";
+import { ISetting } from "./Setting"
+import { IGameKind } from '../GameKind';
+import { GameKindLeague, GameKindFriendly, GameKindCup } from '../GameKind';
+import { IStadiumBlocks } from '../StadiumBlocks';
+import { StadiumBlocks } from '../StadiumBlocks';
+import { IStadiumBlock } from '../StadiumBlock';
+import { StadiumBlock } from '../StadiumBlock';
+import { IStadiumBlockName } from '../StadiumBlockName';
+import { StadiumBlockName1 } from '../StadiumBlockName';
+import { StadiumBlockName2 } from '../StadiumBlockName';
+import { StadiumBlockName3 } from '../StadiumBlockName';
+import { StadiumBlockName4 } from '../StadiumBlockName';
+import { IStadiumEntryPrices } from '../StadiumEntryPrices';
+import { StadiumEntryPrices } from '../StadiumEntryPrices';
+import { StadiumEntryPrice } from '../StadiumEntryPrice';
+import { ISettingName } from "./SettingName";
+import { StorageLocal } from "../Storage";
 
 export interface IStadiumBlocksSetting {
   blocksEntryPricesOffsetActivated(): Promise<Boolean>;

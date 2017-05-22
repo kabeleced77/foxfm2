@@ -1,15 +1,15 @@
-import { ISetting } from "./Settings/Setting"
-import { ITeamTable } from "./TeamTable"
-import { TeamTable } from "./TeamTable"
-import { XPathInformation } from "./Toolkit/XPathString"
-import { HtmlId } from "./Toolkit/HtmlId"
-import { AwpAndStrengthColumns } from "./AwpAndStrengthColumns";
-import { XPathHtmlTableCell2 } from "./Toolkit/XPathHtmlTableCell";
-import { XPathSingleResult2 } from "./Toolkit/XPathSingleResult";
-import { XPathAllResults2 } from "./Toolkit/XPathAllResults";
-import { TeamTableUiUrl } from "./Urls/TeamTableUiUrl";
-import { ISettingName } from "./Settings/SettingName";
-import { StorageLocal } from "./Storage";
+import { ISetting } from "./Setting"
+import { ITeamTable } from "../TeamTable"
+import { TeamTable } from "../TeamTable"
+import { XPathInformation } from "../Toolkit/XPathString"
+import { HtmlId } from "../Toolkit/HtmlId"
+import { AwpAndStrengthColumns } from "../AwpAndStrengthColumns";
+import { XPathHtmlTableCell2 } from "../Toolkit/XPathHtmlTableCell";
+import { XPathSingleResult2 } from "../Toolkit/XPathSingleResult";
+import { XPathAllResults2 } from "../Toolkit/XPathAllResults";
+import { TeamTableUiUrl } from "../Urls/TeamTableUiUrl";
+import { ISettingName } from "./SettingName";
+import { StorageLocal } from "../Storage";
 
 export interface ITeamTableSetting {
   setting(): Promise<ITeamTable>;

@@ -4,8 +4,8 @@ import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModul
 import { LogLevelError, ILogLevel } from '../Common/Logger/LogLevel';
 import { StadiumManagerUi } from "./StadiumManagerUi"
 import { TeamUi } from "./TeamUi"
-import { StrengthLevelsSetting, IStrengthLevelsSetting } from "../Common/StrengthLevelsSetting"
-import { TeamTableSetting } from "../Common/TeamTableSetting"
+import { StrengthLevelsSetting, IStrengthLevelsSetting } from "../Common/Settings/StrengthLevelsSetting"
+import { TeamTableSetting } from "../Common/Settings/TeamTableSetting"
 import { TransferTableUi } from "./TransferTableUi"
 import { TransferTablePossibleOffers, ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
 import { AwpAndStrengthColumns } from "../Common/AwpAndStrengthColumns";
