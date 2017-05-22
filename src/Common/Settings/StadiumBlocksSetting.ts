@@ -1,4 +1,4 @@
-import { ISetting } from "./Setting"
+import { ISetting } from "../Toolkit/Setting"
 import { IGameKind } from '../GameKind';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from '../GameKind';
 import { IStadiumBlocks } from '../StadiumBlocks';
@@ -13,7 +13,7 @@ import { StadiumBlockName4 } from '../StadiumBlockName';
 import { IStadiumEntryPrices } from '../StadiumEntryPrices';
 import { StadiumEntryPrices } from '../StadiumEntryPrices';
 import { StadiumEntryPrice } from '../StadiumEntryPrice';
-import { ISettingName } from "./SettingName";
+import { ISettingName } from "../Toolkit/SettingName";
 import { StorageLocal } from "../Toolkit/StorageLocal";
 
 export interface IStadiumBlocksSetting {

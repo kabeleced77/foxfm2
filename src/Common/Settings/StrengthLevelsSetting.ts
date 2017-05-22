@@ -1,9 +1,9 @@
-import { ISetting } from './Setting'
+import { ISetting } from '../Toolkit/Setting'
 import { IStrengthLevel } from '../StrengthLevel'
 import { StrengthLevel } from '../StrengthLevel'
 import { IStrengthLevels } from '../StrengthLevels'
 import { StrengthLevels } from '../StrengthLevels'
-import { ISettingName } from "./SettingName";
+import { ISettingName } from "../Toolkit/SettingName";
 import { StorageLocal } from "../Toolkit/StorageLocal";
 
 export interface IStrengthLevelsSetting {

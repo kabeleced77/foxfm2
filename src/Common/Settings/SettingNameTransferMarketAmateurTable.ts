@@ -1,4 +1,4 @@
-import { ISettingName } from "./SettingName";
+import { ISettingName } from "../Toolkit/SettingName";
 
 export class SettingNameTransferMarketAmateurTable implements ISettingName {
   private settingName: String = "foxfm2.setting.transfermarket.amateur.playertable";

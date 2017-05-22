@@ -1,4 +1,4 @@
-import { ISettingName } from "./SettingName";
+import { ISettingName } from "../Toolkit/SettingName";
 
 export class SettingNameLoggingModules implements ISettingName {
   private nameField: String;

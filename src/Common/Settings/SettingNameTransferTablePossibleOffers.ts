@@ -1,4 +1,4 @@
-import { ISettingName } from "./SettingName";
+import { ISettingName } from "../Toolkit/SettingName";
 
 export class SettingNameTransferTablePossibleOffers implements ISettingName {
   private settingName: String = "foxfm2.setting.transfer.possibleOffers";

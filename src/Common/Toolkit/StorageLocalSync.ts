@@ -1,6 +1,6 @@
-import { ISetting } from "../Settings/Setting";
+import { ISetting } from "./Setting";
 import { IMutex } from "./Mutex";
-import { ISettingName } from "../Settings/SettingName";
+import { ISettingName } from "./SettingName";
 import { ITypeInStorage } from "../TypeInStorage";
 
 export class StorageLocalSync<T extends ITypeInStorage<T>> implements ISetting<T> {

@@ -1,4 +1,4 @@
-import { ISettingName } from "./SettingName";
+import { ISettingName } from "../Toolkit/SettingName";
 
 export class SettingNameApplicationLogLevel implements ISettingName {
   private settingName: String = "foxfm2.logger.applicationLogLevel";

@@ -2,7 +2,7 @@ import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModu
 import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { LogLevelError } from '../Common/Logger/LogLevel';
 import { IStrengthLevelsSetting } from "../Common/Settings/StrengthLevelsSetting"
-import { ISetting } from "../Common/Settings/Setting";
+import { ISetting } from "../Common/Toolkit/Setting";
 import { ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
 import { ILogger } from "../Common/Logger/Logger";
 

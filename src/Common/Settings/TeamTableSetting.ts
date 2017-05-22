@@ -1,4 +1,4 @@
-import { ISetting } from "./Setting"
+import { ISetting } from "../Toolkit/Setting"
 import { ITeamTable } from "../TeamTable"
 import { TeamTable } from "../TeamTable"
 import { XPathInformation } from "../Toolkit/XPathString"
@@ -8,7 +8,7 @@ import { XPathHtmlTableCell2 } from "../Toolkit/XPathHtmlTableCell";
 import { XPathSingleResult2 } from "../Toolkit/XPathSingleResult";
 import { XPathAllResults2 } from "../Toolkit/XPathAllResults";
 import { TeamTableUiUrl } from "../Urls/TeamTableUiUrl";
-import { ISettingName } from "./SettingName";
+import { ISettingName } from "../Toolkit/SettingName";
 import { StorageLocal } from "../Toolkit/StorageLocal";
 
 export interface ITeamTableSetting {
