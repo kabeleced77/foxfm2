@@ -34,7 +34,7 @@ export class StrengthLevel implements IStrengthLevel {
 
   public fromJson(jsonString: String): IStrengthLevel {
     return new StrengthLevel(
-      jsonString["level"],
+      jsonString["levelOfStrength"],
       jsonString["wageOfLevel"],
       jsonString["awps"]
     )
