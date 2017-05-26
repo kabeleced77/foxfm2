@@ -33,7 +33,7 @@ import { StorageLocal } from "../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 import { IEasyLogger, EasyLogger } from "../Common/Logger/EasyLogger";
-import { ExtendWebPage } from "../Common/Toolkit/ExtendWebPage";
+import { ExtendWebPage, IExtendWebPage } from "../Common/Toolkit/ExtendWebPage";
 import { IWebElementToExtend } from "../Common/Toolkit/WebElementToExtend";
 import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
 import { ISetting } from "../Common/Toolkit/Setting";
@@ -41,6 +41,7 @@ import { AwpColumn } from "../Common/AwpColumn";
 import { IExistingColumn } from "../Common/Toolkit/ExisitingColumn";
 import { IDom, Dom } from "../Common/Toolkit/Dom";
 import { ExtendWebPages, IExtendWebPages } from "../Common/Toolkit/ExtendWebPages";
+import { TeamTableUiUrl } from "../Common/Urls/TeamTableUiUrl";
 
 export class SettingNameTeamTable implements ISettingName {
   private settingName: String = "foxfm2.teamui.setting";
@@ -75,71 +76,63 @@ class foxfmApp {
     var location = doc.location.href;
     this.info(`S t a r t e d on ${location}`);
     try {
-      this.logger.registerModuleForLogging(this.loggingModule)
-        .then(() => {
-          this.teamUi = new TeamUi(
-            this.logger,
-            new StrengthLevelsSetting(),
-            new TeamTableSetting()
-          );
-          this.stadiumManagerUi = new StadiumManagerUi(
-            this.logger);
-          this.transferTableUi = new TransferTableUi(
-            this.logger,
-            new StrengthLevelsSetting(),
-            new StorageLocal<ITransferTablePossibleOffers>(
-              new SettingNameTransferTablePossibleOffers(),
-              new TransferTablePossibleOffers(
-                new AwpAndStrengthColumns(
-                  new XPathHtmlTableCell2(
-                    new XPathSingleResult2<HTMLTableCellElement>(
-                      new XPathAllResults2(
-                        new XPathInformation(
-                          new TransferTablePossibleOffersUiUrl(),
-                          '//*[@id="punkte"]')))),
-                  new XPathHtmlTableCell2(
-                    new XPathSingleResult2<HTMLTableCellElement>(
-                      new XPathAllResults2(
-                        new XPathInformation(
-                          new TransferTablePossibleOffersUiUrl(),
-                          '//*[@id="staerke"]')))),
-                  true
-                )
-              )
+      this.logger.registerModuleForLogging(this.loggingModule);
+      this.stadiumManagerUi = new StadiumManagerUi(
+        this.logger);
+      this.transferTableUi = new TransferTableUi(
+        this.logger,
+        new StrengthLevelsSetting(),
+        new StorageLocal<ITransferTablePossibleOffers>(
+          new SettingNameTransferTablePossibleOffers(),
+          new TransferTablePossibleOffers(
+            new AwpAndStrengthColumns(
+              new XPathHtmlTableCell2(
+                new XPathSingleResult2<HTMLTableCellElement>(
+                  new XPathAllResults2(
+                    new XPathInformation(
+                      new TransferTablePossibleOffersUiUrl(),
+                      '//*[@id="punkte"]')))),
+              new XPathHtmlTableCell2(
+                new XPathSingleResult2<HTMLTableCellElement>(
+                  new XPathAllResults2(
+                    new XPathInformation(
+                      new TransferTablePossibleOffersUiUrl(),
+                      '//*[@id="staerke"]')))),
+              true
             )
-          );
-          this.transferMarketSearchResultTableUi = new TransferMarketSearchResultTableUi(
-            this.logger,
-            new StrengthLevelsSetting(),
-            new StorageLocal<ITransferMarketSearchResultTable>(
-              new SettingNameTransferMarketProfessionalsSearchResultTable(),
-              new TransferMarketSearchResultTable(
-                new TransferMarketProfessionalsUiUrl(),
-                new ExperienceAndTrainingColumn(
-                  new XPathHtmlTableCell2(
-                    new XPathSingleResult2<HTMLTableCellElement>(
-                      new XPathAllResults2(
-                        new XPathInformation(
-                          new TransferMarketProfessionalsUiUrl(),
-                          '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))),
-                  new XPathHtmlTableCell2(
-                    new XPathSingleResult2<HTMLTableCellElement>(
-                      new XPathAllResults2(
-                        new XPathInformation(
-                          new TransferMarketProfessionalsUiUrl(),
-                          '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]'
-                        )
-                      )
+          )
+        )
+      );
+      this.transferMarketSearchResultTableUi = new TransferMarketSearchResultTableUi(
+        this.logger,
+        new StrengthLevelsSetting(),
+        new StorageLocal<ITransferMarketSearchResultTable>(
+          new SettingNameTransferMarketProfessionalsSearchResultTable(),
+          new TransferMarketSearchResultTable(
+            new TransferMarketProfessionalsUiUrl(),
+            new ExperienceAndTrainingColumn(
+              new XPathHtmlTableCell2(
+                new XPathSingleResult2<HTMLTableCellElement>(
+                  new XPathAllResults2(
+                    new XPathInformation(
+                      new TransferMarketProfessionalsUiUrl(),
+                      '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))),
+              new XPathHtmlTableCell2(
+                new XPathSingleResult2<HTMLTableCellElement>(
+                  new XPathAllResults2(
+                    new XPathInformation(
+                      new TransferMarketProfessionalsUiUrl(),
+                      '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]'
                     )
-                  ),
-                  true
+                  )
                 )
-              )
+              ),
+              true
             )
-          );
-          this.run(doc);
-        })
-        .catch(reason => this.error(reason));
+          )
+        )
+      );
+      this.run(doc);
     } catch (error) {
       this.error(error);
     }
@@ -147,7 +140,6 @@ class foxfmApp {
 
   private run(doc: Document): void {
     this.stadiumManagerUi.addPricingControlElements();
-    this.teamUi.addAdditionalInformation(doc);
     this.transferTableUi.addAdditionalInformation(doc);
     this.transferMarketSearchResultTableUi.addAdditionalInformation(doc);
   }
@@ -182,7 +174,7 @@ export class TransferMarketAmateurWebPage implements IWebPageToExtend {
   public pageUrl(): IUrl {
     return this.urlField;
   }
-  public extend(logger: IEasyLogger): void {
+  public extend(): void {
     this.playerTableField.extend();
   }
 }
@@ -344,9 +336,31 @@ var logger = new Logger(
 
 var app = new foxfmApp(
   logger,
-  // Extend amateur transfer market
   new ExtendWebPages(
-    new Array(
+    new Array<IExtendWebPage>(
+      // Extend team table
+      new ExtendWebPage(
+        new Url(currentUrl),
+        new TeamUi(
+          new Dom(doc),
+          new TeamTableUiUrl(),
+          new StrengthLevelsSetting(),
+          new TeamTableSetting(),
+          new EasyLogger(
+            logger,
+            new RegisteredLoggingModule(
+              "TeamUi",
+              new LogLevelError())
+          )
+        ),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "ExtendWebPage",
+            new LogLevelError())
+        )
+      ),
+      // Extend amateur transfer market
       new ExtendWebPage(
         new Url(currentUrl),
         new TransferMarketAmateurWebPage(
@@ -379,7 +393,7 @@ var app = new foxfmApp(
             "ExtendWebPage",
             new LogLevelError())
         )
-      )
+      ),
     )
   )
 );

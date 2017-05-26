@@ -1,17 +1,22 @@
 import { IExtendWebPage } from "./ExtendWebPage";
+import { IEasyLogger } from "../Logger/EasyLogger";
 
 export interface IExtendWebPages {
   extend(): void;
 }
 
 export class ExtendWebPages implements IExtendWebPages {
-  private webPagesField: Array<IExtendWebPage>;
+  private webPages: Array<IExtendWebPage>;
 
-  constructor(webPages: Array<IExtendWebPage>) {
-    this.webPagesField = webPages;
+  constructor(
+    page: Array<IExtendWebPage>
+  ) {
+    this.webPages = page;
   }
 
   public extend(): void {
-    this.webPagesField.forEach(page => page.extend());
+    this.webPages.forEach(webPage => {
+      webPage.extend();
+    });
   }
 }
