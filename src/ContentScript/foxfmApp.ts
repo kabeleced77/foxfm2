@@ -42,6 +42,7 @@ import { IExistingColumn } from "../Common/Toolkit/ExisitingColumn";
 import { IDom, Dom } from "../Common/Toolkit/Dom";
 import { ExtendWebPages, IExtendWebPages } from "../Common/Toolkit/ExtendWebPages";
 import { TeamTableUiUrl } from "../Common/Urls/TeamTableUiUrl";
+import { StadiumWebPageUrl } from "../Common/Urls/StadiumWebPageUrl";
 
 export class SettingNameTeamTable implements ISettingName {
   private settingName: String = "foxfm2.teamui.setting";
@@ -54,8 +55,6 @@ export class SettingNameTeamTable implements ISettingName {
 class foxfmApp {
   private logger: ILogger;
   private loggingModule: IRegisteredLoggingModule;
-  private stadiumManagerUi: StadiumManagerUi;
-  private teamUi: TeamUi;
   private transferTableUi: TransferTableUi;
   private transferMarketSearchResultTableUi: ITransferMarketSearchResultTableUi;
 
@@ -77,8 +76,6 @@ class foxfmApp {
     this.info(`S t a r t e d on ${location}`);
     try {
       this.logger.registerModuleForLogging(this.loggingModule);
-      this.stadiumManagerUi = new StadiumManagerUi(
-        this.logger);
       this.transferTableUi = new TransferTableUi(
         this.logger,
         new StrengthLevelsSetting(),
@@ -139,7 +136,6 @@ class foxfmApp {
   }
 
   private run(doc: Document): void {
-    this.stadiumManagerUi.addPricingControlElements();
     this.transferTableUi.addAdditionalInformation(doc);
     this.transferMarketSearchResultTableUi.addAdditionalInformation(doc);
   }
@@ -385,6 +381,26 @@ var app = new foxfmApp(
                 "TransferMarketAmateurPlayerTable",
                 new LogLevelError())
             )
+          )
+        ),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "ExtendWebPage",
+            new LogLevelError())
+        )
+      ),
+      // Extend stadium
+      new ExtendWebPage(
+        new Url(currentUrl),
+        new StadiumManagerUi(
+          new Dom(doc),
+          new StadiumWebPageUrl(),
+          new EasyLogger(
+            logger,
+            new RegisteredLoggingModule(
+              "StadiumManagerUi",
+              new LogLevelError())
           )
         ),
         new EasyLogger(

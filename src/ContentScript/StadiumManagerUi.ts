@@ -1,6 +1,3 @@
-import { IRegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule"
-import { RegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule"
-import { LogLevelError } from "../Common/Logger/LogLevel"
 import { NumberHelper } from "../Common/Toolkit/NumberHelper"
 import { DOMHelper } from "../Common/Toolkit/DOMHelper"
 import { IGameKind } from '../Common/GameKind';
@@ -32,12 +29,16 @@ import { RessourceStadiumOffsetPriceLeague } from "../Common/Ressource"
 import { RessourceStadiumOffsetPriceFriendly } from "../Common/Ressource"
 import { RessourceStadiumOffsetPriceCup } from "../Common/Ressource"
 import { ILogger } from "../Common/Logger/Logger";
+import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
+import { IUrl } from "../Common/Toolkit/Url";
+import { IDom } from "../Common/Toolkit/Dom";
+import { IEasyLogger } from "../Common/Logger/EasyLogger";
 
-export class StadiumManagerUi {
-  private logger: ILogger;
-  private loggingModule: IRegisteredLoggingModule;
+export class StadiumManagerUi implements IWebPageToExtend {
+  private dom: IDom;
+  private logger: IEasyLogger;
   private numberHelper = new NumberHelper();
-  private ofmUrlStadium: string = "stadium/stadium.php";
+  private webPageUrl: IUrl;
   private ofmStadiumMinPrice = 1;
   private ofmStadiumMaxPrice = 69;
   private ofmStadiumOffsetMinPrice = 0;
@@ -58,11 +59,13 @@ export class StadiumManagerUi {
   private ressourceStadiumOffsetPriceCup: String;
 
   constructor(
-    logger: ILogger,
+    dom: IDom,
+    webPageUrl: IUrl,
+    logger: IEasyLogger
   ) {
+    this.dom = dom;
+    this.webPageUrl = webPageUrl;
     this.logger = logger;
-    this.loggingModule = new RegisteredLoggingModule("StadiumManagerUi", new LogLevelError());
-    this.logger.registerModuleForLogging(this.loggingModule);
     this.stadiumBlocks = new StadiumBlocksSetting();
     this.stadiumOverallEntryPrices = new StadiumOverallEntryPricesSetting();
 
@@ -79,37 +82,39 @@ export class StadiumManagerUi {
     this.ressourceStadiumOffsetPriceCup = new RessourceStadiumOffsetPriceCup().value();
   }
 
+  public pageUrl(): IUrl {
+    return this.webPageUrl;
+  }
   public getLocalisedString(key: string): string {
     var value = chrome.i18n.getMessage(key);
     return value;
   }
-
+  public extend(): void {
+    this.addPricingControlElements();
+  }
   public addPricingControlElements(): void {
-    this.info("started: " + window.document.location.href + ": " + window.document.location.href.match(this.ofmUrlStadium));
-    if (window.document.location.href.match(this.ofmUrlStadium)) {
-      this.info("will extend stadium according to activated settings")
-      this.stadiumOverallEntryPrices
-        .overallEntryPrices()
-        .then((overallEntryPrices) => {
-          if (overallEntryPrices.activated()) {
-            this.showOverallPricingControlElementsINTERN(overallEntryPrices);
-            this.stadiumBlocks.blocks()
-              .then((blocks: IStadiumBlocks) => {
-                if (blocks.blocksPricesOffsetActivated()) {
-                  blocks.blocks().forEach(block => {
-                    var tribuneTableCell = new XPathHtmlTableCell(
-                      new XPathSingleResult<HTMLTableCellElement>(
-                        new XPathAllResults(document,
-                          new XPathString(block.xPathToTribune()))));
-                    this.addStadiumEntryPricesOffsetControls(block.name().name(), block.pricesOffset(), tribuneTableCell);
-                  });
-                }
-              })
-              .catch(e => { throw new Error(`Could not add controls for stadium blocks offset prices: ${e}`); });
-          }
-        })
-        .catch(e => { this.error(`Could not add controls for stadium overall prices: ${e}`); });
-    }
+    this.logger.info("will extend stadium according to activated settings")
+    this.stadiumOverallEntryPrices
+      .overallEntryPrices()
+      .then((overallEntryPrices) => {
+        if (overallEntryPrices.activated()) {
+          this.showOverallPricingControlElementsINTERN(overallEntryPrices);
+          this.stadiumBlocks.blocks()
+            .then((blocks: IStadiumBlocks) => {
+              if (blocks.blocksPricesOffsetActivated()) {
+                blocks.blocks().forEach(block => {
+                  var tribuneTableCell = new XPathHtmlTableCell(
+                    new XPathSingleResult<HTMLTableCellElement>(
+                      new XPathAllResults(document,
+                        new XPathString(block.xPathToTribune()))));
+                  this.addStadiumEntryPricesOffsetControls(block.name().name(), block.pricesOffset(), tribuneTableCell);
+                });
+              }
+            })
+            .catch(e => { throw new Error(`Could not add controls for stadium blocks offset prices: ${e}`); });
+        }
+      })
+      .catch(e => { this.logger.error(`Could not add controls for stadium overall prices: ${e}`); });
   }
   private showOverallPricingControlElementsINTERN(overallEntryPrices: IStadiumOverallEntryPrices): void {
     var overallPricingTable = this.createPricingTable(
@@ -137,7 +142,7 @@ export class StadiumManagerUi {
       rowNewOverallPrices.setAttribute('align', 'center');
       rowNewOverallPrices.insertCell(0).appendChild(overallPricingTable);
     } else {
-      this.error('foxfm_stadium(): Could not get the table where to put the overall pricing table.');
+      this.logger.error('foxfm_stadium(): Could not get the table where to put the overall pricing table.');
     }
   }
 
@@ -171,7 +176,7 @@ export class StadiumManagerUi {
       var tableCell = <HTMLTableDataCellElement>cells.cells[blockTableCol];
       tableCell.colSpan = 6;
     } else {
-      this.warn(`Could not get tribune - will skip it block number: ${blockNumber}`);
+      this.logger.warn(`Could not get tribune - will skip it block number: ${blockNumber}`);
     }
   }
 
@@ -263,7 +268,7 @@ export class StadiumManagerUi {
     this.stadiumBlocks.stadiumBlockByName(eventTargetName)
       .then((blockOfStadium) => {
         /* handle changes of the offset price */
-        this.info(`Will handle price change of block '${blockOfStadium.name().name()}'.`);
+        this.logger.info(`Will handle price change of block '${blockOfStadium.name().name()}'.`);
         var offsetPrice = this.getStadiumOffsetStadiumPriceOfBlock(gameType, blockOfStadium.name().name());
         var newPrice = NumberHelper.coerce(minPrice, maxPrice, overallPrice + offsetPrice);
         this.setStadiumPriceOfBlock(gameType, blockOfStadium.name().name(), newPrice);
@@ -271,7 +276,7 @@ export class StadiumManagerUi {
       }).catch(() => {
         /* if no block could be found, it is expected that the overall price had been changed --> handle changes of the overall price */
         /* TODO: make this case "nicer" */
-        this.info(`Will handle overall price change of kind '${gameType.name()}'.`);
+        this.logger.info(`Will handle overall price change of kind '${gameType.name()}'.`);
         this.stadiumBlocks.blocks().then((blocks) => {
           for (var i = 0; i < blocks.blocks().length; i++) {
             var offsetPrice = this.getStadiumOffsetStadiumPriceOfBlock(gameType, blocks.blocks()[i].name().name());
@@ -293,7 +298,7 @@ export class StadiumManagerUi {
       }
       return offsetPrice;
     } catch (e) {
-      this.error(e);
+      this.logger.error(e);
     }
   }
 
@@ -315,7 +320,7 @@ export class StadiumManagerUi {
       var priceOptionElement = <HTMLOptionElement>blockPriceSelectElement.options[price];
       priceOptionElement.selected = true;
     } catch (e) {
-      this.error(e);
+      this.logger.error(e);
     }
   }
   private createDropDownPrice(dropdownId: string, ddName: String, dropdownTooltip: String, dropdownDefault: Number, ddMinPrice: Number, ddMaxPrice: Number) {
@@ -365,21 +370,5 @@ export class StadiumManagerUi {
       return new GameKindCup();
     }
     throw `${this.getTypeOfGame.name}: Could not determine kind of game!`;
-  }
-
-  private info(msg: string): void {
-    this.logger.info(this.loggingModule.name(), msg);
-  }
-
-  private warn(msg: string): void {
-    this.logger.warn(this.loggingModule.name(), msg);
-  }
-
-  private error(msg: string): void {
-    this.logger.error(this.loggingModule.name(), msg);
-  }
-
-  private debug(msg: string): void {
-    this.logger.debug(this.loggingModule.name(), msg);
   }
 }
