@@ -43,6 +43,9 @@ import { IDom, Dom } from "../Common/Toolkit/Dom";
 import { ExtendWebPages, IExtendWebPages } from "../Common/Toolkit/ExtendWebPages";
 import { TeamTableUiUrl } from "../Common/Urls/TeamTableUiUrl";
 import { StadiumWebPageUrl } from "../Common/Urls/StadiumWebPageUrl";
+import { ITransferMarketAmateurPlayerTableExtensionSetting, TransferMarketAmateurPlayerTableExtensionSetting } from "../Common/Settings/TransferMarketAmateurPlayerTableExtensionSetting";
+import { TransferMarketAmateurWebPage } from "../Common/TransferMarketAmateurWebPage";
+import { TransferMarketAmateurPlayerTable } from "../Common/TransferMarketAmateurPlayerTable";
 
 export class SettingNameTeamTable implements ISettingName {
   private settingName: String = "foxfm2.teamui.setting";
@@ -149,121 +152,6 @@ class foxfmApp {
     this.logger.debug(this.loggingModule.name().toString(), msg);
   }
 }
-
-/*** BEGIN needs to be exported into separate files */
-
-export class TransferMarketAmateurWebPage implements IWebPageToExtend {
-  private domField: IDom;
-  private urlField: IUrl;
-  private playerTableField: IWebElementToExtend;
-
-  constructor(
-    dom: IDom,
-    url: IUrl,
-    playerTable: IWebElementToExtend
-  ) {
-    this.domField = dom;
-    this.urlField = url;
-    this.playerTableField = playerTable;
-  }
-
-  public pageUrl(): IUrl {
-    return this.urlField;
-  }
-  public extend(): void {
-    this.playerTableField.extend();
-  }
-}
-
-export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
-  private domField: IDom;
-  private strengthLevels: IStrengthLevelsSetting;
-  private amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>;
-  private log: IEasyLogger;
-
-  constructor(
-    dom: IDom,
-    strengthLevels: IStrengthLevelsSetting,
-    amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>,
-    log: IEasyLogger
-  ) {
-    this.domField = dom;
-    this.strengthLevels = strengthLevels;
-    this.amateurPlayerTableSettings = amateurPlayerTableSettings;
-    this.log = log;
-  }
-
-  public extend(): void {
-    this.log.info("start extension");
-    this.amateurPlayerTableSettings
-      .value()
-      .then(setting => {
-        if (setting.addAwpColumnActivated()) {
-          this.strengthLevels
-            .strengthLevels()
-            .then(strengthLevels => {
-              var idx = setting.trainingColumn().index(this.domField.dom());
-              this.log.debug(idx.toString());
-            })
-        }
-      });
-  }
-}
-
-export interface ITransferMarketAmateurPlayerTableExtensionSetting {
-  addAwpColumnActivated(): Boolean;
-  trainingColumn(): IExistingColumn;
-  fromJson(jsonString: String): ITransferMarketAmateurPlayerTableExtensionSetting;
-}
-export class TransferMarketAmateurPlayerTableExtensionSetting implements ITransferMarketAmateurPlayerTableExtensionSetting {
-  /*
-  private awpColumnToAdd: IColumnToAdd;
-  private strengthColumnToExtend: IColumnToExtend;
-
-  constructor(awpColumnToAdd: IColumnToAdd, strengthColumnToExtend: IColumnToExtend) {
-    this.awpColumnToAdd = awpColumnToAdd;
-    this.strengthColumnToExtend = strengthColumnToExtend;
-  }
-  */
-  private addAwpColumnField: Boolean;
-  private experienceColumnField: IExistingColumn;
-  private trainingColumnField: IExistingColumn;
-
-  constructor(
-    addAwpColumn: Boolean,
-    //    experienceColumn: IExperienceAndTrainingColumn,
-    trainingColumn: IExistingColumn
-  ) {
-    this.addAwpColumnField = addAwpColumn;
-    //    this.experienceColumnField = experienceColumn;
-    this.trainingColumnField = trainingColumn;
-  }
-
-  public addAwpColumnActivated(): Boolean {
-    return this.addAwpColumnField;
-  }
-  public trainingColumn(): IExistingColumn {
-    return this.trainingColumnField;
-  }
-  /*
-  public transferMarketProfessionalsUrl(): IUrl {
-    return this.transferMarketProfessionalsUrlField;
-  }
-  public experienceAndTrainingColumn(): IExperienceAndTrainingColumn {
-    return this.experienceAndTrainingColumnField;
-  }
-  */
-
-  public fromJson(jsonString: String): TransferMarketAmateurPlayerTableExtensionSetting {
-    return new TransferMarketAmateurPlayerTableExtensionSetting(
-      jsonString["addAwpColumnField"],
-      this.trainingColumnField.fromJson(jsonString["trainingColumnField"])
-    );
-
-  }
-}
-
-/***  END needs to be exported into separate files */
 
 /*
 new TransferMarketAmateurWebPage(
