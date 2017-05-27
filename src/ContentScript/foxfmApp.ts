@@ -58,7 +58,7 @@ export class SettingNameTeamTable implements ISettingName {
 class foxfmApp {
   private logger: ILogger;
   private loggingModule: IRegisteredLoggingModule;
-  private transferTableUi: TransferTableUi;
+//  private transferTableUi: TransferTableUi;
   private transferMarketSearchResultTableUi: ITransferMarketSearchResultTableUi;
 
   private extendWebPages: IExtendWebPages;
@@ -79,6 +79,7 @@ class foxfmApp {
     this.info(`S t a r t e d on ${location}`);
     try {
       this.logger.registerModuleForLogging(this.loggingModule);
+      /*
       this.transferTableUi = new TransferTableUi(
         this.logger,
         new StrengthLevelsSetting(),
@@ -103,6 +104,7 @@ class foxfmApp {
           )
         )
       );
+      */
       this.transferMarketSearchResultTableUi = new TransferMarketSearchResultTableUi(
         this.logger,
         new StrengthLevelsSetting(),
@@ -139,7 +141,7 @@ class foxfmApp {
   }
 
   private run(doc: Document): void {
-    this.transferTableUi.addAdditionalInformation(doc);
+//    this.transferTableUi.addAdditionalInformation(doc);
     this.transferMarketSearchResultTableUi.addAdditionalInformation(doc);
   }
   private info(msg: string): void {
@@ -222,6 +224,47 @@ var app = new foxfmApp(
   logger,
   new ExtendWebPages(
     new Array<IExtendWebPage>(
+      // Extend team table
+      new ExtendWebPage(
+        new Url(currentUrl),
+        new TransferTableUi(
+          new Dom(doc),
+          new TransferTablePossibleOffersUiUrl(),
+          new StrengthLevelsSetting(),
+          new StorageLocal<ITransferTablePossibleOffers>(
+            new SettingNameTransferTablePossibleOffers(),
+            new TransferTablePossibleOffers(
+              new AwpAndStrengthColumns(
+                new XPathHtmlTableCell2(
+                  new XPathSingleResult2<HTMLTableCellElement>(
+                    new XPathAllResults2(
+                      new XPathInformation(
+                        new TransferTablePossibleOffersUiUrl(),
+                        '//*[@id="punkte"]')))),
+                new XPathHtmlTableCell2(
+                  new XPathSingleResult2<HTMLTableCellElement>(
+                    new XPathAllResults2(
+                      new XPathInformation(
+                        new TransferTablePossibleOffersUiUrl(),
+                        '//*[@id="staerke"]')))),
+                true
+              )
+            )
+          ),
+          new EasyLogger(
+            logger,
+            new RegisteredLoggingModule(
+              "TransferTableUi",
+              new LogLevelError())
+          )
+        ),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "ExtendWebPage",
+            new LogLevelError())
+        )
+      ),
       // Extend team table
       new ExtendWebPage(
         new Url(currentUrl),
