@@ -14,7 +14,7 @@ import { XPathSingleResult2, XPathSingleResult3 } from "../Common/Toolkit/XPathS
 import { XPathAllResults2, XPathAllResults3 } from "../Common/Toolkit/XPathAllResults";
 import { XPathInformation, XPathString } from "../Common/Toolkit/XPathString";
 import { TransferTablePossibleOffersUiUrl } from "../Common/Urls/TransferTablePossibleOffersUiUrl";
-import { ITransferMarketSearchResultTableUi, TransferMarketSearchResultTableUi } from "./TransferMarketSearchResultTableUi";
+import { TransferMarketSearchResultTableUi } from "./TransferMarketSearchResultTableUi";
 import { ITransferMarketSearchResultTable, TransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
 import { TransferMarketProfessionalsUiUrl } from "../Common/Urls/TransferMarketProfessionalsUiUrl";
 import { TransferMarketAmateurWebPageUrl } from "../Common/Urls/TransferMarketAmateurWebPageUrl";
@@ -58,92 +58,21 @@ export class SettingNameTeamTable implements ISettingName {
 class foxfmApp {
   private logger: ILogger;
   private loggingModule: IRegisteredLoggingModule;
-//  private transferTableUi: TransferTableUi;
-  private transferMarketSearchResultTableUi: ITransferMarketSearchResultTableUi;
-
   private extendWebPages: IExtendWebPages;
 
   constructor(logger: ILogger, extendTransferMarketAmateurTable: IExtendWebPages) {
     this.logger = logger;
     this.loggingModule = new RegisteredLoggingModule("foxfmApp", new LogLevelError());
-
     this.extendWebPages = extendTransferMarketAmateurTable;
   }
 
   public main(): void {
-    this.extendWebPages.extend();
-
-
     var doc = window.document;
     var location = doc.location.href;
     this.info(`S t a r t e d on ${location}`);
-    try {
-      this.logger.registerModuleForLogging(this.loggingModule);
-      /*
-      this.transferTableUi = new TransferTableUi(
-        this.logger,
-        new StrengthLevelsSetting(),
-        new StorageLocal<ITransferTablePossibleOffers>(
-          new SettingNameTransferTablePossibleOffers(),
-          new TransferTablePossibleOffers(
-            new AwpAndStrengthColumns(
-              new XPathHtmlTableCell2(
-                new XPathSingleResult2<HTMLTableCellElement>(
-                  new XPathAllResults2(
-                    new XPathInformation(
-                      new TransferTablePossibleOffersUiUrl(),
-                      '//*[@id="punkte"]')))),
-              new XPathHtmlTableCell2(
-                new XPathSingleResult2<HTMLTableCellElement>(
-                  new XPathAllResults2(
-                    new XPathInformation(
-                      new TransferTablePossibleOffersUiUrl(),
-                      '//*[@id="staerke"]')))),
-              true
-            )
-          )
-        )
-      );
-      */
-      this.transferMarketSearchResultTableUi = new TransferMarketSearchResultTableUi(
-        this.logger,
-        new StrengthLevelsSetting(),
-        new StorageLocal<ITransferMarketSearchResultTable>(
-          new SettingNameTransferMarketProfessionalsSearchResultTable(),
-          new TransferMarketSearchResultTable(
-            new TransferMarketProfessionalsUiUrl(),
-            new ExperienceAndTrainingColumn(
-              new XPathHtmlTableCell2(
-                new XPathSingleResult2<HTMLTableCellElement>(
-                  new XPathAllResults2(
-                    new XPathInformation(
-                      new TransferMarketProfessionalsUiUrl(),
-                      '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))),
-              new XPathHtmlTableCell2(
-                new XPathSingleResult2<HTMLTableCellElement>(
-                  new XPathAllResults2(
-                    new XPathInformation(
-                      new TransferMarketProfessionalsUiUrl(),
-                      '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]'
-                    )
-                  )
-                )
-              ),
-              true
-            )
-          )
-        )
-      );
-      this.run(doc);
-    } catch (error) {
-      this.error(error);
-    }
+    this.extendWebPages.extend();
   }
 
-  private run(doc: Document): void {
-//    this.transferTableUi.addAdditionalInformation(doc);
-    this.transferMarketSearchResultTableUi.addAdditionalInformation(doc);
-  }
   private info(msg: string): void {
     this.logger.info(this.loggingModule.name().toString(), msg);
   }
@@ -224,7 +153,53 @@ var app = new foxfmApp(
   logger,
   new ExtendWebPages(
     new Array<IExtendWebPage>(
-      // Extend team table
+      // Extend transfer market - search result table
+      new ExtendWebPage(
+        new Url(currentUrl),
+        new TransferMarketSearchResultTableUi(
+          new Dom(doc),
+          new TransferMarketProfessionalsUiUrl(),
+          new StrengthLevelsSetting(),
+          new StorageLocal<ITransferMarketSearchResultTable>(
+            new SettingNameTransferMarketProfessionalsSearchResultTable(),
+            new TransferMarketSearchResultTable(
+              new TransferMarketProfessionalsUiUrl(),
+              new ExperienceAndTrainingColumn(
+                new XPathHtmlTableCell2(
+                  new XPathSingleResult2<HTMLTableCellElement>(
+                    new XPathAllResults2(
+                      new XPathInformation(
+                        new TransferMarketProfessionalsUiUrl(),
+                        '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))),
+                new XPathHtmlTableCell2(
+                  new XPathSingleResult2<HTMLTableCellElement>(
+                    new XPathAllResults2(
+                      new XPathInformation(
+                        new TransferMarketProfessionalsUiUrl(),
+                        '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]'
+                      )
+                    )
+                  )
+                ),
+                true
+              )
+            )
+          ),
+          new EasyLogger(
+            logger,
+            new RegisteredLoggingModule(
+              "TransferMarketSearchResultTableUi",
+              new LogLevelError())
+          )
+        ),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "ExtendWebPage",
+            new LogLevelError())
+        )
+      ),
+      // Extend transfer market - possible offer table
       new ExtendWebPage(
         new Url(currentUrl),
         new TransferTableUi(

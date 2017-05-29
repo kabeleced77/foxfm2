@@ -1,65 +1,44 @@
-import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { LogLevelError } from '../Common/Logger/LogLevel';
 import { IStrengthLevelsSetting } from "../Common/Settings/StrengthLevelsSetting"
 import { ISetting } from "../Common/Toolkit/Setting";
-import { ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
 import { ITransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
-import { ILogger } from "../Common/Logger/Logger";
+import { IEasyLogger } from "../Common/Logger/EasyLogger";
+import { IUrl } from "../Common/Toolkit/Url";
+import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
+import { IDom } from "../Common/Toolkit/Dom";
 
-export interface ITransferMarketSearchResultTableUi {
-  addAdditionalInformation(doc: Document);
-}
-
-export class TransferMarketSearchResultTableUi {
-  private log: ILogger;
-  private loggingModule: IRegisteredLoggingModule;
+export class TransferMarketSearchResultTableUi implements IWebPageToExtend {
+  private domField: IDom;
+  private webPageUrl: IUrl;
+  private log: IEasyLogger;
   private strengthLevelsSetting: IStrengthLevelsSetting;
   private settings: ISetting<ITransferMarketSearchResultTable>;
 
   constructor(
-    logger: ILogger,
+    dom: IDom,
+    webPageUrl: IUrl,
     strengthLevelsSetting: IStrengthLevelsSetting,
-    transferMarketSearchResultTableSetting: ISetting<ITransferMarketSearchResultTable>
+    transferMarketSearchResultTableSetting: ISetting<ITransferMarketSearchResultTable>,
+    logger: IEasyLogger
   ) {
-    this.log = logger;
-    this.loggingModule = new RegisteredLoggingModule("TransferMarketSearchResultTableUi", new LogLevelError());
-    this.log.registerModuleForLogging(this.loggingModule);
+    this.domField = dom;
+    this.webPageUrl = webPageUrl;
     this.strengthLevelsSetting = strengthLevelsSetting;
     this.settings = transferMarketSearchResultTableSetting;
+    this.log = logger;
   }
-  public addAdditionalInformation(doc: Document) {
+  public pageUrl(): IUrl {
+    return this.webPageUrl;
+  }
+  public extend(): void {
     this.settings.value()
       .then(setting => {
-        var targetUrl = setting.transferMarketProfessionalsUrl().url().toString();
-        var executeOnThisPage = doc.location.href.match(targetUrl) !== null;
-        this.info(`called from: ${doc.location.href} compared to ${targetUrl}: ${executeOnThisPage}`);
-        if (
-          executeOnThisPage
-          && setting.experienceAndTrainingColumn().additionalInformationActivated()
-        ) {
+        if (setting.experienceAndTrainingColumn().additionalInformationActivated()) {
           this.strengthLevelsSetting
             .strengthLevels()
             .then(strengthLevels => {
-              setting.experienceAndTrainingColumn().addAdditionalInformation(doc, strengthLevels);
+              setting.experienceAndTrainingColumn().addAdditionalInformation(this.domField.dom(), strengthLevels);
             })
         }
       });
-  }
-
-  private info(msg: string): void {
-    this.log.info(this.loggingModule.name(), msg);
-  }
-
-  private warn(msg: string): void {
-    this.log.warn(this.loggingModule.name(), msg);
-  }
-
-  private error(msg: string): void {
-    this.log.error(this.loggingModule.name(), msg);
-  }
-
-  private debug(msg: string): void {
-    this.log.debug(this.loggingModule.name(), msg);
   }
 }
