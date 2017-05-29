@@ -56,31 +56,19 @@ export class SettingNameTeamTable implements ISettingName {
 }
 
 class foxfmApp {
-  private logger: ILogger;
-  private loggingModule: IRegisteredLoggingModule;
+  private logger: IEasyLogger;
   private extendWebPages: IExtendWebPages;
 
-  constructor(logger: ILogger, extendTransferMarketAmateurTable: IExtendWebPages) {
+  constructor(logger: IEasyLogger, extendTransferMarketAmateurTable: IExtendWebPages) {
     this.logger = logger;
-    this.loggingModule = new RegisteredLoggingModule("foxfmApp", new LogLevelError());
     this.extendWebPages = extendTransferMarketAmateurTable;
   }
 
   public main(): void {
     var doc = window.document;
     var location = doc.location.href;
-    this.info(`S t a r t e d on ${location}`);
+    this.logger.info(`S t a r t e d on ${location}`);
     this.extendWebPages.extend();
-  }
-
-  private info(msg: string): void {
-    this.logger.info(this.loggingModule.name().toString(), msg);
-  }
-  private error(msg: string): void {
-    this.logger.error(this.loggingModule.name().toString(), msg);
-  }
-  private debug(msg: string): void {
-    this.logger.debug(this.loggingModule.name().toString(), msg);
   }
 }
 
@@ -150,7 +138,12 @@ var logger = new Logger(
         new Array<IRegisteredLoggingModule>()))));
 
 var app = new foxfmApp(
-  logger,
+  new EasyLogger(
+    logger,
+    new RegisteredLoggingModule(
+      "foxfmApp",
+      new LogLevelError())
+  ),
   new ExtendWebPages(
     new Array<IExtendWebPage>(
       // Extend transfer market - search result table
