@@ -59,9 +59,9 @@ class foxfmApp {
   private logger: IEasyLogger;
   private extendWebPages: IExtendWebPages;
 
-  constructor(logger: IEasyLogger, extendTransferMarketAmateurTable: IExtendWebPages) {
+  constructor(logger: IEasyLogger, extendWebPages: IExtendWebPages) {
     this.logger = logger;
-    this.extendWebPages = extendTransferMarketAmateurTable;
+    this.extendWebPages = extendWebPages;
   }
 
   public main(): void {
