@@ -10,17 +10,10 @@ import { XPathAllResults2 } from "../Toolkit/XPathAllResults";
 import { TeamTableUiUrl } from "../Urls/TeamTableUiUrl";
 import { ISettingName } from "../Toolkit/SettingName";
 import { StorageLocal } from "../Toolkit/StorageLocal";
+import { SettingNameTeamTable } from "./SettingNameTeamTable";
 
 export interface ITeamTableSetting {
   setting(): Promise<ITeamTable>;
-}
-
-export class SettingNameTeamTable implements ISettingName {
-  private settingName: String = "foxfm2.teamui.setting";
-  constructor() { }
-  public name(): String {
-    return this.settingName;
-  }
 }
 
 export class TeamTableSetting implements ITeamTableSetting {

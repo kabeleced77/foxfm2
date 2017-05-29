@@ -47,14 +47,6 @@ import { ITransferMarketAmateurPlayerTableExtensionSetting, TransferMarketAmateu
 import { TransferMarketAmateurWebPage } from "../Common/TransferMarketAmateurWebPage";
 import { TransferMarketAmateurPlayerTable } from "../Common/TransferMarketAmateurPlayerTable";
 
-export class SettingNameTeamTable implements ISettingName {
-  private settingName: String = "foxfm2.teamui.setting";
-  constructor() { }
-  public name(): String {
-    return this.settingName;
-  }
-}
-
 class foxfmApp {
   private logger: IEasyLogger;
   private extendWebPages: IExtendWebPages;
