@@ -1,3 +1,5 @@
+import { ITable } from "./Table";
+
 export interface IHtmlTable {
   table(): HTMLTableElement;
   tableHeader(): HTMLTableSectionElement;
@@ -7,54 +9,41 @@ export interface IHtmlTable {
 }
 
 export class HtmlTable implements IHtmlTable {
+  private htmlTable: ITable<HTMLTableElement>;
 
-  /* Properties */
-
-  private doc: Document;
-  private id: String;
-  private htmlTable: HtmlTable;
-
-  /* Constructors */
-
-  constructor(doc: Document, id: String) {
-    this.doc = doc;
-    this.id = id;
+  constructor(table: ITable<HTMLTableElement>) {
+    this.htmlTable = table;
   }
 
-  /* Interface implementation */
-
   public table(): HTMLTableElement {
-    return <HTMLTableElement>this.doc.getElementById(this.id.toString());
+    return this.htmlTable.table();
   }
 
   public tableHeader(): HTMLTableSectionElement {
     return this.table().tHead;
   }
 
-  public firstTableColumnGroup(): HTMLTableColElement{
+  public firstTableColumnGroup(): HTMLTableColElement {
     var colGroups = this.table().getElementsByTagName("colgroup");
     if (colGroups.length > 0) {
       return <HTMLTableColElement>colGroups[0];
     }
     else {
-      throw `HTML table has no colgroup.`;
+      throw new Error(`HTML table has no colgroup.`);
     }
   }
 
-  public firstTableBody(): HTMLTableSectionElement{
+  public firstTableBody(): HTMLTableSectionElement {
     var tableBodies = this.table().tBodies;
     if (tableBodies.length > 0) {
       return <HTMLTableSectionElement>tableBodies[0];
     }
     else {
-      throw `HTML table has no table body.`;
+      throw new Error(`HTML table has no table body.`);
     }
   }
 
-  public tableFooter(): HTMLTableSectionElement{
+  public tableFooter(): HTMLTableSectionElement {
     return this.table().tFoot;
   }
-
-  /* Private methods */
 }
-

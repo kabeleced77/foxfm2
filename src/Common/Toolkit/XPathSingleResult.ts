@@ -1,5 +1,6 @@
 import { IXPathAllResults } from './XPathAllResults'
 import { XPathAllResults, IXPathAllResults2, IXPathAllResults3 } from './XPathAllResults'
+import { IXPathString } from "./XPathString";
 
 export interface IXPathSingleResult2<T> {
   element(doc: Document): T;
@@ -8,6 +9,7 @@ export interface IXPathSingleResult2<T> {
 
 export interface IXPathSingleResult<T> {
   element(): T;
+  xPath(): IXPathString;
 }
 
 export class XPathSingleResult3<T extends Node> implements IXPathSingleResult2<T> {
@@ -59,6 +61,10 @@ export class XPathSingleResult<T extends Node> implements IXPathSingleResult<T> 
 
   constructor(xPathAllResults: IXPathAllResults) {
     this.xPathAllResults = xPathAllResults;
+  }
+
+  public xPath(): IXPathString{
+    return this.xPathAllResults.xPath();
   }
 
   public element(): T {
