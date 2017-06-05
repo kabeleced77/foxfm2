@@ -1,22 +1,16 @@
 import { IExistingColumn } from "./Toolkit/ExisitingColumn"
-import { IXPathString } from "./Toolkit/XPathString"
-import { IXPathHtmlTableCell2 } from "./Toolkit/XPathHtmlTableCell";
+import { IXPathHtmlTableCell } from "./Toolkit/XPathHtmlTableCell";
 
 export class TrainingColumn implements IExistingColumn {
-  private columnXPath: IXPathHtmlTableCell2;
+  private columnXPath: IXPathHtmlTableCell;
 
   constructor(
-    xPath: IXPathHtmlTableCell2
+    xPath: IXPathHtmlTableCell
   ) {
     this.columnXPath = xPath;
   }
 
-  public index(doc: Document): Number {
-    return this.columnXPath.columnIndex(doc);
-  }
-  public fromJson(jsonString: String): IExistingColumn {
-    return new TrainingColumn(
-      this.columnXPath.fromJson(jsonString["columnXPath"])
-    );
+  public index(): Number {
+    return this.columnXPath.columnIndex();
   }
 }
