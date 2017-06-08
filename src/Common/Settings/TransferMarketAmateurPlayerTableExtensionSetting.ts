@@ -1,4 +1,3 @@
-import { IExistingColumn } from "../Toolkit/ExisitingColumn";
 
 export interface ITransferMarketAmateurPlayerTableExtensionSetting {
   addAwpColumn(): Boolean;
