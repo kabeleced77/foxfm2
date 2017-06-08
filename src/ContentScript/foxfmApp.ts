@@ -278,7 +278,7 @@ var app = new foxfmApp(
                     new XPathSingleResult<HTMLTableCellElement>(
                       new XPathAllResults(
                         window.document,
-                        new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]'))))))
+                        new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[6]'))))))
             ),
             new StrengthLevelsSetting(),
             new StorageLocal<ITransferMarketAmateurPlayerTableExtensionSetting>(
