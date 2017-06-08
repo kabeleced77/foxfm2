@@ -33,14 +33,37 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
       .value()
       .then(setting => {
         if (setting.addAwpColumn()) {
+          this.adjustHeader();
           this.strengthLevels
             .strengthLevels()
             .then(strengthLevels => {
-              this.awpPoints.points().forEach(awp => this.log.debug(`AWP: ${awp.awpPoints()}`));
+              this.awpPoints.points().forEach((awp, i) => {
+                let awps = awp.awpPoints();
+                this.addAwpsToTable(awps.toString(), i);
+              });
             })
             .catch(e => { throw new Error(`"Error while extending amateur market player table: ${e}."`); });
         }
       })
       .catch(e => { throw new Error(`"Error reading settings to extend amateur market player table: ${e}."`); });
+  }
+
+  private adjustHeader() {
+    let newTextNode = document.createTextNode("AWPs");
+    let newDiv = document.createElement("div");
+    newDiv.setAttribute("style", "color:#04143e;");
+    newDiv.className = "bold";
+    newDiv.appendChild(newTextNode);
+    let newCell = this.table.tableHeader().rows[0].insertCell(7);
+    newCell.className = "textCenter";
+    newCell.appendChild(newDiv);
+  }
+  private addAwpsToTable(awps: String, row: Number): void {
+    let newTextNode = document.createTextNode(awps.toString());
+    let newDiv = document.createElement("div");
+    newDiv.align = "center";
+    newDiv.appendChild(newTextNode);
+    let newCell = this.table.firstTableBody().rows[row.valueOf()].insertCell(7);
+    newCell.appendChild(newDiv);
   }
 }
