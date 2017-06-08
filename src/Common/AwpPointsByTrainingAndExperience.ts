@@ -16,7 +16,7 @@ export class AwpPointsByTrainingAndExperience implements IAwpPoints {
   }
 
   public points(): IAwp[] {
-    let tps = this.experiencePoints.points();
+    let tps = this.trainingPoints.points();
     let eps = this.experiencePoints.points();
     if (tps.length !== eps.length) {
       throw new Error(`"Error while calculating AWP points as the number 
