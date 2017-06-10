@@ -1,11 +1,11 @@
 import { IXPathHtmlTableCell } from "./XPathHtmlTableCell";
 
-export interface IHtmlTableColumnElements {
+export interface IHtmlTableColumnElementsByXpath {
   index(): Number;
   values(): HTMLTableDataCellElement[];
 }
 
-export class HtmlTableColumnElements implements IHtmlTableColumnElements {
+export class HtmlTableColumnElementsByXpath implements IHtmlTableColumnElementsByXpath {
   private columnXPath: IXPathHtmlTableCell;
 
   constructor(

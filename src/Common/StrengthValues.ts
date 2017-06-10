@@ -1,4 +1,4 @@
-import { IHtmlTableColumnElements } from "./Toolkit/HtmlTableColumnValues";
+import { IHtmlTableColumnElementsByXpath } from "./Toolkit/HtmlTableColumnElementsByXpath";
 import { NumberHelper } from "./Toolkit/NumberHelper";
 
 export interface IStrengthValues {
@@ -6,10 +6,10 @@ export interface IStrengthValues {
 }
 
 export class StrengthValues implements IStrengthValues {
-  private columnValues: IHtmlTableColumnElements;
+  private columnValues: IHtmlTableColumnElementsByXpath;
 
   constructor(
-    columnValues: IHtmlTableColumnElements,
+    columnValues: IHtmlTableColumnElementsByXpath,
   ) {
     this.columnValues = columnValues;
   }

@@ -1,6 +1,7 @@
 export interface IAwp {
   awpPoints(): Number;
 }
+
 export class Awp implements IAwp {
   private experiencePointsField: Number;
   private trainingPointsField: Number;

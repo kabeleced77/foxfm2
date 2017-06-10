@@ -1,9 +1,9 @@
-import { IAwpPoints } from "./Toolkit/AwpPoints";
 import { IAwp, Awp } from "./Toolkit/Awp";
 import { ITrainingPoints } from "./TrainingPoints";
 import { IExperiencePoints } from "./ExperiencePoints";
+import { IColumnValues } from "./Toolkit/ColumnValues";
 
-export class AwpPointsByTrainingAndExperience implements IAwpPoints {
+export class AwpPointsByTrainingAndExperience implements IColumnValues {
   private trainingPoints: ITrainingPoints;
   private experiencePoints: IExperiencePoints;
 
@@ -15,7 +15,7 @@ export class AwpPointsByTrainingAndExperience implements IAwpPoints {
     this.experiencePoints = experiencePoints;
   }
 
-  public points(): IAwp[] {
+  public values(): String[] {
     let tps = this.trainingPoints.points();
     let eps = this.experiencePoints.points();
     if (tps.length !== eps.length) {
@@ -24,11 +24,11 @@ export class AwpPointsByTrainingAndExperience implements IAwpPoints {
       training points ${tps.length}."`);
     }
 
-    var awps = new Array<IAwp>(0);
+    var awps = new Array<String>(0);
     for (let i = 0; i < eps.length; i++) {
       let tp = tps[i];
       let ep = eps[i];
-      awps.push(new Awp(ep, tp));
+      awps.push(new Awp(ep, tp).awpPoints().toString());
     }
 
     return awps;

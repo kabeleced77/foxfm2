@@ -1,4 +1,4 @@
-import { IHtmlTableColumnElements } from "./Toolkit/HtmlTableColumnValues";
+import { IHtmlTableColumnElementsByXpath } from "./Toolkit/HtmlTableColumnElementsByXpath";
 import { NumberHelper } from "./Toolkit/NumberHelper";
 
 export interface ITrainingPoints {
@@ -6,10 +6,10 @@ export interface ITrainingPoints {
 }
 
 export class TrainingPoints implements ITrainingPoints {
-  private columnValues: IHtmlTableColumnElements;
+  private columnValues: IHtmlTableColumnElementsByXpath;
 
   constructor(
-    columnValues: IHtmlTableColumnElements,
+    columnValues: IHtmlTableColumnElementsByXpath,
   ) {
     this.columnValues = columnValues;
   }
