@@ -16,13 +16,17 @@ export class StrengthLevels implements IStrengthLevels {
   }
 
   public strengthLevel(strength: Number): IStrengthLevel {
-    return this.strengthLevelArray.find(strengthLevel => strengthLevel.level() === strength);
+    var index = this.strengthLevelArray.findIndex(strengthLevel => strengthLevel.level() === strength);
+    if (index == -1) {
+      throw new Error(`Could not find strength level ${strength}`);
+    }
+    return this.strengthLevelArray[index];
   }
 
   public strengthLevelByAwp(awps: Number): IStrengthLevel {
     for (var i = 0; i < this.strengthLevelArray.length; i++) {
-      if (awps < this.strengthLevelArray[i].awpPoints() && i>0) {
-        return this.strengthLevelArray[i-1];
+      if (awps < this.strengthLevelArray[i].awpPoints() && i > 0) {
+        return this.strengthLevelArray[i - 1];
       }
     }
     return new StrengthLevel(-1, -1, -1);
