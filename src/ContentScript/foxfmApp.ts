@@ -45,11 +45,15 @@ import { FirstElementInXPathNodeOrParents } from "../Common/Toolkit/FirstElement
 import { AwpPointsByTrainingAndExperience } from "../Common/AwpPointsByTrainingAndExperience";
 import { TrainingPoints } from "../Common/TrainingPoints";
 import { ExperiencePoints } from "../Common/ExperiencePoints";
-import { HtmlTableColumn } from "../Common/Toolkit/HtmlTableColumn";
+import { HtmlTableColumn, HtmlTableColumnAsync } from "../Common/Toolkit/HtmlTableColumn";
+import { HtmlTableColumnNumberValues } from "../Common/Toolkit/HtmlTableColumnNumberValues";
 import { HtmlTableColumnHeader } from "../Common/Toolkit/HtmlTableColumnHeader";
+import { HtmlTableColumnAddNewColumn } from "../Common/Toolkit/HtmlTableColumn";
 import { HtmlElements } from "../Common/Toolkit/HtmlElements";
 import { HtmlAttribute, IHtmlAttribute } from "../Common/Toolkit/HtmlAttribute";
 import { HtmlElement } from "../Common/Toolkit/HtmlElement";
+import { AwpDiffPointsByTrainingAndExperience } from "../Common/AwpDiffPointsByTrainingAndExperience";
+import { HtmlElementsAsync } from "../Common/Toolkit/HtmlElementsAsync";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -231,7 +235,7 @@ var app = new foxfmApp(
                     new HtmlAttribute("style", "color:#04143e;"),
                     new HtmlAttribute("class", "bold")),
                   "AWPs")),
-              new HtmlElements(
+              new HtmlElements<Number>(
                 new AwpPointsByTrainingAndExperience(
                   new TrainingPoints(
                     new HtmlTableColumnElementsByXpath(
@@ -252,9 +256,47 @@ var app = new foxfmApp(
                 new Array<IHtmlAttribute>(
                   new HtmlAttribute("align", "center"))
               ),
-              7
+              7,
+              new HtmlTableColumnAddNewColumn()
             ),
-            new StrengthLevelsSetting(),
+            new HtmlTableColumnAsync(
+              new HtmlTableColumnHeader(
+                new HtmlElement(
+                  "div",
+                  new Array<IHtmlAttribute>(
+                    new HtmlAttribute("style", "color:#04143e;"),
+                    new HtmlAttribute("class", "bold")),
+                  "AWPs diff")),
+              new HtmlElementsAsync<Number>(
+                new AwpDiffPointsByTrainingAndExperience(
+                  new TrainingPoints(
+                    new HtmlTableColumnElementsByXpath(
+                      new XPathHtmlTableCell(
+                        new XPathSingleResult<HTMLTableCellElement>(
+                          new XPathAllResults(
+                            window.document,
+                            new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]')))))),
+                  new ExperiencePoints(
+                    new HtmlTableColumnElementsByXpath(
+                      new XPathHtmlTableCell(
+                        new XPathSingleResult<HTMLTableCellElement>(
+                          new XPathAllResults(
+                            window.document,
+                            new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[6]')))))),
+                  new HtmlTableColumnNumberValues(
+                    new HtmlTableColumnElementsByXpath(
+                      new XPathHtmlTableCell(
+                        new XPathSingleResult<HTMLTableCellElement>(
+                          new XPathAllResults(
+                            window.document,
+                            new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]')))))),
+                  new StrengthLevelsSetting()),
+                "div",
+                new Array<IHtmlAttribute>(
+                  new HtmlAttribute("align", "center"))),
+              7,
+              new HtmlTableColumnAddNewColumn()
+            ),
             new StorageLocal<ITransferMarketAmateurPlayerTableExtensionSetting>(
               new SettingNameTransferMarketAmateurTable(),
               new TransferMarketAmateurPlayerTableExtensionSetting(

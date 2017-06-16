@@ -1,11 +1,12 @@
 import { IHtmlTableColumnElementsByXpath } from "./Toolkit/HtmlTableColumnElementsByXpath";
 import { NumberHelper } from "./Toolkit/NumberHelper";
+import { IHtmlTableColumnValues } from "./Toolkit/HtmlTableColumnValues";
 
 export interface IStrengthValues {
   values(): Number[];
 }
 
-export class StrengthValues implements IStrengthValues {
+export class StrengthValues implements IHtmlTableColumnValues<Number> {
   private columnValues: IHtmlTableColumnElementsByXpath;
 
   constructor(

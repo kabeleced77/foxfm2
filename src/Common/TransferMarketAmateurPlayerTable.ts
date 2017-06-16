@@ -10,7 +10,7 @@ import { IHtmlTableColumn } from "./Toolkit/HtmlTableColumn";
 export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   private table: IHtmlTable;
   private awpColumn: IHtmlTableColumn;
-  private awpPoints: IAwpPoints;
+  private awpDiffColumn: IHtmlTableColumn;
   private strengthLevels: IStrengthLevelsSetting;
   private amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>;
   private log: IEasyLogger;
@@ -18,13 +18,13 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   constructor(
     table: IHtmlTable,
     awpColumn: IHtmlTableColumn,
-    strengthLevels: IStrengthLevelsSetting,
+    awpDiffColumn: IHtmlTableColumn,
     amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>,
     log: IEasyLogger
   ) {
     this.table = table;
     this.awpColumn = awpColumn;
-    this.strengthLevels = strengthLevels;
+    this.awpDiffColumn = awpDiffColumn;
     this.amateurPlayerTableSettings = amateurPlayerTableSettings;
     this.log = log;
   }
@@ -36,13 +36,9 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
       .then(setting => {
         if (setting.addAwpColumn()) {
           this.awpColumn.add(this.table);
-          this.strengthLevels
-            .strengthLevels()
-            .then(strengthLevels => {
-            })
-            .catch(e => { throw new Error(`"Error while extending amateur market player table: ${e}."`); });
+          this.awpDiffColumn.add(this.table);
         }
       })
-      .catch(e => { throw new Error(`"Error reading settings to extend amateur market player table: ${e}."`); });
+      .catch(e => { throw new Error(`"Error while extending amateur market player table: ${e}."`); });
   }
 }

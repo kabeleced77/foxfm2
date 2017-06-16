@@ -1,3 +1,3 @@
-export interface IColumnValues {
-  values(): String[];
+export interface IColumnValues<T> {
+  values(): Array<T>;
 }
