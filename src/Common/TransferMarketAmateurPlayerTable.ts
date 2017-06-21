@@ -4,13 +4,13 @@ import { ISetting } from "./Toolkit/Setting";
 import { ITransferMarketAmateurPlayerTableExtensionSetting } from "./Settings/TransferMarketAmateurPlayerTableExtensionSetting";
 import { IEasyLogger } from "./Logger/EasyLogger";
 import { IHtmlTable } from "./Toolkit/HtmlTable";
-import { IAwpPoints } from "./Toolkit/AwpPoints";
 import { IHtmlTableColumn } from "./Toolkit/HtmlTableColumn";
+import { IHtmlTableColumnAsync } from "./Toolkit/HtmlTableColumnAsync";
 
 export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   private table: IHtmlTable;
   private awpColumn: IHtmlTableColumn;
-  private awpDiffColumn: IHtmlTableColumn;
+  private awpDiffColumn: IHtmlTableColumnAsync;
   private strengthLevels: IStrengthLevelsSetting;
   private amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>;
   private log: IEasyLogger;
@@ -18,7 +18,7 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   constructor(
     table: IHtmlTable,
     awpColumn: IHtmlTableColumn,
-    awpDiffColumn: IHtmlTableColumn,
+    awpDiffColumn: IHtmlTableColumnAsync,
     amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>,
     log: IEasyLogger
   ) {
@@ -35,8 +35,8 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
       .value()
       .then(setting => {
         if (setting.addAwpColumn()) {
-          this.awpColumn.add(this.table);
-          this.awpDiffColumn.add(this.table);
+          this.table.addColumnAsync(this.awpDiffColumn);
+          this.table.addColumn(this.awpColumn);
         }
       })
       .catch(e => { throw new Error(`"Error while extending amateur market player table: ${e}."`); });

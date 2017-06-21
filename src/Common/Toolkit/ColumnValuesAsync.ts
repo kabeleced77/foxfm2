@@ -1,3 +1,5 @@
+import { IColumnValues } from "./ColumnValues";
+
 export interface IColumnValuesAsync<T> {
-  values(): Promise<Array<T>>;
+  values(): Promise<IColumnValues<T>>;
 }

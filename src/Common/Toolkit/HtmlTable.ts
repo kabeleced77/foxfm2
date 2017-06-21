@@ -1,4 +1,7 @@
 import { ITable } from "./Table";
+import { IHtmlTableColumn } from "./HtmlTableColumn";
+import { IHtmlElement } from "./HtmlElement";
+import { IHtmlTableColumnAsync } from "./HtmlTableColumnAsync";
 
 export interface IHtmlTable {
   table(): HTMLTableElement;
@@ -6,6 +9,8 @@ export interface IHtmlTable {
   tableFooter(): HTMLTableSectionElement;
   firstTableColumnGroup(): HTMLTableColElement;
   firstTableBody(): HTMLTableSectionElement;
+  addColumn(column: IHtmlTableColumn): IHtmlTable;
+  addColumnAsync(column: IHtmlTableColumnAsync): Promise<IHtmlTable>;
 }
 
 export class HtmlTable implements IHtmlTable {
@@ -45,5 +50,38 @@ export class HtmlTable implements IHtmlTable {
 
   public tableFooter(): HTMLTableSectionElement {
     return this.table().tFoot;
+  }
+
+  public addColumn(column: IHtmlTableColumn): IHtmlTable {
+    return this.addColumntToTable(column);
+  }
+
+  public addColumnAsync(column: IHtmlTableColumnAsync): Promise<IHtmlTable> {
+    return column
+      .column()
+      .then(column => {
+        return this.addColumntToTable(column);
+      })
+      .catch(e => {
+        throw new Error(`Could not add column to table asynchronously: ${e}`);
+      });
+  }
+
+  private addColumntToTable(column: IHtmlTableColumn): IHtmlTable {
+    var table = new HtmlTable(this.htmlTable);
+    // add header values
+    let newCell = table.tableHeader().rows[0].insertCell(column.index().valueOf());
+    newCell.className = "textCenter";
+    newCell.appendChild(column.header().element());
+
+    // add column values
+    column
+      .values()
+      .elements()
+      .forEach((element: IHtmlElement, i: number) => {
+        let newCell = table.firstTableBody().rows[i].insertCell(column.index().valueOf());
+        newCell.appendChild(element.element());
+      });
+    return table;
   }
 }

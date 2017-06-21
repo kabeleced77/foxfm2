@@ -1,9 +1,10 @@
 import { IHtmlElement, HtmlElement } from "./HtmlElement";
 import { IColumnValuesAsync } from "./ColumnValuesAsync";
 import { IHtmlAttribute } from "./HtmlAttribute";
+import { IHtmlElements, HtmlElements } from "./HtmlElements";
 
 export interface IHtmlElementsAsync {
-  elements(): Promise<IHtmlElement[]>;
+  elements(): Promise<IHtmlElements>;
 }
 
 export class HtmlElementsAsync<T> implements IHtmlElementsAsync {
@@ -21,9 +22,11 @@ export class HtmlElementsAsync<T> implements IHtmlElementsAsync {
     this.attributes = attributes;
   }
 
-  public elements(): Promise<IHtmlElement[]> {
+  public elements(): Promise<IHtmlElements> {
     return this.columnValues
       .values()
-      .then(values => { return values.map(value => new HtmlElement(this.tagName, this.attributes, value.toString())); });
+      .then(values => {
+        return new HtmlElements(values, this.tagName, this.attributes);
+      });
   }
 }

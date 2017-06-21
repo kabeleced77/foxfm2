@@ -45,15 +45,15 @@ import { FirstElementInXPathNodeOrParents } from "../Common/Toolkit/FirstElement
 import { AwpPointsByTrainingAndExperience } from "../Common/AwpPointsByTrainingAndExperience";
 import { TrainingPoints } from "../Common/TrainingPoints";
 import { ExperiencePoints } from "../Common/ExperiencePoints";
-import { HtmlTableColumn, HtmlTableColumnAsync } from "../Common/Toolkit/HtmlTableColumn";
+import { HtmlTableColumn } from "../Common/Toolkit/HtmlTableColumn";
 import { HtmlTableColumnNumberValues } from "../Common/Toolkit/HtmlTableColumnNumberValues";
 import { HtmlTableColumnHeader } from "../Common/Toolkit/HtmlTableColumnHeader";
-import { HtmlTableColumnAddNewColumn } from "../Common/Toolkit/HtmlTableColumn";
 import { HtmlElements } from "../Common/Toolkit/HtmlElements";
 import { HtmlAttribute, IHtmlAttribute } from "../Common/Toolkit/HtmlAttribute";
 import { HtmlElement } from "../Common/Toolkit/HtmlElement";
 import { AwpDiffPointsByTrainingAndExperience } from "../Common/AwpDiffPointsByTrainingAndExperience";
 import { HtmlElementsAsync } from "../Common/Toolkit/HtmlElementsAsync";
+import { HtmlTableColumnAsync } from "../Common/Toolkit/HtmlTableColumnAsync";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -256,8 +256,7 @@ var app = new foxfmApp(
                 new Array<IHtmlAttribute>(
                   new HtmlAttribute("align", "center"))
               ),
-              7,
-              new HtmlTableColumnAddNewColumn()
+              7
             ),
             new HtmlTableColumnAsync(
               new HtmlTableColumnHeader(
@@ -294,8 +293,7 @@ var app = new foxfmApp(
                 "div",
                 new Array<IHtmlAttribute>(
                   new HtmlAttribute("align", "center"))),
-              7,
-              new HtmlTableColumnAddNewColumn()
+              8
             ),
             new StorageLocal<ITransferMarketAmateurPlayerTableExtensionSetting>(
               new SettingNameTransferMarketAmateurTable(),

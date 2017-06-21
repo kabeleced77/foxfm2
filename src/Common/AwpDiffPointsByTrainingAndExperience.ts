@@ -1,9 +1,7 @@
-import { IAwp, Awp } from "./Toolkit/Awp";
+import { Awp } from "./Toolkit/Awp";
 import { ITrainingPoints } from "./TrainingPoints";
 import { IExperiencePoints } from "./ExperiencePoints";
-import { IColumnValues } from "./Toolkit/ColumnValues";
-import { IStrengthValues } from "./StrengthValues";
-import { IStrengthLevels } from "./StrengthLevels";
+import { IColumnValues, ColumnValues } from "./Toolkit/ColumnValues";
 import { IStrengthLevelsSetting } from "./Settings/StrengthLevelsSetting";
 import { IHtmlTableColumnValues } from "./Toolkit/HtmlTableColumnValues";
 import { IColumnValuesAsync } from "./Toolkit/ColumnValuesAsync";
@@ -26,8 +24,7 @@ export class AwpDiffPointsByTrainingAndExperience implements IColumnValuesAsync<
     this.strengthLevelsSetting = strengthLevels;
   }
 
-  public values(): Promise<Array<Number>> {
-
+  public values(): Promise<IColumnValues<Number>> {
     return this.strengthLevelsSetting
       .strengthLevels()
       .then(strengthLevels => {
@@ -38,8 +35,8 @@ export class AwpDiffPointsByTrainingAndExperience implements IColumnValuesAsync<
         let epsLength = eps.length;
         let svsLength = svs.length;
         if ((tpsLength !== epsLength) || (tpsLength !== svsLength) || (epsLength !== svsLength)) {
-          throw new Error(`"Error while calculating AWP diff points. The number 
-      of experience points ${eps.length}, training points ${tps.length} and strength values ${svs.length} differ."`);
+          throw new Error(`"Error while calculating AWP diff points. The number of experience 
+          points ${eps.length}, training points ${tps.length} and strength values ${svs.length} differ."`);
         }
 
         var diffAwps = new Array<Number>(0);
@@ -53,7 +50,7 @@ export class AwpDiffPointsByTrainingAndExperience implements IColumnValuesAsync<
 
           diffAwps.push(diffToNextStrengthValue);
         }
-        return diffAwps;
+        return new ColumnValues(diffAwps);
       })
       .catch(e => { throw new Error(`"Error while calculating the AWP diff points: ${e}."`); });
   }
