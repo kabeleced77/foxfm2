@@ -215,8 +215,8 @@ var app = new foxfmApp(
           new TransferMarketAmateurWebPageUrl(),
           new TransferMarketAmateurPlayerTable(
             new HtmlTable(
-              new HtmlTableByXPath(
-                new FirstElementInXPathNodeOrParents<HTMLTableCellElement>(
+              new HtmlTableByXPath<HTMLTableCellElement>(
+                new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
                   new XPathSingleResult<HTMLTableCellElement>(
                     new XPathAllResults(
                       window.document,
@@ -225,8 +225,7 @@ var app = new foxfmApp(
                   ),
                   "table"
                 )
-              )
-            ),
+              )),
             new HtmlTableColumn(
               new HtmlTableColumnHeader(
                 new HtmlElement(
@@ -256,8 +255,7 @@ var app = new foxfmApp(
                 new Array<IHtmlAttribute>(
                   new HtmlAttribute("align", "center"))
               ),
-              7
-            ),
+              7),
             new HtmlTableColumnAsync(
               new HtmlTableColumnHeader(
                 new HtmlElement(
@@ -293,28 +291,30 @@ var app = new foxfmApp(
                 "div",
                 new Array<IHtmlAttribute>(
                   new HtmlAttribute("align", "center"))),
-              8
-            ),
+              8),
+            new HtmlTableColumnElementsByXpath(
+              new XPathHtmlTableCell(
+                new XPathSingleResult<HTMLTableCellElement>(
+                  new XPathAllResults(
+                    window.document,
+                    new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[4]'))))),
             new StorageLocal<ITransferMarketAmateurPlayerTableExtensionSetting>(
               new SettingNameTransferMarketAmateurTable(),
               new TransferMarketAmateurPlayerTableExtensionSetting(
                 true,
-                true)
-            ),
+                true)),
             new EasyLogger(
               logger,
               new RegisteredLoggingModule(
                 "TransferMarketAmateurPlayerTable",
-                new LogLevelError())
-            )
+                new LogLevelError()))
           )
         ),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
             "ExtendWebPage",
-            new LogLevelError())
-        )
+            new LogLevelError()))
       ),
       // Extend stadium
       new ExtendWebPage(

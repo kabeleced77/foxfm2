@@ -1,10 +1,10 @@
 import { IXPathSingleResult } from "./XPathSingleResult";
 
-export interface IFirstElementInXPathNodeOrParents<T> {
-  element(): T;
+export interface IFirstElementInXPathNodeOrParents<T, R> {
+  element(): R;
 }
 
-export class FirstElementInXPathNodeOrParents<T extends Node> implements IFirstElementInXPathNodeOrParents<HTMLTableElement> {
+export class FirstElementInXPathNodeOrParents<T extends Node, R extends Node> implements IFirstElementInXPathNodeOrParents<T, R> {
   private xPathSingleResult: IXPathSingleResult<T>;
   private elementName: String;
 
@@ -13,8 +13,8 @@ export class FirstElementInXPathNodeOrParents<T extends Node> implements IFirstE
     this.elementName = elementName;
   }
 
-  public element(): HTMLTableElement {
-    return <HTMLTableElement>this.get1stOccurenceOfNode(this.xPathSingleResult.element(), this.elementName);
+  public element(): R {
+    return <R>this.get1stOccurenceOfNode(this.xPathSingleResult.element(), this.elementName);
   }
 
   private get1stOccurenceOfNode(node: T, parentTagName: String): Node {

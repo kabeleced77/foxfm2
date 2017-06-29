@@ -1,4 +1,5 @@
 import { IXPathSingleResult, IXPathSingleResult2 } from '../Toolkit/XPathSingleResult'
+import { FirstElementInXPathNodeOrParents } from "./FirstElementInXPathNodeOrParents";
 
 export interface IXPathHtmlTableCell2 {
   table(doc: Document): HTMLTableElement;
@@ -93,50 +94,21 @@ export class XPathHtmlTableCell implements IXPathHtmlTableCell {
   public tableCell(): HTMLTableCellElement {
     return this.cell.element();
   }
-
   public table(): HTMLTableElement {
-    return <HTMLTableElement>this.get1stOccurenceOfNode(this.tableCell(), "table");
+    let table = new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(this.cell, "table");
+    return table.element();
   }
-
   public firstTableBody(): HTMLTableSectionElement {
     return this.table().tBodies.item(0);
   }
-
   public columnIndex(): Number {
     return this.tableCell().cellIndex;
   }
-
   public rowIndex(): Number {
     var row = <HTMLTableRowElement>this.tableCell().parentNode;
     return row.rowIndex;
   }
-
   public column(): HTMLTableColElement {
     return this.table().cols[this.columnIndex().valueOf()];
-  }
-
-  private get1stOccurenceOfNode(node: Node, parentTagName: String): Node {
-    var parentNode: Node;
-    try {
-      if (node.nodeName.toUpperCase().match(parentTagName.toUpperCase())) {
-        return node;
-      }
-      if (node && node.parentNode) {
-        var parent = node.parentNode;
-        do {
-          if (parent.nodeName.toUpperCase() == parentTagName.toUpperCase()) {
-            parentNode = parent;
-          }
-          if (parent.parentNode) {
-            parent = parent.parentNode;
-          } else {
-            break;
-          }
-        } while (!parentNode);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-    return parentNode;
   }
 }
