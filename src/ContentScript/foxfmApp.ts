@@ -292,12 +292,13 @@ var app = new foxfmApp(
                 new Array<IHtmlAttribute>(
                   new HtmlAttribute("align", "center"))),
               8),
-            new HtmlTableColumnElementsByXpath(
-              new XPathHtmlTableCell(
-                new XPathSingleResult<HTMLTableCellElement>(
-                  new XPathAllResults(
-                    window.document,
-                    new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[4]'))))),
+            new HtmlTableColumnNumberValues(
+              new HtmlTableColumnElementsByXpath(
+                new XPathHtmlTableCell(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]')))))),
             new StorageLocal<ITransferMarketAmateurPlayerTableExtensionSetting>(
               new SettingNameTransferMarketAmateurTable(),
               new TransferMarketAmateurPlayerTableExtensionSetting(

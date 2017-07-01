@@ -8,12 +8,13 @@ import { IHtmlTableColumn } from "./Toolkit/HtmlTableColumn";
 import { IHtmlTableColumnAsync } from "./Toolkit/HtmlTableColumnAsync";
 import { IColumnValues } from "./Toolkit/ColumnValues";
 import { IHtmlTableColumnElementsByXpath } from "./Toolkit/HtmlTableColumnElementsByXpath";
+import { IHtmlTableColumnValues } from "./Toolkit/HtmlTableColumnValues";
 
 export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   private table: IHtmlTable;
   private awpColumn: IHtmlTableColumn;
   private awpDiffColumn: IHtmlTableColumnAsync;
-  private strengthColumn: IHtmlTableColumnElementsByXpath;
+  private strengthColumn: IHtmlTableColumnValues<Number>;
   private strengthLevels: IStrengthLevelsSetting;
   private amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>;
   private log: IEasyLogger;
@@ -22,7 +23,7 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
     table: IHtmlTable,
     awpColumn: IHtmlTableColumn,
     awpDiffColumn: IHtmlTableColumnAsync,
-    strengthColumn: IHtmlTableColumnElementsByXpath,
+    strengthColumn: IHtmlTableColumnValues<Number>,
 //    strengthColumnValuesToAdd: IColumnValues<Number>,
     amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>,
     log: IEasyLogger
