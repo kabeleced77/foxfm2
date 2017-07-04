@@ -31,26 +31,26 @@ export class NumberHelper {
     return num;
   }
 
-  public static getNumberFromString(str, decimalPoint = ",") {
+  public static getNumberFromString(str, decimalPoint = ","): Number {
     var sNum;
-    var num = null;
-      // infoMessage(4, 'getNumberFromString(): started: string: ' + str);
-      if (str) {
-        switch (decimalPoint) {
-          case '.':
-            sNum = str;
-            break;
-          case ',':
-          /* falls through */
-          default:
-            sNum = str.replace(/\./g, '');
-            sNum = sNum.replace(/\,/g, '.');
-            break;
-        }
-        var startNum = sNum.search(/[0-9]/);
-        sNum = sNum.substr(startNum);
-        num = parseFloat(sNum);
+    var num: Number = 0;
+    // infoMessage(4, 'getNumberFromString(): started: string: ' + str);
+    if (str) {
+      switch (decimalPoint) {
+        case '.':
+          sNum = str;
+          break;
+        case ',':
+        /* falls through */
+        default:
+          sNum = str.replace(/\./g, '');
+          sNum = sNum.replace(/\,/g, '.');
+          break;
       }
+      var startNum = sNum.search(/[0-9]/);
+      sNum = sNum.substr(startNum);
+      num = parseFloat(sNum);
+    }
     return num;
   }
 

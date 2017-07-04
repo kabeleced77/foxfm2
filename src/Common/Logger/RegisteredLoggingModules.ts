@@ -21,11 +21,11 @@ export class RegisteredLoggingModules implements IRegisteredLoggingModules {
     return this.loggingModules;
   }
 
-  public moduleByName(moduleName: String): IRegisteredLoggingModule {
+  public moduleByName(moduleName: String): IRegisteredLoggingModule | undefined {
     var modules = this.modulesByName(moduleName);
     if (modules.length === 1) return modules[0];
     if (modules.length === 0) throw `"Did not find following Logging Module: ${moduleName}"`;
-    if (modules.length > 1 ) throw `"Found more than one of the following Logging Module: ${moduleName}"`;
+    if (modules.length > 1) throw `"Found more than one of the following Logging Module: ${moduleName}"`;
   }
 
   public add(module: IRegisteredLoggingModule): void {

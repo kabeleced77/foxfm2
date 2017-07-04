@@ -85,16 +85,19 @@ export class ExperienceAndTrainingColumn implements IExperienceAndTrainingColumn
   }
   private increaseWidthAttribute(table: HTMLTableElement, width: Number) {
     var tableWidth = NumberHelper.getNumberFromString(table.getAttribute("width"));
-    tableWidth += 100;
+    tableWidth = tableWidth.valueOf() + 100;
     table.setAttribute("width", tableWidth.toString());
   }
   private increaseWidthStyle(table: HTMLTableElement, width: Number) {
     var tableWidth = NumberHelper.getNumberFromString(table.style.width);
-    tableWidth += 100;
+    tableWidth = tableWidth.valueOf() + 100;
     table.style.width = `${tableWidth}px`;
   }
   private extendInnerHtml(doc: Document, element: Element, suffix: String): void {
-    if (element.nodeType === 1 && element.hasChildNodes() && this.allNodesOfType(element.childNodes, document.TEXT_NODE)) {
+    if (element.nodeType === 1
+      && element.hasChildNodes()
+      && this.allNodesOfType(element.childNodes, document.TEXT_NODE)
+      && element.firstChild !== null) {
       var textNode = doc.createTextNode(element.innerHTML + suffix);
       element.replaceChild(textNode, element.firstChild);
     } else {

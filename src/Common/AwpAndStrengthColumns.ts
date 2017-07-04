@@ -69,7 +69,10 @@ export class AwpAndStrengthColumns implements IAwpAndStrengthColumns {
   }
 
   private extendInnerHtml(doc: Document, element: Element, suffix: String): void {
-    if (element.nodeType === 1 && element.hasChildNodes() && this.allNodesOfType(element.childNodes, document.TEXT_NODE)) {
+    if (element.nodeType === 1
+      && element.hasChildNodes()
+      && this.allNodesOfType(element.childNodes, document.TEXT_NODE)
+      && element.firstChild !== null) {
       var textNode = doc.createTextNode(element.innerHTML + suffix);
       element.replaceChild(textNode, element.firstChild);
     } else {

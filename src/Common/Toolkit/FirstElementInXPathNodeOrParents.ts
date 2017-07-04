@@ -27,18 +27,17 @@ export class FirstElementInXPathNodeOrParents<T extends Node, R extends Node> im
         var parent = node.parentNode;
         do {
           if (parent.nodeName.toUpperCase() == parentTagName.toUpperCase()) {
-            parentNode = parent;
+            return parent;
           }
           if (parent.parentNode) {
             parent = parent.parentNode;
           } else {
-            break;
+            throw new Error(`"Error finding the first element '${this.elementName}' in XPath node '${this.xPathSingleResult.xPath().xPathString}'."`);
           }
-        } while (!parentNode);
+        } while (parent.parentNode !== null);
       }
     } catch (e) {
       new Error(`"Error finding the first element '${this.elementName}' in XPath node '${this.xPathSingleResult.xPath().xPathString}'."`);
     }
-    return parentNode;
   }
 }
