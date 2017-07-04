@@ -47,8 +47,6 @@ export class NumberHelper {
           sNum = sNum.replace(/\,/g, '.');
           break;
       }
-      var startNum = sNum.search(/[0-9]/);
-      sNum = sNum.substr(startNum);
       num = parseFloat(sNum);
     }
     return num;
