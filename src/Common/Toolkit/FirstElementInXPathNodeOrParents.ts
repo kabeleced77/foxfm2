@@ -18,26 +18,18 @@ export class FirstElementInXPathNodeOrParents<T extends Node, R extends Node> im
   }
 
   private get1stOccurenceOfNode(node: T, parentTagName: String): Node {
-    var parentNode: Node;
-    try {
-      if (node.nodeName.toUpperCase().match(parentTagName.toUpperCase())) {
-        return node;
-      }
-      if (node && node.parentNode) {
-        var parent = node.parentNode;
-        do {
-          if (parent.nodeName.toUpperCase() == parentTagName.toUpperCase()) {
-            return parent;
-          }
-          if (parent.parentNode) {
-            parent = parent.parentNode;
-          } else {
-            throw new Error(`"Error finding the first element '${this.elementName}' in XPath node '${this.xPathSingleResult.xPath().xPathString}'."`);
-          }
-        } while (parent.parentNode !== null);
-      }
-    } catch (e) {
-      new Error(`"Error finding the first element '${this.elementName}' in XPath node '${this.xPathSingleResult.xPath().xPathString}'."`);
+    if (this.tagsMatches(node.nodeName, parentTagName)) {
+      return node;
     }
+    let parentNode = node.parentNode;
+    while (parentNode !== null) {
+      if (this.tagsMatches(parentNode.nodeName, parentTagName)) {
+        return parentNode;
+      }
+      parentNode = parentNode.parentNode;
+    }
+  }
+  private tagsMatches(tag1: String, tag2: String): Boolean {
+    return tag1.toUpperCase().match(tag2.toUpperCase()) !== null;
   }
 }
