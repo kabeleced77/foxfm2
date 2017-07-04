@@ -19,7 +19,7 @@ import { StorageLocal } from "../Toolkit/StorageLocal";
 export interface IStadiumBlocksSetting {
   blocksEntryPricesOffsetActivated(): Promise<Boolean>;
   blocks(): Promise<IStadiumBlocks>;
-  stadiumBlockByName(text: String): Promise<IStadiumBlock>;
+  stadiumBlockByName(text: String | null): Promise<IStadiumBlock>;
   changeBlockEntryPricesOffsetStatus(status: Boolean): void;
   changeBlockEntryPricesOffset(block: IStadiumBlockName, kindOfGame: IGameKind, price: Number): void;
 }
@@ -132,7 +132,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
         return stadiumBlocks.blocksPricesOffsetActivated();
       });
   }
-  public stadiumBlockByName(name: String): Promise<IStadiumBlock> {
+  public stadiumBlockByName(name: String | null): Promise<IStadiumBlock> {
     return this.blocks().then((stadiumBlocks: IStadiumBlocks) => {
       var blocks = stadiumBlocks
         .blocks()

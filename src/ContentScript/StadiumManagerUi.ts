@@ -166,7 +166,8 @@ export class StadiumManagerUi implements IWebPageToExtend {
       );
       var lastRow = <HTMLTableRowElement>tribuneTable.rows[tribuneTable.rows.length - 1];
       var lastCell = lastRow.insertCell(-1);
-      var header = DOMHelper.createElement('B', null, null, 'minitext dsR42', null, null, null);
+      var header = document.createElement('B');
+      header.setAttribute("class", "minitext dsR42");
       lastCell.appendChild(header);
       var headerText = document.createTextNode(this.ressourceStadiumOffset.valueOf());
       header.appendChild(headerText);
@@ -191,11 +192,11 @@ export class StadiumManagerUi implements IWebPageToExtend {
     block: String,
     entryPrices: IStadiumEntryPrices,
     ddTooltipPriceLeague: String,
-    ddLabelPriceLeague: String,
+    ddLabelPriceLeague: String | null,
     ddTooltipPriceFriendly: String,
-    ddLabelPriceFriendly: String,
+    ddLabelPriceFriendly: String | null,
     ddTooltipPriceCup: String,
-    ddLabelPriceCup: String,
+    ddLabelPriceCup: String | null,
     ddMinPrice: Number,
     ddMaxPrice: Number
   ) {
@@ -259,7 +260,7 @@ export class StadiumManagerUi implements IWebPageToExtend {
     this.changeStadiumPricesOnEvent(eventTargetId, eventTargetName, minPrice, maxPrice);
   }
 
-  private changeStadiumPricesOnEvent(eventTargetId: string, eventTargetName: string, minPrice: number, maxPrice: number) {
+  private changeStadiumPricesOnEvent(eventTargetId: string, eventTargetName: string | null, minPrice: number, maxPrice: number) {
     var gameType = this.getTypeOfGame(eventTargetId);
     // get overall ticket price
     var overallPriceSelector = <HTMLSelectElement>document.getElementById('ddIdPrice' + gameType.name() + 'overall');
@@ -289,17 +290,13 @@ export class StadiumManagerUi implements IWebPageToExtend {
   }
 
   private getStadiumOffsetStadiumPriceOfBlock(gameType: IGameKind, block: String): number {
-    try {
-      var offsetPrice = 0;
-      var idOfOffsetPrice = 'ddIdPrice' + gameType.name() + block;
-      if (document.getElementById(idOfOffsetPrice)) {
-        var offsetPrice1 = <HTMLSelectElement>(document.getElementById(idOfOffsetPrice));
-        offsetPrice = offsetPrice1.selectedIndex;
-      }
-      return offsetPrice;
-    } catch (e) {
-      this.logger.error(e);
+    var offsetPrice = 0;
+    var idOfOffsetPrice = 'ddIdPrice' + gameType.name() + block;
+    if (document.getElementById(idOfOffsetPrice)) {
+      var offsetPrice1 = <HTMLSelectElement>(document.getElementById(idOfOffsetPrice));
+      offsetPrice = offsetPrice1.selectedIndex;
     }
+    return offsetPrice;
   }
 
   private setStadiumPriceOfBlock(gameType: IGameKind, block: String, price: number): void {
@@ -315,6 +312,8 @@ export class StadiumManagerUi implements IWebPageToExtend {
         case new GameKindCup().name():
           newBlockCore = 'block_price[' + block + '][epreispok]';
           break;
+        default:
+          throw new Error(`Error determining the type of game ${gameType} to set the correspondent price ${price} in the block ${block}`); 
       }
       var blockPriceSelectElement = <HTMLSelectElement>document.getElementsByName(newBlockCore)[0];
       var priceOptionElement = <HTMLOptionElement>blockPriceSelectElement.options[price];
@@ -331,7 +330,7 @@ export class StadiumManagerUi implements IWebPageToExtend {
         var newOption = document.createElement('option');
         newOption.text = `${i} ${localeCurrencySign}`;
         newOption.id = dropdownId + '_' + i;
-        newSelect.add(newOption, null);
+        newSelect.add(newOption, undefined);
       }
       if (dropdownDefault < this.ofmStadiumMaxPrice) {
         var priceOptionElement = <HTMLOptionElement>newSelect.options[dropdownDefault.valueOf()];
@@ -343,16 +342,17 @@ export class StadiumManagerUi implements IWebPageToExtend {
     }
   }
 
-  private createRowStadiumPrice(selectId: string, selectName: String, selectTooltip: String, selectDefault: Number, label: String, selectMinPrice: Number, selectMaxPrice: Number) {
+  private createRowStadiumPrice(selectId: string, selectName: String, selectTooltip: String, selectDefault: Number, label: String | null, selectMinPrice: Number, selectMaxPrice: Number) {
     try {
       var newSelect = this.createDropDownPrice(selectId, selectName, selectTooltip, selectDefault, selectMinPrice, selectMaxPrice);
-      var newCellDropdown = DOMHelper.createCell(null, null, null, null, null, null);
+      var newCellDropdown = document.createElement("td");
       newCellDropdown.appendChild(newSelect);
       var newRow = DOMHelper.createRow();
       if (label) {
-        var cellLabel = `<font color="black">${label}:</font>`;
-        var newCellLabel = DOMHelper.createCell(null, null, null, label.valueOf(), null, 'minitext');
-        newRow.appendChild(newCellLabel);
+        let labelCell = document.createElement("td");
+        labelCell.textContent = label.valueOf();
+        labelCell.setAttribute("class", "minitext")
+        newRow.appendChild(labelCell);
       }
       newRow.appendChild(newCellDropdown);
       return newRow;
