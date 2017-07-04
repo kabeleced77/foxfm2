@@ -4,7 +4,7 @@ import { LogLevelOff } from "./LogLevel"
 
 export interface IRegisteredLoggingModules {
   modules(): Array<IRegisteredLoggingModule>;
-  moduleByName(name: String): IRegisteredLoggingModule;
+  moduleByName(name: String): IRegisteredLoggingModule | undefined;
   add(module: IRegisteredLoggingModule): void;
   update(module: IRegisteredLoggingModule): void;
   fromJson(string: String): IRegisteredLoggingModules;
