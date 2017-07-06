@@ -66,7 +66,7 @@ export class Logger implements ILogger {
   private printMessage(moduleName: String, logLevel: ILogLevel, msg: String): void {
     this.loggingModules.value().then(modules => {
       var module = modules.moduleByName(moduleName);
-      if (logLevel.level() > module.logLevel().level()) return;
+      if (module && logLevel.level() > module.logLevel().level()) return;
 
       var prefix = this.getPrefix(moduleName, logLevel.name());
       switch (logLevel.name()) {

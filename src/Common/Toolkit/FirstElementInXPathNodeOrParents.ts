@@ -17,19 +17,16 @@ export class FirstElementInXPathNodeOrParents<T extends Node, R extends Node> im
     return <R>this.get1stOccurenceOfNode(this.xPathSingleResult.element(), this.elementName);
   }
 
-  private get1stOccurenceOfNode(node: T, parentTagName: String): Node {
-    if (this.tagsMatches(node.nodeName, parentTagName)) {
-      return node;
-    }
-    let parentNode = node.parentNode;
-    while (parentNode !== null) {
-      if (this.tagsMatches(parentNode.nodeName, parentTagName)) {
-        return parentNode;
+  private get1stOccurenceOfNode(node: Node, parentTagName: String): Node | undefined {
+    while (node) {
+      if (parentTagName.toUpperCase().match(node.nodeName.toUpperCase())) {
+        return node;
       }
-      parentNode = parentNode.parentNode;
+      if (node.parentNode) {
+        node = node.parentNode;
+      } else {
+        throw new Error(`Error: could not find any node by tag '${parentTagName}'.`);
+      }
     }
-  }
-  private tagsMatches(tag1: String, tag2: String): Boolean {
-    return tag1.toUpperCase().match(tag2.toUpperCase()) !== null;
   }
 }

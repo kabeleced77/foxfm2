@@ -49,29 +49,17 @@ export class XPathHtmlTableCell2 implements IXPathHtmlTableCell2 {
     );
   }
 
-  private get1stOccurenceOfNode(node: Node, parentTagName: String): Node {
-    var parentNode: Node;
-    try {
-      if (node.nodeName.toUpperCase().match(parentTagName.toUpperCase())) {
+  private get1stOccurenceOfNode(node: Node, parentTagName: String): Node | undefined {
+    while (node) {
+      if (parentTagName.toUpperCase().match(node.nodeName.toUpperCase())) {
         return node;
       }
-      if (node && node.parentNode) {
-        var parent = node.parentNode;
-        do {
-          if (parent.nodeName.toUpperCase() == parentTagName.toUpperCase()) {
-            parentNode = parent;
-          }
-          if (parent.parentNode) {
-            parent = parent.parentNode;
-          } else {
-            break;
-          }
-        } while (!parentNode);
+      if (node.parentNode) {
+        node = node.parentNode;
+      } else {
+        throw new Error(`Error: could not find any node by tag '${parentTagName}'.`);
       }
-    } catch (e) {
-      console.error(e);
     }
-    return parentNode;
   }
 }
 

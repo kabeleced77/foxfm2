@@ -8,6 +8,7 @@
     "module": "amd",
     "declaration": false,
     "noImplicitAny": false,
+    "strictNullChecks": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
