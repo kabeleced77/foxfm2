@@ -4,7 +4,7 @@ import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModul
 import { LogLevelError, ILogLevel } from '../Common/Logger/LogLevel';
 import { StadiumManagerUi } from "./StadiumManagerUi"
 import { TeamUi } from "./TeamUi"
-import { StrengthLevelsSetting } from "../Common/Settings/StrengthLevelsSetting"
+import { StrengthLevelsLimitsSetting } from "../Common/Settings/StrengthLevelsSetting"
 import { TeamTableSetting } from "../Common/Settings/TeamTableSetting"
 import { TransferTableUi } from "./TransferTableUi"
 import { TransferTablePossibleOffers, ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
@@ -105,7 +105,7 @@ var app = new foxfmApp(
         new TransferMarketSearchResultTableUi(
           new Dom(doc),
           new TransferMarketProfessionalsUiUrl(),
-          new StrengthLevelsSetting(),
+          new StrengthLevelsLimitsSetting(),
           new StorageLocal<ITransferMarketSearchResultTable>(
             new SettingNameTransferMarketProfessionalsSearchResultTable(),
             new TransferMarketSearchResultTable(
@@ -151,7 +151,7 @@ var app = new foxfmApp(
         new TransferTableUi(
           new Dom(doc),
           new TransferTablePossibleOffersUiUrl(),
-          new StrengthLevelsSetting(),
+          new StrengthLevelsLimitsSetting(),
           new StorageLocal<ITransferTablePossibleOffers>(
             new SettingNameTransferTablePossibleOffers(),
             new TransferTablePossibleOffers(
@@ -192,7 +192,7 @@ var app = new foxfmApp(
         new TeamUi(
           new Dom(doc),
           new TeamTableUiUrl(),
-          new StrengthLevelsSetting(),
+          new StrengthLevelsLimitsSetting(),
           new TeamTableSetting(),
           new EasyLogger(
             logger,
@@ -287,7 +287,7 @@ var app = new foxfmApp(
                           new XPathAllResults(
                             window.document,
                             new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]')))))),
-                  new StrengthLevelsSetting()),
+                  new StrengthLevelsLimitsSetting()),
                 "div",
                 new Array<IHtmlAttribute>(
                   new HtmlAttribute("align", "center"))),

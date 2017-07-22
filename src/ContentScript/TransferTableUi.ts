@@ -1,4 +1,4 @@
-import { IStrengthLevelsSetting } from "../Common/Settings/StrengthLevelsSetting"
+import { IStrengthLevelsLimitsSetting } from "../Common/Settings/StrengthLevelsSetting"
 import { ISetting } from "../Common/Toolkit/Setting";
 import { ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
 import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
@@ -10,13 +10,13 @@ export class TransferTableUi implements IWebPageToExtend {
   private domField: IDom;
   private urlField: IUrl;
   private log: IEasyLogger;
-  private strengthLevelsSetting: IStrengthLevelsSetting;
+  private strengthLevelsSetting: IStrengthLevelsLimitsSetting;
   private transferTablePossibleOffers2: ISetting<ITransferTablePossibleOffers>;
 
   constructor(
     dom: IDom,
     webPageUrl: IUrl,
-    strengthLevelsSetting: IStrengthLevelsSetting,
+    strengthLevelsSetting: IStrengthLevelsLimitsSetting,
     transferTablePossibleOffersSetting2: ISetting<ITransferTablePossibleOffers>,
     logger: IEasyLogger
   ) {
@@ -37,9 +37,9 @@ export class TransferTableUi implements IWebPageToExtend {
       .then(setting => {
         if (setting.awpAndStrengthColumn().additionalInformationActivated()) {
           this.strengthLevelsSetting
-            .strengthLevels()
-            .then(strengthLevels => {
-              setting.awpAndStrengthColumn().addAdditionalInformation(doc, strengthLevels);
+            .strengthLevelsLimits()
+            .then(strengthLevelsLimits => {
+              setting.awpAndStrengthColumn().addAdditionalInformation(doc, strengthLevelsLimits);
             })
         }
       });

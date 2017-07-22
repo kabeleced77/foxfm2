@@ -1,76 +1,76 @@
 import { ISetting } from '../Toolkit/Setting'
-import { IStrengthLevel } from '../StrengthLevel'
-import { StrengthLevel } from '../StrengthLevel'
-import { IStrengthLevels } from '../StrengthLevels'
-import { StrengthLevels } from '../StrengthLevels'
+import { IStrengthLevelLimits } from '../StrengthLevelLimits'
+import { StrengthLevelLimits } from '../StrengthLevelLimits'
+import { IStrengthLevelsLimits } from '../StrengthLevelsLimits'
+import { StrengthLevelsLimits } from '../StrengthLevelsLimits'
 import { ISettingName } from "../Toolkit/SettingName";
 import { StorageLocal } from "../Toolkit/StorageLocal";
 
-export interface IStrengthLevelsSetting {
-  strengthLevels(): Promise<IStrengthLevels>;
-  strengthLevel(strength: Number): Promise<IStrengthLevel>;
-  changeStrengthLevels(strengthLevels: Array<IStrengthLevel>): void;
-  changeStrengthLevel(strengthLevels: IStrengthLevel): void;
+export interface IStrengthLevelsLimitsSetting {
+  strengthLevelsLimits(): Promise<IStrengthLevelsLimits>;
+  strengthLevel(strength: Number): Promise<IStrengthLevelLimits>;
+  changeStrengthLevels(strengthLevels: Array<IStrengthLevelLimits>): void;
+  changeStrengthLevel(strengthLevels: IStrengthLevelLimits): void;
 }
 
-export class SettingNameStrengthLevels implements ISettingName {
-  private settingName: String = "foxfm2.strengthLevels";
+export class SettingNameStrengthLevelsLimits implements ISettingName {
+  private settingName: String = "foxfm2.strengthLevelsLimits";
   constructor() { }
   public name(): String {
     return this.settingName;
   }
 }
 
-export class StrengthLevelsSetting implements IStrengthLevelsSetting {
-  private strengthLevelsSetting: ISetting<IStrengthLevels>;
+export class StrengthLevelsLimitsSetting implements IStrengthLevelsLimitsSetting {
+  private strengthLevelsSetting: ISetting<IStrengthLevelsLimits>;
 
   constructor() {
-    this.strengthLevelsSetting = new StorageLocal<IStrengthLevels>(
-      new SettingNameStrengthLevels(),
-      new StrengthLevels([
-        new StrengthLevel(1, 1111, 0),
-        new StrengthLevel(2, 2222, 96),
-        new StrengthLevel(3, 3333, 293),
-        new StrengthLevel(4, 4444, 542),
-        new StrengthLevel(5, 5555, 905),
-        new StrengthLevel(6, 6666, 1388),
-        new StrengthLevel(7, 7777, 1973),
-        new StrengthLevel(8, 8888, 2751),
-        new StrengthLevel(9, 9999, 3703),
-        new StrengthLevel(10, 101010, 4727),
-        new StrengthLevel(11, 111111, 5755),
-        new StrengthLevel(12, 121212, 6794),
-        new StrengthLevel(13, 131313, 7906),
-        new StrengthLevel(14, 131313, 9050),
-        new StrengthLevel(15, 131313, 10192),
-        new StrengthLevel(16, 131313, 11302),
-        new StrengthLevel(17, 131313, 12389),
-        new StrengthLevel(18, 131313, 13474),
-        new StrengthLevel(19, 131313, 14503),
-        new StrengthLevel(20, 131313, 15490),
-        new StrengthLevel(21, 131313, 16540),
-        new StrengthLevel(22, 131313, 17515),
-        new StrengthLevel(23, 131313, 18460),
-        new StrengthLevel(24, 131313, 19706),
-        new StrengthLevel(25, 131313, 20431),
-        new StrengthLevel(26, 131313, 20783),
-        new StrengthLevel(27, 131313, 21030)
+    this.strengthLevelsSetting = new StorageLocal<IStrengthLevelsLimits>(
+      new SettingNameStrengthLevelsLimits(),
+      new StrengthLevelsLimits([
+        new StrengthLevelLimits(1, 1111, 0),
+        new StrengthLevelLimits(2, 2222, 96),
+        new StrengthLevelLimits(3, 3333, 293),
+        new StrengthLevelLimits(4, 4444, 542),
+        new StrengthLevelLimits(5, 5555, 905),
+        new StrengthLevelLimits(6, 6666, 1388),
+        new StrengthLevelLimits(7, 7777, 1973),
+        new StrengthLevelLimits(8, 8888, 2751),
+        new StrengthLevelLimits(9, 9999, 3703),
+        new StrengthLevelLimits(10, 101010, 4727),
+        new StrengthLevelLimits(11, 111111, 5755),
+        new StrengthLevelLimits(12, 121212, 6794),
+        new StrengthLevelLimits(13, 131313, 7906),
+        new StrengthLevelLimits(14, 131313, 9050),
+        new StrengthLevelLimits(15, 131313, 10192),
+        new StrengthLevelLimits(16, 131313, 11302),
+        new StrengthLevelLimits(17, 131313, 12389),
+        new StrengthLevelLimits(18, 131313, 13474),
+        new StrengthLevelLimits(19, 131313, 14503),
+        new StrengthLevelLimits(20, 131313, 15490),
+        new StrengthLevelLimits(21, 131313, 16540),
+        new StrengthLevelLimits(22, 131313, 17515),
+        new StrengthLevelLimits(23, 131313, 18460),
+        new StrengthLevelLimits(24, 131313, 19706),
+        new StrengthLevelLimits(25, 131313, 20431),
+        new StrengthLevelLimits(26, 131313, 20783),
+        new StrengthLevelLimits(27, 131313, 21030)
       ])
     );
   }
 
-  public strengthLevels(): Promise<IStrengthLevels> {
+  public strengthLevelsLimits(): Promise<IStrengthLevelsLimits> {
     return this.strengthLevelsSetting.value();
   }
 
-  public strengthLevel(strength: Number): Promise<IStrengthLevel> {
-    return this.strengthLevels()
-      .then(strengthLevels => strengthLevels.strengthLevel(strength));
+  public strengthLevel(strength: Number): Promise<IStrengthLevelLimits> {
+    return this.strengthLevelsLimits()
+      .then(strengthLevelsLimits => strengthLevelsLimits.strengthLevelLimits(strength));
   }
 
-  public changeStrengthLevels(strengthLevels: Array<IStrengthLevel>): void {
+  public changeStrengthLevels(strengthLevelsLimits: Array<IStrengthLevelLimits>): void {
   }
 
-  public changeStrengthLevel(strengthLevel: IStrengthLevel): void {
+  public changeStrengthLevel(strengthLevelLimits: IStrengthLevelLimits): void {
   }
 }

@@ -1,4 +1,4 @@
-import { IStrengthLevelsSetting } from "../Common/Settings/StrengthLevelsSetting"
+import { IStrengthLevelsLimitsSetting } from "../Common/Settings/StrengthLevelsSetting"
 import { ISetting } from "../Common/Toolkit/Setting";
 import { ITransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
 import { IEasyLogger } from "../Common/Logger/EasyLogger";
@@ -10,13 +10,13 @@ export class TransferMarketSearchResultTableUi implements IWebPageToExtend {
   private domField: IDom;
   private webPageUrl: IUrl;
   private log: IEasyLogger;
-  private strengthLevelsSetting: IStrengthLevelsSetting;
+  private strengthLevelsSetting: IStrengthLevelsLimitsSetting;
   private settings: ISetting<ITransferMarketSearchResultTable>;
 
   constructor(
     dom: IDom,
     webPageUrl: IUrl,
-    strengthLevelsSetting: IStrengthLevelsSetting,
+    strengthLevelsSetting: IStrengthLevelsLimitsSetting,
     transferMarketSearchResultTableSetting: ISetting<ITransferMarketSearchResultTable>,
     logger: IEasyLogger
   ) {
@@ -34,9 +34,9 @@ export class TransferMarketSearchResultTableUi implements IWebPageToExtend {
       .then(setting => {
         if (setting.experienceAndTrainingColumn().additionalInformationActivated()) {
           this.strengthLevelsSetting
-            .strengthLevels()
-            .then(strengthLevels => {
-              setting.experienceAndTrainingColumn().addAdditionalInformation(this.domField.dom(), strengthLevels);
+            .strengthLevelsLimits()
+            .then(strengthLevelsLimits => {
+              setting.experienceAndTrainingColumn().addAdditionalInformation(this.domField.dom(), strengthLevelsLimits);
             })
         }
       });

@@ -1,11 +1,11 @@
-export interface IStrengthLevel {
+export interface IStrengthLevelLimits {
   level(): Number;
   wage(): Number;
   awpPoints(): Number;
-  fromJson(jsonString: String): IStrengthLevel;
+  fromJson(jsonString: String): IStrengthLevelLimits;
 }
 
-export class StrengthLevel implements IStrengthLevel {
+export class StrengthLevelLimits implements IStrengthLevelLimits {
   private levelOfStrength: Number;
   private wageOfLevel: Number;
   private awps: Number;
@@ -32,8 +32,8 @@ export class StrengthLevel implements IStrengthLevel {
     return this.awps;
   }
 
-  public fromJson(jsonString: String): IStrengthLevel {
-    return new StrengthLevel(
+  public fromJson(jsonString: String): IStrengthLevelLimits {
+    return new StrengthLevelLimits(
       jsonString["levelOfStrength"],
       jsonString["wageOfLevel"],
       jsonString["awps"]

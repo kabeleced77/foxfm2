@@ -1,6 +1,6 @@
 import { IXPathHtmlTableCell2 } from "./Toolkit/XPathHtmlTableCell"
 import { NumberHelper } from "../Common/Toolkit/NumberHelper"
-import { IStrengthLevels } from "./StrengthLevels";
+import { IStrengthLevelsLimits } from "./StrengthLevelsLimits";
 import { Awp } from "./Toolkit/Awp";
 
 export interface IExperienceAndTrainingColumn {
@@ -8,7 +8,7 @@ export interface IExperienceAndTrainingColumn {
   xPathStrengthColumn(): IXPathHtmlTableCell2;
   additionalInformationActivated(): Boolean;
   activateAdditionalInformation(status: Boolean): void;
-  addAdditionalInformation(doc: Document, strengthLevels: IStrengthLevels): void;
+  addAdditionalInformation(doc: Document, strengthLevelsLimits: IStrengthLevelsLimits): void;
   fromJson(jsonString: String): IExperienceAndTrainingColumn;
 }
 
@@ -39,7 +39,7 @@ export class ExperienceAndTrainingColumn implements IExperienceAndTrainingColumn
   public activateAdditionalInformation(status: Boolean): void {
     this.additionalInformationStatus = status;
   }
-  public addAdditionalInformation(doc: Document, strengthLevels: IStrengthLevels): void {
+  public addAdditionalInformation(doc: Document, strengthLevelsLimits: IStrengthLevelsLimits): void {
     if (this.additionalInformationActivated()) {
       var teamTableBody = this.xPathExperienceAndTrainingColumn().firstTableBody(doc);
       var expAndTrainingColumnIndex = this.xPathToExperienceAndTrainingColumn.columnIndex(doc).valueOf();
@@ -55,9 +55,9 @@ export class ExperienceAndTrainingColumn implements IExperienceAndTrainingColumn
         var trainingPoints = NumberHelper.getNumberFromString(expAndTrainingPoints[1].trim());
         var awp = new Awp(expPoints, trainingPoints);
         var awpPoints = awp.awpPoints().valueOf();
-        var actualStrengthLevel = strengthLevels.strengthLevelByAwp(awpPoints).level().valueOf();
+        var actualStrengthLevel = strengthLevelsLimits.strengthLevelByAwp(awpPoints).level().valueOf();
         var currentStrengthLevel = NumberHelper.getNumberFromNode(row.cells[strengthColumnIndex]);
-        var awpsNextStrength = strengthLevels.strengthLevel(actualStrengthLevel + 1).awpPoints().valueOf();
+        var awpsNextStrength = strengthLevelsLimits.strengthLevelLimits(actualStrengthLevel + 1).awpPoints().valueOf();
 
         this.extendInnerHtml(doc, row.cells[expAndTrainingColumnIndex], ` | ${awpPoints - awpsNextStrength}`);
         if (actualStrengthLevel !== currentStrengthLevel) {

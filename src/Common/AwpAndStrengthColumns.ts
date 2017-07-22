@@ -1,13 +1,13 @@
 import { IXPathHtmlTableCell2 } from "./Toolkit/XPathHtmlTableCell"
 import { NumberHelper } from "../Common/Toolkit/NumberHelper"
-import { IStrengthLevels } from "./StrengthLevels";
+import { IStrengthLevelsLimits } from "./StrengthLevelsLimits";
 
 export interface IAwpAndStrengthColumns {
   xPathAwpColumn(): IXPathHtmlTableCell2;
   xPathStrengthColumn(): IXPathHtmlTableCell2;
   additionalInformationActivated(): Boolean;
   activateAdditionalInformation(status: Boolean): void;
-  addAdditionalInformation(doc: Document, strengthLevels: IStrengthLevels): void;
+  addAdditionalInformation(doc: Document, strengthLevelsLimits: IStrengthLevelsLimits): void;
   fromJson(jsonString: String): AwpAndStrengthColumns;
 }
 
@@ -38,7 +38,7 @@ export class AwpAndStrengthColumns implements IAwpAndStrengthColumns {
   public activateAdditionalInformation(status: Boolean): void {
     this.additionalInformationStatus = status;
   }
-  public addAdditionalInformation(doc: Document, strengthLevels: IStrengthLevels): void {
+  public addAdditionalInformation(doc: Document, strengthLevelsLimits: IStrengthLevelsLimits): void {
     if (this.additionalInformationActivated()) {
       var teamTableBody = this.xPathAwpColumn().firstTableBody(doc);
       var awpColumnIndex = this.xPathToAwpColumn.columnIndex(doc).valueOf();
@@ -47,9 +47,9 @@ export class AwpAndStrengthColumns implements IAwpAndStrengthColumns {
       for (var i = 0; i < teamTableBody.rows.length; i++) {
         var row = <HTMLTableRowElement>teamTableBody.rows[i];
         var awpPoints = NumberHelper.getNumberFromNode(row.cells[awpColumnIndex]);
-        var actualStrengthLevel = strengthLevels.strengthLevelByAwp(awpPoints).level().valueOf();
+        var actualStrengthLevel = strengthLevelsLimits.strengthLevelByAwp(awpPoints).level().valueOf();
         var currentStrengthLevel = NumberHelper.getNumberFromNode(row.cells[strengthColumnIndex]);
-        var awpsNextStrength = strengthLevels.strengthLevel(actualStrengthLevel + 1).awpPoints().valueOf();
+        var awpsNextStrength = strengthLevelsLimits.strengthLevelLimits(actualStrengthLevel + 1).awpPoints().valueOf();
 
         this.xPathAwpColumn().tableCell(doc).style.width = "120px";
         this.extendInnerHtml(doc, row.cells[awpColumnIndex], ` | ${awpPoints - awpsNextStrength}`);

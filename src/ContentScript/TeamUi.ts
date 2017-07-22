@@ -1,4 +1,4 @@
-import { IStrengthLevelsSetting } from "../Common/Settings/StrengthLevelsSetting"
+import { IStrengthLevelsLimitsSetting } from "../Common/Settings/StrengthLevelsSetting"
 import { ITeamTableSetting } from "../Common/Settings/TeamTableSetting"
 import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
 import { IUrl } from "../Common/Toolkit/Url";
@@ -9,13 +9,13 @@ export class TeamUi implements IWebPageToExtend {
   private domField: IDom;
   private urlField: IUrl;
   private log: IEasyLogger;
-  private strengthLevelsSetting: IStrengthLevelsSetting;
+  private strengthLevelsSetting: IStrengthLevelsLimitsSetting;
   private teamTableSetting: ITeamTableSetting;
 
   constructor(
     dom: IDom,
     url: IUrl,
-    strengthLevelsSetting: IStrengthLevelsSetting,
+    strengthLevelsSetting: IStrengthLevelsLimitsSetting,
     teamTableSetting: ITeamTableSetting,
     log: IEasyLogger
   ) {
@@ -35,9 +35,9 @@ export class TeamUi implements IWebPageToExtend {
       .then(setting => {
         if (setting.awpAndStrengthColumns().additionalInformationActivated) {
           this.strengthLevelsSetting
-            .strengthLevels()
-            .then(strengthLevels => {
-              setting.awpAndStrengthColumns().addAdditionalInformation(this.domField.dom(), strengthLevels);
+            .strengthLevelsLimits()
+            .then(strengthLevelsLimits => {
+              setting.awpAndStrengthColumns().addAdditionalInformation(this.domField.dom(), strengthLevelsLimits);
             });
         }
       })
