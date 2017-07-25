@@ -48,6 +48,6 @@ export class StorageLocal<T extends ITypeInStorage<T>> implements ISetting<T> {
           resolve(this.defaultValue.fromJson(value));
         }
       });
-    }).catch((e) => { Error(`ERROR: Cannot get value of storage key ${this.storageKey.name()}`); });
+    }).catch((e) => { throw new Error(`ERROR: Cannot get value of storage key ${this.storageKey.name()}`); });
   }
 }

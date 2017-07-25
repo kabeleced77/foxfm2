@@ -93,14 +93,15 @@ export class ExperienceAndTrainingColumn implements IExperienceAndTrainingColumn
     tableWidth = tableWidth.valueOf() + 100;
     table.style.width = `${tableWidth}px`;
   }
-  private extendInnerHtml(doc: Document, element: Element, suffix: String): void {
-    if (element.nodeType === 1
+  private extendInnerHtml(doc: Document, element: Element | null, suffix: String): void {
+    if (element 
+      && element.nodeType === 1
       && element.hasChildNodes()
       && this.allNodesOfType(element.childNodes, document.TEXT_NODE)
       && element.firstChild !== null) {
       var textNode = doc.createTextNode(element.innerHTML + suffix);
       element.replaceChild(textNode, element.firstChild);
-    } else {
+    } else if (element) {
       for (var i = 0; i < element.childNodes.length; i++) {
         this.extendInnerHtml(doc, <Element>element.childNodes[i], suffix);
       }
