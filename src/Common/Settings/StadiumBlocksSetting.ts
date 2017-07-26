@@ -19,7 +19,7 @@ import { StorageLocal } from "../Toolkit/StorageLocal";
 export interface IStadiumBlocksSetting {
   blocksEntryPricesOffsetActivated(): Promise<Boolean>;
   blocks(): Promise<IStadiumBlocks>;
-  stadiumBlockByName(text: String | null): Promise<IStadiumBlock>;
+  stadiumBlockByName(text: String): Promise<IStadiumBlock>;
   changeBlockEntryPricesOffsetStatus(status: Boolean): void;
   changeBlockEntryPricesOffset(block: IStadiumBlockName, kindOfGame: IGameKind, price: Number): void;
 }
@@ -132,26 +132,8 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
         return stadiumBlocks.blocksPricesOffsetActivated();
       });
   }
-  public stadiumBlockByName(name: String | null): Promise<IStadiumBlock> {
-    return this.blocks().then((stadiumBlocks: IStadiumBlocks) => {
-      var blocks = stadiumBlocks
-        .blocks()
-        .map((block: IStadiumBlock) => {
-          if (block.name().name() === name) {
-            return block;
-          }
-        })
-        .filter(block => block !== undefined);
-
-      if (blocks.length == 1) {
-        return blocks[0];
-      }
-      if (blocks.length == 0) {
-        throw `${this.stadiumBlockByName.name}: No Stadium block could be identfied by text '${name}'.`;
-      } else {
-        throw `${this.stadiumBlockByName.name}: Too many stadium blocks were identfied by text '${name}'.`;
-      }
-    });
+  public stadiumBlockByName(name: String): Promise<IStadiumBlock> {
+    return this.stadiumBlocks.value().then(blocks => { return blocks.blockByName(name); });
   }
   public changeBlockEntryPricesOffsetStatus(status: Boolean): void {
     this.stadiumBlocks.update((stadiumBlocks: IStadiumBlocks) => {

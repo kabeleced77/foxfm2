@@ -249,7 +249,7 @@ export class StadiumManagerUi implements IWebPageToExtend {
     var eventKeycode = event.keyCode;
     var eventTargetName = eventTarget.getAttribute("name");
     if (eventKeycode >= 37 && eventKeycode <= 40) {
-      this.changeStadiumPricesOnEvent(eventTargetId, eventTargetName, minPrice, maxPrice);
+      this.changeStadiumPricesOnEvent(eventTargetId, new String(eventTargetName), minPrice, maxPrice);
     }
   }
 
@@ -257,10 +257,10 @@ export class StadiumManagerUi implements IWebPageToExtend {
     var eventTarget = event.srcElement ? event.srcElement : <HTMLElement>event.target;
     var eventTargetId = eventTarget.id;
     var eventTargetName = eventTarget.getAttribute("name");
-    this.changeStadiumPricesOnEvent(eventTargetId, eventTargetName, minPrice, maxPrice);
+    this.changeStadiumPricesOnEvent(eventTargetId, new String(eventTargetName), minPrice, maxPrice);
   }
 
-  private changeStadiumPricesOnEvent(eventTargetId: string, eventTargetName: string | null, minPrice: number, maxPrice: number) {
+  private changeStadiumPricesOnEvent(eventTargetId: string, eventTargetName: String, minPrice: number, maxPrice: number) {
     var gameType = this.getTypeOfGame(eventTargetId);
     // get overall ticket price
     var overallPriceSelector = <HTMLSelectElement>document.getElementById('ddIdPrice' + gameType.name() + 'overall');
