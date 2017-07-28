@@ -2,7 +2,7 @@ import { Awp } from "./Toolkit/Awp";
 import { ITrainingPoints } from "./TrainingPoints";
 import { IExperiencePoints } from "./ExperiencePoints";
 import { IColumnValues, ColumnValues } from "./Toolkit/ColumnValues";
-import { IStrengthLevelsLimitsSetting } from "./Settings/StrengthLevelsSetting";
+import { IStrengthsLimitsSetting } from "./Settings/StrengthsLimitsSetting";
 import { IHtmlTableColumnValues } from "./Toolkit/HtmlTableColumnValues";
 import { IColumnValuesAsync } from "./Toolkit/ColumnValuesAsync";
 
@@ -10,24 +10,24 @@ export class AwpDiffPointsByTrainingAndExperience implements IColumnValuesAsync<
   private trainingPoints: ITrainingPoints;
   private experiencePoints: IExperiencePoints;
   private strengthValues: IHtmlTableColumnValues<Number>;
-  private strengthLevelsLimitsSetting: IStrengthLevelsLimitsSetting;
+  private strengthsLimitsSetting: IStrengthsLimitsSetting;
 
   constructor(
     trainingPoints: ITrainingPoints,
     experiencePoints: IExperiencePoints,
     strenthValues: IHtmlTableColumnValues<Number>,
-    strengthLevelsLimits: IStrengthLevelsLimitsSetting
+    strengthLevelsLimits: IStrengthsLimitsSetting
   ) {
     this.trainingPoints = trainingPoints;
     this.experiencePoints = experiencePoints;
     this.strengthValues = strenthValues;
-    this.strengthLevelsLimitsSetting = strengthLevelsLimits;
+    this.strengthsLimitsSetting = strengthLevelsLimits;
   }
 
   public values(): Promise<IColumnValues<Number>> {
-    return this.strengthLevelsLimitsSetting
-      .strengthLevelsLimits()
-      .then(strengthLevelsLimits => {
+    return this.strengthsLimitsSetting
+      .strengthsLimits()
+      .then(strengthsLimits => {
         let tps = this.trainingPoints.points();
         let eps = this.experiencePoints.points();
         let svs = this.strengthValues.values();
@@ -45,7 +45,7 @@ export class AwpDiffPointsByTrainingAndExperience implements IColumnValuesAsync<
           let experiencePoints = eps[i];
           let strengthValue = svs[i];
           let awp = new Awp(experiencePoints, trainingPoints).awpPoints().valueOf();
-          let awpOfNextStrengthValue = strengthLevelsLimits.strengthLevelLimits(strengthValue.valueOf() + 1).awpPoints().valueOf();
+          let awpOfNextStrengthValue = strengthsLimits.strengthLimits(strengthValue.valueOf() + 1).awpPoints().valueOf();
           let diffToNextStrengthValue = awp - awpOfNextStrengthValue;
 
           diffAwps.push(diffToNextStrengthValue);

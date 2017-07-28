@@ -1,4 +1,4 @@
-import { IStrengthLevelsLimitsSetting } from "../Common/Settings/StrengthLevelsSetting"
+import { IStrengthsLimitsSetting } from "../Common/Settings/StrengthsLimitsSetting"
 import { ISetting } from "../Common/Toolkit/Setting";
 import { ITransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
 import { IEasyLogger } from "../Common/Logger/EasyLogger";
@@ -10,19 +10,19 @@ export class TransferMarketSearchResultTableUi implements IWebPageToExtend {
   private domField: IDom;
   private webPageUrl: IUrl;
   private log: IEasyLogger;
-  private strengthLevelsSetting: IStrengthLevelsLimitsSetting;
+  private strengthsLimitsSetting: IStrengthsLimitsSetting;
   private settings: ISetting<ITransferMarketSearchResultTable>;
 
   constructor(
     dom: IDom,
     webPageUrl: IUrl,
-    strengthLevelsSetting: IStrengthLevelsLimitsSetting,
+    strengthsLimitsSetting: IStrengthsLimitsSetting,
     transferMarketSearchResultTableSetting: ISetting<ITransferMarketSearchResultTable>,
     logger: IEasyLogger
   ) {
     this.domField = dom;
     this.webPageUrl = webPageUrl;
-    this.strengthLevelsSetting = strengthLevelsSetting;
+    this.strengthsLimitsSetting = strengthsLimitsSetting;
     this.settings = transferMarketSearchResultTableSetting;
     this.log = logger;
   }
@@ -33,10 +33,10 @@ export class TransferMarketSearchResultTableUi implements IWebPageToExtend {
     this.settings.value()
       .then(setting => {
         if (setting.experienceAndTrainingColumn().additionalInformationActivated()) {
-          this.strengthLevelsSetting
-            .strengthLevelsLimits()
-            .then(strengthLevelsLimits => {
-              setting.experienceAndTrainingColumn().addAdditionalInformation(this.domField.dom(), strengthLevelsLimits);
+          this.strengthsLimitsSetting
+            .strengthsLimits()
+            .then(strengthsLimits => {
+              setting.experienceAndTrainingColumn().addAdditionalInformation(this.domField.dom(), strengthsLimits);
             })
         }
       });

@@ -1,5 +1,5 @@
 import { IWebElementToExtend } from "./Toolkit/WebElementToExtend";
-import { IStrengthLevelsLimitsSetting } from "./Settings/StrengthLevelsSetting";
+import { IStrengthsLimitsSetting } from "./Settings/StrengthsLimitsSetting";
 import { ISetting } from "./Toolkit/Setting";
 import { ITransferMarketAmateurPlayerTableExtensionSetting } from "./Settings/TransferMarketAmateurPlayerTableExtensionSetting";
 import { IEasyLogger } from "./Logger/EasyLogger";
@@ -15,7 +15,7 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   private awpColumn: IHtmlTableColumn;
   private awpDiffColumn: IHtmlTableColumnAsync;
   private strengthColumn: IHtmlTableColumnValues<Number>;
-  private strengthLevelsLimits: IStrengthLevelsLimitsSetting;
+  private strengthsLimitsSetting: IStrengthsLimitsSetting;
   private amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>;
   private log: IEasyLogger;
 
