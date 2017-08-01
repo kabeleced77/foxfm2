@@ -34,7 +34,7 @@ import { IEasyLogger, EasyLogger } from "../Common/Logger/EasyLogger";
 import { ExtendWebPage, IExtendWebPage } from "../Common/Toolkit/ExtendWebPage";
 import { Dom } from "../Common/Toolkit/Dom";
 import { ExtendWebPages, IExtendWebPages } from "../Common/Toolkit/ExtendWebPages";
-import { TeamTableUiUrl } from "../Common/Urls/TeamTableUiUrl";
+import { TeamWebPageUrl } from "../Common/Urls/TeamWebPageUrl";
 import { StadiumWebPageUrl } from "../Common/Urls/StadiumWebPageUrl";
 import { ITransferMarketAmateurPlayerTableExtensionSetting, TransferMarketAmateurPlayerTableExtensionSetting } from "../Common/Settings/TransferMarketAmateurPlayerTableExtensionSetting";
 import { TransferMarketAmateurWebPage } from "../Common/TransferMarketAmateurWebPage";
@@ -194,7 +194,7 @@ var app = new foxfmApp(
         new Url(currentUrl),
         new TeamUi(
           new Dom(doc),
-          new TeamTableUiUrl(),
+          new TeamWebPageUrl(),
           new StrengthsLimitsSetting(),
           new TeamTableSetting(),
           new EasyLogger(

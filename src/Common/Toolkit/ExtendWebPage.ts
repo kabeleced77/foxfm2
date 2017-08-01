@@ -1,6 +1,5 @@
 import { IEasyLogger } from "../Logger/EasyLogger";
 import { IUrl } from "./Url";
-import { IWebElementToExtend } from "./WebElementToExtend";
 import { IWebPageToExtend } from "./WebPageToExtend";
 
 export interface IExtendWebPage {

@@ -1,6 +1,6 @@
 import { IUrl } from "../Toolkit/Url"
 
-export class TeamTableUiUrl implements IUrl {
+export class TeamWebPageUrl implements IUrl {
   private urlField: String;
 
   constructor() {
@@ -10,6 +10,6 @@ export class TeamTableUiUrl implements IUrl {
     return this.urlField;
   }
   fromJson(jsonString: String): IUrl {
-    return new TeamTableUiUrl();
+    return new TeamWebPageUrl();
   }
 }
