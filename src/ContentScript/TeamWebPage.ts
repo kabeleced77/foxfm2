@@ -5,7 +5,7 @@ import { IUrl } from "../Common/Toolkit/Url";
 import { IEasyLogger } from "../Common/Logger/EasyLogger";
 import { IDom } from "../Common/Toolkit/Dom";
 
-export class TeamUi implements IWebPageToExtend {
+export class TeamWebPage implements IWebPageToExtend {
   private domField: IDom;
   private urlField: IUrl;
   private log: IEasyLogger;

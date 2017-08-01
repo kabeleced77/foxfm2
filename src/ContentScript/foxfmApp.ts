@@ -3,7 +3,7 @@ import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModu
 import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { LogLevelError, ILogLevel } from '../Common/Logger/LogLevel';
 import { StadiumManagerUi } from "./StadiumManagerUi"
-import { TeamUi } from "./TeamUi"
+import { TeamWebPage } from "./TeamWebPage"
 import { StrengthsLimitsSetting } from "../Common/Settings/StrengthsLimitsSetting"
 import { TeamTableSetting } from "../Common/Settings/TeamTableSetting"
 import { TransferTableUi } from "./TransferTableUi"
@@ -192,7 +192,7 @@ var app = new foxfmApp(
       // Extend team table
       new ExtendWebPage(
         new Url(currentUrl),
-        new TeamUi(
+        new TeamWebPage(
           new Dom(doc),
           new TeamWebPageUrl(),
           new StrengthsLimitsSetting(),
