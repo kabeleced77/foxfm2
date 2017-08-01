@@ -201,16 +201,12 @@ var app = new foxfmApp(
             logger,
             new RegisteredLoggingModule(
               "TeamUi",
-              new LogLevelError())
-          )
-        ),
+              new LogLevelError()))),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
             "ExtendWebPage",
-            new LogLevelError())
-        )
-      ),
+            new LogLevelError()))),
       // Extend amateur transfer market
       new ExtendWebPage(
         new Url(currentUrl),
@@ -268,15 +264,12 @@ var app = new foxfmApp(
               logger,
               new RegisteredLoggingModule(
                 "TransferMarketAmateurPlayerTable",
-                new LogLevelError()))
-          )
-        ),
+                new LogLevelError())))),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
             "ExtendWebPage",
-            new LogLevelError()))
-      ),
+            new LogLevelError()))),
       // Extend stadium
       new ExtendWebPage(
         new Url(currentUrl),
