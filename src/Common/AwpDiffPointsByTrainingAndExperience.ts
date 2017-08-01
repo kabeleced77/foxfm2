@@ -1,4 +1,4 @@
-import { Awp } from "./Toolkit/Awp";
+import { AwpByEpTp } from "./Toolkit/Awp";
 import { ITrainingPoints } from "./TrainingPoints";
 import { IExperiencePoints } from "./ExperiencePoints";
 import { IColumnValues, ColumnValues } from "./Toolkit/ColumnValues";
@@ -44,7 +44,7 @@ export class AwpDiffPointsByTrainingAndExperience implements IColumnValuesAsync<
           let trainingPoints = tps[i];
           let experiencePoints = eps[i];
           let strengthValue = svs[i];
-          let awp = new Awp(experiencePoints, trainingPoints).awpPoints().valueOf();
+          let awp = new AwpByEpTp(experiencePoints, trainingPoints).awpPoints().valueOf();
           let awpOfNextStrengthValue = strengthsLimits.strengthLimits(strengthValue.valueOf() + 1).awpPoints().valueOf();
           let diffToNextStrengthValue = awp - awpOfNextStrengthValue;
 

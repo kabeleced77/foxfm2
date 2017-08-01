@@ -20,7 +20,7 @@ import { TransferMarketProfessionalsUiUrl } from "../Common/Urls/TransferMarketP
 import { TransferMarketAmateurWebPageUrl } from "../Common/Urls/TransferMarketAmateurWebPageUrl";
 import { ExperienceAndTrainingColumn } from "../Common/ExperienceAndTrainingColumn";
 import { Url } from "../Common/Toolkit/Url";
-import { HtmlTableColumnElementsByXpath } from "../Common/Toolkit/HtmlTableColumnElementsByXpath";
+import { HtmlTableColumnByXpath } from "../Common/Toolkit/HtmlTableColumnByXpath";
 import { Mutex } from "../Common/Toolkit/Mutex";
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/Logger/RegisteredLoggingModules";
 import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
@@ -54,6 +54,9 @@ import { HtmlElement } from "../Common/Toolkit/HtmlElement";
 import { AwpDiffPointsByTrainingAndExperience } from "../Common/AwpDiffPointsByTrainingAndExperience";
 import { HtmlElementsAsync } from "../Common/Toolkit/HtmlElementsAsync";
 import { HtmlTableColumnAsync } from "../Common/Toolkit/HtmlTableColumnAsync";
+import { StrengthLevels } from "../Common/StrengthLevels";
+import { AwpPointsByEpTp } from "../Common/Toolkit/AwpPoints";
+import { StrengthValues } from "../Common/StrengthValues";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -226,79 +229,36 @@ var app = new foxfmApp(
                   "table"
                 )
               )),
-            new HtmlTableColumn(
-              new HtmlTableColumnHeader(
-                new HtmlElement(
-                  "div",
-                  new Array<IHtmlAttribute>(
-                    new HtmlAttribute("style", "color:#04143e;"),
-                    new HtmlAttribute("class", "bold")),
-                  "AWPs")),
-              new HtmlElements<Number>(
-                new AwpPointsByTrainingAndExperience(
-                  new TrainingPoints(
-                    new HtmlTableColumnElementsByXpath(
-                      new XPathHtmlTableCell(
-                        new XPathSingleResult<HTMLTableCellElement>(
-                          new XPathAllResults(
-                            window.document,
-                            new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]')))))),
-                  new ExperiencePoints(
-                    new HtmlTableColumnElementsByXpath(
-                      new XPathHtmlTableCell(
-                        new XPathSingleResult<HTMLTableCellElement>(
-                          new XPathAllResults(
-                            window.document,
-                            new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[6]'))))))
-                ),
-                "div",
-                new Array<IHtmlAttribute>(
-                  new HtmlAttribute("align", "center"))
-              ),
-              7),
-            new HtmlTableColumnAsync(
-              new HtmlTableColumnHeader(
-                new HtmlElement(
-                  "div",
-                  new Array<IHtmlAttribute>(
-                    new HtmlAttribute("style", "color:#04143e;"),
-                    new HtmlAttribute("class", "bold")),
-                  "AWPs diff")),
-              new HtmlElementsAsync<Number>(
-                new AwpDiffPointsByTrainingAndExperience(
-                  new TrainingPoints(
-                    new HtmlTableColumnElementsByXpath(
-                      new XPathHtmlTableCell(
-                        new XPathSingleResult<HTMLTableCellElement>(
-                          new XPathAllResults(
-                            window.document,
-                            new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]')))))),
-                  new ExperiencePoints(
-                    new HtmlTableColumnElementsByXpath(
-                      new XPathHtmlTableCell(
-                        new XPathSingleResult<HTMLTableCellElement>(
-                          new XPathAllResults(
-                            window.document,
-                            new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[6]')))))),
-                  new HtmlTableColumnNumberValues(
-                    new HtmlTableColumnElementsByXpath(
-                      new XPathHtmlTableCell(
-                        new XPathSingleResult<HTMLTableCellElement>(
-                          new XPathAllResults(
-                            window.document,
-                            new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]')))))),
-                  new StrengthsLimitsSetting()),
-                "div",
-                new Array<IHtmlAttribute>(
-                  new HtmlAttribute("align", "center"))),
-              8),
-            new HtmlTableColumnNumberValues(
-              new HtmlTableColumnElementsByXpath(
-                new XPathHtmlTableCell(
-                  new XPathSingleResult<HTMLTableCellElement>(
-                    new XPathAllResults(
-                      window.document,
-                      new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]')))))),
+            new HtmlTableColumnByXpath(
+              new XPathHtmlTableCell(
+                new XPathSingleResult<HTMLTableCellElement>(
+                  new XPathAllResults(
+                    window.document,
+                    new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]'))))),
+            new StrengthLevels(
+              new StrengthsLimitsSetting(),
+              new StrengthValues(
+                new HtmlTableColumnByXpath(
+                  new XPathHtmlTableCell(
+                    new XPathSingleResult<HTMLTableCellElement>(
+                      new XPathAllResults(
+                        window.document,
+                        new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]')))))),
+              new AwpPointsByEpTp(
+                new ExperiencePoints(
+                  new HtmlTableColumnByXpath(
+                    new XPathHtmlTableCell(
+                      new XPathSingleResult<HTMLTableCellElement>(
+                        new XPathAllResults(
+                          window.document,
+                          new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[6]')))))),
+                new TrainingPoints(
+                  new HtmlTableColumnByXpath(
+                    new XPathHtmlTableCell(
+                      new XPathSingleResult<HTMLTableCellElement>(
+                        new XPathAllResults(
+                          window.document,
+                          new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]')))))))),
             new StorageLocal<ITransferMarketAmateurPlayerTableExtensionSetting>(
               new SettingNameTransferMarketAmateurTable(),
               new TransferMarketAmateurPlayerTableExtensionSetting(

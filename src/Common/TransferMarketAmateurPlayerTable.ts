@@ -1,38 +1,36 @@
 import { IWebElementToExtend } from "./Toolkit/WebElementToExtend";
-import { IStrengthsLimitsSetting } from "./Settings/StrengthsLimitsSetting";
 import { ISetting } from "./Toolkit/Setting";
 import { ITransferMarketAmateurPlayerTableExtensionSetting } from "./Settings/TransferMarketAmateurPlayerTableExtensionSetting";
 import { IEasyLogger } from "./Logger/EasyLogger";
 import { IHtmlTable } from "./Toolkit/HtmlTable";
-import { IHtmlTableColumn } from "./Toolkit/HtmlTableColumn";
-import { IHtmlTableColumnAsync } from "./Toolkit/HtmlTableColumnAsync";
-import { IColumnValues } from "./Toolkit/ColumnValues";
-import { IHtmlTableColumnElementsByXpath } from "./Toolkit/HtmlTableColumnElementsByXpath";
-import { IHtmlTableColumnValues } from "./Toolkit/HtmlTableColumnValues";
+import { HtmlTableColumn } from "./Toolkit/HtmlTableColumn";
+import { ColumnValues } from "./Toolkit/ColumnValues";
+import { IHtmlTableColumnByXpath } from "./Toolkit/HtmlTableColumnByXpath";
+import { IStrengthLevel } from "./StrengthLevel";
+import { IStrengthLevels } from "./StrengthLevels";
+import { HtmlTableColumnHeader } from "./Toolkit/HtmlTableColumnHeader";
+import { HtmlElement } from "./Toolkit/HtmlElement";
+import { IHtmlAttribute, HtmlAttribute } from "./Toolkit/HtmlAttribute";
+import { HtmlElements } from "./Toolkit/HtmlElements";
 
 export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
-  private table: IHtmlTable;
-  private awpColumn: IHtmlTableColumn;
-  private awpDiffColumn: IHtmlTableColumnAsync;
-  private strengthColumn: IHtmlTableColumnValues<Number>;
-  private strengthsLimitsSetting: IStrengthsLimitsSetting;
-  private amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>;
-  private log: IEasyLogger;
+  private readonly table: IHtmlTable;
+  private readonly strengthColumn: IHtmlTableColumnByXpath;
+  private readonly amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>;
+  private readonly strengthLevels: IStrengthLevels;
+  private readonly log: IEasyLogger;
 
   constructor(
     table: IHtmlTable,
-    awpColumn: IHtmlTableColumn,
-    awpDiffColumn: IHtmlTableColumnAsync,
-    strengthColumn: IHtmlTableColumnValues<Number>,
-//    strengthColumnValuesToAdd: IColumnValues<Number>,
+    strengthColumn: IHtmlTableColumnByXpath,
+    strengthLevels: IStrengthLevels,
     amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>,
     log: IEasyLogger
   ) {
     this.table = table;
-    this.awpColumn = awpColumn;
-    this.awpDiffColumn = awpDiffColumn;
     this.strengthColumn = strengthColumn;
     this.amateurPlayerTableSettings = amateurPlayerTableSettings;
+    this.strengthLevels = strengthLevels
     this.log = log;
   }
 
@@ -42,8 +40,48 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
       .value()
       .then(setting => {
         if (setting.addAwpColumn()) {
-          this.table.addColumnAsync(this.awpDiffColumn);
-          this.table.addColumn(this.awpColumn);
+          this.strengthLevels
+            .strengthLevels()
+            .then((strengthLevels: IStrengthLevel[]) => {
+              // add AWP diff column
+              this.table.addColumn(
+                new HtmlTableColumn(
+                  new HtmlTableColumnHeader(
+                    new HtmlElement(
+                      "div",
+                      new Array<IHtmlAttribute>(
+                        new HtmlAttribute("style", "color:#04143e;"),
+                        new HtmlAttribute("class", "bold")),
+                      "AWPs Diff")),
+                  new HtmlElements(
+                    new ColumnValues<Number>(strengthLevels.map(sl => sl.missingAwpsToNextStrengthValue())),
+                    "div",
+                    new Array<IHtmlAttribute>(
+                      new HtmlAttribute("align", "center"))),
+                  7));
+              // add AWP column
+              this.table.addColumn(
+                new HtmlTableColumn(
+                  new HtmlTableColumnHeader(
+                    new HtmlElement(
+                      "div",
+                      new Array<IHtmlAttribute>(
+                        new HtmlAttribute("style", "color:#04143e;"),
+                        new HtmlAttribute("class", "bold")),
+                      "AWP")),
+                  new HtmlElements(
+                    new ColumnValues<Number>(strengthLevels.map(sl => sl.awp().awpPoints())),
+                    "div",
+                    new Array<IHtmlAttribute>(
+                      new HtmlAttribute("align", "center"))),
+                  7));
+              // add actual strength value to existing strength value column
+              this.table.extendColumn(
+                this.strengthColumn,
+                strengthLevels
+                  .map(sl => sl.actualStrengthValue().valueOf() !== sl.currentStrengthValue().valueOf() ? ` (${sl.actualStrengthValue()})` : " (-)")
+              );
+            });
         }
         this.strengthColumn.values().forEach(v => this.log.debug(`strength: ${v}`));
       })

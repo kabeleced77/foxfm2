@@ -1,7 +1,7 @@
 import { IXPathHtmlTableCell2 } from "./Toolkit/XPathHtmlTableCell"
 import { NumberHelper } from "../Common/Toolkit/NumberHelper"
 import { IStrengthsLimits } from "./StrengthsLimits";
-import { Awp } from "./Toolkit/Awp";
+import { AwpByEpTp } from "./Toolkit/Awp";
 
 export interface IExperienceAndTrainingColumn {
   xPathExperienceAndTrainingColumn(): IXPathHtmlTableCell2;
@@ -53,7 +53,7 @@ export class ExperienceAndTrainingColumn implements IExperienceAndTrainingColumn
         var expAndTrainingPoints = row.cells[expAndTrainingColumnIndex].innerHTML.split("/");
         var expPoints = NumberHelper.getNumberFromString(expAndTrainingPoints[0].trim());
         var trainingPoints = NumberHelper.getNumberFromString(expAndTrainingPoints[1].trim());
-        var awp = new Awp(expPoints, trainingPoints);
+        var awp = new AwpByEpTp(expPoints, trainingPoints);
         var awpPoints = awp.awpPoints().valueOf();
         var actualStrengthLevel = strengthsLimits.strengthLimitsByAwp(awpPoints).value().valueOf();
         var currentStrengthLevel = NumberHelper.getNumberFromNode(row.cells[strengthColumnIndex]);

@@ -1,4 +1,4 @@
-import { IAwp, Awp } from "./Toolkit/Awp";
+import { IAwp, AwpByEpTp } from "./Toolkit/Awp";
 import { ITrainingPoints } from "./TrainingPoints";
 import { IExperiencePoints } from "./ExperiencePoints";
 import { IColumnValues } from "./Toolkit/ColumnValues";
@@ -28,7 +28,7 @@ export class AwpPointsByTrainingAndExperience implements IColumnValues<Number> {
     for (let i = 0; i < eps.length; i++) {
       let tp = tps[i];
       let ep = eps[i];
-      awps.push(new Awp(ep, tp).awpPoints());
+      awps.push(new AwpByEpTp(ep, tp).awpPoints());
     }
 
     return awps;

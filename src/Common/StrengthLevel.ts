@@ -3,30 +3,38 @@ import { IStrengthLimits } from "./StrengthLimits";
 import { IStrengthsLimits } from "./StrengthsLimits";
 
 export interface IStrengthLevel {
+  awp(): IAwp;
   currentStrengthValue(): Number;
   actualStrengthValue(): Number;
   missingAwpsToNextStrengthValue(): Number;
 }
 
-export class StrengthLevelByAwp implements IStrengthLevel {
+export class StrengthLevel implements IStrengthLevel {
   private readonly strengthsLimits: IStrengthsLimits;
   private readonly strengthValue: Number;
-  private readonly awp: IAwp;
+  private readonly awpField: IAwp;
 
-  constructor(strengthLevelLimits: IStrengthsLimits, strengthValue: Number, awp: IAwp) {
+  constructor(
+    strengthLevelLimits: IStrengthsLimits,
+    strengthValue: Number,
+    awp: IAwp
+  ) {
     this.strengthsLimits = strengthLevelLimits;
     this.strengthValue = strengthValue;
-    this.awp = awp;
+    this.awpField = awp;
   }
 
-  currentStrengthValue(): Number {
+  public awp(): IAwp {
+    return this.awpField;
+  }
+  public currentStrengthValue(): Number {
     return this.strengthValue;
   }
-  actualStrengthValue(): Number {
-    return this.strengthsLimits.strengthLimitsByAwp(this.awp.awpPoints()).value();
+  public actualStrengthValue(): Number {
+    return this.strengthsLimits.strengthLimitsByAwp(this.awpField.awpPoints()).value();
   }
-  missingAwpsToNextStrengthValue(): Number {
+  public missingAwpsToNextStrengthValue(): Number {
     let nextStrengthLimits = this.strengthsLimits.strengthLimits(this.actualStrengthValue().valueOf() + 1);
-    return this.awp.awpPoints().valueOf() - nextStrengthLimits.awpPoints().valueOf();
+    return this.awpField.awpPoints().valueOf() - nextStrengthLimits.awpPoints().valueOf();
   }
 }

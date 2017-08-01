@@ -1,12 +1,12 @@
 import { IHtmlTableColumnValues } from "./HtmlTableColumnValues";
-import { IHtmlTableColumnElementsByXpath } from "./HtmlTableColumnElementsByXpath";
+import { IHtmlTableColumnByXpath } from "./HtmlTableColumnByXpath";
 import { NumberHelper } from "./NumberHelper";
 
 export class HtmlTableColumnNumberValues implements IHtmlTableColumnValues<Number> {
-  private columnValues: IHtmlTableColumnElementsByXpath;
+  private columnValues: IHtmlTableColumnByXpath;
 
   constructor(
-    columnValues: IHtmlTableColumnElementsByXpath,
+    columnValues: IHtmlTableColumnByXpath,
   ) {
     this.columnValues = columnValues;
   }
