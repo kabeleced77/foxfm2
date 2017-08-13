@@ -7,6 +7,7 @@ export interface IStrengthLevel {
   currentStrengthValue(): Number;
   actualStrengthValue(): Number;
   missingAwpsToNextStrengthValue(): Number;
+  nextStrengthValue(): Number;
 }
 
 export class StrengthLevel implements IStrengthLevel {
@@ -36,5 +37,8 @@ export class StrengthLevel implements IStrengthLevel {
   public missingAwpsToNextStrengthValue(): Number {
     let nextStrengthLimits = this.strengthsLimits.strengthLimits(this.actualStrengthValue().valueOf() + 1);
     return this.awpField.awpPoints().valueOf() - nextStrengthLimits.awpPoints().valueOf();
+  }
+  public nextStrengthValue(): Number {
+    return this.actualStrengthValue().valueOf() + 1;
   }
 }
