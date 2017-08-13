@@ -1,4 +1,3 @@
-
 export interface ITransferMarketAmateurPlayerTableExtensionSetting {
   addAwpColumn(): Boolean;
   extendStrengthColumn(): Boolean;
