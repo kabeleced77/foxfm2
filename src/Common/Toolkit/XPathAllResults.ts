@@ -51,7 +51,7 @@ export class XPathAllResults3 implements IXPathAllResults3 {
       // TODO: exception might be to harsh. A type "NothingFound" of an interface like 'IXPathResult' might be an idea 
       // --> refactoring of this method required as it returns 'Node' 
       // ==> could be wrapped in IXPathResult
-      throw `No result for XPath '${this.xPath().xPathString()}'.`;
+      throw new Error(`No result for XPath '${this.xPath().xPathString()}'.`);
     }
   }
   public xPathNumberOfResults(doc: Document): Number {
@@ -93,7 +93,7 @@ export class XPathAllResults2 implements IXPathAllResults2 {
       // TODO: exception might be to harsh. A type "NothingFound" of an interface like 'IXPathResult' might be an idea 
       // --> refactoring of this method required as it returns 'Node' 
       // ==> could be wrapped in IXPathResult
-      throw `No result for XPath '${this.xPath().xPathString()}'.`;
+      throw new Error(`No result for XPath '${this.xPath().xPathString()}'.`);
     }
   }
   public xPathNumberOfResults(doc: Document): Number {
@@ -127,7 +127,7 @@ export class XPathAllResults implements IXPathAllResults {
     if (result && result.snapshotLength > 0) {
       return result.snapshotItem(0);
     } else {
-      throw `No result for XPath '${this.xPath().xPathString()}'.`;
+      throw new Error(`No result for XPath '${this.xPath().xPathString()}'.`);
     }
   }
   public xPathNumberOfResults(): Number {
