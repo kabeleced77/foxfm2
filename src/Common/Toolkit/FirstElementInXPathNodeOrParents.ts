@@ -19,7 +19,7 @@ export class FirstElementInXPathNodeOrParents<T extends Node, R extends Node> im
 
   private get1stOccurenceOfNode(node: Node, parentTagName: String): Node | undefined {
     while (node) {
-      if (parentTagName.toUpperCase().match(node.nodeName.toUpperCase())) {
+      if (parentTagName.toUpperCase() === node.nodeName.toUpperCase()) {
         return node;
       }
       if (node.parentNode) {
