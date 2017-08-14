@@ -11,7 +11,7 @@ import { IStrengthLevels } from "./StrengthLevels";
 import { HtmlTableColumnHeader } from "./Toolkit/HtmlTableColumnHeader";
 import { HtmlElement } from "./Toolkit/HtmlElement";
 import { IHtmlAttribute, HtmlAttribute } from "./Toolkit/HtmlAttribute";
-import { HtmlElements } from "./Toolkit/HtmlElements";
+import { HtmlElementWithChilds } from "./Toolkit/HtmlElementWithChilds";
 
 export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;
@@ -43,37 +43,56 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
           this.strengthLevels
             .strengthLevels()
             .then((strengthLevels: IStrengthLevel[]) => {
+              let awpDiffCol: HtmlElementWithChilds[] = [];
+              let awpCol: HtmlElementWithChilds[] = [];
+              strengthLevels.forEach((sl, i) => {
+                let tdStyle = i % 2 == 0 ? "background:#ebf0d9" : "background:#d4e6bc";
+                awpCol.push(new HtmlElementWithChilds(
+                  new Array<IHtmlAttribute>(new HtmlAttribute("style", tdStyle)),
+                  new Array<HTMLElement>(
+                    new HtmlElement(
+                      "div",
+                      new Array<IHtmlAttribute>(new HtmlAttribute("align", "center")),
+                      sl.awp().awpPoints().toString()
+                    ).element())));
+                awpDiffCol.push(new HtmlElementWithChilds(
+                  new Array<IHtmlAttribute>(new HtmlAttribute("style", tdStyle)),
+                  new Array<HTMLElement>(
+                    new HtmlElement(
+                      "div",
+                      new Array<IHtmlAttribute>(new HtmlAttribute("align", "center")),
+                      sl.missingAwpsToNextStrengthValue().toString()
+                    ).element())));
+              });
               // add AWP diff column
               this.table.addColumn(
                 new HtmlTableColumn(
-                  new HtmlTableColumnHeader(
-                    new HtmlElement(
-                      "div",
-                      new Array<IHtmlAttribute>(
-                        new HtmlAttribute("style", "color:#04143e;"),
-                        new HtmlAttribute("class", "bold")),
-                      "AWPs Diff")),
-                  new HtmlElements(
-                    new ColumnValues<Number>(strengthLevels.map(sl => sl.missingAwpsToNextStrengthValue())),
-                    "div",
+                  new HtmlElementWithChilds(
                     new Array<IHtmlAttribute>(
-                      new HtmlAttribute("align", "center"))),
+                      new HtmlAttribute("class", "textcenter")),
+                    new Array<HTMLElement>(
+                      new HtmlElement(
+                        "div",
+                        new Array<IHtmlAttribute>(
+                          new HtmlAttribute("style", "color:#04143e;"),
+                          new HtmlAttribute("class", "bold")),
+                        "AWPs Diff").element())),
+                  awpDiffCol,
                   7));
               // add AWP column
               this.table.addColumn(
                 new HtmlTableColumn(
-                  new HtmlTableColumnHeader(
-                    new HtmlElement(
-                      "div",
-                      new Array<IHtmlAttribute>(
-                        new HtmlAttribute("style", "color:#04143e;"),
-                        new HtmlAttribute("class", "bold")),
-                      "AWP")),
-                  new HtmlElements(
-                    new ColumnValues<Number>(strengthLevels.map(sl => sl.awp().awpPoints())),
-                    "div",
+                  new HtmlElementWithChilds(
                     new Array<IHtmlAttribute>(
-                      new HtmlAttribute("align", "center"))),
+                      new HtmlAttribute("class", "textcenter")),
+                    new Array<HTMLElement>(
+                      new HtmlElement(
+                        "div",
+                        new Array<IHtmlAttribute>(
+                          new HtmlAttribute("style", "color:#04143e;"),
+                          new HtmlAttribute("class", "bold")),
+                        "AWP").element())),
+                  awpCol,
                   7));
               // add actual strength value to existing strength value column
               this.table.extendColumn(

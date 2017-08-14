@@ -48,15 +48,13 @@ import { ExperiencePoints } from "../Common/ExperiencePoints";
 import { HtmlTableColumn } from "../Common/Toolkit/HtmlTableColumn";
 import { HtmlTableColumnNumberValues } from "../Common/Toolkit/HtmlTableColumnNumberValues";
 import { HtmlTableColumnHeader } from "../Common/Toolkit/HtmlTableColumnHeader";
-import { HtmlElements } from "../Common/Toolkit/HtmlElements";
 import { HtmlAttribute, IHtmlAttribute } from "../Common/Toolkit/HtmlAttribute";
 import { HtmlElement } from "../Common/Toolkit/HtmlElement";
 import { AwpDiffPointsByTrainingAndExperience } from "../Common/AwpDiffPointsByTrainingAndExperience";
-import { HtmlElementsAsync } from "../Common/Toolkit/HtmlElementsAsync";
-import { HtmlTableColumnAsync } from "../Common/Toolkit/HtmlTableColumnAsync";
 import { StrengthLevels } from "../Common/StrengthLevels";
 import { AwpPointsByEpTp } from "../Common/Toolkit/AwpPoints";
 import { StrengthValues } from "../Common/StrengthValues";
+import { TeamPlayerTable } from "../Common/TeamPlayerTable";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -193,15 +191,52 @@ var app = new foxfmApp(
       new ExtendWebPage(
         new Url(currentUrl),
         new TeamWebPage(
-          new Dom(doc),
           new TeamWebPageUrl(),
-          new StrengthsLimitsSetting(),
-          new TeamTableSetting(),
-          new EasyLogger(
-            logger,
-            new RegisteredLoggingModule(
-              "TeamUi",
-              new LogLevelError()))),
+          new TeamPlayerTable(
+            new HtmlTable(
+              new HtmlTableByXPath<HTMLTableCellElement>(
+                new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="playerTable"]'))),
+                  "table"))),
+            new HtmlTableColumnByXpath(
+              new XPathHtmlTableCell(
+                new XPathSingleResult<HTMLTableCellElement>(
+                  new XPathAllResults(
+                    window.document,
+                    new XPathString('//*[@id="playerTable"]/thead/tr/th[10]'))))),
+            new StrengthLevels(
+              new StrengthsLimitsSetting(),
+              new StrengthValues(
+                new HtmlTableColumnByXpath(
+                  new XPathHtmlTableCell(
+                    new XPathSingleResult<HTMLTableCellElement>(
+                      new XPathAllResults(
+                        window.document,
+                        new XPathString('//*[@id="playerTable"]/thead/tr/th[10]')))))),
+              new AwpPointsByEpTp(
+                new ExperiencePoints(
+                  new HtmlTableColumnByXpath(
+                    new XPathHtmlTableCell(
+                      new XPathSingleResult<HTMLTableCellElement>(
+                        new XPathAllResults(
+                          window.document,
+                          new XPathString('//*[@id="playerTable"]/thead/tr/th[13]')))))),
+                new TrainingPoints(
+                  new HtmlTableColumnByXpath(
+                    new XPathHtmlTableCell(
+                      new XPathSingleResult<HTMLTableCellElement>(
+                        new XPathAllResults(
+                          window.document,
+                          new XPathString('//*[@id="playerTable"]/thead/tr/th[14]')))))))),
+            new TeamTableSetting(),
+            new EasyLogger(
+              logger,
+              new RegisteredLoggingModule(
+                "TeamUi",
+                new LogLevelError())))),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(

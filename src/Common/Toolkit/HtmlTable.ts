@@ -1,8 +1,7 @@
 import { ITable } from "./Table";
 import { IHtmlTableColumn } from "./HtmlTableColumn";
-import { IHtmlElement } from "./HtmlElement";
-import { IHtmlTableColumnAsync } from "./HtmlTableColumnAsync";
 import { IHtmlTableColumnByXpath } from "./HtmlTableColumnByXpath";
+import { IHtmlElementWithChilds } from "./HtmlElementWithChilds";
 
 export interface IHtmlTable {
   table(): HTMLTableElement;
@@ -11,7 +10,6 @@ export interface IHtmlTable {
   firstTableColumnGroup(): HTMLTableColElement;
   firstTableBody(): HTMLTableSectionElement;
   addColumn(column: IHtmlTableColumn): IHtmlTable;
-  addColumnAsync(column: IHtmlTableColumnAsync): Promise<IHtmlTable>;
   extendColumn(column: IHtmlTableColumnByXpath, values: String[]): void;
 }
 
@@ -55,38 +53,30 @@ export class HtmlTable implements IHtmlTable {
   }
 
   public addColumn(column: IHtmlTableColumn): IHtmlTable {
-    return this.addColumntToTable(column);
+    return this.addColumnToTable(column);
   }
 
-  public addColumnAsync(column: IHtmlTableColumnAsync): Promise<IHtmlTable> {
-    return column
-      .column()
-      .then(column => {
-        return this.addColumntToTable(column);
-      })
-      .catch(e => {
-        throw new Error(`Could not add column to table asynchronously: ${e}`);
-      });
-  }
   public extendColumn(column: IHtmlTableColumnByXpath, values: String[]) {
-    //values.forEach((value, i) => this.firstTableBody().rows[i].cells[column.index().valueOf()].innerHTML += value);
     values.forEach((value, i) => this.extendInnerHtml(document, this.firstTableBody().rows[i].cells[column.index().valueOf()], value));
   }
 
-  private addColumntToTable(column: IHtmlTableColumn): IHtmlTable {
+  private addColumnToTable(column: IHtmlTableColumn): IHtmlTable {
     var table = new HtmlTable(this.htmlTable);
+    // add to colgroup
+    let newColgroupCell = window.document.createElement("col");
+    this
+      .firstTableColumnGroup()
+      .insertBefore(newColgroupCell, this.firstTableColumnGroup().children[column.index().valueOf()]);
     // add header values
-    let newCell = table.tableHeader().rows[0].insertCell(column.index().valueOf());
-    newCell.className = "textCenter";
-    newCell.appendChild(column.header().element());
-
-    // add column values
-    column
-      .values()
-      .elements()
-      .forEach((element: IHtmlElement, i: number) => {
+    let newCell = window.document.createElement("th");
+    this.tableHeader().rows[0].insertBefore(newCell, this.tableHeader().rows[0].children[column.index().valueOf()]);
+    column.header().attributes().forEach(a => newCell.setAttribute(a.name().toString(), a.value().toString()));
+    column.header().childElements().forEach(e => newCell.appendChild(e));
+    column.columnElements()
+      .forEach((element: IHtmlElementWithChilds, i: number) => {
         let newCell = table.firstTableBody().rows[i].insertCell(column.index().valueOf());
-        newCell.appendChild(element.element());
+        element.attributes().forEach(e => newCell.setAttribute(e.name().toString(), e.value().toString()));
+        element.childElements().forEach(c => newCell.appendChild(c));
       });
     return table;
   }

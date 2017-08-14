@@ -1,34 +1,33 @@
-import { IHtmlTableColumnHeader } from "./HtmlTableColumnHeader";
-import { IHtmlElements } from "./HtmlElements";
+import { IHtmlElementWithChilds } from "./HtmlElementWithChilds";
 
 export interface IHtmlTableColumn {
-  header(): IHtmlTableColumnHeader;
-  values(): IHtmlElements;
+  header(): IHtmlElementWithChilds;
+  columnElements(): IHtmlElementWithChilds[];
   index(): Number;
 }
 
 export class HtmlTableColumn implements IHtmlTableColumn {
-  private columnHeader: IHtmlTableColumnHeader;
-  private columnValues: IHtmlElements;
+  private columnHeader: IHtmlElementWithChilds;
+  private columnElementsArray: IHtmlElementWithChilds[];
   private columnNumber: Number;
 
   constructor(
-    header: IHtmlTableColumnHeader,
-    columnValues: IHtmlElements,
+    header: IHtmlElementWithChilds,
+    columnElements: IHtmlElementWithChilds[],
     columnNumber: Number,
   ) {
     this.columnHeader = header;
-    this.columnValues = columnValues;
+    this.columnElementsArray = columnElements;
     this.columnNumber = columnNumber;
   }
 
   public index(): Number {
     return this.columnNumber;
   }
-  public header(): IHtmlTableColumnHeader {
+  public header(): IHtmlElementWithChilds {
     return this.columnHeader;
   }
-  public values(): IHtmlElements {
-    return this.columnValues;
+  public columnElements(): IHtmlElementWithChilds[] {
+    return this.columnElementsArray;
   }
 }
