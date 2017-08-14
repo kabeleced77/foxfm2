@@ -37,7 +37,7 @@ import { ExtendWebPages, IExtendWebPages } from "../Common/Toolkit/ExtendWebPage
 import { TeamWebPageUrl } from "../Common/Urls/TeamWebPageUrl";
 import { StadiumWebPageUrl } from "../Common/Urls/StadiumWebPageUrl";
 import { ITransferMarketAmateurPlayerTableExtensionSetting, TransferMarketAmateurPlayerTableExtensionSetting } from "../Common/Settings/TransferMarketAmateurPlayerTableExtensionSetting";
-import { TransferMarketAmateurWebPage } from "../Common/TransferMarketAmateurWebPage";
+import { TransferMarketAmateurWebPage } from "./TransferMarketAmateurWebPage";
 import { TransferMarketAmateurPlayerTable } from "../Common/TransferMarketAmateurPlayerTable";
 import { HtmlTable } from "../Common/Toolkit/HtmlTable";
 import { HtmlTableByXPath } from "../Common/Toolkit/HtmlTableByXPath";
