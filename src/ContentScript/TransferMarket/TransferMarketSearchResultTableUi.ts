@@ -1,10 +1,10 @@
-import { IStrengthsLimitsSetting } from "../Common/Settings/StrengthsLimitsSetting"
-import { ISetting } from "../Common/Toolkit/Setting";
-import { ITransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
-import { IEasyLogger } from "../Common/Logger/EasyLogger";
-import { IUrl } from "../Common/Toolkit/Url";
-import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
-import { IDom } from "../Common/Toolkit/Dom";
+import { IStrengthsLimitsSetting } from "../../Common/Settings/StrengthsLimitsSetting"
+import { ISetting } from "../../Common/Toolkit/Setting";
+import { ITransferMarketSearchResultTable } from "../../Common/TransferMarketSearchResultTable";
+import { IEasyLogger } from "../../Common/Logger/EasyLogger";
+import { IUrl } from "../../Common/Toolkit/Url";
+import { IWebPageToExtend } from "../../Common/Toolkit/WebPageToExtend";
+import { IDom } from "../../Common/Toolkit/Dom";
 
 export class TransferMarketSearchResultTableUi implements IWebPageToExtend {
   private domField: IDom;

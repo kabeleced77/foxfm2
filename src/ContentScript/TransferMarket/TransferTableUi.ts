@@ -1,10 +1,10 @@
-import { IStrengthsLimitsSetting } from "../Common/Settings/StrengthsLimitsSetting"
-import { ISetting } from "../Common/Toolkit/Setting";
-import { ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
-import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
-import { IUrl } from "../Common/Toolkit/Url";
-import { IDom } from "../Common/Toolkit/Dom";
-import { IEasyLogger } from "../Common/Logger/EasyLogger";
+import { IStrengthsLimitsSetting } from "../../Common/Settings/StrengthsLimitsSetting"
+import { ISetting } from "../../Common/Toolkit/Setting";
+import { ITransferTablePossibleOffers } from "../../Common/TransferTablePossibleOffers";
+import { IWebPageToExtend } from "../../Common/Toolkit/WebPageToExtend";
+import { IUrl } from "../../Common/Toolkit/Url";
+import { IDom } from "../../Common/Toolkit/Dom";
+import { IEasyLogger } from "../../Common/Logger/EasyLogger";
 
 export class TransferTableUi implements IWebPageToExtend {
   private domField: IDom;

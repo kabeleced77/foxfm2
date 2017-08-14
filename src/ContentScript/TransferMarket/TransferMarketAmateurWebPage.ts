@@ -1,6 +1,6 @@
-import { IWebElementToExtend } from "../Common/Toolkit/WebElementToExtend";
-import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
-import { IUrl } from "../Common/Toolkit/Url";
+import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
+import { IWebPageToExtend } from "../../Common/Toolkit/WebPageToExtend";
+import { IUrl } from "../../Common/Toolkit/Url";
 
 export class TransferMarketAmateurWebPage implements IWebPageToExtend {
   private urlField: IUrl;

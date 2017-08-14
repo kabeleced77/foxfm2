@@ -1,38 +1,38 @@
-import { NumberHelper } from "../Common/Toolkit/NumberHelper"
-import { DOMHelper } from "../Common/Toolkit/DOMHelper"
-import { IGameKind } from '../Common/GameKind';
-import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/GameKind';
-import { IStadiumBlocks } from "../Common/StadiumBlocks"
-import { IStadiumBlocksSetting } from "../Common/Settings/StadiumBlocksSetting"
-import { StadiumBlocksSetting } from "../Common/Settings/StadiumBlocksSetting"
-import { IStadiumOverallEntryPrices } from "../Common/StadiumOverallEntryPrices"
-import { IStadiumOverallEntryPricesSetting } from "../Common/Settings/StadiumOverallEntryPricesSetting"
-import { StadiumOverallEntryPricesSetting } from "../Common/Settings/StadiumOverallEntryPricesSetting"
-import { StadiumEntryPrice } from "../Common/StadiumEntryPrice"
-import { IStadiumEntryPrices } from "../Common/StadiumEntryPrices"
+import { NumberHelper } from "../../Common/Toolkit/NumberHelper"
+import { DOMHelper } from "../../Common/Toolkit/DOMHelper"
+import { IGameKind } from '../../Common/GameKind';
+import { GameKindLeague, GameKindFriendly, GameKindCup } from '../../Common/GameKind';
+import { IStadiumBlocks } from "../../Common/StadiumBlocks"
+import { IStadiumBlocksSetting } from "../../Common/Settings/StadiumBlocksSetting"
+import { StadiumBlocksSetting } from "../../Common/Settings/StadiumBlocksSetting"
+import { IStadiumOverallEntryPrices } from "../../Common/StadiumOverallEntryPrices"
+import { IStadiumOverallEntryPricesSetting } from "../../Common/Settings/StadiumOverallEntryPricesSetting"
+import { StadiumOverallEntryPricesSetting } from "../../Common/Settings/StadiumOverallEntryPricesSetting"
+import { StadiumEntryPrice } from "../../Common/StadiumEntryPrice"
+import { IStadiumEntryPrices } from "../../Common/StadiumEntryPrices"
 
-import { XPathString } from "../Common/Toolkit/XPathString"
-import { XPathSingleResult } from "../Common/Toolkit/XPathSingleResult"
-import { XPathAllResults } from "../Common/Toolkit/XPathAllResults"
-import { IXPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell"
-import { XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell"
+import { XPathString } from "../../Common/Toolkit/XPathString"
+import { XPathSingleResult } from "../../Common/Toolkit/XPathSingleResult"
+import { XPathAllResults } from "../../Common/Toolkit/XPathAllResults"
+import { IXPathHtmlTableCell } from "../../Common/Toolkit/XPathHtmlTableCell"
+import { XPathHtmlTableCell } from "../../Common/Toolkit/XPathHtmlTableCell"
 
-import { RessourceStadiumCurrencySign } from "../Common/Ressource"
-import { RessourceStadiumLeague } from "../Common/Ressource"
-import { RessourceStadiumFriendly } from "../Common/Ressource"
-import { RessourceStadiumCup } from "../Common/Ressource"
-import { RessourceStadiumOverallPriceLeague } from "../Common/Ressource"
-import { RessourceStadiumOverallPriceFriendly } from "../Common/Ressource"
-import { RessourceStadiumOverallPriceCup } from "../Common/Ressource"
-import { RessourceStadiumOffset } from "../Common/Ressource"
-import { RessourceStadiumOffsetPriceLeague } from "../Common/Ressource"
-import { RessourceStadiumOffsetPriceFriendly } from "../Common/Ressource"
-import { RessourceStadiumOffsetPriceCup } from "../Common/Ressource"
-import { ILogger } from "../Common/Logger/Logger";
-import { IWebPageToExtend } from "../Common/Toolkit/WebPageToExtend";
-import { IUrl } from "../Common/Toolkit/Url";
-import { IDom } from "../Common/Toolkit/Dom";
-import { IEasyLogger } from "../Common/Logger/EasyLogger";
+import { RessourceStadiumCurrencySign } from "../../Common/Ressource"
+import { RessourceStadiumLeague } from "../../Common/Ressource"
+import { RessourceStadiumFriendly } from "../../Common/Ressource"
+import { RessourceStadiumCup } from "../../Common/Ressource"
+import { RessourceStadiumOverallPriceLeague } from "../../Common/Ressource"
+import { RessourceStadiumOverallPriceFriendly } from "../../Common/Ressource"
+import { RessourceStadiumOverallPriceCup } from "../../Common/Ressource"
+import { RessourceStadiumOffset } from "../../Common/Ressource"
+import { RessourceStadiumOffsetPriceLeague } from "../../Common/Ressource"
+import { RessourceStadiumOffsetPriceFriendly } from "../../Common/Ressource"
+import { RessourceStadiumOffsetPriceCup } from "../../Common/Ressource"
+import { ILogger } from "../../Common/Logger/Logger";
+import { IWebPageToExtend } from "../../Common/Toolkit/WebPageToExtend";
+import { IUrl } from "../../Common/Toolkit/Url";
+import { IDom } from "../../Common/Toolkit/Dom";
+import { IEasyLogger } from "../../Common/Logger/EasyLogger";
 
 export class StadiumManagerUi implements IWebPageToExtend {
   private dom: IDom;

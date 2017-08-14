@@ -2,11 +2,11 @@ import { Logger, ILogger } from "../Common/Logger/Logger"
 import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { LogLevelError, ILogLevel } from '../Common/Logger/LogLevel';
-import { StadiumManagerUi } from "./StadiumManagerUi"
-import { TeamWebPage } from "./TeamWebPage"
+import { StadiumManagerUi } from "./Stadium/StadiumManagerUi"
+import { TeamWebPage } from "./Team/TeamWebPage"
 import { StrengthsLimitsSetting } from "../Common/Settings/StrengthsLimitsSetting"
 import { TeamTableSetting } from "../Common/Settings/TeamTableSetting"
-import { TransferTableUi } from "./TransferTableUi"
+import { TransferTableUi } from "./TransferMarket/TransferTableUi"
 import { TransferTablePossibleOffers, ITransferTablePossibleOffers } from "../Common/TransferTablePossibleOffers";
 import { AwpAndStrengthColumns } from "../Common/AwpAndStrengthColumns";
 import { XPathHtmlTableCell2, XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell";
@@ -14,7 +14,7 @@ import { XPathSingleResult2, XPathSingleResult } from "../Common/Toolkit/XPathSi
 import { XPathAllResults2, XPathAllResults } from "../Common/Toolkit/XPathAllResults";
 import { XPathInformation, XPathString } from "../Common/Toolkit/XPathString";
 import { TransferTablePossibleOffersUiUrl } from "../Common/Urls/TransferTablePossibleOffersUiUrl";
-import { TransferMarketSearchResultTableUi } from "./TransferMarketSearchResultTableUi";
+import { TransferMarketSearchResultTableUi } from "./TransferMarket/TransferMarketSearchResultTableUi";
 import { ITransferMarketSearchResultTable, TransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
 import { TransferMarketProfessionalsUiUrl } from "../Common/Urls/TransferMarketProfessionalsUiUrl";
 import { TransferMarketAmateurWebPageUrl } from "../Common/Urls/TransferMarketAmateurWebPageUrl";
@@ -37,7 +37,7 @@ import { ExtendWebPages, IExtendWebPages } from "../Common/Toolkit/ExtendWebPage
 import { TeamWebPageUrl } from "../Common/Urls/TeamWebPageUrl";
 import { StadiumWebPageUrl } from "../Common/Urls/StadiumWebPageUrl";
 import { ITransferMarketAmateurPlayerTableExtensionSetting, TransferMarketAmateurPlayerTableExtensionSetting } from "../Common/Settings/TransferMarketAmateurPlayerTableExtensionSetting";
-import { TransferMarketAmateurWebPage } from "./TransferMarketAmateurWebPage";
+import { TransferMarketAmateurWebPage } from "./TransferMarket/TransferMarketAmateurWebPage";
 import { TransferMarketAmateurPlayerTable } from "../Common/TransferMarketAmateurPlayerTable";
 import { HtmlTable } from "../Common/Toolkit/HtmlTable";
 import { HtmlTableByXPath } from "../Common/Toolkit/HtmlTableByXPath";
