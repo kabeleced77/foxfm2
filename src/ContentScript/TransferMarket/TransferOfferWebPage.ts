@@ -6,7 +6,7 @@ import { IUrl } from "../../Common/Toolkit/Url";
 import { IDom } from "../../Common/Toolkit/Dom";
 import { IEasyLogger } from "../../Common/Logger/EasyLogger";
 
-export class TransferTableUi implements IWebPageToExtend {
+export class TransferOfferWebPage implements IWebPageToExtend {
   private domField: IDom;
   private urlField: IUrl;
   private log: IEasyLogger;
