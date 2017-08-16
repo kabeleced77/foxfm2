@@ -7,7 +7,7 @@ export interface IHtmlTable {
   table(): HTMLTableElement;
   tableHeader(): HTMLTableSectionElement;
   tableFooter(): HTMLTableSectionElement;
-  firstTableColumnGroup(): HTMLTableColElement;
+  columnGroups(): NodeListOf<HTMLTableColElement>;
   firstTableBody(): HTMLTableSectionElement;
   addColumn(column: IHtmlTableColumn): IHtmlTable;
   extendColumn(column: IHtmlTableColumnByXpath, values: String[]): void;
@@ -28,14 +28,8 @@ export class HtmlTable implements IHtmlTable {
     return this.table().tHead;
   }
 
-  public firstTableColumnGroup(): HTMLTableColElement {
-    var colGroups = this.table().getElementsByTagName("colgroup");
-    if (colGroups.length > 0) {
-      return <HTMLTableColElement>colGroups[0];
-    }
-    else {
-      throw new Error(`HTML table has no colgroup.`);
-    }
+  public columnGroups(): NodeListOf<HTMLTableColElement> {
+    return this.table().getElementsByTagName("colgroup");
   }
 
   public firstTableBody(): HTMLTableSectionElement {
@@ -62,11 +56,13 @@ export class HtmlTable implements IHtmlTable {
 
   private addColumnToTable(column: IHtmlTableColumn): IHtmlTable {
     var table = new HtmlTable(this.htmlTable);
+
     // add to colgroup
-    let newColgroupCell = window.document.createElement("col");
-    this
-      .firstTableColumnGroup()
-      .insertBefore(newColgroupCell, this.firstTableColumnGroup().children[column.index().valueOf()]);
+    let colgroup = this.columnGroups();
+    if (colgroup.length > 0) {
+      let newColgroupCell = window.document.createElement("col");
+      colgroup[0].insertBefore(newColgroupCell, this.columnGroups()[0].children[column.index().valueOf()]);
+    }
     // add header values
     let newCell = window.document.createElement("th");
     this.tableHeader().rows[0].insertBefore(newCell, this.tableHeader().rows[0].children[column.index().valueOf()]);
