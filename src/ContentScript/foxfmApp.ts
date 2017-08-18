@@ -13,7 +13,7 @@ import { XPathHtmlTableCell2, XPathHtmlTableCell } from "../Common/Toolkit/XPath
 import { XPathSingleResult2, XPathSingleResult } from "../Common/Toolkit/XPathSingleResult";
 import { XPathAllResults2, XPathAllResults } from "../Common/Toolkit/XPathAllResults";
 import { XPathInformation, XPathString } from "../Common/Toolkit/XPathString";
-import { TransferTablePossibleOffersUiUrl } from "../Common/Urls/TransferTablePossibleOffersUiUrl";
+import { TransferOfferWebPageUrl } from "../Common/Urls/TransferOfferWebPageUrl";
 import { TransferMarketSearchResultTableUi } from "./TransferMarket/TransferMarketSearchResultTableUi";
 import { ITransferMarketSearchResultTable, TransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
 import { TransferMarketProfessionalsUiUrl } from "../Common/Urls/TransferMarketProfessionalsUiUrl";
@@ -52,9 +52,10 @@ import { HtmlAttribute, IHtmlAttribute } from "../Common/Toolkit/HtmlAttribute";
 import { HtmlElement } from "../Common/Toolkit/HtmlElement";
 import { AwpDiffPointsByTrainingAndExperience } from "../Common/AwpDiffPointsByTrainingAndExperience";
 import { StrengthLevels } from "../Common/StrengthLevels";
-import { AwpPointsByEpTp } from "../Common/Toolkit/AwpPoints";
+import { AwpPointsByEpTp, AwpPoints } from "../Common/Toolkit/AwpPoints";
 import { StrengthValues } from "../Common/StrengthValues";
 import { TeamPlayerTable } from "../Common/TeamPlayerTable";
+import { TransferOfferTable } from "./TransferMarket/TransferOfferTable";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -150,43 +151,65 @@ var app = new foxfmApp(
       new ExtendWebPage(
         new Url(currentUrl),
         new TransferOfferWebPage(
-          new Dom(doc),
-          new TransferTablePossibleOffersUiUrl(),
-          new StrengthsLimitsSetting(),
-          new StorageLocal<ITransferTablePossibleOffers>(
-            new SettingNameTransferTablePossibleOffers(),
-            new TransferTablePossibleOffers(
-              new AwpAndStrengthColumns(
-                new XPathHtmlTableCell2(
-                  new XPathSingleResult2<HTMLTableCellElement>(
-                    new XPathAllResults2(
-                      new XPathInformation(
-                        new TransferTablePossibleOffersUiUrl(),
-                        '//*[@id="punkte"]')))),
-                new XPathHtmlTableCell2(
-                  new XPathSingleResult2<HTMLTableCellElement>(
-                    new XPathAllResults2(
-                      new XPathInformation(
-                        new TransferTablePossibleOffersUiUrl(),
-                        '//*[@id="staerke"]')))),
-                true
+          new TransferOfferWebPageUrl(),
+          new TransferOfferTable(
+            new HtmlTable(
+              new HtmlTableByXPath<HTMLTableCellElement>(
+                new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="players_to_market"]'))),
+                  "table"))),
+            new HtmlTableColumnByXpath(
+              new XPathHtmlTableCell(
+                new XPathSingleResult<HTMLTableCellElement>(
+                  new XPathAllResults(
+                    window.document,
+                    new XPathString('//*[@id="staerke"]'))))),
+            new StrengthLevels(
+              new StrengthsLimitsSetting(),
+              new StrengthValues(
+                new HtmlTableColumnByXpath(
+                  new XPathHtmlTableCell(
+                    new XPathSingleResult<HTMLTableCellElement>(
+                      new XPathAllResults(
+                        window.document,
+                        new XPathString('//*[@id="staerke"]')))))),
+              new AwpPoints(
+                new HtmlTableColumnNumberValues(
+                  new HtmlTableColumnByXpath(
+                    new XPathHtmlTableCell(
+                      new XPathSingleResult<HTMLTableCellElement>(
+                        new XPathAllResults(
+                          window.document,
+                          new XPathString('//*[@id="punkte"]')))))))),
+            new StorageLocal<ITransferTablePossibleOffers>(
+              new SettingNameTransferTablePossibleOffers(),
+              new TransferTablePossibleOffers(
+                new AwpAndStrengthColumns(
+                  new XPathHtmlTableCell2(
+                    new XPathSingleResult2<HTMLTableCellElement>(
+                      new XPathAllResults2(
+                        new XPathInformation(
+                          new TransferOfferWebPageUrl(),
+                          '//*[@id="punkte"]')))),
+                  new XPathHtmlTableCell2(
+                    new XPathSingleResult2<HTMLTableCellElement>(
+                      new XPathAllResults2(
+                        new XPathInformation(
+                          new TransferOfferWebPageUrl(),
+                          '//*[@id="staerke"]')))),
+                  true
+                )
               )
             )
-          ),
-          new EasyLogger(
-            logger,
-            new RegisteredLoggingModule(
-              "TransferTableUi",
-              new LogLevelError())
-          )
-        ),
+          )),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
             "ExtendWebPage",
-            new LogLevelError())
-        )
-      ),
+            new LogLevelError()))),
       // Extend team table
       new ExtendWebPage(
         new Url(currentUrl),

@@ -1,6 +1,6 @@
 import { IUrl } from "../Toolkit/Url"
 
-export class TransferTablePossibleOffersUiUrl implements IUrl {
+export class TransferOfferWebPageUrl implements IUrl {
   private urlField: String;
 
   constructor() {
@@ -10,6 +10,6 @@ export class TransferTablePossibleOffersUiUrl implements IUrl {
     return this.urlField;
   }
   fromJson(jsonString: String): IUrl {
-    return new TransferTablePossibleOffersUiUrl();
+    return new TransferOfferWebPageUrl();
   }
 }
