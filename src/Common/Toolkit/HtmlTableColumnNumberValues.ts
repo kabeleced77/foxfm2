@@ -1,8 +1,9 @@
 import { IHtmlTableColumnValues } from "./HtmlTableColumnValues";
 import { IHtmlTableColumnByXpath } from "./HtmlTableColumnByXpath";
 import { NumberHelper } from "./NumberHelper";
+import { IValues } from "./Values";
 
-export class HtmlTableColumnNumberValues implements IHtmlTableColumnValues<Number> {
+export class HtmlTableColumnNumberValues implements IValues<Number> {
   private columnValues: IHtmlTableColumnByXpath;
 
   constructor(
