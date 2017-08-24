@@ -1,15 +1,12 @@
 import { IWebElementToExtend } from "./Toolkit/WebElementToExtend";
 import { ISetting } from "./Toolkit/Setting";
-import { ITransferMarketAmateurPlayerTableExtensionSetting } from "./Settings/TransferMarketAmateurPlayerTableExtensionSetting";
 import { IEasyLogger } from "./Logger/EasyLogger";
 import { IHtmlTable } from "./Toolkit/HtmlTable";
 import { HtmlTableColumn } from "./Toolkit/HtmlTableColumn";
-import { ColumnValues } from "./Toolkit/ColumnValues";
 import { IHtmlTableColumnByXpath } from "./Toolkit/HtmlTableColumnByXpath";
 import { IStrengthLevel } from "./StrengthLevel";
 import { IStrengthLevels } from "./StrengthLevels";
-import { HtmlTableColumnHeader } from "./Toolkit/HtmlTableColumnHeader";
-import { HtmlElement, IHtmlElement } from "./Toolkit/HtmlElement";
+import { HtmlElement } from "./Toolkit/HtmlElement";
 import { IHtmlAttribute, HtmlAttribute } from "./Toolkit/HtmlAttribute";
 import { ITeamTableSetting } from "./Settings/TeamTableSetting";
 import { HtmlElementWithChilds } from "./Toolkit/HtmlElementWithChilds";
@@ -40,87 +37,21 @@ export class TeamPlayerTable implements IWebElementToExtend {
     this.teamTableSettings
       .setting()
       .then(setting => {
-        if (setting.awpAndStrengthColumns().additionalInformationActivated()) {
+        let extendStrength = setting.extendStrengthColumnActivated();
+        let addAwpDiff = setting.addAwpDiffColumnActivated();
+        let addNextStrength = setting.addNextStrengthColumnActivated();
+
+        if (extendStrength || addAwpDiff || addNextStrength) {
           this.strengthLevels
             .strengthLevels()
             .then((strengthLevels: IStrengthLevel[]) => {
               // add AWP diff column
-              this.table.addColumn(
-                new HtmlTableColumn(
-                  new HtmlElementWithChilds(
-                    new Array<IHtmlAttribute>(
-                      new HtmlAttribute("class", "textCenter"),
-                      new HtmlAttribute("role", "columnheader"),
-                      new HtmlAttribute("style", "width: 90px")),
-                    new Array<HTMLElement>(
-                      new HtmlElement(
-                        "span",
-                        new Array<IHtmlAttribute>(
-                          new HtmlAttribute("style", "color:#04143e;"),
-                          new HtmlAttribute("class", "bold")),
-                        "AWPs Diff").element()
-                    )),
-                  strengthLevels
-                    .map(sl => {
-                      let newElement = new HtmlElement(
-                        "span",
-                        new Array<IHtmlAttribute>(
-                          new HtmlAttribute("class", "teamColorGreen bold")),
-                        "")
-                        .element();
-                      newElement.appendChild(new HtmlElement(
-                        "span",
-                        new Array<IHtmlAttribute>(
-                          new HtmlAttribute("style", "padding-right:5px;")),
-                        `${sl.missingAwpsToNextStrengthValue()}`
-                      ).element());
-                      let tdEle = new HtmlElementWithChilds(
-                        new Array<IHtmlAttribute>(new HtmlAttribute("class", "textRight table-middle greenDarker")),
-                        new Array<HTMLElement>(newElement));
-                      return tdEle;
-                    }),
-                  15));
+              if (addAwpDiff) this.addAwpDiffColumn(strengthLevels);
               // add next strength level column
-              this.table.addColumn(
-                new HtmlTableColumn(
-                  new HtmlElementWithChilds(
-                    new Array<IHtmlAttribute>(
-                      new HtmlAttribute("class", "textCenter"),
-                      new HtmlAttribute("role", "columnheader"),
-                      new HtmlAttribute("style", "width: 80px")),
-                    new Array<HTMLElement>(
-                      new HtmlElement(
-                        "span",
-                        new Array<IHtmlAttribute>(
-                          new HtmlAttribute("style", "color:#04143e;"),
-                          new HtmlAttribute("class", "bold")),
-                        "Next St").element()
-                    )),
-                  strengthLevels
-                    .map(sl => {
-                      let newElement = new HtmlElement(
-                        "span",
-                        new Array<IHtmlAttribute>(
-                          new HtmlAttribute("class", "teamColorGreen bold")),
-                        "")
-                        .element();
-                      newElement.appendChild(new HtmlElement(
-                        "span",
-                        new Array<IHtmlAttribute>(
-                          new HtmlAttribute("style", "padding-right:5px;")),
-                        `${sl.nextStrengthValue()}`
-                      ).element());
-                      let tdEle = new HtmlElementWithChilds(
-                        new Array<IHtmlAttribute>(new HtmlAttribute("class", "textRight table-middle greenDarker")),
-                        new Array<HTMLElement>(newElement));
-                      return tdEle;
-                    }),
-                  16));
+              if (addNextStrength) this.addNextStrengthColumn(strengthLevels);
               // add actual strength value to existing strength value column
-              this.table.extendColumn(
-                this.strengthColumn,
-                strengthLevels
-                  .map(sl => sl.actualStrengthValue().valueOf() !== sl.currentStrengthValue().valueOf() ? ` (${sl.actualStrengthValue()})` : ""));
+              if (extendStrength) this.extendStrengthColumn(strengthLevels);
+
               this.table.tableHeader().rows[0].cells[this.strengthColumn.index().valueOf()].style.width = "70px";
               this.increaseStyleWidth(90);
               this.increaseColspanInFooter(this.table.tableFooter(), 1, 1);
@@ -130,6 +61,86 @@ export class TeamPlayerTable implements IWebElementToExtend {
       .catch(e => { throw new Error(`"Error while extending team player table: ${e}. ${e.stack}"`); });
   }
 
+  private addNextStrengthColumn(strengthLevels: IStrengthLevel[]) {
+    this.table.addColumn(
+      new HtmlTableColumn(
+        new HtmlElementWithChilds(
+          new Array<IHtmlAttribute>(
+            new HtmlAttribute("class", "textCenter"),
+            new HtmlAttribute("role", "columnheader"),
+            new HtmlAttribute("style", "width: 80px")),
+          new Array<HTMLElement>(
+            new HtmlElement(
+              "span",
+              new Array<IHtmlAttribute>(
+                new HtmlAttribute("style", "color:#04143e;"),
+                new HtmlAttribute("class", "bold")),
+              "Next St").element()
+          )),
+        strengthLevels
+          .map(sl => {
+            let newElement = new HtmlElement(
+              "span",
+              new Array<IHtmlAttribute>(
+                new HtmlAttribute("class", "teamColorGreen bold")),
+              "")
+              .element();
+            newElement.appendChild(new HtmlElement(
+              "span",
+              new Array<IHtmlAttribute>(
+                new HtmlAttribute("style", "padding-right:5px;")),
+              `${sl.nextStrengthValue()}`
+            ).element());
+            let tdEle = new HtmlElementWithChilds(
+              new Array<IHtmlAttribute>(new HtmlAttribute("class", "textRight table-middle greenDarker")),
+              new Array<HTMLElement>(newElement));
+            return tdEle;
+          }),
+        16));
+  }
+  private addAwpDiffColumn(strengthLevels: IStrengthLevel[]) {
+    this.table.addColumn(
+      new HtmlTableColumn(
+        new HtmlElementWithChilds(
+          new Array<IHtmlAttribute>(
+            new HtmlAttribute("class", "textCenter"),
+            new HtmlAttribute("role", "columnheader"),
+            new HtmlAttribute("style", "width: 90px")),
+          new Array<HTMLElement>(
+            new HtmlElement(
+              "span",
+              new Array<IHtmlAttribute>(
+                new HtmlAttribute("style", "color:#04143e;"),
+                new HtmlAttribute("class", "bold")),
+              "AWPs Diff").element()
+          )),
+        strengthLevels
+          .map(sl => {
+            let newElement = new HtmlElement(
+              "span",
+              new Array<IHtmlAttribute>(
+                new HtmlAttribute("class", "teamColorGreen bold")),
+              "")
+              .element();
+            newElement.appendChild(new HtmlElement(
+              "span",
+              new Array<IHtmlAttribute>(
+                new HtmlAttribute("style", "padding-right:5px;")),
+              `${sl.missingAwpsToNextStrengthValue()}`
+            ).element());
+            let tdEle = new HtmlElementWithChilds(
+              new Array<IHtmlAttribute>(new HtmlAttribute("class", "textRight table-middle greenDarker")),
+              new Array<HTMLElement>(newElement));
+            return tdEle;
+          }),
+        15));
+  }
+  private extendStrengthColumn(strengthLevels: IStrengthLevel[]) {
+    this.table.extendColumn(
+      this.strengthColumn,
+      strengthLevels
+        .map(sl => sl.actualStrengthValue().valueOf() !== sl.currentStrengthValue().valueOf() ? ` (${sl.actualStrengthValue()})` : ""));
+  }
   /* Dependent on the inserted content by this add-on the width of the header of
    * the team table must extended.
    * --> the name of the CSS rule is hard coded: '.pageWrapper'

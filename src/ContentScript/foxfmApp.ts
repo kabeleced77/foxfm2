@@ -188,18 +188,6 @@ var app = new foxfmApp(
               new SettingNameTransferTablePossibleOffers(),
               new TransferTablePossibleOffers(
                 new AwpAndStrengthColumns(
-                  new XPathHtmlTableCell2(
-                    new XPathSingleResult2<HTMLTableCellElement>(
-                      new XPathAllResults2(
-                        new XPathInformation(
-                          new TransferOfferWebPageUrl(),
-                          '//*[@id="punkte"]')))),
-                  new XPathHtmlTableCell2(
-                    new XPathSingleResult2<HTMLTableCellElement>(
-                      new XPathAllResults2(
-                        new XPathInformation(
-                          new TransferOfferWebPageUrl(),
-                          '//*[@id="staerke"]')))),
                   true
                 )
               )
