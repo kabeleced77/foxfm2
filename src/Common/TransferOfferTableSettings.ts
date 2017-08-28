@@ -1,11 +1,11 @@
 import { AwpAndStrengthColumns } from "./AwpAndStrengthColumns"
 
-export interface ITransferTablePossibleOffers {
+export interface ITransferOfferTableSettings {
   awpAndStrengthColumn(): AwpAndStrengthColumns;
-  fromJson(jsonString: String): ITransferTablePossibleOffers;
+  fromJson(jsonString: String): ITransferOfferTableSettings;
 }
 
-export class TransferTablePossibleOffers implements ITransferTablePossibleOffers {
+export class TransferOferTableSettings implements ITransferOfferTableSettings {
   private awpAndStrengthColumns: AwpAndStrengthColumns;
 
   constructor(
@@ -17,8 +17,8 @@ export class TransferTablePossibleOffers implements ITransferTablePossibleOffers
   public awpAndStrengthColumn(): AwpAndStrengthColumns {
     return this.awpAndStrengthColumns;
   }
-  public fromJson(jsonString: String): ITransferTablePossibleOffers {
-    return new TransferTablePossibleOffers(
+  public fromJson(jsonString: String): ITransferOfferTableSettings {
+    return new TransferOferTableSettings(
       this.awpAndStrengthColumns.fromJson(jsonString["awpAndStrengthColumns"])
     );
   }

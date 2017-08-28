@@ -13,19 +13,19 @@ import { HtmlElement, IHtmlElement } from "../../Common/Toolkit/HtmlElement";
 import { IHtmlAttribute, HtmlAttribute } from "../../Common/Toolkit/HtmlAttribute";
 import { ITeamTableSetting } from "../../Common/Settings/TeamTableSetting";
 import { HtmlElementWithChilds } from "../../Common/Toolkit/HtmlElementWithChilds";
-import { ITransferTablePossibleOffers } from "../../Common/TransferTablePossibleOffers";
+import { ITransferOfferTableSettings } from "../../Common/TransferOfferTableSettings";
 
 export class TransferOfferTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;
   private readonly strengthColumn: IHtmlTableColumnByXpath;
-  private readonly settings: ISetting<ITransferTablePossibleOffers>;
+  private readonly settings: ISetting<ITransferOfferTableSettings>;
   private readonly strengthLevels: IStrengthLevels;
 
   constructor(
     table: IHtmlTable,
     strengthColumn: IHtmlTableColumnByXpath,
     strengthLevels: IStrengthLevels,
-    settings: ISetting<ITransferTablePossibleOffers>
+    settings: ISetting<ITransferOfferTableSettings>
   ) {
     this.table = table;
     this.strengthColumn = strengthColumn;
