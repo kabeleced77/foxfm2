@@ -13,7 +13,7 @@ import { XPathSingleResult2, XPathSingleResult } from "../Common/Toolkit/XPathSi
 import { XPathAllResults2, XPathAllResults } from "../Common/Toolkit/XPathAllResults";
 import { XPathInformation, XPathString } from "../Common/Toolkit/XPathString";
 import { TransferOfferWebPageUrl } from "../Common/Urls/TransferOfferWebPageUrl";
-import { TransferMarketSearchResultTableUi } from "./TransferMarket/TransferMarketSearchResultTableUi";
+import { TransferMarketSearchWebPage } from "./TransferMarket/TransferMarketSearchResultTableUi";
 import { ITransferMarketSearchResultTable, TransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
 import { TransferMarketProfessionalsUiUrl } from "../Common/Urls/TransferMarketProfessionalsUiUrl";
 import { TransferMarketAmateurWebPageUrl } from "../Common/Urls/TransferMarketAmateurWebPageUrl";
@@ -101,7 +101,7 @@ var app = new foxfmApp(
       // Extend transfer market - search result table
       new ExtendWebPage(
         new Url(currentUrl),
-        new TransferMarketSearchResultTableUi(
+        new TransferMarketSearchWebPage(
           new Dom(doc),
           new TransferMarketProfessionalsUiUrl(),
           new StrengthsLimitsSetting(),

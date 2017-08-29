@@ -6,7 +6,7 @@ import { IUrl } from "../../Common/Toolkit/Url";
 import { IWebPageToExtend } from "../../Common/Toolkit/WebPageToExtend";
 import { IDom } from "../../Common/Toolkit/Dom";
 
-export class TransferMarketSearchResultTableUi implements IWebPageToExtend {
+export class TransferMarketSearchWebPage implements IWebPageToExtend {
   private domField: IDom;
   private webPageUrl: IUrl;
   private log: IEasyLogger;
