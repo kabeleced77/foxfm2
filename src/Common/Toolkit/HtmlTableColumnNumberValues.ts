@@ -1,4 +1,3 @@
-import { IHtmlTableColumnValues } from "./HtmlTableColumnValues";
 import { IHtmlTableColumnByXpath } from "./HtmlTableColumnByXpath";
 import { NumberHelper } from "./NumberHelper";
 import { IValues } from "./Values";
