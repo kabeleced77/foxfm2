@@ -4,7 +4,6 @@ import { ITransferMarketAmateurPlayerTableExtensionSetting } from "../../Common/
 import { IEasyLogger } from "../../Common/Logger/EasyLogger";
 import { IHtmlTable } from "../../Common/Toolkit/HtmlTable";
 import { HtmlTableColumn } from "../../Common/Toolkit/HtmlTableColumn";
-import { ColumnValues } from "../../Common/Toolkit/ColumnValues";
 import { IHtmlTableColumnByXpath } from "../../Common/Toolkit/HtmlTableColumnByXpath";
 import { IStrengthLevel } from "../../Common/StrengthLevel";
 import { IStrengthLevels } from "../../Common/StrengthLevels";

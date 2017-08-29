@@ -41,7 +41,6 @@ import { TransferMarketAmateurPlayerTable } from "../Common/TransferMarketAmateu
 import { HtmlTable } from "../Common/Toolkit/HtmlTable";
 import { HtmlTableByXPath } from "../Common/Toolkit/HtmlTableByXPath";
 import { FirstElementInXPathNodeOrParents } from "../Common/Toolkit/FirstElementInXPathNodeOrParents";
-import { AwpPointsByTrainingAndExperience } from "../Common/AwpPointsByTrainingAndExperience";
 import { TrainingPoints } from "../Common/TrainingPoints";
 import { ExperiencePoints } from "../Common/ExperiencePoints";
 import { HtmlTableColumn } from "../Common/Toolkit/HtmlTableColumn";
@@ -49,7 +48,6 @@ import { HtmlTableColumnNumberValues } from "../Common/Toolkit/HtmlTableColumnNu
 import { HtmlTableColumnHeader } from "../Common/Toolkit/HtmlTableColumnHeader";
 import { HtmlAttribute, IHtmlAttribute } from "../Common/Toolkit/HtmlAttribute";
 import { HtmlElement } from "../Common/Toolkit/HtmlElement";
-import { AwpDiffPointsByTrainingAndExperience } from "../Common/AwpDiffPointsByTrainingAndExperience";
 import { StrengthLevels } from "../Common/StrengthLevels";
 import { AwpPointsByEpTp, AwpPoints } from "../Common/Toolkit/AwpPoints";
 import { StrengthValues } from "../Common/StrengthValues";
