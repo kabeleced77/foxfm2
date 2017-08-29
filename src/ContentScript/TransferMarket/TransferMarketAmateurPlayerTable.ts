@@ -1,16 +1,16 @@
-import { IWebElementToExtend } from "./Toolkit/WebElementToExtend";
-import { ISetting } from "./Toolkit/Setting";
-import { ITransferMarketAmateurPlayerTableExtensionSetting } from "./Settings/TransferMarketAmateurPlayerTableExtensionSetting";
-import { IEasyLogger } from "./Logger/EasyLogger";
-import { IHtmlTable } from "./Toolkit/HtmlTable";
-import { HtmlTableColumn } from "./Toolkit/HtmlTableColumn";
-import { IHtmlTableColumnByXpath } from "./Toolkit/HtmlTableColumnByXpath";
-import { IStrengthLevel } from "./StrengthLevel";
-import { IStrengthLevels } from "./StrengthLevels";
-import { HtmlTableColumnHeader } from "./Toolkit/HtmlTableColumnHeader";
-import { HtmlElement } from "./Toolkit/HtmlElement";
-import { IHtmlAttribute, HtmlAttribute } from "./Toolkit/HtmlAttribute";
-import { HtmlElementWithChilds } from "./Toolkit/HtmlElementWithChilds";
+import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
+import { ISetting } from "../../Common/Toolkit/Setting";
+import { ITransferMarketAmateurPlayerTableExtensionSetting } from "../../Common/Settings/TransferMarketAmateurPlayerTableExtensionSetting";
+import { IEasyLogger } from "../../Common/Logger/EasyLogger";
+import { IHtmlTable } from "../../Common/Toolkit/HtmlTable";
+import { HtmlTableColumn } from "../../Common/Toolkit/HtmlTableColumn";
+import { IHtmlTableColumnByXpath } from "../../Common/Toolkit/HtmlTableColumnByXpath";
+import { IStrengthLevel } from "../../Common/StrengthLevel";
+import { IStrengthLevels } from "../../Common/StrengthLevels";
+import { HtmlTableColumnHeader } from "../../Common/Toolkit/HtmlTableColumnHeader";
+import { HtmlElement } from "../../Common/Toolkit/HtmlElement";
+import { IHtmlAttribute, HtmlAttribute } from "../../Common/Toolkit/HtmlAttribute";
+import { HtmlElementWithChilds } from "../../Common/Toolkit/HtmlElementWithChilds";
 
 export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;
