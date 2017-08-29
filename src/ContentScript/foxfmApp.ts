@@ -14,7 +14,7 @@ import { XPathAllResults2, XPathAllResults } from "../Common/Toolkit/XPathAllRes
 import { XPathInformation, XPathString } from "../Common/Toolkit/XPathString";
 import { TransferOfferWebPageUrl } from "../Common/Urls/TransferOfferWebPageUrl";
 import { TransferMarketSearchWebPage } from "./TransferMarket/TransferMarketSearchWebPage";
-import { ITransferMarketSearchResultTable, TransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
+import { ITransferMarketSearchResultTable, TransferMarketSearchResultTable } from "./TransferMarket/TransferMarketSearchResultTable";
 import { TransferMarketProfessionalsUiUrl } from "../Common/Urls/TransferMarketProfessionalsUiUrl";
 import { TransferMarketAmateurWebPageUrl } from "../Common/Urls/TransferMarketAmateurWebPageUrl";
 import { ExperienceAndTrainingColumn } from "../Common/ExperienceAndTrainingColumn";

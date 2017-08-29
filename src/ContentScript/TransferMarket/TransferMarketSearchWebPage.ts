@@ -1,6 +1,6 @@
 import { IStrengthsLimitsSetting } from "../../Common/Settings/StrengthsLimitsSetting"
 import { ISetting } from "../../Common/Toolkit/Setting";
-import { ITransferMarketSearchResultTable } from "../../Common/TransferMarketSearchResultTable";
+import { ITransferMarketSearchResultTable } from "./TransferMarketSearchResultTable";
 import { IEasyLogger } from "../../Common/Logger/EasyLogger";
 import { IUrl } from "../../Common/Toolkit/Url";
 import { IWebPageToExtend } from "../../Common/Toolkit/WebPageToExtend";
