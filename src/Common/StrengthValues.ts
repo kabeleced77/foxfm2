@@ -1,13 +1,11 @@
 import { IHtmlTableColumnByXpath } from "./Toolkit/HtmlTableColumnByXpath";
 import { NumberHelper } from "./Toolkit/NumberHelper";
-import { IHtmlTableColumnValues } from "./Toolkit/HtmlTableColumnValues";
 
 export interface IStrengthValues {
   values(): Number[];
 }
 
-// TODO: double check the interface -> it is NOT IStrengthValues!
-export class StrengthValues implements IHtmlTableColumnValues<Number> {
+export class StrengthValues implements IStrengthValues {
   private columnValues: IHtmlTableColumnByXpath;
 
   constructor(
