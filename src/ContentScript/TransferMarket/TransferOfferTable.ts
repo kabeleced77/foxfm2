@@ -12,7 +12,7 @@ import { HtmlElement, IHtmlElement } from "../../Common/Toolkit/HtmlElement";
 import { IHtmlAttribute, HtmlAttribute } from "../../Common/Toolkit/HtmlAttribute";
 import { ITeamTableSetting } from "../../Common/Settings/TeamTableSetting";
 import { HtmlElementWithChilds } from "../../Common/Toolkit/HtmlElementWithChilds";
-import { ITransferOfferTableSettings } from "../../Common/TransferOfferTableSettings";
+import { ITransferOfferTableSettings } from "../../Common/Settings/TransferOfferTableSettings";
 
 export class TransferOfferTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;

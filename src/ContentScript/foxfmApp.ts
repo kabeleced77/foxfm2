@@ -7,7 +7,7 @@ import { TeamWebPage } from "./Team/TeamWebPage"
 import { StrengthsLimitsSetting } from "../Common/Settings/StrengthsLimitsSetting"
 import { TeamTableSetting } from "../Common/Settings/TeamTableSetting"
 import { TransferOfferWebPage } from "./TransferMarket/TransferOfferWebPage"
-import { TransferOfferTableSettings, ITransferOfferTableSettings } from "../Common/TransferOfferTableSettings";
+import { TransferOfferTableSettings, ITransferOfferTableSettings } from "../Common/Settings/TransferOfferTableSettings";
 import { XPathHtmlTableCell2, XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell";
 import { XPathSingleResult2, XPathSingleResult } from "../Common/Toolkit/XPathSingleResult";
 import { XPathAllResults2, XPathAllResults } from "../Common/Toolkit/XPathAllResults";
