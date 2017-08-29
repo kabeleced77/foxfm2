@@ -13,7 +13,7 @@ import { XPathSingleResult2, XPathSingleResult } from "../Common/Toolkit/XPathSi
 import { XPathAllResults2, XPathAllResults } from "../Common/Toolkit/XPathAllResults";
 import { XPathInformation, XPathString } from "../Common/Toolkit/XPathString";
 import { TransferOfferWebPageUrl } from "../Common/Urls/TransferOfferWebPageUrl";
-import { TransferMarketSearchWebPage } from "./TransferMarket/TransferMarketSearchResultTableUi";
+import { TransferMarketSearchWebPage } from "./TransferMarket/TransferMarketSearchWebPage";
 import { ITransferMarketSearchResultTable, TransferMarketSearchResultTable } from "../Common/TransferMarketSearchResultTable";
 import { TransferMarketProfessionalsUiUrl } from "../Common/Urls/TransferMarketProfessionalsUiUrl";
 import { TransferMarketAmateurWebPageUrl } from "../Common/Urls/TransferMarketAmateurWebPageUrl";
