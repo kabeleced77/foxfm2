@@ -7,8 +7,7 @@ import { TeamWebPage } from "./Team/TeamWebPage"
 import { StrengthsLimitsSetting } from "../Common/Settings/StrengthsLimitsSetting"
 import { TeamTableSetting } from "../Common/Settings/TeamTableSetting"
 import { TransferOfferWebPage } from "./TransferMarket/TransferOfferWebPage"
-import { TransferOferTableSettings, ITransferOfferTableSettings } from "../Common/TransferOfferTableSettings";
-import { AwpAndStrengthColumns } from "../Common/AwpAndStrengthColumns";
+import { TransferOfferTableSettings, ITransferOfferTableSettings } from "../Common/TransferOfferTableSettings";
 import { XPathHtmlTableCell2, XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell";
 import { XPathSingleResult2, XPathSingleResult } from "../Common/Toolkit/XPathSingleResult";
 import { XPathAllResults2, XPathAllResults } from "../Common/Toolkit/XPathAllResults";
@@ -186,10 +185,10 @@ var app = new foxfmApp(
                           new XPathString('//*[@id="punkte"]')))))))),
             new StorageLocal<ITransferOfferTableSettings>(
               new SettingNameTransferTablePossibleOffers(),
-              new TransferOferTableSettings(
-                new AwpAndStrengthColumns(
-                  true
-                )
+              new TransferOfferTableSettings(
+                true,
+                true,
+                true
               )
             )
           )),

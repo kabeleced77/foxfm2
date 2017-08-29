@@ -1,25 +1,39 @@
-import { AwpAndStrengthColumns } from "./AwpAndStrengthColumns"
-
 export interface ITransferOfferTableSettings {
-  awpAndStrengthColumn(): AwpAndStrengthColumns;
+  extendStrengthColumnActivated(): Boolean;
+  addAwpDiffColumnActivated(): Boolean;
+  addNextStrengthColumnActivated(): Boolean;
   fromJson(jsonString: String): ITransferOfferTableSettings;
 }
 
-export class TransferOferTableSettings implements ITransferOfferTableSettings {
-  private awpAndStrengthColumns: AwpAndStrengthColumns;
+export class TransferOfferTableSettings implements ITransferOfferTableSettings {
+  private readonly extendStrengthColumn: Boolean;
+  private readonly addAwpDiffColumn: Boolean;
+  private readonly addNextStrengthColumn: Boolean;
 
   constructor(
-    awpAndStrengthColumns: AwpAndStrengthColumns
+    extendStrengthColumn: Boolean,
+    addAwpDiffColumn: Boolean,
+    addNextStrengthColumn: Boolean,
   ) {
-    this.awpAndStrengthColumns = awpAndStrengthColumns;
+    this.extendStrengthColumn = extendStrengthColumn;
+    this.addAwpDiffColumn = addAwpDiffColumn;
+    this.addNextStrengthColumn = addNextStrengthColumn;
   }
 
-  public awpAndStrengthColumn(): AwpAndStrengthColumns {
-    return this.awpAndStrengthColumns;
+  public extendStrengthColumnActivated(): Boolean {
+    return this.extendStrengthColumn;
+  }
+  public addAwpDiffColumnActivated(): Boolean {
+    return this.addAwpDiffColumn;
+  }
+  public addNextStrengthColumnActivated(): Boolean {
+    return this.addNextStrengthColumn;
   }
   public fromJson(jsonString: String): ITransferOfferTableSettings {
-    return new TransferOferTableSettings(
-      this.awpAndStrengthColumns.fromJson(jsonString["awpAndStrengthColumns"])
-    );
+    return new TransferOfferTableSettings(
+      jsonString["extendStrengthColumn"],
+      jsonString["addAwpDiffColumn"],
+      jsonString["addNextStrengthColumn"]
+    )
   }
 }

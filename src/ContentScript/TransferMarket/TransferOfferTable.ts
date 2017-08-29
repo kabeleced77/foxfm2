@@ -37,7 +37,11 @@ export class TransferOfferTable implements IWebElementToExtend {
     this.settings
       .value()
       .then(setting => {
-        if (setting.awpAndStrengthColumn().additionalInformationActivated()) {
+        let extendStrength = setting.extendStrengthColumnActivated();
+        let addAwpDiff = setting.addAwpDiffColumnActivated();
+        let addNextStrength = setting.addNextStrengthColumnActivated();
+
+        if (extendStrength || addAwpDiff || addNextStrength) {
           this.strengthLevels
             .strengthLevels()
             .then((strengthLevels: IStrengthLevel[]) => {
