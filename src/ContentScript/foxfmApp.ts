@@ -14,7 +14,7 @@ import { XPathAllResults2, XPathAllResults } from "../Common/Toolkit/XPathAllRes
 import { XPathInformation, XPathString } from "../Common/Toolkit/XPathString";
 import { TransferOfferWebPageUrl } from "../Common/Urls/TransferOfferWebPageUrl";
 import { TransferMarketSearchWebPage } from "./TransferMarket/TransferMarketSearchWebPage";
-import { ITransferMarketSearchResultTable, TransferMarketSearchResultTable } from "./TransferMarket/TransferMarketSearchResultTable";
+import { TransferMarketSearchResultTable } from "./TransferMarket/TransferMarketSearchResultTable";
 import { TransferMarketProfessionalsUiUrl } from "../Common/Urls/TransferMarketProfessionalsUiUrl";
 import { TransferMarketAmateurWebPageUrl } from "../Common/Urls/TransferMarketAmateurWebPageUrl";
 import { ExperienceAndTrainingColumn } from "../Common/ExperienceAndTrainingColumn";
@@ -41,18 +41,19 @@ import { TransferMarketAmateurPlayerTable } from "./TransferMarket/TransferMarke
 import { HtmlTable } from "../Common/Toolkit/HtmlTable";
 import { HtmlTableByXPath } from "../Common/Toolkit/HtmlTableByXPath";
 import { FirstElementInXPathNodeOrParents } from "../Common/Toolkit/FirstElementInXPathNodeOrParents";
-import { TrainingPoints } from "../Common/TrainingPoints";
-import { ExperiencePoints } from "../Common/ExperiencePoints";
 import { HtmlTableColumn } from "../Common/Toolkit/HtmlTableColumn";
 import { HtmlTableColumnNumberValues } from "../Common/Toolkit/HtmlTableColumnNumberValues";
 import { HtmlTableColumnHeader } from "../Common/Toolkit/HtmlTableColumnHeader";
 import { HtmlAttribute, IHtmlAttribute } from "../Common/Toolkit/HtmlAttribute";
 import { HtmlElement } from "../Common/Toolkit/HtmlElement";
 import { StrengthLevels } from "../Common/StrengthLevels";
-import { AwpPointsByEpTp, AwpPoints } from "../Common/Toolkit/AwpPoints";
+import { AwpPointsByEpTp, AwpPoints, AwpPointsBySplittedString } from "../Common/Toolkit/AwpPoints";
 import { StrengthValues } from "../Common/StrengthValues";
 import { TeamPlayerTable } from "../Common/TeamPlayerTable";
 import { TransferOfferTable } from "./TransferMarket/TransferOfferTable";
+import { TransferMarketSearchResultTableSettings, ITransferMarketSearchResultTableSettings } from "../Common/Settings/TransferMarketSearchResultTableSettings";
+import { HtmlTableColumnStringValues } from "../Common/Toolkit/HtmlTableColumnStringValues";
+import { SplitStringsToNumbers } from "../Common/Toolkit/SplitStrings";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -102,41 +103,50 @@ var app = new foxfmApp(
       new ExtendWebPage(
         new Url(currentUrl),
         new TransferMarketSearchWebPage(
-          new Dom(doc),
           new TransferMarketProfessionalsUiUrl(),
-          new StrengthsLimitsSetting(),
-          new StorageLocal<ITransferMarketSearchResultTable>(
-            new SettingNameTransferMarketProfessionalsSearchResultTable(),
-            new TransferMarketSearchResultTable(
-              new TransferMarketProfessionalsUiUrl(),
-              new ExperienceAndTrainingColumn(
-                new XPathHtmlTableCell2(
-                  new XPathSingleResult2<HTMLTableCellElement>(
-                    new XPathAllResults2(
-                      new XPathInformation(
-                        new TransferMarketProfessionalsUiUrl(),
-                        '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))),
-                new XPathHtmlTableCell2(
-                  new XPathSingleResult2<HTMLTableCellElement>(
-                    new XPathAllResults2(
-                      new XPathInformation(
-                        new TransferMarketProfessionalsUiUrl(),
-                        '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]'
-                      )
-                    )
-                  )
-                ),
-                true
-              )
-            )
-          ),
-          new EasyLogger(
-            logger,
-            new RegisteredLoggingModule(
-              "TransferMarketSearchResultTableUi",
-              new LogLevelError())
-          )
-        ),
+          new TransferMarketSearchResultTable(
+            new HtmlTable(
+              new HtmlTableByXPath<HTMLTableCellElement>(
+                new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[2]'))),
+                  "table"))),
+            new HtmlTableColumnByXpath(
+              new XPathHtmlTableCell(
+                new XPathSingleResult<HTMLTableCellElement>(
+                  new XPathAllResults(
+                    window.document,
+                    new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]'))))),
+            new StrengthLevels(
+              new StrengthsLimitsSetting(),
+              new StrengthValues(
+                new HtmlTableColumnByXpath(
+                  new XPathHtmlTableCell(
+                    new XPathSingleResult<HTMLTableCellElement>(
+                      new XPathAllResults(
+                        window.document,
+                        new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
+              // TODO: AWPs by TPs / EPs from single cell
+              //*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[3]/td[6]
+              new AwpPointsBySplittedString(
+                new SplitStringsToNumbers(
+                  new HtmlTableColumnStringValues(
+                    new HtmlTableColumnByXpath(
+                      new XPathHtmlTableCell(
+                        new XPathSingleResult<HTMLTableCellElement>(
+                          new XPathAllResults(
+                            window.document,
+                            new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
+                  "/",
+                  ","))),
+            new StorageLocal<ITransferMarketSearchResultTableSettings>(
+              new SettingNameTransferMarketProfessionalsSearchResultTable(),
+              new TransferMarketSearchResultTableSettings(
+                true,
+                true,
+                true)))),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
@@ -186,10 +196,7 @@ var app = new foxfmApp(
               new TransferOfferTableSettings(
                 true,
                 true,
-                true
-              )
-            )
-          )),
+                true)))),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
@@ -225,14 +232,14 @@ var app = new foxfmApp(
                         window.document,
                         new XPathString('//*[@id="playerTable"]/thead/tr/th[10]')))))),
               new AwpPointsByEpTp(
-                new ExperiencePoints(
+                new HtmlTableColumnNumberValues(
                   new HtmlTableColumnByXpath(
                     new XPathHtmlTableCell(
                       new XPathSingleResult<HTMLTableCellElement>(
                         new XPathAllResults(
                           window.document,
                           new XPathString('//*[@id="playerTable"]/thead/tr/th[13]')))))),
-                new TrainingPoints(
+                new HtmlTableColumnNumberValues(
                   new HtmlTableColumnByXpath(
                     new XPathHtmlTableCell(
                       new XPathSingleResult<HTMLTableCellElement>(
@@ -284,14 +291,14 @@ var app = new foxfmApp(
                         window.document,
                         new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]')))))),
               new AwpPointsByEpTp(
-                new ExperiencePoints(
+                new HtmlTableColumnNumberValues(
                   new HtmlTableColumnByXpath(
                     new XPathHtmlTableCell(
                       new XPathSingleResult<HTMLTableCellElement>(
                         new XPathAllResults(
                           window.document,
                           new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[6]')))))),
-                new TrainingPoints(
+                new HtmlTableColumnNumberValues(
                   new HtmlTableColumnByXpath(
                     new XPathHtmlTableCell(
                       new XPathSingleResult<HTMLTableCellElement>(

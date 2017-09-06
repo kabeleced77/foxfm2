@@ -1,8 +1,8 @@
 import { IAwp, AwpByEpTp, Awp } from "./Awp";
-import { ExperiencePoints, IExperiencePoints } from "../ExperiencePoints";
-import { ITrainingPoints } from "../TrainingPoints";
 import { IHtmlTableColumnByXpath } from "./HtmlTableColumnByXpath";
 import { IValues } from "./Values";
+import { NumberFromString } from "./NumberFromString";
+import { ISplitStrings } from "./SplitStrings";
 
 export interface IAwpPoints {
   points(): IAwp[];
@@ -23,22 +23,38 @@ export class AwpPoints implements IAwpPoints {
 }
 
 export class AwpPointsByEpTp implements IAwpPoints {
-  private readonly eps: IExperiencePoints;
-  private readonly tps: ITrainingPoints;
+  private readonly eps: IValues<Number>;
+  private readonly tps: IValues<Number>;
 
   constructor(
-    eps: IExperiencePoints,
-    tps: ITrainingPoints
+    eps: IValues<Number>,
+    tps: IValues<Number>
   ) {
     this.eps = eps;
     this.tps = tps;
   }
 
   public points(): IAwp[] {
-    if (this.tps.points().length !== this.eps.points().length) throw new Error(`Length of TPs and EPs array differ. Cannot calculate array of awp points.`);
+    if (this.tps.values().length !== this.eps.values().length)
+      throw new Error(`Length of TPs and EPs array differ. Cannot calculate array of awp points.`);
+
     return this
       .eps
-      .points()
-      .map((ep, i) => new AwpByEpTp(ep, this.tps.points()[i]));
+      .values()
+      .map((ep, i) => new AwpByEpTp(ep, this.tps.values()[i]));
+  }
+}
+
+export class AwpPointsBySplittedString implements IAwpPoints {
+  private readonly splittedStrings: ISplitStrings<Number, Number>;
+
+  constructor(
+    splittedString: ISplitStrings<Number, Number>
+  ) {
+    this.splittedStrings = splittedString;
+  }
+
+  public points(): IAwp[] {
+    return new AwpPointsByEpTp(this.splittedStrings.firstValues(), this.splittedStrings.secondValues()).points();
   }
 }
