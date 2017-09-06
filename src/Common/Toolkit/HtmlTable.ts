@@ -64,10 +64,13 @@ export class HtmlTable implements IHtmlTable {
       colgroup[0].insertBefore(newColgroupCell, this.columnGroups()[0].children[column.index().valueOf()]);
     }
     // add header values
-    let newCell = window.document.createElement("th");
-    this.tableHeader().rows[0].insertBefore(newCell, this.tableHeader().rows[0].children[column.index().valueOf()]);
-    column.header().attributes().forEach(a => newCell.setAttribute(a.name().toString(), a.value().toString()));
-    column.header().childElements().forEach(e => newCell.appendChild(e));
+    let tHead = this.tableHeader();
+    if (tHead) {
+      let newCell = window.document.createElement("th");
+      this.tableHeader().rows[0].insertBefore(newCell, this.tableHeader().rows[0].children[column.index().valueOf()]);
+      column.header().attributes().forEach(a => newCell.setAttribute(a.name().toString(), a.value().toString()));
+      column.header().childElements().forEach(e => newCell.appendChild(e));
+    }
     column.columnElements()
       .forEach((element: IHtmlElementWithChilds, i: number) => {
         let newCell = table.firstTableBody().rows[i].insertCell(column.index().valueOf());
