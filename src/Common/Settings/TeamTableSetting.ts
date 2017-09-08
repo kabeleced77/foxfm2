@@ -1,28 +1,39 @@
-import { ISetting } from "../Toolkit/Setting"
-import { ITeamTable } from "../TeamTable"
-import { TeamTable } from "../TeamTable"
-import { StorageLocal } from "../Toolkit/StorageLocal";
-import { SettingNameTeamTable } from "./SettingNameTeamTable";
-
 export interface ITeamTableSetting {
-  setting(): Promise<ITeamTable>;
+  extendStrengthColumnActivated(): Boolean;
+  addAwpDiffColumnActivated(): Boolean;
+  addNextStrengthColumnActivated(): Boolean;
+  fromJson(jsonString: String): ITeamTableSetting;
 }
 
 export class TeamTableSetting implements ITeamTableSetting {
-  private teamTableSetting: ISetting<ITeamTable>;
+  private readonly extendStrengthColumn: Boolean;
+  private readonly addAwpDiffColumn: Boolean;
+  private readonly addNextStrengthColumn: Boolean;
 
-  constructor() {
-    this.teamTableSetting = new StorageLocal<ITeamTable>(
-      new SettingNameTeamTable(),
-      new TeamTable(
-        true,
-        true,
-        true
-      )
-    );
+  constructor(
+    extendStrengthColumn: Boolean,
+    addAwpDiffColumn: Boolean,
+    addNextStrengthColumn: Boolean,
+  ) {
+    this.extendStrengthColumn = extendStrengthColumn;
+    this.addAwpDiffColumn = addAwpDiffColumn;
+    this.addNextStrengthColumn = addNextStrengthColumn;
   }
 
-  public setting(): Promise<ITeamTable> {
-    return this.teamTableSetting.value();
+  public extendStrengthColumnActivated(): Boolean {
+    return this.extendStrengthColumn;
+  }
+  public addAwpDiffColumnActivated(): Boolean {
+    return this.addAwpDiffColumn;
+  }
+  public addNextStrengthColumnActivated(): Boolean {
+    return this.addNextStrengthColumn;
+  }
+  public fromJson(jsonString: String): ITeamTableSetting {
+    return new TeamTableSetting(
+      jsonString["extendStrengthColumn"],
+      jsonString["addAwpDiffColumn"],
+      jsonString["addNextStrengthColumn"]
+    )
   }
 }

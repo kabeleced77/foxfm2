@@ -14,7 +14,7 @@ import { HtmlElementWithChilds } from "./Toolkit/HtmlElementWithChilds";
 export class TeamPlayerTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;
   private readonly strengthColumn: IHtmlTableColumnByXpath;
-  private readonly teamTableSettings: ITeamTableSetting;
+  private readonly teamTableSettings: ISetting<ITeamTableSetting>;
   private readonly strengthLevels: IStrengthLevels;
   private readonly log: IEasyLogger;
 
@@ -22,7 +22,7 @@ export class TeamPlayerTable implements IWebElementToExtend {
     table: IHtmlTable,
     strengthColumn: IHtmlTableColumnByXpath,
     strengthLevels: IStrengthLevels,
-    teamTableSettings: ITeamTableSetting,
+    teamTableSettings: ISetting<ITeamTableSetting>,
     log: IEasyLogger
   ) {
     this.table = table;
@@ -35,7 +35,7 @@ export class TeamPlayerTable implements IWebElementToExtend {
   public extend(): void {
     this.log.info("start extension");
     this.teamTableSettings
-      .setting()
+      .value()
       .then(setting => {
         let extendStrength = setting.extendStrengthColumnActivated();
         let addAwpDiff = setting.addAwpDiffColumnActivated();

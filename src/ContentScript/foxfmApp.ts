@@ -5,7 +5,7 @@ import { LogLevelError, ILogLevel } from '../Common/Logger/LogLevel';
 import { StadiumManagerUi } from "./Stadium/StadiumManagerUi"
 import { TeamWebPage } from "./Team/TeamWebPage"
 import { StrengthsLimitsSetting } from "../Common/Settings/StrengthsLimitsSetting"
-import { TeamTableSetting } from "../Common/Settings/TeamTableSetting"
+import { TeamTableSetting, ITeamTableSetting } from "../Common/Settings/TeamTableSetting"
 import { TransferOfferWebPage } from "./TransferMarket/TransferOfferWebPage"
 import { TransferOfferTableSettings, ITransferOfferTableSettings } from "../Common/Settings/TransferOfferTableSettings";
 import { XPathHtmlTableCell2, XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell";
@@ -54,6 +54,7 @@ import { TransferOfferTable } from "./TransferMarket/TransferOfferTable";
 import { TransferMarketSearchResultTableSettings, ITransferMarketSearchResultTableSettings } from "../Common/Settings/TransferMarketSearchResultTableSettings";
 import { HtmlTableColumnStringValues } from "../Common/Toolkit/HtmlTableColumnStringValues";
 import { SplitStringsToNumbers } from "../Common/Toolkit/SplitStrings";
+import { SettingNameTeamTable } from "../Common/Settings/SettingNameTeamTable";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -244,7 +245,12 @@ var app = new foxfmApp(
                         new XPathAllResults(
                           window.document,
                           new XPathString('//*[@id="playerTable"]/thead/tr/th[14]')))))))),
-            new TeamTableSetting(),
+            new StorageLocal<ITeamTableSetting>(
+              new SettingNameTeamTable(),
+              new TeamTableSetting(
+                true,
+                true,
+                true)),
             new EasyLogger(
               logger,
               new RegisteredLoggingModule(
