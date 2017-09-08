@@ -128,8 +128,6 @@ var app = new foxfmApp(
                       new XPathAllResults(
                         window.document,
                         new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
-              // TODO: AWPs by TPs / EPs from single cell
-              //*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[3]/td[6]
               new AwpPointsBySplittedString(
                 new SplitStringsToNumbers(
                   new HtmlTableColumnStringValues(
