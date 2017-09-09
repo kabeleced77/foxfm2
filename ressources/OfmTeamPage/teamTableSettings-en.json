@@ -1,0 +1,14 @@
+{
+  "teamTableSettings_header": {
+    "message": "Settings for the  team table"
+  },
+  "teamTableSettings_extendColumnStrength": {
+    "message": "Extend column 'Strength' with actual strength value."
+  },
+  "teamTableSettings_addColumnAwpDiff": {
+    "message": "Add column 'AWP Diff' to see the missing AWPs to next expected player strength."
+  },
+  "teamTableSettings_addColumnNextStrength": {
+    "message": "Add column 'Next Strength' to the see the next expected player strength. If activated column 'AWP Diff' shows the missing AWPs to that strength."
+  }
+}

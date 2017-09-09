@@ -40,3 +40,7 @@ export class RessourceStadiumOffsetPriceLeague extends Ressource { constructor()
 export class RessourceStadiumOffsetPriceFriendly extends Ressource { constructor() { super("offsetPriceFriendly"); } }
 export class RessourceStadiumOffsetPriceCup extends Ressource { constructor() { super("offsetPriceCup"); } }
 
+export class RessourceTeamTableSettingsHeader extends Ressource { constructor() { super("teamTableSettings_header"); } }
+export class RessourceTeamTableSettingsExtendColumnStrength extends Ressource { constructor() { super("teamTableSettings_extendColumnStrength"); } }
+export class RessourceTeamTableSettingsAddColumnAwpDiff extends Ressource { constructor() { super("teamTableSettings_addColumnAwpDiff"); } }
+export class RessourceTeamTableSettingsAddColumnNextStrength extends Ressource { constructor() { super("teamTableSettings_addColumnNextStrength"); } }
