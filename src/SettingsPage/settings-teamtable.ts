@@ -60,7 +60,12 @@ export class SettingsTeam {
   }
 
   submit() {
-    this.log.debug("test");
-    // this.teamTableSettings.changeBlockEntryPricesOffsetStatus(this.stadiumOffsetPricesActivated);
+    this.log.debug(`extend col strength: ${this.extendColumngStrengthActivated}, add col AWP Diff: ${this.addColumngAwpDiffActivated}, add col next strength: ${this.addColumnNextStrengthActivated}`);
+
+    this.teamTableSettings
+      .save(new TeamTableSetting(
+        this.extendColumngStrengthActivated,
+        this.addColumngAwpDiffActivated,
+        this.addColumnNextStrengthActivated));
   }
 }
