@@ -18,6 +18,8 @@ export class Ressource implements IRessource {
   }
 }
 
+export class RessourceCommonButtonApply extends Ressource { constructor() { super("common_buttonApply"); } }
+
 export class RessourceSettingsPageAddonName extends Ressource { constructor() { super("addonName"); } }
 export class RessourceSettingsPageIntro extends Ressource { constructor() { super("settingsIntro"); } }
 
