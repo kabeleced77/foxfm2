@@ -14,7 +14,7 @@ import { StadiumEntryPrice } from '../Common/StadiumEntryPrice';
 import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/GameKind';
 import { RessourceStadiumHeading } from "../Common/Ressource"
 import { RessourceStadiumAddOverallPrices } from "../Common/Ressource"
-import { RessourceStadiumAddOffsetPrices } from "../Common/Ressource"
+import { RessourceStadiumAddOffsetPrices, RessourceCommonButtonApply } from "../Common/Ressource"
 import { Mutex } from "../Common/Toolkit/Mutex";
 import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
 import { StorageLocal } from "../Common/Toolkit/StorageLocal";
@@ -30,6 +30,7 @@ export class SettingsStadium {
   ressourceHeading: String;
   ressourceStadiumAddOverallPrices: String;
   ressourceStadiumAddOffsetPrices: String;
+  ressourceButtonApply: String;
   stadiumOverallPricesActivated: Boolean;
   stadiumOffsetPricesActivated: Boolean;
 
@@ -60,6 +61,7 @@ export class SettingsStadium {
     this.ressourceHeading = new RessourceStadiumHeading().value();
     this.ressourceStadiumAddOverallPrices = new RessourceStadiumAddOverallPrices().value();
     this.ressourceStadiumAddOffsetPrices = new RessourceStadiumAddOffsetPrices().value();
+    this.ressourceButtonApply = new RessourceCommonButtonApply().value();
   }
 
   submit() {
