@@ -42,11 +42,13 @@ export class RessourceStadiumOffsetPriceLeague extends Ressource { constructor()
 export class RessourceStadiumOffsetPriceFriendly extends Ressource { constructor() { super("offsetPriceFriendly"); } }
 export class RessourceStadiumOffsetPriceCup extends Ressource { constructor() { super("offsetPriceCup"); } }
 
+export class RessourceTeamTableSettingsMenu extends Ressource { constructor() { super("teamTableSettings_menu"); } }
 export class RessourceTeamTableSettingsHeader extends Ressource { constructor() { super("teamTableSettings_header"); } }
 export class RessourceTeamTableSettingsExtendColumnStrength extends Ressource { constructor() { super("teamTableSettings_extendColumnStrength"); } }
 export class RessourceTeamTableSettingsAddColumnAwpDiff extends Ressource { constructor() { super("teamTableSettings_addColumnAwpDiff"); } }
 export class RessourceTeamTableSettingsAddColumnNextStrength extends Ressource { constructor() { super("teamTableSettings_addColumnNextStrength"); } }
 
+export class RessourceTransferMarketOfferTableSettingsMenu extends Ressource { constructor() { super("transferMarketOfferTableSettings_menu"); } }
 export class RessourceTransferMarketOfferTableSettingsHeader extends Ressource { constructor() { super("transferMarketOfferTableSettings_header"); } }
 export class RessourceTransferMarketOfferTableSettingsExtendColumnStrength extends Ressource { constructor() { super("transferMarketOfferTableSettings_extendColumnStrength"); } }
 export class RessourceTransferMarketOfferTableSettingsAddColumnAwpDiff extends Ressource { constructor() { super("transferMarketOfferTableSettings_addColumnAwpDiff"); } }

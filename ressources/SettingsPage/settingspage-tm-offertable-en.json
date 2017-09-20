@@ -1,4 +1,7 @@
 {
+  "transferMarketOfferTableSettings_menu": {
+    "message": "TM Offer"
+  },
   "transferMarketOfferTableSettings_header": {
     "message": "Settings for the table to put players on the transfer market."
   },
