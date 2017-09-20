@@ -46,3 +46,8 @@ export class RessourceTeamTableSettingsHeader extends Ressource { constructor() 
 export class RessourceTeamTableSettingsExtendColumnStrength extends Ressource { constructor() { super("teamTableSettings_extendColumnStrength"); } }
 export class RessourceTeamTableSettingsAddColumnAwpDiff extends Ressource { constructor() { super("teamTableSettings_addColumnAwpDiff"); } }
 export class RessourceTeamTableSettingsAddColumnNextStrength extends Ressource { constructor() { super("teamTableSettings_addColumnNextStrength"); } }
+
+export class RessourceTransferMarketOfferTableSettingsHeader extends Ressource { constructor() { super("transferMarketOfferTableSettings_header"); } }
+export class RessourceTransferMarketOfferTableSettingsExtendColumnStrength extends Ressource { constructor() { super("transferMarketOfferTableSettings_extendColumnStrength"); } }
+export class RessourceTransferMarketOfferTableSettingsAddColumnAwpDiff extends Ressource { constructor() { super("transferMarketOfferTableSettings_addColumnAwpDiff"); } }
+export class RessourceTransferMarketOfferTableSettingsAddColumnNextStrength extends Ressource { constructor() { super("transferMarketOfferTableSettings_addColumnNextStrength"); } }
