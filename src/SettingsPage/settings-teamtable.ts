@@ -15,7 +15,6 @@ import { ISetting } from '../Common/Toolkit/Setting';
 import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
 
 export class SettingsTeam {
-  private thisModule: string = "SettingsTeam";
   private log: IEasyLogger;
   private teamTableSettings: ISetting<ITeamTableSetting>;
 
