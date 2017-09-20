@@ -3,12 +3,12 @@
     "message": "Einstellungen für die Team Tabelle"
   },
   "teamTableSettings_extendColumnStrength": {
-    "message": "Erweitere 'Stärke' Spalte um die aktuelle Stärke."
+    "message": "Erweitere die 'Stärke' Spalte um die aktuelle Stärke."
   },
   "teamTableSettings_addColumnAwpDiff": {
-    "message": "Füge Spalte 'AWP Diff' hinzu, um die noch fehlenden AWPs zur nächsten Stärek anzuzeigen."
+    "message": "Füge die Spalte 'AWP Diff' hinzu. Es werden die noch fehlenden AWPs zur nächsten Stärke angezeigt."
   },
   "teamTableSettings_addColumnNextStrength": {
-    "message": "Füge Spalte 'Nächste Stärke' hinzu, um die nächte zu erwartende Spielerstärke anzuzeigen. Wenn aktiviert zeigt die Spalte 'AWP Diff' die noch fehlenden AWPs bis diese Stärke erreicht ist."
+    "message": "Füge die Spalte 'Nächste Stärke' hinzu. Es wird die nächste zu erwartende Spielerstärke angezeigt. Wenn aktiviert zeigt die Spalte 'AWP Diff' die noch fehlenden AWPs zu dieser Stärke an."
   }
 }
