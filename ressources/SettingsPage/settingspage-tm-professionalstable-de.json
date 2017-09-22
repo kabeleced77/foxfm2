@@ -1,0 +1,17 @@
+{
+  "transferMarketProfessionalsTableSettings_menu": {
+    "message": "TM Profis"
+  },
+  "transferMarketProfessionalsTableSettings_header": {
+    "message": "Einstellungen für die Tabelle, um Spieler vom Transfermarkt zu ersteigern"
+  },
+  "transferMarketProfessionalsTableSettings_extendColumnStrength": {
+    "message": "Erweitere die 'Stärke' Spalte um die aktuelle Stärke."
+  },
+  "transferMarketProfessionalsTableSettings_addColumnAwpDiff": {
+    "message": "Füge die Spalte 'AWP Diff' hinzu. Es werden die noch fehlenden AWPs zur nächsten Stärke angezeigt."
+  },
+  "transferMarketProfessionalsTableSettings_addColumnNextStrength": {
+    "message": "Füge die Spalte 'Nächste Stärke' hinzu. Es wird die nächste zu erwartende Spielerstärke angezeigt. Wenn aktiviert zeigt die Spalte 'AWP Diff' die noch fehlenden AWPs zu dieser Stärke an."
+  }
+}

@@ -53,3 +53,9 @@ export class RessourceTransferMarketOfferTableSettingsHeader extends Ressource {
 export class RessourceTransferMarketOfferTableSettingsExtendColumnStrength extends Ressource { constructor() { super("transferMarketOfferTableSettings_extendColumnStrength"); } }
 export class RessourceTransferMarketOfferTableSettingsAddColumnAwpDiff extends Ressource { constructor() { super("transferMarketOfferTableSettings_addColumnAwpDiff"); } }
 export class RessourceTransferMarketOfferTableSettingsAddColumnNextStrength extends Ressource { constructor() { super("transferMarketOfferTableSettings_addColumnNextStrength"); } }
+
+export class RessourceTransferMarketProfessionalsTableSettingsMenu extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_menu"); } }
+export class RessourceTransferMarketProfessionalsTableSettingsHeader extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_header"); } }
+export class RessourceTransferMarketProfessionalsTableSettingsExtendColumnStrength extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_extendColumnStrength"); } }
+export class RessourceTransferMarketProfessionalsTableSettingsAddColumnAwpDiff extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_addColumnAwpDiff"); } }
+export class RessourceTransferMarketProfessionalsTableSettingsAddColumnNextStrength extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_addColumnNextStrength"); } }
