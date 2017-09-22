@@ -1,12 +1,13 @@
 import { Router, RouterConfiguration } from 'aurelia-router'
 import { RessourceStadium } from "../Common/Ressource"
-import { RessourceSettingsPageAddonName, RessourceTeamTableSettingsMenu, RessourceTransferMarketOfferTableSettingsMenu } from "../Common/Ressource"
+import { RessourceSettingsPageAddonName, RessourceTeamTableSettingsMenu, RessourceTransferMarketOfferTableSettingsMenu, RessourceTransferMarketProfessionalsTableSettingsMenu } from "../Common/Ressource"
 
 export class App {
   router: Router;
   ressourceSettingsPageAddonName: string;
   ressourceStadium: string;
   ressourceTeamTable: string;
+  ressourceTmProfessionals: string;
   ressourceTMOffers: string;
   ressourceTMPros: string;
   ressourceTMAmateur: string;
@@ -15,6 +16,7 @@ export class App {
     this.ressourceSettingsPageAddonName = new RessourceSettingsPageAddonName().value().valueOf();
     this.ressourceStadium = new RessourceStadium().value().valueOf();
     this.ressourceTeamTable = new RessourceTeamTableSettingsMenu().value().valueOf();
+    this.ressourceTmProfessionals = new RessourceTransferMarketProfessionalsTableSettingsMenu().value().valueOf();
     this.ressourceTMOffers = new RessourceTransferMarketOfferTableSettingsMenu().value().valueOf();
   }
 
@@ -27,7 +29,7 @@ export class App {
       { route: 'SettingsPage/settings-teamtable', name: 'settings-teamtable', moduleId: 'SettingsPage/settings-teamtable', nav: true, title: this.ressourceTeamTable },
       { route: 'SettingsPage/settings-tm-offer-table', name: 'settings-tm-offer-table', moduleId: 'SettingsPage/settings-tm-offer-table', nav: true, title: this.ressourceTMOffers },
       { route: 'SettingsPage/settings-tm-amateur-table', name: 'settings-tm-amateur-table', moduleId: 'SettingsPage/settings-tm-amateur-table', nav: true, title: "TM Amateurs" },
-      { route: 'SettingsPage/settings-tm-pro-table', name: 'settings-tm-pro-table', moduleId: 'SettingsPage/settings-tm-pro-table', nav: true, title: "TM Professionals" }
+      { route: 'SettingsPage/settings-tm-pro-table', name: 'settings-tm-pro-table', moduleId: 'SettingsPage/settings-tm-pro-table', nav: true, title: this.ressourceTmProfessionals }
     ]);
 
     this.router = router;

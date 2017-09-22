@@ -12,7 +12,7 @@ import { TeamTableSetting, ITeamTableSetting } from '../Common/Settings/TeamTabl
 import { SettingNameTeamTable } from '../Common/Settings/SettingNameTeamTable';
 import { ISetting } from '../Common/Toolkit/Setting';
 import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
-import { RessourceTransferMarketOfferTableSettingsHeader, RessourceTransferMarketOfferTableSettingsExtendColumnStrength, RessourceTransferMarketOfferTableSettingsAddColumnAwpDiff, RessourceTransferMarketOfferTableSettingsAddColumnNextStrength, RessourceCommonButtonApply, RessourceTransferMarketProfessionalsTableSettingsAddColumnNextStrength, RessourceTransferMarketProfessionalsTableSettingsAddColumnAwpDiff, RessourceTransferMarketProfessionalsTableSettingsExtendColumnStrength, RessourceTransferMarketProfessionalsTableSettingsHeader } from '../Common/Ressource';
+import { RessourceCommonButtonApply, RessourceTransferMarketProfessionalsTableSettingsHeader, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength } from '../Common/Ressource';
 import { ITransferMarketSearchResultTableSettings, TransferMarketSearchResultTableSettings } from '../Common/Settings/TransferMarketSearchResultTableSettings';
 import { SettingNameTransferMarketProfessionalsSearchResultTable } from '../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable';
 
@@ -50,9 +50,9 @@ export class SettingsTransferMarketProfessionalTable {
       new TransferMarketSearchResultTableSettings(true, true, true));
 
     this.ressourceHeading = new RessourceTransferMarketProfessionalsTableSettingsHeader().value();
-    this.ressourceExtendColumngStrength = new RessourceTransferMarketProfessionalsTableSettingsExtendColumnStrength().value();
-    this.ressourceAddColumnAwpDiff = new RessourceTransferMarketProfessionalsTableSettingsAddColumnAwpDiff().value();
-    this.ressourceAddColumnNextStrength = new RessourceTransferMarketProfessionalsTableSettingsAddColumnNextStrength().value();
+    this.ressourceExtendColumngStrength = new RessourceCommonSettingsExtendColumnStrength().value();
+    this.ressourceAddColumnAwpDiff = new RessourceCommonSettingsAddColumnAwpDiff().value();
+    this.ressourceAddColumnNextStrength = new RessourceCommonSettingsAddColumnNextStrength().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
 
     this.settings.value().then(settings => {

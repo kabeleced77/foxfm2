@@ -14,7 +14,7 @@ import { ISetting } from '../Common/Toolkit/Setting';
 import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
 import { ITransferOfferTableSettings, TransferOfferTableSettings } from '../Common/Settings/TransferOfferTableSettings';
 import { SettingNameTransferTablePossibleOffers } from '../Common/Settings/SettingNameTransferTablePossibleOffers';
-import { RessourceTransferMarketOfferTableSettingsHeader, RessourceTransferMarketOfferTableSettingsExtendColumnStrength, RessourceTransferMarketOfferTableSettingsAddColumnAwpDiff, RessourceTransferMarketOfferTableSettingsAddColumnNextStrength, RessourceCommonButtonApply } from '../Common/Ressource';
+import { RessourceTransferMarketOfferTableSettingsHeader, RessourceCommonButtonApply, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength } from '../Common/Ressource';
 
 export class SettingsTransferMarketOfferTable {
   private log: IEasyLogger;
@@ -50,9 +50,9 @@ export class SettingsTransferMarketOfferTable {
       new TransferOfferTableSettings(true, true, true));
 
     this.ressourceHeading = new RessourceTransferMarketOfferTableSettingsHeader().value();
-    this.ressourceExtendColumngStrength = new RessourceTransferMarketOfferTableSettingsExtendColumnStrength().value();
-    this.ressourceAddColumnAwpDiff = new RessourceTransferMarketOfferTableSettingsAddColumnAwpDiff().value();
-    this.ressourceAddColumnNextStrength = new RessourceTransferMarketOfferTableSettingsAddColumnNextStrength().value();
+    this.ressourceExtendColumngStrength = new RessourceCommonSettingsExtendColumnStrength().value();
+    this.ressourceAddColumnAwpDiff = new RessourceCommonSettingsAddColumnAwpDiff().value();
+    this.ressourceAddColumnNextStrength = new RessourceCommonSettingsAddColumnNextStrength().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
 
     this.settings.value().then(settings => {

@@ -3,7 +3,7 @@ import { RegisteredLoggingModule, IRegisteredLoggingModule } from '../Common/Log
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/Logger/RegisteredLoggingModules";
 import { ILogLevel } from '../Common/Logger/LogLevel';
 import { LogLevelError } from '../Common/Logger/LogLevel';
-import { RessourceTeamTableSettingsHeader, RessourceTeamTableSettingsExtendColumnStrength, RessourceTeamTableSettingsAddColumnAwpDiff, RessourceTeamTableSettingsAddColumnNextStrength, RessourceCommonButtonApply } from "../Common/Ressource"
+import { RessourceTeamTableSettingsHeader, RessourceCommonButtonApply, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength } from "../Common/Ressource"
 import { Mutex } from "../Common/Toolkit/Mutex";
 import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
 import { StorageLocal } from "../Common/Toolkit/StorageLocal";
@@ -48,9 +48,9 @@ export class SettingsTeam {
       new TeamTableSetting(true, true, true));
 
     this.ressourceHeading = new RessourceTeamTableSettingsHeader().value();
-    this.ressourceExtendColumngStrength = new RessourceTeamTableSettingsExtendColumnStrength().value();
-    this.ressourceAddColumnAwpDiff = new RessourceTeamTableSettingsAddColumnAwpDiff().value();
-    this.ressourceAddColumnNextStrength = new RessourceTeamTableSettingsAddColumnNextStrength().value();
+    this.ressourceExtendColumngStrength = new RessourceCommonSettingsExtendColumnStrength().value();
+    this.ressourceAddColumnAwpDiff = new RessourceCommonSettingsAddColumnAwpDiff().value();
+    this.ressourceAddColumnNextStrength = new RessourceCommonSettingsAddColumnNextStrength().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
 
     this.teamTableSettings.value().then(settings => {

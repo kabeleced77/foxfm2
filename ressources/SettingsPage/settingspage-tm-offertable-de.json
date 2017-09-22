@@ -4,14 +4,5 @@
   },
   "transferMarketOfferTableSettings_header": {
     "message": "Einstellungen für die Tabelle, um Spieler auf den Transfermarkt zu stellen"
-  },
-  "transferMarketOfferTableSettings_extendColumnStrength": {
-    "message": "Erweitere die 'Stärke' Spalte um die aktuelle Stärke."
-  },
-  "transferMarketOfferTableSettings_addColumnAwpDiff": {
-    "message": "Füge die Spalte 'AWP Diff' hinzu. Es werden die noch fehlenden AWPs zur nächsten Stärke angezeigt."
-  },
-  "transferMarketOfferTableSettings_addColumnNextStrength": {
-    "message": "Füge die Spalte 'Nächste Stärke' hinzu. Es wird die nächste zu erwartende Spielerstärke angezeigt. Wenn aktiviert zeigt die Spalte 'AWP Diff' die noch fehlenden AWPs zu dieser Stärke an."
   }
 }
