@@ -42,9 +42,10 @@ export class RessourceStadiumOffsetPriceLeague extends Ressource { constructor()
 export class RessourceStadiumOffsetPriceFriendly extends Ressource { constructor() { super("offsetPriceFriendly"); } }
 export class RessourceStadiumOffsetPriceCup extends Ressource { constructor() { super("offsetPriceCup"); } }
 
-export class RessourceCommonSettingsExtendColumnStrength extends Ressource { constructor() { super("commonSettings_extendColumnStrength"); } }
+export class RessourceCommonSettingsAddColumnAwp extends Ressource { constructor() { super("commonSettings_addColumnAwp"); } }
 export class RessourceCommonSettingsAddColumnAwpDiff extends Ressource { constructor() { super("commonSettings_addColumnAwpDiff"); } }
 export class RessourceCommonSettingsAddColumnNextStrength extends Ressource { constructor() { super("commonSettings_addColumnNextStrength"); } }
+export class RessourceCommonSettingsExtendColumnStrength extends Ressource { constructor() { super("commonSettings_extendColumnStrength"); } }
 
 export class RessourceTeamTableSettingsMenu extends Ressource { constructor() { super("teamTableSettings_menu"); } }
 export class RessourceTeamTableSettingsHeader extends Ressource { constructor() { super("teamTableSettings_header"); } }
@@ -54,3 +55,6 @@ export class RessourceTransferMarketOfferTableSettingsHeader extends Ressource {
 
 export class RessourceTransferMarketProfessionalsTableSettingsMenu extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_menu"); } }
 export class RessourceTransferMarketProfessionalsTableSettingsHeader extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_header"); } }
+
+export class RessourceTransferMarketAmateurTableSettingsMenu extends Ressource { constructor() { super("transferMarketAmateurTableSettings_menu"); } }
+export class RessourceTransferMarketAmateurTableSettingsHeader extends Ressource { constructor() { super("transferMarketAmateurTableSettings_header"); } }
