@@ -2,7 +2,7 @@ import { IUrl } from "../../Common/Toolkit/Url";
 import { IWebPageToExtend } from "../../Common/Toolkit/WebPageToExtend";
 import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
 
-export class TransferMarketSearchWebPage implements IWebPageToExtend {
+export class TransferMarketProfessionalWebPage implements IWebPageToExtend {
   private webPageUrl: IUrl;
   private searchResultTable: IWebElementToExtend;
 
