@@ -8,7 +8,6 @@ import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLogging
 import { StorageLocal } from "../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
-import { TeamTableSetting, ITeamTableSetting } from '../Common/Settings/TeamTableSetting';
 import { SettingNameTeamTable } from '../Common/Settings/SettingNameTeamTable';
 import { ISetting } from '../Common/Toolkit/Setting';
 import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
@@ -66,7 +65,7 @@ export class SettingsTransferMarketProfessionalTable {
     this.log.debug(`extend col strength: ${this.extendColumngStrengthActivated}, add col AWP Diff: ${this.addColumngAwpDiffActivated}, add col next strength: ${this.addColumnNextStrengthActivated}`);
 
     this.settings
-      .save(new TeamTableSetting(
+      .save(new TransferMarketSearchResultTableSettings(
         this.extendColumngStrengthActivated,
         this.addColumngAwpDiffActivated,
         this.addColumnNextStrengthActivated));
