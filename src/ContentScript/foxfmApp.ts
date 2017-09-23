@@ -313,6 +313,8 @@ var app = new foxfmApp(
               new SettingNameTransferMarketAmateurTable(),
               new TransferMarketAmateurPlayerTableExtensionSetting(
                 true,
+                true,
+                true,
                 true)),
             new EasyLogger(
               logger,

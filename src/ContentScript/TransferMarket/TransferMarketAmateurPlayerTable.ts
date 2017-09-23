@@ -38,7 +38,7 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
     this.amateurPlayerTableSettings
       .value()
       .then(setting => {
-        if (setting.addAwpColumn()) {
+        if (setting.addAwpColumnActivated()) {
           this.strengthLevels
             .strengthLevels()
             .then((strengthLevels: IStrengthLevel[]) => {

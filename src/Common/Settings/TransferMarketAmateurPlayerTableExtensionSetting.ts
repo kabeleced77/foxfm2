@@ -1,32 +1,47 @@
 export interface ITransferMarketAmateurPlayerTableExtensionSetting {
-  addAwpColumn(): Boolean;
-  extendStrengthColumn(): Boolean;
+  addAwpColumnActivated(): Boolean;
+  extendStrengthColumnActivated(): Boolean;
+  addAwpDiffColumnActivated(): Boolean;
+  addNextStrengthColumnActivated(): Boolean;
   fromJson(jsonString: String): ITransferMarketAmateurPlayerTableExtensionSetting;
 }
 
 export class TransferMarketAmateurPlayerTableExtensionSetting implements ITransferMarketAmateurPlayerTableExtensionSetting {
-  private addAwpColumnField: Boolean;
-  private extendStrengthColumnField: Boolean;
+  private readonly addAwpColumn: Boolean;
+  private readonly addAwpDiffColumn: Boolean;
+  private readonly addNextStrengthColumn: Boolean;
+  private readonly extendStrengthColumn: Boolean;
 
   constructor(
     addAwpColumn: Boolean,
-    extendStrengthColumn: Boolean,
+    addAwpDiffColumn: Boolean,
+    addNextStrengthColumn: Boolean,
+    extendStrengthColumn: Boolean
   ) {
-    this.addAwpColumnField = addAwpColumn;
-    this.extendStrengthColumnField = extendStrengthColumn;
+    this.addAwpColumn = addAwpColumn;
+    this.addAwpDiffColumn = addAwpDiffColumn;
+    this.addNextStrengthColumn = addNextStrengthColumn;
+    this.extendStrengthColumn = extendStrengthColumn;
   }
 
-  public addAwpColumn(): Boolean {
-    return this.addAwpColumnField;
+  public addAwpColumnActivated(): Boolean {
+    return this.addAwpColumn;
   }
-  public extendStrengthColumn(): Boolean {
-    return this.extendStrengthColumnField;
+  public addAwpDiffColumnActivated(): Boolean {
+    return this.addAwpDiffColumn;
   }
-
+  public addNextStrengthColumnActivated(): Boolean {
+    return this.addNextStrengthColumn;
+  }
+  public extendStrengthColumnActivated(): Boolean {
+    return this.extendStrengthColumn;
+  }
   public fromJson(jsonString: String): TransferMarketAmateurPlayerTableExtensionSetting {
     return new TransferMarketAmateurPlayerTableExtensionSetting(
-      jsonString["addAwpColumnField"],
-      jsonString["extendStrengthColumnField"],
+      jsonString["addAwpColumn"],
+      jsonString["addAwpDiffColumn"],
+      jsonString["addNextStrengthColumn"],
+      jsonString["extendStrengthColumn"],
     );
   }
 }
