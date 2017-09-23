@@ -39,5 +39,8 @@
         "loadContentScript.js"
       ]
     }
-  ]
+  ],
+  "options_ui": {
+    "page": "settings.html"
+  }
 }
