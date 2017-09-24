@@ -14,7 +14,7 @@ import { XPathAllResults2, XPathAllResults } from "../Common/Toolkit/XPathAllRes
 import { XPathInformation, XPathString } from "../Common/Toolkit/XPathString";
 import { TransferOfferWebPageUrl } from "../Common/Urls/TransferOfferWebPageUrl";
 import { TransferMarketProfessionalWebPage } from "./TransferMarket/TransferMarketProfessionalWebPage";
-import { TransferMarketSearchResultTable } from "./TransferMarket/TransferMarketSearchResultTable";
+import { TransferMarketProfessionalPlayerTable } from "./TransferMarket/TransferMarketProfessionalPlayerTable";
 import { TransferMarketProfessionalsUiUrl } from "../Common/Urls/TransferMarketProfessionalsUiUrl";
 import { TransferMarketAmateurWebPageUrl } from "../Common/Urls/TransferMarketAmateurWebPageUrl";
 import { ExperienceAndTrainingColumn } from "../Common/ExperienceAndTrainingColumn";
@@ -105,7 +105,7 @@ var app = new foxfmApp(
         new Url(currentUrl),
         new TransferMarketProfessionalWebPage(
           new TransferMarketProfessionalsUiUrl(),
-          new TransferMarketSearchResultTable(
+          new TransferMarketProfessionalPlayerTable(
             new HtmlTable(
               new HtmlTableByXPath<HTMLTableCellElement>(
                 new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(

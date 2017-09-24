@@ -10,7 +10,7 @@ import { HtmlElementWithChilds, IHtmlElementWithChilds } from "../../Common/Tool
 import { IHtmlAttribute, HtmlAttribute } from "../../Common/Toolkit/HtmlAttribute";
 import { HtmlElement } from "../../Common/Toolkit/HtmlElement";
 
-export class TransferMarketSearchResultTable implements IWebElementToExtend {
+export class TransferMarketProfessionalPlayerTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;
   private readonly strengthColumn: IHtmlTableColumnByXpath;
   private readonly settings: ISetting<ITransferMarketSearchResultTableSettings>;
