@@ -35,7 +35,7 @@ import { Dom } from "../Common/Toolkit/Dom";
 import { ExtendWebPages, IExtendWebPages } from "../Common/Toolkit/ExtendWebPages";
 import { TeamWebPageUrl } from "../Common/Urls/TeamWebPageUrl";
 import { StadiumWebPageUrl } from "../Common/Urls/StadiumWebPageUrl";
-import { ITransferMarketAmateurPlayerTableExtensionSetting, TransferMarketAmateurPlayerTableExtensionSetting } from "../Common/Settings/TransferMarketAmateurPlayerTableExtensionSetting";
+import { ITransferMarketAmateurPlayerTableSettings, TransferMarketAmateurPlayerTableSettings } from "../Common/Settings/TransferMarketAmateurPlayerTableSettings";
 import { TransferMarketAmateurWebPage } from "./TransferMarket/TransferMarketAmateurWebPage";
 import { TransferMarketAmateurPlayerTable } from "./TransferMarket/TransferMarketAmateurPlayerTable";
 import { HtmlTable } from "../Common/Toolkit/HtmlTable";
@@ -309,9 +309,9 @@ var app = new foxfmApp(
                         new XPathAllResults(
                           window.document,
                           new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]')))))))),
-            new StorageLocal<ITransferMarketAmateurPlayerTableExtensionSetting>(
+            new StorageLocal<ITransferMarketAmateurPlayerTableSettings>(
               new SettingNameTransferMarketAmateurTable(),
-              new TransferMarketAmateurPlayerTableExtensionSetting(
+              new TransferMarketAmateurPlayerTableSettings(
                 true,
                 true,
                 true,

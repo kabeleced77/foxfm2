@@ -14,12 +14,12 @@ import { ISetting } from '../Common/Toolkit/Setting';
 import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
 import { RessourceCommonButtonApply, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength, RessourceCommonSettingsAddColumnAwp, RessourceTransferMarketAmateurTableSettingsHeader } from '../Common/Ressource';
 import { ITransferMarketSearchResultTableSettings, TransferMarketSearchResultTableSettings } from '../Common/Settings/TransferMarketSearchResultTableSettings';
-import { ITransferMarketAmateurPlayerTableExtensionSetting, TransferMarketAmateurPlayerTableExtensionSetting } from "../Common/Settings/TransferMarketAmateurPlayerTableExtensionSetting";
+import { ITransferMarketAmateurPlayerTableSettings, TransferMarketAmateurPlayerTableSettings } from "../Common/Settings/TransferMarketAmateurPlayerTableSettings";
 import { SettingNameTransferMarketAmateurTable } from "../Common/Settings/SettingNameTransferMarketAmateurTable";
 
 export class SettingsTransferMarketAmateurTable {
   private log: IEasyLogger;
-  private settings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>;
+  private settings: ISetting<ITransferMarketAmateurPlayerTableSettings>;
 
   public ressourceHeading: String;
   public ressourceAddColumnAwp: String;
@@ -48,9 +48,9 @@ export class SettingsTransferMarketAmateurTable {
         "SettingsTransferMarketAmateurTable",
         new LogLevelError()));
 
-    this.settings = new StorageLocal<ITransferMarketAmateurPlayerTableExtensionSetting>(
+    this.settings = new StorageLocal<ITransferMarketAmateurPlayerTableSettings>(
       new SettingNameTransferMarketAmateurTable(),
-      new TransferMarketAmateurPlayerTableExtensionSetting(true, true, true, true));
+      new TransferMarketAmateurPlayerTableSettings(true, true, true, true));
 
     this.ressourceHeading = new RessourceTransferMarketAmateurTableSettingsHeader().value();
     this.ressourceAddColumnAwp = new RessourceCommonSettingsAddColumnAwp().value();
@@ -71,7 +71,7 @@ export class SettingsTransferMarketAmateurTable {
     this.log.debug(`extend col strength: ${this.extendColumnStrengthActivated}, add col AWP Diff: ${this.addColumnAwpDiffActivated}, add col next strength: ${this.addColumnNextStrengthActivated}`);
 
     this.settings
-      .save(new TransferMarketAmateurPlayerTableExtensionSetting(
+      .save(new TransferMarketAmateurPlayerTableSettings(
         this.addColumnAwpActivated,
         this.addColumnAwpDiffActivated,
         this.addColumnNextStrengthActivated,

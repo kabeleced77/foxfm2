@@ -1,6 +1,5 @@
 import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
 import { ISetting } from "../../Common/Toolkit/Setting";
-import { ITransferMarketAmateurPlayerTableExtensionSetting } from "../../Common/Settings/TransferMarketAmateurPlayerTableExtensionSetting";
 import { IEasyLogger } from "../../Common/Logger/EasyLogger";
 import { IHtmlTable } from "../../Common/Toolkit/HtmlTable";
 import { HtmlTableColumn } from "../../Common/Toolkit/HtmlTableColumn";

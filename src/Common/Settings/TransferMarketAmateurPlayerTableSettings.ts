@@ -1,12 +1,12 @@
-export interface ITransferMarketAmateurPlayerTableExtensionSetting {
+export interface ITransferMarketAmateurPlayerTableSettings {
   addAwpColumnActivated(): Boolean;
   extendStrengthColumnActivated(): Boolean;
   addAwpDiffColumnActivated(): Boolean;
   addNextStrengthColumnActivated(): Boolean;
-  fromJson(jsonString: String): ITransferMarketAmateurPlayerTableExtensionSetting;
+  fromJson(jsonString: String): ITransferMarketAmateurPlayerTableSettings;
 }
 
-export class TransferMarketAmateurPlayerTableExtensionSetting implements ITransferMarketAmateurPlayerTableExtensionSetting {
+export class TransferMarketAmateurPlayerTableSettings implements ITransferMarketAmateurPlayerTableSettings {
   private readonly addAwpColumn: Boolean;
   private readonly addAwpDiffColumn: Boolean;
   private readonly addNextStrengthColumn: Boolean;
@@ -36,8 +36,8 @@ export class TransferMarketAmateurPlayerTableExtensionSetting implements ITransf
   public extendStrengthColumnActivated(): Boolean {
     return this.extendStrengthColumn;
   }
-  public fromJson(jsonString: String): TransferMarketAmateurPlayerTableExtensionSetting {
-    return new TransferMarketAmateurPlayerTableExtensionSetting(
+  public fromJson(jsonString: String): TransferMarketAmateurPlayerTableSettings {
+    return new TransferMarketAmateurPlayerTableSettings(
       jsonString["addAwpColumn"],
       jsonString["addAwpDiffColumn"],
       jsonString["addNextStrengthColumn"],

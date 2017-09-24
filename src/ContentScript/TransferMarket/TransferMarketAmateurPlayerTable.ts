@@ -1,6 +1,6 @@
 import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
 import { ISetting } from "../../Common/Toolkit/Setting";
-import { ITransferMarketAmateurPlayerTableExtensionSetting } from "../../Common/Settings/TransferMarketAmateurPlayerTableExtensionSetting";
+import { ITransferMarketAmateurPlayerTableSettings } from "../../Common/Settings/TransferMarketAmateurPlayerTableSettings";
 import { IEasyLogger } from "../../Common/Logger/EasyLogger";
 import { IHtmlTable } from "../../Common/Toolkit/HtmlTable";
 import { HtmlTableColumn } from "../../Common/Toolkit/HtmlTableColumn";
@@ -15,7 +15,7 @@ import { HtmlElementWithChilds } from "../../Common/Toolkit/HtmlElementWithChild
 export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;
   private readonly strengthColumn: IHtmlTableColumnByXpath;
-  private readonly amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>;
+  private readonly amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableSettings>;
   private readonly strengthLevels: IStrengthLevels;
   private readonly log: IEasyLogger;
 
@@ -23,7 +23,7 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
     table: IHtmlTable,
     strengthColumn: IHtmlTableColumnByXpath,
     strengthLevels: IStrengthLevels,
-    amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableExtensionSetting>,
+    amateurPlayerTableSettings: ISetting<ITransferMarketAmateurPlayerTableSettings>,
     log: IEasyLogger
   ) {
     this.table = table;
