@@ -315,12 +315,7 @@ var app = new foxfmApp(
                 true,
                 true,
                 true,
-                true)),
-            new EasyLogger(
-              logger,
-              new RegisteredLoggingModule(
-                "TransferMarketAmateurPlayerTable",
-                new LogLevelError())))),
+                true)))),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
