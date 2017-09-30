@@ -50,7 +50,7 @@ import { StrengthLevels } from "../Common/StrengthLevels";
 import { AwpPointsByEpTp, AwpPoints, AwpPointsBySplittedString } from "../Common/Toolkit/AwpPoints";
 import { StrengthValues } from "../Common/StrengthValues";
 import { TeamPlayerTable } from "../Common/TeamPlayerTable";
-import { TransferOfferTable } from "./TransferMarket/TransferOfferTable";
+import { TransferMarketOfferPlayerTable } from "./TransferMarket/TransferMarketOfferPlayerTable";
 import { TransferMarketSearchResultTableSettings, ITransferMarketSearchResultTableSettings } from "../Common/Settings/TransferMarketSearchResultTableSettings";
 import { HtmlTableColumnStringValues } from "../Common/Toolkit/HtmlTableColumnStringValues";
 import { SplitStringsToNumbers } from "../Common/Toolkit/SplitStrings";
@@ -158,7 +158,7 @@ var app = new foxfmApp(
         new Url(currentUrl),
         new TransferOfferWebPage(
           new TransferOfferWebPageUrl(),
-          new TransferOfferTable(
+          new TransferMarketOfferPlayerTable(
             new HtmlTable(
               new HtmlTableByXPath<HTMLTableCellElement>(
                 new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(

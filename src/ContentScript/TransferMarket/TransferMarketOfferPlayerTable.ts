@@ -13,7 +13,7 @@ import { ITeamTableSetting } from "../../Common/Settings/TeamTableSetting";
 import { HtmlElementWithChilds } from "../../Common/Toolkit/HtmlElementWithChilds";
 import { ITransferOfferTableSettings } from "../../Common/Settings/TransferOfferTableSettings";
 
-export class TransferOfferTable implements IWebElementToExtend {
+export class TransferMarketOfferPlayerTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;
   private readonly strengthColumn: IHtmlTableColumnByXpath;
   private readonly settings: ISetting<ITransferOfferTableSettings>;
