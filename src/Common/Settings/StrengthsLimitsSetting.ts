@@ -3,22 +3,14 @@ import { IStrengthLimits } from '../StrengthLimits'
 import { StrengthLimits } from '../StrengthLimits'
 import { IStrengthsLimits } from '../StrengthsLimits'
 import { StrengthsLimits } from '../StrengthsLimits'
-import { ISettingName } from "../Toolkit/SettingName";
 import { StorageLocal } from "../Toolkit/StorageLocal";
+import { SettingNameStrengthsLimits } from './SettingNameStrengthsLimits';
 
 export interface IStrengthsLimitsSetting {
   strengthsLimits(): Promise<IStrengthsLimits>;
   strengthLevel(strength: Number): Promise<IStrengthLimits>;
   changeStrengthsLimits(strengthsLimits: Array<IStrengthLimits>): void;
   changeStrengthLimits(strengthLimits: IStrengthLimits): void;
-}
-
-export class SettingNameStrengthsLimits implements ISettingName {
-  private settingName: String = "foxfm2.strengthsLimits";
-  constructor() { }
-  public name(): String {
-    return this.settingName;
-  }
 }
 
 export class StrengthsLimitsSetting implements IStrengthsLimitsSetting {
