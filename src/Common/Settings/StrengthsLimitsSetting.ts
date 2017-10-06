@@ -71,6 +71,13 @@ export class StrengthsLimitsSetting implements IStrengthsLimitsSetting {
   public changeStrengthsLimits(strengthLevelsLimits: Array<IStrengthLimits>): void {
   }
 
-  public changeStrengthLimits(strengthLevelLimits: IStrengthLimits): void {
+  public changeStrengthLimits(strengthLimits: IStrengthLimits): void {
+    this.strengthsLimits()
+      .then(strengthsLimits => {
+        this.strengthsLimitsSetting.update(strengthsLimits => {
+          strengthsLimits.update(strengthLimits);
+          return strengthsLimits;
+        });
+      });
   }
 }
