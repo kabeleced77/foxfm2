@@ -14,6 +14,8 @@ import { StorageLocal } from "../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
+import { StrengthsLimitsSetting, IStrengthsLimitsSetting } from '../Common/Settings/StrengthsLimitsSetting';
+import { IStrengthLimits } from '../Common/StrengthLimits';
 
 export class SettingsStrengthlevelLimits {
   private log: IEasyLogger;
@@ -22,6 +24,7 @@ export class SettingsStrengthlevelLimits {
   public ressourceIntro: String;
   public ressourceButtonApply: String;
   public strengthLevelLimits: String;
+  public strengthsLimits: StrengthLimits[];
 
   constructor() {
     this.log = new EasyLogger(new Logger(
@@ -41,6 +44,12 @@ export class SettingsStrengthlevelLimits {
     this.ressourceHeading = new RessourceSettingsPageLoggerHeading().value();
     this.ressourceIntro = new RessourceSettingsPageLoggerIntro().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
+
+    new StrengthsLimitsSetting()
+      .strengthsLimits()
+      .then(strengthsLimits => this.strengthsLimits = strengthsLimits
+        .strengthsLimits()
+        .map(strengthLimits => new StrengthLimits(strengthLimits.value(), strengthLimits.awpPoints())));
   }
 
   public submit() {
@@ -62,13 +71,6 @@ export class SettingsStrengthlevelLimits {
           var strengthlevelawps = parseInt(aStrengthlevel[i + 1], 10);
           if (strengthlevel > 0 && strengthlevel <= maxOFMLevel) {
             strDebug += strengthlevel + ' - ' + strengthlevelawps + '; ';
-            /*                prefPanelStrengthlevel = document.getElementById('tbStrlvl' + strengthlevel);
-                            if (prefPanelStrengthlevel) {
-                                prefPanelStrengthlevel.value = strengthlevelawps; // prefPanelStrengthlevel.oninput();
-                            } else {
-                                errorMessage('importStrengthlevel(): Could not clearly determine strengthlevel and correpsondent AWPs from given string: ' + strengthlevel + ': ' + strengthlevelawps);
-                            }
-                          */
           }
         }
         this.log.debug(strDebug);
@@ -76,5 +78,14 @@ export class SettingsStrengthlevelLimits {
     } else {
       throw new Error('ofm.strengthlevel.importerror');
     }
+  }
+}
+
+class StrengthLimits {
+  public strength: Number;
+  public awps: Number;
+  constructor(strength: Number, awps: Number) {
+    this.strength = strength;
+    this.awps = awps;
   }
 }

@@ -10,6 +10,25 @@
           ${ressourceButtonApply}
         </button>
       </div>
+
+      <table class="table table-striped">
+        <tr>
+          <th>
+            Strength
+          </th>
+          <th>
+            AWPs
+          </th>
+        </tr>
+        <tr repeat.for="strengthLimit of strengthsLimits">
+          <td>
+            ${strengthLimit.strength}
+          </td>
+          <td>
+            ${strengthLimit.awps}
+          </td>
+        </tr>
+      </table>
     </form>
   </section>
 </template>
