@@ -14,9 +14,12 @@ import { StorageLocal } from "../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
 import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
+import { IStrengthsLimitsSetting, StrengthsLimitsSetting } from '../Common/Settings/StrengthsLimitsSetting';
+import { StrengthLimits } from '../Common/StrengthLimits';
 
 export class SettingsStrengthlevelLimits {
   private log: IEasyLogger;
+  private strengthsLimitsSetting: IStrengthsLimitsSetting;
 
   public ressourceHeading: String;
   public ressourceIntro: String;
@@ -38,6 +41,8 @@ export class SettingsStrengthlevelLimits {
         "SettingsStrengthlevelLimits",
         new LogLevelError()));
 
+    this.strengthsLimitsSetting = new StrengthsLimitsSetting();
+
     this.ressourceHeading = new RessourceSettingsPageLoggerHeading().value();
     this.ressourceIntro = new RessourceSettingsPageLoggerIntro().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
@@ -49,7 +54,7 @@ export class SettingsStrengthlevelLimits {
     this.importStrengthLevelLimits(this.strengthLevelLimits);
   }
 
-  private importStrengthLevelLimits(strengthLevelLimitsString: String) {
+  private async importStrengthLevelLimits(strengthLevelLimitsString: String) {
     let maxOFMLevel = 27;
     var userinput = strengthLevelLimitsString.replace(/\./gm, '');
     if (userinput) {
@@ -62,13 +67,8 @@ export class SettingsStrengthlevelLimits {
           var strengthlevelawps = parseInt(aStrengthlevel[i + 1], 10);
           if (strengthlevel > 0 && strengthlevel <= maxOFMLevel) {
             strDebug += strengthlevel + ' - ' + strengthlevelawps + '; ';
-            /*                prefPanelStrengthlevel = document.getElementById('tbStrlvl' + strengthlevel);
-                            if (prefPanelStrengthlevel) {
-                                prefPanelStrengthlevel.value = strengthlevelawps; // prefPanelStrengthlevel.oninput();
-                            } else {
-                                errorMessage('importStrengthlevel(): Could not clearly determine strengthlevel and correpsondent AWPs from given string: ' + strengthlevel + ': ' + strengthlevelawps);
-                            }
-                          */
+            let currentStrengthLimits = await this.strengthsLimitsSetting.strengthLevel(strengthlevel);
+            this.strengthsLimitsSetting.changeStrengthLimits(new StrengthLimits(strengthlevel, currentStrengthLimits.wage(), strengthlevelawps));
           }
         }
         this.log.debug(strDebug);
