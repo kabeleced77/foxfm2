@@ -25,6 +25,7 @@ export class SettingsStrengthlevelLimits {
   public ressourceIntro: String;
   public ressourceButtonApply: String;
   public strengthLevelLimits: String;
+  public strengthsLimits: StrengthLimitsViewModel[];
 
   constructor() {
     this.log = new EasyLogger(new Logger(
@@ -46,6 +47,12 @@ export class SettingsStrengthlevelLimits {
     this.ressourceHeading = new RessourceSettingsPageLoggerHeading().value();
     this.ressourceIntro = new RessourceSettingsPageLoggerIntro().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
+
+    this.strengthsLimitsSetting
+      .strengthsLimits()
+      .then(strengthsLimits => this.strengthsLimits = strengthsLimits
+        .strengthsLimits()
+        .map(strengthLimits => new StrengthLimitsViewModel(strengthLimits.value(), strengthLimits.awpPoints())));
   }
 
   public submit() {
@@ -76,5 +83,14 @@ export class SettingsStrengthlevelLimits {
     } else {
       throw new Error('ofm.strengthlevel.importerror');
     }
+  }
+}
+
+class StrengthLimitsViewModel {
+  public strength: Number;
+  public awps: Number;
+  constructor(strength: Number, awps: Number) {
+    this.strength = strength;
+    this.awps = awps;
   }
 }
