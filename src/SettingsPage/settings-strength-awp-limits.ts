@@ -17,7 +17,7 @@ import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
 import { IStrengthsLimitsSetting, StrengthsLimitsSetting } from '../Common/Settings/StrengthsLimitsSetting';
 import { StrengthLimits } from '../Common/StrengthLimits';
 
-export class SettingsStrengthlevelLimits {
+export class SettingsStrengthAwpLimits {
   private log: IEasyLogger;
   private strengthsLimitsSetting: IStrengthsLimitsSetting;
 

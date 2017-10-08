@@ -30,7 +30,7 @@ export class App {
       { route: 'SettingsPage/settings-tm-offer-table', name: 'settings-tm-offer-table', moduleId: 'SettingsPage/settings-tm-offer-table', nav: true, title: this.ressourceTMOffers },
       { route: 'SettingsPage/settings-tm-amateur-table', name: 'settings-tm-amateur-table', moduleId: 'SettingsPage/settings-tm-amateur-table', nav: true, title: "TM Amateurs" },
       { route: 'SettingsPage/settings-tm-pro-table', name: 'settings-tm-pro-table', moduleId: 'SettingsPage/settings-tm-pro-table', nav: true, title: this.ressourceTmProfessionals },
-      { route: 'SettingsPage/settings-strengthlevel-limits', name: 'settings-strengthlevel-limits', moduleId: 'SettingsPage/settings-strengthlevel-limits', nav: true, title: "Strengthlevel limits" },
+      { route: 'SettingsPage/settings-strength-awp-limits', name: 'settings-strength-awp-limits', moduleId: 'SettingsPage/settings-strength-awp-limits', nav: true, title: "Strengthlevel limits" },
     ]);
 
     this.router = router;
