@@ -5,11 +5,12 @@ export interface IStrengthsLimits {
   strengthLimits(strength: Number): IStrengthLimits;
   strengthLimitsByAwp(awps: Number): IStrengthLimits;
   strengthsLimits(): Array<IStrengthLimits>;
+  update(strengthLimits: IStrengthLimits): void;
   fromJson(jsonString: String): IStrengthsLimits;
 }
 
 export class StrengthsLimits implements IStrengthsLimits {
-  private strengthLimitsArray: Array<IStrengthLimits>;
+  private readonly strengthLimitsArray: Array<IStrengthLimits>;
 
   constructor(stengthLevelsLimits: Array<IStrengthLimits>) {
     this.strengthLimitsArray = stengthLevelsLimits;
@@ -34,6 +35,11 @@ export class StrengthsLimits implements IStrengthsLimits {
 
   public strengthsLimits(): Array<IStrengthLimits> {
     return this.strengthLimitsArray.slice();
+  }
+
+  public update(strengthLimits: IStrengthLimits): void {
+    let levelIndex = this.strengthLimitsArray.findIndex(sl => sl.value() == strengthLimits.value());
+    this.strengthLimitsArray[levelIndex] = strengthLimits;
   }
 
   public fromJson(jsonString: String): IStrengthsLimits {

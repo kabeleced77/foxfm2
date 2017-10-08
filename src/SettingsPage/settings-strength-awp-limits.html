@@ -1,0 +1,34 @@
+<template>
+  <section class="au-animate">
+    <h3>${ressourceHeading}</h3>
+    <h4>${ressourceIntro}</h4>
+
+    <form role="form" submit.delegate="submit()">
+      <label for="idStrLevelLimits">Strengh level limits: <input value.bind="strengthLevelLimits" id="idStrLevelLimits" name="strLevelLimits"> </label>
+      <div class="form-group">
+        <button class="btn btn-primary " name="submit" type="submit">
+          ${ressourceButtonApply}
+        </button>
+      </div>
+
+      <table class="table table-striped">
+        <tr>
+          <th>
+            Strength
+          </th>
+          <th>
+            AWPs
+          </th>
+        </tr>
+        <tr repeat.for="strengthLimit of strengthsLimits">
+          <td>
+            ${strengthLimit.strength}
+          </td>
+          <td>
+            ${strengthLimit.awps}
+          </td>
+        </tr>
+      </table>
+    </form>
+  </section>
+</template>
