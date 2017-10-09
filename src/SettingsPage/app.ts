@@ -28,7 +28,7 @@ export class App {
     config.map([
       { route: ['', 'SettingsPage/welcome'], name: 'welcome', moduleId: 'SettingsPage/welcome', nav: false, title: 'Welcome' },
       { route: 'SettingsPage/settings-stadium', name: 'settings-stadium', moduleId: 'SettingsPage/settings-stadium', nav: true, title: this.ressourceStadium },
-      { route: 'SettingsPage/settings-logging', name: 'settings-logging', moduleId: 'SettingsPage/settings-logging', nav: true, title: "Logging" },
+      { route: 'SettingsPage/settings-logging', name: 'settings-logging', moduleId: 'SettingsPage/settings-logging', nav: false, title: "Logging" },
       { route: 'SettingsPage/settings-teamtable', name: 'settings-teamtable', moduleId: 'SettingsPage/settings-teamtable', nav: true, title: this.ressourceTeamTable },
       { route: 'SettingsPage/settings-tm-offer-table', name: 'settings-tm-offer-table', moduleId: 'SettingsPage/settings-tm-offer-table', nav: true, title: this.ressourceTmOffers },
       { route: 'SettingsPage/settings-tm-amateur-table', name: 'settings-tm-amateur-table', moduleId: 'SettingsPage/settings-tm-amateur-table', nav: true, title: this.ressourceTmAmateurs },
