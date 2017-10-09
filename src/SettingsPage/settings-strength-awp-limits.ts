@@ -5,8 +5,7 @@ import { IRegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingMod
 import { RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
 import { ILogLevel } from '../Common/Logger/LogLevel';
 import { LogLevelError } from '../Common/Logger/LogLevel';
-import { RessourceSettingsPageLoggerHeading } from "../Common/Ressource"
-import { RessourceSettingsPageLoggerIntro, RessourceCommonButtonApply } from "../Common/Ressource"
+import { RessourceCommonButtonApply, RessourceStrengthAwpLimitsSettingsHeader, RessourceStrengthAwpLimitsSettingsIntro } from "../Common/Ressource"
 import { Mutex } from "../Common/Toolkit/Mutex";
 import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
 import { ISetting } from "../Common/Toolkit/Setting";
@@ -44,8 +43,8 @@ export class SettingsStrengthAwpLimits {
 
     this.strengthsLimitsSetting = new StrengthsLimitsSetting();
 
-    this.ressourceHeading = new RessourceSettingsPageLoggerHeading().value();
-    this.ressourceIntro = new RessourceSettingsPageLoggerIntro().value();
+    this.ressourceHeading = new RessourceStrengthAwpLimitsSettingsHeader().value();
+    this.ressourceIntro = new RessourceStrengthAwpLimitsSettingsIntro().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
 
     this.strengthsLimitsSetting

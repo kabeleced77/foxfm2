@@ -58,3 +58,7 @@ export class RessourceTransferMarketProfessionalsTableSettingsHeader extends Res
 
 export class RessourceTransferMarketAmateurTableSettingsMenu extends Ressource { constructor() { super("transferMarketAmateurTableSettings_menu"); } }
 export class RessourceTransferMarketAmateurTableSettingsHeader extends Ressource { constructor() { super("transferMarketAmateurTableSettings_header"); } }
+
+export class RessourceStrengthAwpLimitsSettingsMenu extends Ressource { constructor() { super("strengthAwpLimitsSettings_menu"); } }
+export class RessourceStrengthAwpLimitsSettingsHeader extends Ressource { constructor() { super("strengthAwpLimitsSettings_header"); } }
+export class RessourceStrengthAwpLimitsSettingsIntro extends Ressource { constructor() { super("strengthAwpLimitsSettings_intro"); } }

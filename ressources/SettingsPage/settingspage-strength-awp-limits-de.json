@@ -1,0 +1,11 @@
+{
+  "strengthAwpLimitsSettings_menu": {
+    "message": "Stärkegrenzen"
+  },
+  "strengthAwpLimitsSettings_header": {
+    "message": "AWP Stärkegrenzen"
+  },
+  "strengthAwpLimitsSettings_intro": {
+    "message": "Es können hier sowohl die aktuellen AWP Stärkegrenzen eingesehen als auch neue importiert werden. Es wird der Import einer, mehrerer oder aller Stärken unterstützt. Der Import einer Stärke muss immer in Paaren von Stärkenummer und AWP Anzahl gegeben sein. Sollen z.B. die Stärken 2, 3 and 4 mit den AWP Werten 222, 333 and 444 importiert werden, muss folgender Importwert angegeben werden: 2 222 3 333 4 444."
+  }
+}

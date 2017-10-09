@@ -1,0 +1,11 @@
+{
+  "strengthAwpLimitsSettings_menu": {
+    "message": "Strengths limits"
+  },
+  "strengthAwpLimitsSettings_header": {
+    "message": "Show and import of the AWP strengths limits"
+  },
+  "strengthAwpLimitsSettings_intro": {
+    "message": "This view allows to look for the current and import new AWP limit values for each strength. The import supports one, several or all strength values. The import of one strength values must be given in pairs of numbers: strength value AWP value. E.g. to update the strength values 2, 3 and 4 with the new AWP value of 222, 333 and 444 the following import string has to be given: 2 222 3 333 4 444."
+  }
+}

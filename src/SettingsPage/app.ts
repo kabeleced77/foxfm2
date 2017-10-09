@@ -1,6 +1,6 @@
 import { Router, RouterConfiguration } from 'aurelia-router'
 import { RessourceStadium } from "../Common/Ressource"
-import { RessourceSettingsPageAddonName, RessourceTeamTableSettingsMenu, RessourceTransferMarketOfferTableSettingsMenu, RessourceTransferMarketProfessionalsTableSettingsMenu, RessourceTransferMarketAmateurTableSettingsMenu } from "../Common/Ressource"
+import { RessourceSettingsPageAddonName, RessourceTeamTableSettingsMenu, RessourceTransferMarketOfferTableSettingsMenu, RessourceTransferMarketProfessionalsTableSettingsMenu, RessourceTransferMarketAmateurTableSettingsMenu, RessourceStrengthAwpLimitsSettingsMenu } from "../Common/Ressource"
 
 export class App {
   router: Router;
@@ -11,6 +11,7 @@ export class App {
   ressourceTmProfessionals: string;
   ressourceTmOffers: string;
   ressourceTmAmateur: string;
+  ressourceStrengthAwpLimits: string;
 
   constructor() {
     this.ressourceSettingsPageAddonName = new RessourceSettingsPageAddonName().value().valueOf();
@@ -19,6 +20,7 @@ export class App {
     this.ressourceTmAmateurs = new RessourceTransferMarketAmateurTableSettingsMenu().value().valueOf();
     this.ressourceTmProfessionals = new RessourceTransferMarketProfessionalsTableSettingsMenu().value().valueOf();
     this.ressourceTmOffers = new RessourceTransferMarketOfferTableSettingsMenu().value().valueOf();
+    this.ressourceStrengthAwpLimits = new RessourceStrengthAwpLimitsSettingsMenu().value().valueOf();
   }
 
   configureRouter(config: RouterConfiguration, router: Router) {
@@ -29,9 +31,9 @@ export class App {
       { route: 'SettingsPage/settings-logging', name: 'settings-logging', moduleId: 'SettingsPage/settings-logging', nav: true, title: "Logging" },
       { route: 'SettingsPage/settings-teamtable', name: 'settings-teamtable', moduleId: 'SettingsPage/settings-teamtable', nav: true, title: this.ressourceTeamTable },
       { route: 'SettingsPage/settings-tm-offer-table', name: 'settings-tm-offer-table', moduleId: 'SettingsPage/settings-tm-offer-table', nav: true, title: this.ressourceTmOffers },
-      { route: 'SettingsPage/settings-tm-amateur-table', name: 'settings-tm-amateur-table', moduleId: 'SettingsPage/settings-tm-amateur-table', nav: true, title: this.ressourceTmAmateurs},
+      { route: 'SettingsPage/settings-tm-amateur-table', name: 'settings-tm-amateur-table', moduleId: 'SettingsPage/settings-tm-amateur-table', nav: true, title: this.ressourceTmAmateurs },
       { route: 'SettingsPage/settings-tm-pro-table', name: 'settings-tm-pro-table', moduleId: 'SettingsPage/settings-tm-pro-table', nav: true, title: this.ressourceTmProfessionals },
-      { route: 'SettingsPage/settings-strength-awp-limits', name: 'settings-strength-awp-limits', moduleId: 'SettingsPage/settings-strength-awp-limits', nav: true, title: "Strengthlevel limits" },
+      { route: 'SettingsPage/settings-strength-awp-limits', name: 'settings-strength-awp-limits', moduleId: 'SettingsPage/settings-strength-awp-limits', nav: true, title: this.ressourceStrengthAwpLimits },
     ]);
 
     this.router = router;
