@@ -145,6 +145,7 @@ var app = new foxfmApp(
               new TransferMarketSearchResultTableSettings(
                 true,
                 true,
+                true,
                 true)))),
         new EasyLogger(
           logger,

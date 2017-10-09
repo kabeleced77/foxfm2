@@ -32,48 +32,43 @@ export class TransferMarketProfessionalPlayerTable implements IWebElementToExten
     this.settings
       .value()
       .then(setting => {
-        let extendStrength = setting.extendStrengthColumnActivated();
+        let addAwp = setting.addAwpColumnActivated();
         let addAwpDiff = setting.addAwpDiffColumnActivated();
         let addNextStrength = setting.addNextStrengthColumnActivated();
+        let extendStrength = setting.extendStrengthColumnActivated();
 
-        if (extendStrength || addAwpDiff || addNextStrength) {
+        if (addAwp || addAwpDiff || addNextStrength || extendStrength) {
           this.strengthLevels
             .strengthLevels()
             .then((strengthLevels: IStrengthLevel[]) => {
-              if (addAwpDiff) this.addAwpDiffColumn(strengthLevels);
-              if (addNextStrength) this.addNextStrengthColumn(strengthLevels);
+              let columnNumber = 6;
+              if (addAwp) {
+                this.table.addColumn(
+                  new HtmlTableColumn(
+                    new HtmlElementWithChilds([], []),
+                    strengthLevels.map((sl, i) => { return i === 0 ? this.header("AWPs") : this.element(`${sl.awp().awpPoints()}`, i); }),
+                    columnNumber++));
+              }
+              if (addAwpDiff) {
+                this.table.addColumn(
+                  new HtmlTableColumn(
+                    new HtmlElementWithChilds([], []),
+                    strengthLevels.map((sl, i) => { return i === 0 ? this.header("AWP Diff") : this.element(`${sl.missingAwpsToNextStrengthValue()}`, i); }),
+                    columnNumber++));
+              }
+              if (addNextStrength) {
+                this.table.addColumn(
+                  new HtmlTableColumn(
+                    new HtmlElementWithChilds([], []),
+                    strengthLevels.map((sl, i) => { return i === 0 ? this.header("Next Str") : this.element(`${sl.nextStrengthValue()}`, i); }),
+                    columnNumber++));
+              }
               if (extendStrength) this.extendStrengthColumn(strengthLevels);
             });
         }
       });
   }
 
-  private addAwpDiffColumn(strengthLevels: IStrengthLevel[]) {
-    this.table.addColumn(
-      new HtmlTableColumn(
-        new HtmlElementWithChilds([], []),
-        strengthLevels
-          .map((sl, i) => {
-            if (i === 0) {
-              return this.header("AWP Diff");
-            }
-            return this.element(`${sl.missingAwpsToNextStrengthValue()}`, i);
-          }),
-        6));
-  }
-  private addNextStrengthColumn(strengthLevels: IStrengthLevel[]) {
-    this.table.addColumn(
-      new HtmlTableColumn(
-        new HtmlElementWithChilds([], []),
-        strengthLevels
-          .map((sl, i) => {
-            if (i === 0) {
-              return this.header("Next Str");
-            }
-            return this.element(`${sl.nextStrengthValue()}`, i);
-          }),
-        7));
-  }
   private header(headerText: String): IHtmlElementWithChilds {
     return new HtmlElementWithChilds(
       new Array<IHtmlAttribute>(

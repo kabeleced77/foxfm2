@@ -11,7 +11,7 @@ import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameAp
 import { SettingNameTeamTable } from '../Common/Settings/SettingNameTeamTable';
 import { ISetting } from '../Common/Toolkit/Setting';
 import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
-import { RessourceCommonButtonApply, RessourceTransferMarketProfessionalsTableSettingsHeader, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength } from '../Common/Ressource';
+import { RessourceCommonButtonApply, RessourceTransferMarketProfessionalsTableSettingsHeader, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength, RessourceCommonSettingsAddColumnAwp } from '../Common/Ressource';
 import { ITransferMarketSearchResultTableSettings, TransferMarketSearchResultTableSettings } from '../Common/Settings/TransferMarketSearchResultTableSettings';
 import { SettingNameTransferMarketProfessionalsSearchResultTable } from '../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable';
 
@@ -21,10 +21,12 @@ export class SettingsTransferMarketProfessionalTable {
 
   public ressourceHeading: String;
   public ressourceExtendColumngStrength: String;
+  public ressourceAddColumnAwp: String;
   public ressourceAddColumnAwpDiff: String;
   public ressourceAddColumnNextStrength: String;
   public ressourceButtonApply: String;
 
+  public addColumngAwpActivated: Boolean;
   public addColumngAwpDiffActivated: Boolean;
   public extendColumngStrengthActivated: Boolean;
   public addColumnNextStrengthActivated: Boolean;
@@ -46,27 +48,28 @@ export class SettingsTransferMarketProfessionalTable {
 
     this.settings = new StorageLocal<ITransferMarketSearchResultTableSettings>(
       new SettingNameTransferMarketProfessionalsSearchResultTable(),
-      new TransferMarketSearchResultTableSettings(true, true, true));
+      new TransferMarketSearchResultTableSettings(true, true, true, true));
 
     this.ressourceHeading = new RessourceTransferMarketProfessionalsTableSettingsHeader().value();
     this.ressourceExtendColumngStrength = new RessourceCommonSettingsExtendColumnStrength().value();
+    this.ressourceAddColumnAwp = new RessourceCommonSettingsAddColumnAwp().value();
     this.ressourceAddColumnAwpDiff = new RessourceCommonSettingsAddColumnAwpDiff().value();
     this.ressourceAddColumnNextStrength = new RessourceCommonSettingsAddColumnNextStrength().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
 
     this.settings.value().then(settings => {
       this.extendColumngStrengthActivated = settings.extendStrengthColumnActivated();
+      this.addColumngAwpActivated = settings.addAwpColumnActivated();
       this.addColumngAwpDiffActivated = settings.addAwpDiffColumnActivated();
       this.addColumnNextStrengthActivated = settings.addNextStrengthColumnActivated();
     })
   }
 
   submit() {
-    this.log.debug(`extend col strength: ${this.extendColumngStrengthActivated}, add col AWP Diff: ${this.addColumngAwpDiffActivated}, add col next strength: ${this.addColumnNextStrengthActivated}`);
-
     this.settings
       .save(new TransferMarketSearchResultTableSettings(
         this.extendColumngStrengthActivated,
+        this.addColumngAwpActivated,
         this.addColumngAwpDiffActivated,
         this.addColumnNextStrengthActivated));
   }
