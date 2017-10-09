@@ -13,7 +13,6 @@ import { SettingNameTeamTable } from '../Common/Settings/SettingNameTeamTable';
 import { ISetting } from '../Common/Toolkit/Setting';
 import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
 import { RessourceCommonButtonApply, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength, RessourceCommonSettingsAddColumnAwp, RessourceTransferMarketAmateurTableSettingsHeader } from '../Common/Ressource';
-import { ITransferMarketSearchResultTableSettings, TransferMarketSearchResultTableSettings } from '../Common/Settings/TransferMarketSearchResultTableSettings';
 import { ITransferMarketAmateurPlayerTableSettings, TransferMarketAmateurPlayerTableSettings } from "../Common/Settings/TransferMarketAmateurPlayerTableSettings";
 import { SettingNameTransferMarketAmateurTable } from "../Common/Settings/SettingNameTransferMarketAmateurTable";
 
