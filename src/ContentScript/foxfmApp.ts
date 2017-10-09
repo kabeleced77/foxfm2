@@ -6,7 +6,7 @@ import { StadiumManagerUi } from "./Stadium/StadiumManagerUi"
 import { TeamWebPage } from "./Team/TeamWebPage"
 import { StrengthsLimitsSetting } from "../Common/Settings/StrengthsLimitsSetting"
 import { TeamTableSetting, ITeamTableSetting } from "../Common/Settings/TeamTableSetting"
-import { TransferOfferWebPage } from "./TransferMarket/TransferOfferWebPage"
+import { TransferMarketOfferWebPage } from "./TransferMarket/TransferMarketOfferWebPage"
 import { TransferOfferTableSettings, ITransferOfferTableSettings } from "../Common/Settings/TransferOfferTableSettings";
 import { XPathHtmlTableCell2, XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell";
 import { XPathSingleResult2, XPathSingleResult } from "../Common/Toolkit/XPathSingleResult";
@@ -157,7 +157,7 @@ var app = new foxfmApp(
       // Extend transfer market - possible offer table
       new ExtendWebPage(
         new Url(currentUrl),
-        new TransferOfferWebPage(
+        new TransferMarketOfferWebPage(
           new TransferOfferWebPageUrl(),
           new TransferMarketOfferPlayerTable(
             new HtmlTable(

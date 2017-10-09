@@ -2,7 +2,7 @@ import { IWebPageToExtend } from "../../Common/Toolkit/WebPageToExtend";
 import { IUrl } from "../../Common/Toolkit/Url";
 import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
 
-export class TransferOfferWebPage implements IWebPageToExtend {
+export class TransferMarketOfferWebPage implements IWebPageToExtend {
   private urlField: IUrl;
   private table: IWebElementToExtend;
 
