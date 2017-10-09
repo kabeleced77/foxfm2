@@ -5,7 +5,7 @@ import { IRegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingMod
 import { RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
 import { ILogLevel } from '../Common/Logger/LogLevel';
 import { LogLevelError } from '../Common/Logger/LogLevel';
-import { RessourceCommonButtonApply, RessourceStrengthAwpLimitsSettingsHeader, RessourceStrengthAwpLimitsSettingsIntro } from "../Common/Ressource"
+import { RessourceStrengthAwpLimitsSettingsHeader, RessourceStrengthAwpLimitsSettingsIntro, RessourceCommonButtonImport, RessourceStrengthAwpLimitsSettingsImportLabel, RessourceStrengthAwpLimitsSettingsTableHeaderStrength, RessourceStrengthAwpLimitsSettingsTableHeaderAwps } from "../Common/Ressource"
 import { Mutex } from "../Common/Toolkit/Mutex";
 import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
 import { ISetting } from "../Common/Toolkit/Setting";
@@ -22,7 +22,10 @@ export class SettingsStrengthAwpLimits {
 
   public ressourceHeading: String;
   public ressourceIntro: String;
-  public ressourceButtonApply: String;
+  public ressourceImportLabel: String;
+  public ressourceButtonImport: String;
+  public ressourceTableHeaderStrength: any;
+  public ressourceTableHeaderAwps: any;
   public strengthLevelLimits: String;
   public strengthsLimits: StrengthLimitsViewModel[];
 
@@ -45,7 +48,10 @@ export class SettingsStrengthAwpLimits {
 
     this.ressourceHeading = new RessourceStrengthAwpLimitsSettingsHeader().value();
     this.ressourceIntro = new RessourceStrengthAwpLimitsSettingsIntro().value();
-    this.ressourceButtonApply = new RessourceCommonButtonApply().value();
+    this.ressourceImportLabel = new RessourceStrengthAwpLimitsSettingsImportLabel().value();
+    this.ressourceTableHeaderStrength = new RessourceStrengthAwpLimitsSettingsTableHeaderStrength().value();
+    this.ressourceTableHeaderAwps = new RessourceStrengthAwpLimitsSettingsTableHeaderAwps().value();
+    this.ressourceButtonImport = new RessourceCommonButtonImport().value();
 
     this.strengthsLimitsSetting
       .strengthsLimits()

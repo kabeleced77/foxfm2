@@ -4,20 +4,22 @@
     <h4>${ressourceIntro}</h4>
 
     <form role="form" submit.delegate="submit()">
-      <label for="idStrLevelLimits">Strengh level limits: <input value.bind="strengthLevelLimits" id="idStrLevelLimits" name="strLevelLimits"> </label>
       <div class="form-group">
-        <button class="btn btn-primary " name="submit" type="submit">
-          ${ressourceButtonApply}
+        <label for="idStrLevelLimits">${ressourceImportLabel}
+          <input value.bind="strengthLevelLimits" id="idStrLevelLimits" name="strLevelLimits">
+        </label>
+        <button style="margin-left:10px" class="btn btn-primary " name="submit" type="submit">
+          ${ressourceButtonImport}
         </button>
       </div>
 
       <table class="table table-striped">
         <tr>
           <th>
-            Strength
+            ${ressourceTableHeaderStrength}
           </th>
           <th>
-            AWPs
+            ${ressourceTableHeaderAwps}
           </th>
         </tr>
         <tr repeat.for="strengthLimit of strengthsLimits">

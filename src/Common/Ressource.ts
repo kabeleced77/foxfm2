@@ -19,6 +19,7 @@ export class Ressource implements IRessource {
 }
 
 export class RessourceCommonButtonApply extends Ressource { constructor() { super("common_buttonApply"); } }
+export class RessourceCommonButtonImport extends Ressource { constructor() { super("common_buttonImport"); } }
 
 export class RessourceSettingsPageAddonName extends Ressource { constructor() { super("addonName"); } }
 export class RessourceSettingsPageIntro extends Ressource { constructor() { super("settingsIntro"); } }
@@ -62,3 +63,6 @@ export class RessourceTransferMarketAmateurTableSettingsHeader extends Ressource
 export class RessourceStrengthAwpLimitsSettingsMenu extends Ressource { constructor() { super("strengthAwpLimitsSettings_menu"); } }
 export class RessourceStrengthAwpLimitsSettingsHeader extends Ressource { constructor() { super("strengthAwpLimitsSettings_header"); } }
 export class RessourceStrengthAwpLimitsSettingsIntro extends Ressource { constructor() { super("strengthAwpLimitsSettings_intro"); } }
+export class RessourceStrengthAwpLimitsSettingsImportLabel extends Ressource { constructor() { super("strengthAwpLimitsSettings_importLabel"); } }
+export class RessourceStrengthAwpLimitsSettingsTableHeaderStrength extends Ressource { constructor() { super("strengthAwpLimitsSettings_tableHeaderStrength"); } }
+export class RessourceStrengthAwpLimitsSettingsTableHeaderAwps extends Ressource { constructor() { super("strengthAwpLimitsSettings_tableHeaderAwps"); } }

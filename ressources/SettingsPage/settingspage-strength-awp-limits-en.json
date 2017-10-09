@@ -7,5 +7,14 @@
   },
   "strengthAwpLimitsSettings_intro": {
     "message": "This view allows to look for the current and import new AWP limit values for each strength. The import supports one, several or all strength values. The import of one strength values must be given in pairs of numbers: strength value AWP value. E.g. to update the strength values 2, 3 and 4 with the new AWP value of 222, 333 and 444 the following import string has to be given: 2 222 3 333 4 444."
+  },
+  "strengthAwpLimitsSettings_importLabel": {
+    "message": "Strengths limits (pairs of number for strength AWPs, e.g. 3 333)"
+  },
+  "strengthAwpLimitsSettings_tableHeaderStrength": {
+    "message": "Strength"
+  },
+  "strengthAwpLimitsSettings_tableHeaderAwps": {
+    "message": "AWPs"
   }
 }

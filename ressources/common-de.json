@@ -1,5 +1,8 @@
 {
   "common_buttonApply": {
     "message": "Übernehmen"
+  },
+  "common_buttonImport": {
+    "message": "Importieren"
   }
 }
