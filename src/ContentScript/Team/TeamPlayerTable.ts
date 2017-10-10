@@ -1,15 +1,15 @@
-import { IWebElementToExtend } from "./Toolkit/WebElementToExtend";
-import { ISetting } from "./Toolkit/Setting";
-import { IEasyLogger } from "./Logger/EasyLogger";
-import { IHtmlTable } from "./Toolkit/HtmlTable";
-import { HtmlTableColumn } from "./Toolkit/HtmlTableColumn";
-import { IHtmlTableColumnByXpath } from "./Toolkit/HtmlTableColumnByXpath";
-import { IStrengthLevel } from "./StrengthLevel";
-import { IStrengthLevels } from "./StrengthLevels";
-import { HtmlElement } from "./Toolkit/HtmlElement";
-import { IHtmlAttribute, HtmlAttribute } from "./Toolkit/HtmlAttribute";
-import { ITeamTableSetting } from "./Settings/TeamTableSetting";
-import { HtmlElementWithChilds } from "./Toolkit/HtmlElementWithChilds";
+import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
+import { ISetting } from "../../Common/Toolkit/Setting";
+import { IEasyLogger } from "../../Common/Logger/EasyLogger";
+import { IHtmlTable } from "../../Common/Toolkit/HtmlTable";
+import { HtmlTableColumn } from "../../Common/Toolkit/HtmlTableColumn";
+import { IHtmlTableColumnByXpath } from "../../Common/Toolkit/HtmlTableColumnByXpath";
+import { IStrengthLevel } from "../../Common/StrengthLevel";
+import { IStrengthLevels } from "../../Common/StrengthLevels";
+import { HtmlElement } from "../../Common/Toolkit/HtmlElement";
+import { IHtmlAttribute, HtmlAttribute } from "../../Common/Toolkit/HtmlAttribute";
+import { ITeamTableSetting } from "../../Common/Settings/TeamTableSetting";
+import { HtmlElementWithChilds } from "../../Common/Toolkit/HtmlElementWithChilds";
 
 export class TeamPlayerTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;

@@ -49,7 +49,7 @@ import { HtmlElement } from "../Common/Toolkit/HtmlElement";
 import { StrengthLevels } from "../Common/StrengthLevels";
 import { AwpPointsByEpTp, AwpPoints, AwpPointsBySplittedString } from "../Common/Toolkit/AwpPoints";
 import { StrengthValues } from "../Common/StrengthValues";
-import { TeamPlayerTable } from "../Common/TeamPlayerTable";
+import { TeamPlayerTable } from "./Team/TeamPlayerTable";
 import { TransferMarketOfferPlayerTable } from "./TransferMarket/TransferMarketOfferPlayerTable";
 import { TransferMarketSearchResultTableSettings, ITransferMarketSearchResultTableSettings } from "../Common/Settings/TransferMarketSearchResultTableSettings";
 import { HtmlTableColumnStringValues } from "../Common/Toolkit/HtmlTableColumnStringValues";
