@@ -46,21 +46,21 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
                 this.table.addColumn(
                   new HtmlTableColumn(
                     this.header("AWP"),
-                    strengthLevels.map((sl, i) => { return this.element(`${sl.awp().awpPoints()}`, i); }),
+                    strengthLevels.map((sl, i) => this.element(`${sl.awp().awpPoints()}`, i)),
                     columnNumber++));
               }
               if (addAwpDiff) {
                 this.table.addColumn(
                   new HtmlTableColumn(
                     this.header("AWP Diff"),
-                    strengthLevels.map((sl, i) => { return this.element(`${sl.missingAwpsToNextStrengthValue()}`, i); }),
+                    strengthLevels.map((sl, i) => this.element(`${sl.missingAwpsToNextStrengthValue()}`, i)),
                     columnNumber++));
               }
               if (addNextStrength) {
                 this.table.addColumn(
                   new HtmlTableColumn(
                     this.header("Next Str"),
-                    strengthLevels.map((sl, i) => { return this.element(`${sl.nextStrengthValue()}`, i); }),
+                    strengthLevels.map((sl, i) => this.element(`${sl.nextStrengthValue()}`, i)),
                     columnNumber++));
               }
               if (extendStrength) this.extendStrengthColumn(strengthLevels);
@@ -99,9 +99,8 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
     this.table.extendColumn(
       this.strengthColumn,
       strengthLevels
-        .map((sl, i) => {
-          return sl.actualStrengthValue().valueOf() !== sl.currentStrengthValue().valueOf()
-            ? ` (${sl.actualStrengthValue()})` : "";
-        }));
+        .map((sl, i) =>
+          sl.actualStrengthValue().valueOf() !== sl.currentStrengthValue().valueOf()
+            ? ` (${sl.actualStrengthValue()})` : ""));
   }
 }
