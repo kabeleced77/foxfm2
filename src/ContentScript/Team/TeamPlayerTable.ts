@@ -10,6 +10,7 @@ import { HtmlElement } from "../../Common/Toolkit/HtmlElement";
 import { IHtmlAttribute, HtmlAttribute } from "../../Common/Toolkit/HtmlAttribute";
 import { ITeamTableSetting } from "../../Common/Settings/TeamTableSetting";
 import { HtmlElementWithChilds, IHtmlElementWithChilds } from "../../Common/Toolkit/HtmlElementWithChilds";
+import { IRessource, RessourceCommonTableExtensionsHeaderAwpDiff, RessourceCommonTableExtensionsHeaderNextStrength } from "../../Common/Ressource";
 
 export class TeamPlayerTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;
@@ -17,6 +18,8 @@ export class TeamPlayerTable implements IWebElementToExtend {
   private readonly teamTableSettings: ISetting<ITeamTableSetting>;
   private readonly strengthLevels: IStrengthLevels;
   private readonly log: IEasyLogger;
+  private readonly ressourceTableHeaderAwpDiff: IRessource;
+  private readonly ressourceTableHeaderNextStrength: IRessource;
 
   constructor(
     table: IHtmlTable,
@@ -30,6 +33,8 @@ export class TeamPlayerTable implements IWebElementToExtend {
     this.teamTableSettings = teamTableSettings;
     this.strengthLevels = strengthLevels
     this.log = log;
+    this.ressourceTableHeaderAwpDiff = new RessourceCommonTableExtensionsHeaderAwpDiff();
+    this.ressourceTableHeaderNextStrength = new RessourceCommonTableExtensionsHeaderNextStrength();
   }
 
   public extend(): void {
@@ -64,14 +69,14 @@ export class TeamPlayerTable implements IWebElementToExtend {
   private addNextStrengthColumn(strengthLevels: IStrengthLevel[], columnNumber: Number) {
     this.table.addColumn(
       new HtmlTableColumn(
-        this.header("Next St"),
+        this.header(this.ressourceTableHeaderNextStrength.value()),
         strengthLevels.map(sl => this.element(`${sl.nextStrengthValue()}`)),
         columnNumber));
   }
   private addAwpDiffColumn(strengthLevels: IStrengthLevel[], columnNumber: Number) {
     this.table.addColumn(
       new HtmlTableColumn(
-        this.header("AWPs Diff"),
+        this.header(this.ressourceTableHeaderAwpDiff.value()),
         strengthLevels.map(sl => this.element(`${sl.missingAwpsToNextStrengthValue()}`)),
         columnNumber));
   }

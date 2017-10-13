@@ -21,6 +21,10 @@ export class Ressource implements IRessource {
 export class RessourceCommonButtonApply extends Ressource { constructor() { super("common_buttonApply"); } }
 export class RessourceCommonButtonImport extends Ressource { constructor() { super("common_buttonImport"); } }
 
+export class RessourceCommonTableExtensionsHeaderAwp extends Ressource { constructor() { super("commonTableExtensions_headerAwp"); } }
+export class RessourceCommonTableExtensionsHeaderAwpDiff extends Ressource { constructor() { super("commonTableExtensions_headerAwpDiff"); } }
+export class RessourceCommonTableExtensionsHeaderNextStrength extends Ressource { constructor() { super("commonTableExtensions_headerNextStrength"); } }
+
 export class RessourceSettingsPageAddonName extends Ressource { constructor() { super("addonName"); } }
 export class RessourceSettingsPageIntro extends Ressource { constructor() { super("settingsIntro"); } }
 

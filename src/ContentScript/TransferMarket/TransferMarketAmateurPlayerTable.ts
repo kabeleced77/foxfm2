@@ -9,12 +9,16 @@ import { HtmlElementWithChilds, IHtmlElementWithChilds } from "../../Common/Tool
 import { IHtmlAttribute, HtmlAttribute } from "../../Common/Toolkit/HtmlAttribute";
 import { HtmlElement } from "../../Common/Toolkit/HtmlElement";
 import { ITransferMarketAmateurPlayerTableSettings } from "../../Common/Settings/TransferMarketAmateurPlayerTableSettings";
+import { IRessource, RessourceCommonTableExtensionsHeaderAwp, RessourceCommonTableExtensionsHeaderAwpDiff, RessourceCommonTableExtensionsHeaderNextStrength } from "../../Common/Ressource";
 
 export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;
   private readonly strengthColumn: IHtmlTableColumnByXpath;
   private readonly settings: ISetting<ITransferMarketAmateurPlayerTableSettings>;
   private readonly strengthLevels: IStrengthLevels;
+  private readonly ressourceTableHeaderAwp: IRessource;
+  private readonly ressourceTableHeaderAwpDiff: IRessource;
+  private readonly ressourceTableHeaderNextStrength: IRessource;
 
   constructor(
     table: IHtmlTable,
@@ -26,6 +30,9 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
     this.strengthColumn = strengthColumn;
     this.settings = settings;
     this.strengthLevels = strengthLevels
+    this.ressourceTableHeaderAwp = new RessourceCommonTableExtensionsHeaderAwp();
+    this.ressourceTableHeaderAwpDiff = new RessourceCommonTableExtensionsHeaderAwpDiff();
+    this.ressourceTableHeaderNextStrength = new RessourceCommonTableExtensionsHeaderNextStrength();
   }
 
   public extend(): void {
@@ -45,21 +52,21 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
               if (addAwp) {
                 this.table.addColumn(
                   new HtmlTableColumn(
-                    this.header("AWP"),
+                    this.header(this.ressourceTableHeaderAwp.value()),
                     strengthLevels.map((sl, i) => this.element(`${sl.awp().awpPoints()}`, i)),
                     columnNumber++));
               }
               if (addAwpDiff) {
                 this.table.addColumn(
                   new HtmlTableColumn(
-                    this.header("AWP Diff"),
+                    this.header(this.ressourceTableHeaderAwpDiff.value()),
                     strengthLevels.map((sl, i) => this.element(`${sl.missingAwpsToNextStrengthValue()}`, i)),
                     columnNumber++));
               }
               if (addNextStrength) {
                 this.table.addColumn(
                   new HtmlTableColumn(
-                    this.header("Next Str"),
+                    this.header(this.ressourceTableHeaderNextStrength.value()),
                     strengthLevels.map((sl, i) => this.element(`${sl.nextStrengthValue()}`, i)),
                     columnNumber++));
               }

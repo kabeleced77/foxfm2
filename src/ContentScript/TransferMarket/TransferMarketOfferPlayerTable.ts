@@ -9,12 +9,15 @@ import { HtmlElementWithChilds, IHtmlElementWithChilds } from "../../Common/Tool
 import { IHtmlAttribute, HtmlAttribute } from "../../Common/Toolkit/HtmlAttribute";
 import { HtmlElement } from "../../Common/Toolkit/HtmlElement";
 import { ITransferOfferTableSettings } from "../../Common/Settings/TransferOfferTableSettings";
+import { IRessource, RessourceCommonTableExtensionsHeaderAwpDiff, RessourceCommonTableExtensionsHeaderNextStrength } from "../../Common/Ressource";
 
 export class TransferMarketOfferPlayerTable implements IWebElementToExtend {
   private readonly table: IHtmlTable;
   private readonly strengthColumn: IHtmlTableColumnByXpath;
   private readonly settings: ISetting<ITransferOfferTableSettings>;
   private readonly strengthLevels: IStrengthLevels;
+  private readonly ressourceTableHeaderAwpDiff: IRessource;
+  private readonly ressourceTableHeaderNextStrength: IRessource;
 
   constructor(
     table: IHtmlTable,
@@ -26,6 +29,8 @@ export class TransferMarketOfferPlayerTable implements IWebElementToExtend {
     this.strengthColumn = strengthColumn;
     this.settings = settings;
     this.strengthLevels = strengthLevels
+    this.ressourceTableHeaderAwpDiff = new RessourceCommonTableExtensionsHeaderAwpDiff();
+    this.ressourceTableHeaderNextStrength = new RessourceCommonTableExtensionsHeaderNextStrength();
   }
 
   public extend(): void {
@@ -44,14 +49,14 @@ export class TransferMarketOfferPlayerTable implements IWebElementToExtend {
               if (addAwpDiff) {
                 this.table.addColumn(
                   new HtmlTableColumn(
-                    this.header("AWP Diff", "90px"),
+                    this.header(this.ressourceTableHeaderAwpDiff.value(), "90px"),
                     strengthLevels.map((sl, i) => { return this.element(`${sl.missingAwpsToNextStrengthValue()}`, i); }),
                     columnNumber++));
               }
               if (addNextStrength) {
                 this.table.addColumn(
                   new HtmlTableColumn(
-                    this.header("Next Str", "80px"),
+                    this.header(this.ressourceTableHeaderNextStrength.value(), "80px"),
                     strengthLevels.map((sl, i) => { return this.element(`${sl.nextStrengthValue()}`, i); }),
                     columnNumber++));
               }

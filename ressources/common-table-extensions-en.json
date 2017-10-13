@@ -1,0 +1,11 @@
+{
+  "commonTableExtensions_headerAwp": {
+    "message": "AWPs"
+  },
+  "commonTableExtensions_headerAwpDiff": {
+    "message": "Diff"
+  },
+  "commonTableExtensions_headerNextStrength": {
+    "message": "Next St"
+  }
+}
