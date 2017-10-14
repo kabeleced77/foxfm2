@@ -143,10 +143,10 @@ var app = new foxfmApp(
             new StorageLocal<ITransferMarketSearchResultTableSettings>(
               new SettingNameTransferMarketProfessionalsSearchResultTable(),
               new TransferMarketSearchResultTableSettings(
-                true,
-                true,
-                true,
-                true)))),
+                false,
+                false,
+                false,
+                false)))),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
@@ -249,9 +249,9 @@ var app = new foxfmApp(
             new StorageLocal<ITeamTableSetting>(
               new SettingNameTeamTable(),
               new TeamTableSetting(
-                true,
-                true,
-                true)),
+                false,
+                false,
+                false)),
             new EasyLogger(
               logger,
               new RegisteredLoggingModule(
@@ -313,10 +313,10 @@ var app = new foxfmApp(
             new StorageLocal<ITransferMarketAmateurPlayerTableSettings>(
               new SettingNameTransferMarketAmateurTable(),
               new TransferMarketAmateurPlayerTableSettings(
-                true,
-                true,
-                true,
-                true)))),
+                false,
+                false,
+                false,
+                false)))),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(

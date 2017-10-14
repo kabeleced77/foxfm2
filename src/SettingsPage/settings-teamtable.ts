@@ -45,7 +45,7 @@ export class SettingsTeam {
 
     this.teamTableSettings = new StorageLocal<ITeamTableSetting>(
       new SettingNameTeamTable(),
-      new TeamTableSetting(true, true, true));
+      new TeamTableSetting(false, false, false));
 
     this.ressourceHeading = new RessourceTeamTableSettingsHeader().value();
     this.ressourceExtendColumngStrength = new RessourceCommonSettingsExtendColumnStrength().value();

@@ -49,7 +49,7 @@ export class SettingsTransferMarketAmateurTable {
 
     this.settings = new StorageLocal<ITransferMarketAmateurPlayerTableSettings>(
       new SettingNameTransferMarketAmateurTable(),
-      new TransferMarketAmateurPlayerTableSettings(true, true, true, true));
+      new TransferMarketAmateurPlayerTableSettings(false, false, false, false));
 
     this.ressourceHeading = new RessourceTransferMarketAmateurTableSettingsHeader().value();
     this.ressourceAddColumnAwp = new RessourceCommonSettingsAddColumnAwp().value();

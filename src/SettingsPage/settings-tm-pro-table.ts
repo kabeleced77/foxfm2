@@ -48,7 +48,7 @@ export class SettingsTransferMarketProfessionalTable {
 
     this.settings = new StorageLocal<ITransferMarketSearchResultTableSettings>(
       new SettingNameTransferMarketProfessionalsSearchResultTable(),
-      new TransferMarketSearchResultTableSettings(true, true, true, true));
+      new TransferMarketSearchResultTableSettings(false, false, false, false));
 
     this.ressourceHeading = new RessourceTransferMarketProfessionalsTableSettingsHeader().value();
     this.ressourceExtendColumngStrength = new RessourceCommonSettingsExtendColumnStrength().value();
