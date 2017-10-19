@@ -5,8 +5,6 @@ var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var paths = require('../paths');
 var assign = Object.assign || require('object.assign');
-var notify = require('gulp-notify');
-var browserSync = require('browser-sync');
 var typescript = require('gulp-typescript');
 var htmlmin = require('gulp-htmlmin');
 var merge = require('gulp-merge-json');
@@ -26,7 +24,7 @@ gulp.task('build-system', function() {
     .pipe(plumber())
     .pipe(changed(paths.output, {extension: '.ts'}))
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(typescript(typescriptCompiler))
+    .pipe(typescriptCompiler())
     .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '/src'}))
     .pipe(gulp.dest(paths.output));
 });
@@ -67,8 +65,7 @@ gulp.task('build-html', function() {
 gulp.task('build-css', function() {
   return gulp.src(paths.css)
     .pipe(changed(paths.output, {extension: '.css'}))
-    .pipe(gulp.dest(paths.output))
-    .pipe(browserSync.stream());
+    .pipe(gulp.dest(paths.output));
 });
 
 // this task calls the clean task (located
