@@ -11,6 +11,7 @@
     "aurelia-bundler": "^0.7.0",
     "aurelia-framework": "^1.1.5",
     "aurelia-router": "^1.4.0",
+    "aurelia-tools": "^1.0.0",
     "conventional-changelog": "^1.1.6",
     "del": "^3.0.0",
     "graceful-fs": "^4.1.11",
@@ -30,6 +31,7 @@
     "minimatch": "^3.0.4",
     "require-dir": "^0.3.0",
     "run-sequence": "^2.2.0",
+    "systemjs": "^0.20.19",
     "tslint": "^5.7.0",
     "typescript": "^2.5.3",
     "vinyl-paths": "^2.1.0"
