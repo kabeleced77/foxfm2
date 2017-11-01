@@ -15,14 +15,17 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "lib": ["es2015", "dom"]
+    "types": [
+      "chrome"
+    ],
+    "lib": [
+      "es2015",
+      "dom"
+    ]
   },
   "filesGlob": [
     "./src/**/*.ts",
-    "./test/**/*.ts",
-    "./typings/index.d.ts",
-    "./custom_typings/**/*.d.ts",
-    "./jspm_packages/**/*.d.ts"
+    "./test/**/*.ts"
   ],
   "exclude": [
     "node_modules",
