@@ -7,7 +7,7 @@ module.exports = {
       "options": {
         "inject": true,
         "minify": false,
-        "depCache": true,
+        "depCache": false,
         "rev": false
       }
     },
@@ -18,7 +18,7 @@ module.exports = {
       "options": {
         "inject": true,
         "minify": false,
-        "depCache": true,
+        "depCache": false,
         "rev": false
       }
     },
@@ -31,7 +31,7 @@ module.exports = {
       "options": {
         "inject": true,
         "minify": false,
-        "depCache": true,
+        "depCache": false,
         "rev": false
       }
     },
@@ -42,7 +42,7 @@ module.exports = {
       "options": {
         "inject": true,
         "minify": false,
-        "depCache": true,
+        "depCache": false,
         "rev": false
       }
     },
