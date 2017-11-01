@@ -33,12 +33,13 @@ System.config({
     "fetch": "github:github/fetch@1.0.0",
     "font-awesome": "npm:font-awesome@4.6.3",
     "jquery": "npm:jquery@2.2.4",
+    "process": "github:jspm/nodelibs-process@0.1.2",
     "text": "github:systemjs/plugin-text@0.0.8",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },
-    "github:jspm/nodelibs-buffer@0.1.0": {
-      "buffer": "npm:buffer@3.6.0"
+    "github:jspm/nodelibs-buffer@0.1.1": {
+      "buffer": "npm:buffer@5.0.8"
     },
     "github:jspm/nodelibs-events@0.1.1": {
       "events": "npm:events@1.0.2"
@@ -50,7 +51,7 @@ System.config({
       "path-browserify": "npm:path-browserify@0.0.0"
     },
     "github:jspm/nodelibs-process@0.1.2": {
-      "process": "npm:process@0.11.6"
+      "process": "npm:process@0.11.10"
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
@@ -63,7 +64,7 @@ System.config({
     },
     "npm:assert@1.4.1": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
-      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.1",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "util": "npm:util@0.10.3"
     },
@@ -189,13 +190,9 @@ System.config({
     "npm:bluebird@3.4.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:buffer@3.6.0": {
-      "base64-js": "npm:base64-js@0.0.8",
-      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
-      "fs": "github:jspm/nodelibs-fs@0.1.2",
-      "ieee754": "npm:ieee754@1.1.6",
-      "isarray": "npm:isarray@1.0.0",
-      "process": "github:jspm/nodelibs-process@0.1.2"
+    "npm:buffer@5.0.8": {
+      "base64-js": "npm:base64-js@1.2.1",
+      "ieee754": "npm:ieee754@1.1.8"
     },
     "npm:chrome@0.1.0": {
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
@@ -207,7 +204,7 @@ System.config({
     },
     "npm:exeq@2.4.0": {
       "bluebird": "npm:bluebird@3.4.1",
-      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.1",
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
       "events": "github:jspm/nodelibs-events@0.1.1",
       "native-or-bluebird": "npm:native-or-bluebird@1.2.0",
@@ -236,14 +233,14 @@ System.config({
     },
     "npm:plist@1.2.0": {
       "base64-js": "npm:base64-js@0.0.8",
-      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "util-deprecate": "npm:util-deprecate@1.0.2",
       "xmlbuilder": "npm:xmlbuilder@4.0.0",
       "xmldom": "npm:xmldom@0.1.22"
     },
-    "npm:process@0.11.6": {
+    "npm:process@0.11.10": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "vm": "github:jspm/nodelibs-vm@0.1.0"
@@ -270,47 +267,110 @@ System.config({
     "BackgroundPage/background.js": [
       "../Common/Logger/Logger",
       "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/RegisteredLoggingModules",
       "../Common/Logger/LogLevel",
-      "../Common/Ressource"
+      "../Common/Ressource",
+      "../Common/Toolkit/Mutex",
+      "../Common/Settings/SettingNameLoggingModules",
+      "../Common/Toolkit/StorageLocal",
+      "../Common/Toolkit/StorageLocalSync",
+      "../Common/Settings/SettingNameApplicationLogLevel"
     ],
     "ContentScript/foxfmApp.js": [
       "../Common/Logger/Logger",
       "../Common/Logger/RegisteredLoggingModule",
       "../Common/Logger/LogLevel",
-      "./StadiumManagerUi",
-      "./TeamUi",
-      "../Common/StrengthLevelsSetting",
-      "../Common/TeamTableSetting"
-    ],
-    "ContentScript/StadiumManagerUi.js": [
-      "../Common/Logger/RegisteredLoggingModule",
-      "../Common/Logger/LogLevel",
-      "../Common/Toolkit/NumberHelper",
-      "../Common/Toolkit/DOMHelper",
-      "../Common/GameKind",
-      "../Common/StadiumBlocksSetting",
-      "../Common/StadiumOverallEntryPricesSetting",
-      "../Common/Toolkit/XPathString",
+      "./Stadium/StadiumManagerUi",
+      "./Team/TeamWebPage",
+      "../Common/Settings/StrengthsLimitsSetting",
+      "../Common/Settings/TeamTableSetting",
+      "./TransferMarket/TransferMarketOfferWebPage",
+      "../Common/Settings/TransferOfferTableSettings",
+      "../Common/Toolkit/XPathHtmlTableCell",
       "../Common/Toolkit/XPathSingleResult",
       "../Common/Toolkit/XPathAllResults",
-      "../Common/Toolkit/XPathHtmlTableCell",
-      "../Common/Ressource"
-    ],
-    "ContentScript/TeamUi.js": [
-      "../Common/Logger/RegisteredLoggingModule",
-      "../Common/Logger/LogLevel",
-      "../Common/Toolkit/NumberHelper",
       "../Common/Toolkit/XPathString",
-      "../Common/Toolkit/XPathAllResults",
-      "../Common/Toolkit/XPathSingleResult",
-      "../Common/Toolkit/XPathHtmlTableCell",
-      "../Common/Toolkit/HtmlTable"
+      "../Common/Urls/TransferOfferWebPageUrl",
+      "./TransferMarket/TransferMarketProfessionalWebPage",
+      "./TransferMarket/TransferMarketProfessionalPlayerTable",
+      "../Common/Urls/TransferMarketProfessionalsUiUrl",
+      "../Common/Urls/TransferMarketAmateurWebPageUrl",
+      "../Common/Toolkit/Url",
+      "../Common/Toolkit/HtmlTableColumnByXpath",
+      "../Common/Toolkit/Mutex",
+      "../Common/Logger/RegisteredLoggingModules",
+      "../Common/Settings/SettingNameLoggingModules",
+      "../Common/Settings/SettingNameTransferTablePossibleOffers",
+      "../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable",
+      "../Common/Settings/SettingNameTransferMarketAmateurTable",
+      "../Common/Toolkit/StorageLocal",
+      "../Common/Toolkit/StorageLocalSync",
+      "../Common/Settings/SettingNameApplicationLogLevel",
+      "../Common/Logger/EasyLogger",
+      "../Common/Toolkit/ExtendWebPage",
+      "../Common/Toolkit/Dom",
+      "../Common/Toolkit/ExtendWebPages",
+      "../Common/Urls/TeamWebPageUrl",
+      "../Common/Urls/StadiumWebPageUrl",
+      "../Common/Settings/TransferMarketAmateurPlayerTableSettings",
+      "./TransferMarket/TransferMarketAmateurWebPage",
+      "./TransferMarket/TransferMarketAmateurPlayerTable",
+      "../Common/Toolkit/HtmlTable",
+      "../Common/Toolkit/HtmlTableByXPath",
+      "../Common/Toolkit/FirstElementInXPathNodeOrParents",
+      "../Common/Toolkit/HtmlTableColumnNumberValues",
+      "../Common/StrengthLevels",
+      "../Common/Toolkit/AwpPoints",
+      "../Common/StrengthValues",
+      "./Team/TeamPlayerTable",
+      "./TransferMarket/TransferMarketOfferPlayerTable",
+      "../Common/Settings/TransferMarketSearchResultTableSettings",
+      "../Common/Toolkit/HtmlTableColumnStringValues",
+      "../Common/Toolkit/SplitStrings",
+      "../Common/Settings/SettingNameTeamTable"
+    ],
+    "ContentScript/Stadium/StadiumManagerUi.js": [
+      "../../Common/Toolkit/NumberHelper",
+      "../../Common/Toolkit/DOMHelper",
+      "../../Common/GameKind",
+      "../../Common/Settings/StadiumBlocksSetting",
+      "../../Common/Settings/StadiumOverallEntryPricesSetting",
+      "../../Common/Toolkit/XPathString",
+      "../../Common/Toolkit/XPathSingleResult",
+      "../../Common/Toolkit/XPathAllResults",
+      "../../Common/Toolkit/XPathHtmlTableCell",
+      "../../Common/Ressource"
+    ],
+    "ContentScript/Team/TeamPlayerTable.js": [
+      "../../Common/Toolkit/HtmlTableColumn",
+      "../../Common/Toolkit/HtmlElement",
+      "../../Common/Toolkit/HtmlAttribute",
+      "../../Common/Toolkit/HtmlElementWithChilds",
+      "../../Common/Ressource"
+    ],
+    "ContentScript/TransferMarket/TransferMarketAmateurPlayerTable.js": [
+      "../../Common/Toolkit/HtmlTableColumn",
+      "../../Common/Toolkit/HtmlElementWithChilds",
+      "../../Common/Toolkit/HtmlAttribute",
+      "../../Common/Toolkit/HtmlElement",
+      "../../Common/Ressource"
+    ],
+    "ContentScript/TransferMarket/TransferMarketOfferPlayerTable.js": [
+      "../../Common/Toolkit/HtmlTableColumn",
+      "../../Common/Toolkit/HtmlElementWithChilds",
+      "../../Common/Toolkit/HtmlAttribute",
+      "../../Common/Toolkit/HtmlElement",
+      "../../Common/Ressource"
+    ],
+    "ContentScript/TransferMarket/TransferMarketProfessionalPlayerTable.js": [
+      "../../Common/Toolkit/HtmlTableColumn",
+      "../../Common/Toolkit/HtmlElementWithChilds",
+      "../../Common/Toolkit/HtmlAttribute",
+      "../../Common/Toolkit/HtmlElement",
+      "../../Common/Ressource"
     ],
     "SettingsPage/app.js": [
       "../Common/Ressource"
-    ],
-    "SettingsPage/blur-image.js": [
-      "aurelia-framework"
     ],
     "SettingsPage/main.js": [
       "bootstrap"
@@ -318,73 +378,168 @@ System.config({
     "SettingsPage/settings-logging.js": [
       "../Common/Logger/Logger",
       "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/RegisteredLoggingModules",
       "../Common/Logger/LogLevel",
-      "../Common/Ressource"
+      "../Common/Ressource",
+      "../Common/Toolkit/Mutex",
+      "../Common/Settings/SettingNameLoggingModules",
+      "../Common/Toolkit/StorageLocal",
+      "../Common/Toolkit/StorageLocalSync",
+      "../Common/Settings/SettingNameApplicationLogLevel"
     ],
     "SettingsPage/settings-stadium.js": [
       "../Common/Logger/Logger",
       "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/RegisteredLoggingModules",
       "../Common/Logger/LogLevel",
-      "../Common/StadiumBlocksSetting",
-      "../Common/StadiumOverallEntryPricesSetting",
+      "../Common/Settings/StadiumBlocksSetting",
+      "../Common/Settings/StadiumOverallEntryPricesSetting",
+      "../Common/Ressource",
+      "../Common/Toolkit/Mutex",
+      "../Common/Settings/SettingNameLoggingModules",
+      "../Common/Toolkit/StorageLocal",
+      "../Common/Toolkit/StorageLocalSync",
+      "../Common/Settings/SettingNameApplicationLogLevel"
+    ],
+    "SettingsPage/settings-strength-awp-limits.js": [
+      "../Common/Logger/Logger",
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/RegisteredLoggingModules",
+      "../Common/Logger/LogLevel",
+      "../Common/Ressource",
+      "../Common/Toolkit/Mutex",
+      "../Common/Settings/SettingNameLoggingModules",
+      "../Common/Toolkit/StorageLocal",
+      "../Common/Toolkit/StorageLocalSync",
+      "../Common/Settings/SettingNameApplicationLogLevel",
+      "../Common/Logger/EasyLogger",
+      "../Common/Settings/StrengthsLimitsSetting",
+      "../Common/StrengthLimits"
+    ],
+    "SettingsPage/settings-teamtable.js": [
+      "../Common/Logger/Logger",
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/RegisteredLoggingModules",
+      "../Common/Logger/LogLevel",
+      "../Common/Ressource",
+      "../Common/Toolkit/Mutex",
+      "../Common/Settings/SettingNameLoggingModules",
+      "../Common/Toolkit/StorageLocal",
+      "../Common/Toolkit/StorageLocalSync",
+      "../Common/Settings/SettingNameApplicationLogLevel",
+      "../Common/Settings/TeamTableSetting",
+      "../Common/Settings/SettingNameTeamTable",
+      "../Common/Logger/EasyLogger"
+    ],
+    "SettingsPage/settings-tm-amateur-table.js": [
+      "../Common/Logger/Logger",
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/RegisteredLoggingModules",
+      "../Common/Logger/LogLevel",
+      "../Common/Toolkit/Mutex",
+      "../Common/Settings/SettingNameLoggingModules",
+      "../Common/Toolkit/StorageLocal",
+      "../Common/Toolkit/StorageLocalSync",
+      "../Common/Settings/SettingNameApplicationLogLevel",
+      "../Common/Logger/EasyLogger",
+      "../Common/Ressource",
+      "../Common/Settings/TransferMarketAmateurPlayerTableSettings",
+      "../Common/Settings/SettingNameTransferMarketAmateurTable"
+    ],
+    "SettingsPage/settings-tm-offer-table.js": [
+      "../Common/Logger/Logger",
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/RegisteredLoggingModules",
+      "../Common/Logger/LogLevel",
+      "../Common/Toolkit/Mutex",
+      "../Common/Settings/SettingNameLoggingModules",
+      "../Common/Toolkit/StorageLocal",
+      "../Common/Toolkit/StorageLocalSync",
+      "../Common/Settings/SettingNameApplicationLogLevel",
+      "../Common/Settings/TeamTableSetting",
+      "../Common/Logger/EasyLogger",
+      "../Common/Settings/TransferOfferTableSettings",
+      "../Common/Settings/SettingNameTransferTablePossibleOffers",
       "../Common/Ressource"
+    ],
+    "SettingsPage/settings-tm-pro-table.js": [
+      "../Common/Logger/Logger",
+      "../Common/Logger/RegisteredLoggingModule",
+      "../Common/Logger/RegisteredLoggingModules",
+      "../Common/Logger/LogLevel",
+      "../Common/Toolkit/Mutex",
+      "../Common/Settings/SettingNameLoggingModules",
+      "../Common/Toolkit/StorageLocal",
+      "../Common/Toolkit/StorageLocalSync",
+      "../Common/Settings/SettingNameApplicationLogLevel",
+      "../Common/Logger/EasyLogger",
+      "../Common/Ressource",
+      "../Common/Settings/TransferMarketSearchResultTableSettings",
+      "../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable"
     ],
     "SettingsPage/welcome.js": [
       "../Common/Ressource"
     ],
-    "Common/Logger/Logger.js": [
-      "./LogLevel",
-      "./LoggerLogLevelSetting",
-      "./RegisteredLoggingModulesSetting"
+    "Common/ExperienceAndTrainingColumn.js": [
+      "../Common/Toolkit/NumberHelper",
+      "./Toolkit/Awp"
     ],
-    "Common/Logger/LoggerLogLevelSetting.js": [
-      "../SettingInStorage",
+    "Common/Logger/Logger.js": [
       "./LogLevel"
     ],
     "Common/Logger/RegisteredLoggingModules.js": [
       "./RegisteredLoggingModule",
       "./LogLevel"
     ],
-    "Common/Logger/RegisteredLoggingModulesSetting.js": [
-      "../SettingInStorage",
-      "./RegisteredLoggingModules"
+    "Common/Settings/StadiumBlocksSetting.js": [
+      "../GameKind",
+      "../StadiumBlocks",
+      "../StadiumBlock",
+      "../StadiumBlockName",
+      "../StadiumEntryPrices",
+      "../StadiumEntryPrice",
+      "../Toolkit/StorageLocal"
     ],
-    "Common/SettingInStorage.js": [
-      "./Storage"
+    "Common/Settings/StadiumOverallEntryPricesSetting.js": [
+      "../GameKind",
+      "../StadiumOverallEntryPrices",
+      "../StadiumEntryPrices",
+      "../StadiumEntryPrice",
+      "../Toolkit/StorageLocal"
     ],
-    "Common/StadiumBlocksSetting.js": [
-      "./SettingInStorage",
-      "./GameKind",
-      "./StadiumBlocks",
-      "./StadiumBlock",
-      "./StadiumBlockName",
-      "./StadiumEntryPrices",
-      "./StadiumEntryPrice"
-    ],
-    "Common/StadiumOverallEntryPricesSetting.js": [
-      "./SettingInStorage",
-      "./GameKind",
-      "./StadiumOverallEntryPrices",
-      "./StadiumEntryPrices",
-      "./StadiumEntryPrice"
+    "Common/Settings/StrengthsLimitsSetting.js": [
+      "../StrengthLimits",
+      "../StrengthsLimits",
+      "../Toolkit/StorageLocal",
+      "./SettingNameStrengthsLimits"
     ],
     "Common/StrengthLevels.js": [
       "./StrengthLevel"
     ],
-    "Common/StrengthLevelsSetting.js": [
-      "./SettingInStorage",
-      "./StrengthLevel",
-      "./StrengthLevels"
+    "Common/StrengthsLimits.js": [
+      "./StrengthLimits"
     ],
-    "Common/TeamTableSetting.js": [
-      "./SettingInStorage",
-      "./TeamTable",
-      "./Toolkit/XPathString",
-      "./Toolkit/Url",
-      "./Toolkit/HtmlId",
-      "./TeamTableExistingColumns",
-      "./AwpColumn",
-      "./StrengthColumn"
+    "Common/StrengthValues.js": [
+      "./Toolkit/NumberHelper"
+    ],
+    "Common/Toolkit/AwpPoints.js": [
+      "./Awp"
+    ],
+    "Common/Toolkit/HtmlTableColumnNumberValues.js": [
+      "./NumberHelper"
+    ],
+    "Common/Toolkit/NumberFromNode.js": [
+      "./NumberFromString"
+    ],
+    "Common/Toolkit/SplitString.js": [
+      "./NumberFromString"
+    ],
+    "Common/Toolkit/SplitStrings.js": [
+      "./SplitString",
+      "./NumberValues"
+    ],
+    "Common/Toolkit/XPathHtmlTableCell.js": [
+      "./FirstElementInXPathNodeOrParents"
     ]
   },
   bundles: {
@@ -392,62 +547,38 @@ System.config({
       "BackgroundPage/background.js"
     ],
     "app-contentscript-build.js": [
-      "ContentScript/StadiumManagerUi.js",
-      "ContentScript/TeamUi.js",
+      "ContentScript/Stadium/StadiumManagerUi.js",
+      "ContentScript/Team/TeamPlayerTable.js",
+      "ContentScript/Team/TeamWebPage.js",
+      "ContentScript/TransferMarket/TransferMarketAmateurPlayerTable.js",
+      "ContentScript/TransferMarket/TransferMarketAmateurWebPage.js",
+      "ContentScript/TransferMarket/TransferMarketOfferPlayerTable.js",
+      "ContentScript/TransferMarket/TransferMarketOfferWebPage.js",
+      "ContentScript/TransferMarket/TransferMarketProfessionalPlayerTable.js",
+      "ContentScript/TransferMarket/TransferMarketProfessionalWebPage.js",
       "ContentScript/foxfmApp.js"
     ],
     "app-settingspage-build.js": [
       "SettingsPage/app.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/app.js",
-      "SettingsPage/blur-image.js",
       "SettingsPage/main.js",
       "SettingsPage/nav-bar.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/settings-logging.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/settings-logging.js",
       "SettingsPage/settings-stadium.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/settings-stadium.js",
+      "SettingsPage/settings-strength-awp-limits.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/settings-strength-awp-limits.js",
+      "SettingsPage/settings-teamtable.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/settings-teamtable.js",
+      "SettingsPage/settings-tm-amateur-table.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/settings-tm-amateur-table.js",
+      "SettingsPage/settings-tm-offer-table.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/settings-tm-offer-table.js",
+      "SettingsPage/settings-tm-pro-table.html!github:systemjs/plugin-text@0.0.8.js",
+      "SettingsPage/settings-tm-pro-table.js",
       "SettingsPage/welcome.html!github:systemjs/plugin-text@0.0.8.js",
       "SettingsPage/welcome.js"
-    ],
-    "app-common-build.js": [
-      "Common/AwpColumn.js",
-      "Common/GameKind.js",
-      "Common/Logger/LogLevel.js",
-      "Common/Logger/Logger.js",
-      "Common/Logger/LoggerInterface.js",
-      "Common/Logger/LoggerLogLevelSetting.js",
-      "Common/Logger/RegisteredLoggingModule.js",
-      "Common/Logger/RegisteredLoggingModules.js",
-      "Common/Logger/RegisteredLoggingModulesSetting.js",
-      "Common/Ressource.js",
-      "Common/Setting.js",
-      "Common/SettingInStorage.js",
-      "Common/StadiumBlock.js",
-      "Common/StadiumBlockName.js",
-      "Common/StadiumBlocks.js",
-      "Common/StadiumBlocksSetting.js",
-      "Common/StadiumEntryPrice.js",
-      "Common/StadiumEntryPrices.js",
-      "Common/StadiumOverallEntryPrices.js",
-      "Common/StadiumOverallEntryPricesSetting.js",
-      "Common/Storage.js",
-      "Common/StrengthColumn.js",
-      "Common/StrengthLevel.js",
-      "Common/StrengthLevels.js",
-      "Common/StrengthLevelsSetting.js",
-      "Common/TeamTable.js",
-      "Common/TeamTableExistingColumns.js",
-      "Common/TeamTableSetting.js",
-      "Common/Toolkit/DOMHelper.js",
-      "Common/Toolkit/ExisitingColumn.js",
-      "Common/Toolkit/HtmlId.js",
-      "Common/Toolkit/HtmlTable.js",
-      "Common/Toolkit/NumberHelper.js",
-      "Common/Toolkit/Url.js",
-      "Common/Toolkit/XPathAllResults.js",
-      "Common/Toolkit/XPathHtmlTableCell.js",
-      "Common/Toolkit/XPathSingleResult.js",
-      "Common/Toolkit/XPathString.js"
     ],
     "aurelia.js": [
       "github:github/fetch@1.0.0.js",
@@ -539,6 +670,88 @@ System.config({
       "npm:aurelia-templating@1.0.0-rc.1.0.3/aurelia-templating.js",
       "npm:jquery@2.2.4.js",
       "npm:jquery@2.2.4/dist/jquery.js"
+    ],
+    "app-common-build.js": [
+      "Common/ExperienceAndTrainingColumn.js",
+      "Common/GameKind.js",
+      "Common/Logger/EasyLogger.js",
+      "Common/Logger/LogLevel.js",
+      "Common/Logger/Logger.js",
+      "Common/Logger/RegisteredLoggingModule.js",
+      "Common/Logger/RegisteredLoggingModules.js",
+      "Common/Ressource.js",
+      "Common/Settings/SettingNameApplicationLogLevel.js",
+      "Common/Settings/SettingNameLoggingModules.js",
+      "Common/Settings/SettingNameStrengthsLimits.js",
+      "Common/Settings/SettingNameTeamTable.js",
+      "Common/Settings/SettingNameTransferMarketAmateurTable.js",
+      "Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable.js",
+      "Common/Settings/SettingNameTransferTablePossibleOffers.js",
+      "Common/Settings/StadiumBlocksSetting.js",
+      "Common/Settings/StadiumOverallEntryPricesSetting.js",
+      "Common/Settings/StrengthsLimitsSetting.js",
+      "Common/Settings/TeamTableSetting.js",
+      "Common/Settings/TransferMarketAmateurPlayerTableSettings.js",
+      "Common/Settings/TransferMarketSearchResultTableSettings.js",
+      "Common/Settings/TransferOfferTableSettings.js",
+      "Common/StadiumBlock.js",
+      "Common/StadiumBlockName.js",
+      "Common/StadiumBlocks.js",
+      "Common/StadiumEntryPrice.js",
+      "Common/StadiumEntryPrices.js",
+      "Common/StadiumOverallEntryPrices.js",
+      "Common/StrengthLevel.js",
+      "Common/StrengthLevels.js",
+      "Common/StrengthLimits.js",
+      "Common/StrengthValues.js",
+      "Common/StrengthsLimits.js",
+      "Common/Toolkit/Awp.js",
+      "Common/Toolkit/AwpPoints.js",
+      "Common/Toolkit/DOMHelper.js",
+      "Common/Toolkit/Dom.js",
+      "Common/Toolkit/ExtendExisitingColumn.js",
+      "Common/Toolkit/ExtendWebPage.js",
+      "Common/Toolkit/ExtendWebPages.js",
+      "Common/Toolkit/FirstElementInXPathNodeOrParents.js",
+      "Common/Toolkit/HtmlAttribute.js",
+      "Common/Toolkit/HtmlElement.js",
+      "Common/Toolkit/HtmlElementWithChilds.js",
+      "Common/Toolkit/HtmlId.js",
+      "Common/Toolkit/HtmlTable.js",
+      "Common/Toolkit/HtmlTableById.js",
+      "Common/Toolkit/HtmlTableByXPath.js",
+      "Common/Toolkit/HtmlTableColumn.js",
+      "Common/Toolkit/HtmlTableColumnByXpath.js",
+      "Common/Toolkit/HtmlTableColumnHeader.js",
+      "Common/Toolkit/HtmlTableColumnNumberValues.js",
+      "Common/Toolkit/HtmlTableColumnStringValues.js",
+      "Common/Toolkit/HtmlTableColumnValues.js",
+      "Common/Toolkit/Mutex.js",
+      "Common/Toolkit/NumberFromNode.js",
+      "Common/Toolkit/NumberFromString.js",
+      "Common/Toolkit/NumberHelper.js",
+      "Common/Toolkit/NumberValues.js",
+      "Common/Toolkit/Setting.js",
+      "Common/Toolkit/SettingName.js",
+      "Common/Toolkit/SplitString.js",
+      "Common/Toolkit/SplitStrings.js",
+      "Common/Toolkit/StorageLocal.js",
+      "Common/Toolkit/StorageLocalSync.js",
+      "Common/Toolkit/Table.js",
+      "Common/Toolkit/Url.js",
+      "Common/Toolkit/Values.js",
+      "Common/Toolkit/WebElementToExtend.js",
+      "Common/Toolkit/WebPageToExtend.js",
+      "Common/Toolkit/XPathAllResults.js",
+      "Common/Toolkit/XPathHtmlTableCell.js",
+      "Common/Toolkit/XPathSingleResult.js",
+      "Common/Toolkit/XPathString.js",
+      "Common/TypeInStorage.js",
+      "Common/Urls/StadiumWebPageUrl.js",
+      "Common/Urls/TeamWebPageUrl.js",
+      "Common/Urls/TransferMarketAmateurWebPageUrl.js",
+      "Common/Urls/TransferMarketProfessionalsUiUrl.js",
+      "Common/Urls/TransferOfferWebPageUrl.js"
     ]
   }
 });
