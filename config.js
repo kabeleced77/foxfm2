@@ -18,10 +18,10 @@ System.config({
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@2.1.1",
     "aurelia-fetch-client": "npm:aurelia-fetch-client@1.1.3",
     "aurelia-framework": "npm:aurelia-framework@1.1.5",
-    "aurelia-pal-browser": "npm:aurelia-pal-browser@1.3.0",
     "aurelia-history-browser": "npm:aurelia-history-browser@1.1.0",
     "aurelia-loader-default": "npm:aurelia-loader-default@1.0.3",
     "aurelia-logging-console": "npm:aurelia-logging-console@1.0.0",
+    "aurelia-pal-browser": "npm:aurelia-pal-browser@1.3.0",
     "aurelia-polyfills": "npm:aurelia-polyfills@1.2.2",
     "aurelia-router": "npm:aurelia-router@1.4.0",
     "aurelia-templating-binding": "npm:aurelia-templating-binding@1.4.0",
@@ -30,7 +30,7 @@ System.config({
     "bootstrap": "github:twbs/bootstrap@3.3.7",
     "chrome": "npm:chrome@0.1.0",
     "fetch": "github:github/fetch@2.0.3",
-    "font-awesome": "npm:font-awesome@4.7.0",
+    "font-awesome": "npm:font-awesome@4.6.3",
     "jquery": "npm:jquery@3.2.1",
     "text": "github:systemjs/plugin-text@0.0.11",
     "github:jspm/nodelibs-assert@0.1.0": {
@@ -212,7 +212,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:font-awesome@4.7.0": {
+    "npm:font-awesome@4.6.3": {
       "css": "github:systemjs/plugin-css@0.1.36"
     },
     "npm:inherits@2.0.1": {
@@ -334,6 +334,8 @@ System.config({
       "npm:aurelia-logging@1.3.1/aurelia-logging.js",
       "npm:aurelia-metadata@1.0.3.js",
       "npm:aurelia-metadata@1.0.3/aurelia-metadata.js",
+      "npm:aurelia-pal-browser@1.3.0.js",
+      "npm:aurelia-pal-browser@1.3.0/aurelia-pal-browser.js",
       "npm:aurelia-pal@1.4.0.js",
       "npm:aurelia-pal@1.4.0/aurelia-pal.js",
       "npm:aurelia-path@1.1.1.js",
