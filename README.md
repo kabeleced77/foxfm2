@@ -1,13 +1,58 @@
-Mainly for developers or who wants to have the very last version :)
+Welcome to foxfm2
+================
 
-1. Install nodejs
+Run foxfm2 in Firefox
+------------------------------
+Just install [foxfm2](https://addons.mozilla.org/de/firefox/addon/foxfm2/) from Mozillas's official addon page.
 
-2. Run npm install
+Run foxfm2 from sources
+-----------------------------------
+Who wants to have the very last version should follow these steps :)
 
-3. Run jspm install -y
+### Get foxfm2 sources
 
-4. Run typings install
+To get a copy of foxfm2 sources just clone repository.
 
-5. Run ./node_modules/.bin/gulp export-[BROWSER] where [BROWSER] needs to be replaced either by firefox or chrome
+### Setup foxfm2 build environment
 
-   The newly created directories 'export-[BROWSER]' can be directly loaded into the browser. This might require some extra settings in the browser.
+-  Install nodejs for your OS
+
+- Install all dependencies of foxfm2 - run inside of cloned foxfm2 folder
+
+``` 
+npm install
+```
+
+- Install all jspm packages - run inside of cloned foxm2 folder
+
+```
+jspm install -y
+```
+
+### Build foxfm2 from sources
+
+foxfm2 uses gulp for building the application and also ready to use web extension packages to be used in the web browser Firefox and Chrome.
+
+#### Build for Firefox
+
+Run the following command to create a ready to use foxfm2 to be loaded into Firefox from a folder
+```
+./node_modules/.bin/gulp export-firefox
+```
+This command creates following folder inside foxfm2 folder
+```
+./foxfm2/export-firefox
+```
+which can be loaded from Firefox.
+
+#### Build for Chrome
+
+Run the following command to create a ready to use foxfm2 to be loaded into Chrome from a folder
+```
+./node_modules/.bin/gulp export-chrome
+```
+This command creates following folder inside foxfm2 folder
+```
+.foxfm2/export-chrome
+```
+which can be loaded from Chrome.
