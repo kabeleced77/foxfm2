@@ -2,11 +2,15 @@ Welcome to foxfm2
 ================
 
 Run foxfm2 in Firefox
-------------------------------
+---------------------
 Just install [foxfm2](https://addons.mozilla.org/de/firefox/addon/foxfm2/) from Mozillas's official addon page.
 
+Run foxfm2 in Chrome
+--------------------
+Not available yet.
+
 Run foxfm2 from sources
------------------------------------
+-----------------------
 Who wants to have the very last version should follow these steps :)
 
 ### Get foxfm2 sources
