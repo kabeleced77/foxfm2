@@ -20,6 +20,8 @@ export class Ressource implements IRessource {
 
 export class RessourceCommonButtonApply extends Ressource { constructor() { super("common_buttonApply"); } }
 export class RessourceCommonButtonImport extends Ressource { constructor() { super("common_buttonImport"); } }
+export class RessourceCommonMatchday extends Ressource { constructor() { super("common_matchday"); } }
+export class RessourceCommonMatchdays extends Ressource { constructor() { super("common_matchdays"); } }
 
 export class RessourceCommonTableExtensionsHeaderAwp extends Ressource { constructor() { super("commonTableExtensions_headerAwp"); } }
 export class RessourceCommonTableExtensionsHeaderAwpDiff extends Ressource { constructor() { super("commonTableExtensions_headerAwpDiff"); } }
@@ -57,6 +59,10 @@ export class RessourceTeamTableSettingsHeader extends Ressource { constructor() 
 
 export class RessourceTransferMarketOfferTableSettingsMenu extends Ressource { constructor() { super("transferMarketOfferTableSettings_menu"); } }
 export class RessourceTransferMarketOfferTableSettingsHeader extends Ressource { constructor() { super("transferMarketOfferTableSettings_header"); } }
+
+export class RessourceTransferMarketSellingSettingsMenu extends Ressource { constructor() { super("transferMarketSellingSettings_menu"); } }
+export class RessourceTransferMarketSellingSettingsHeader extends Ressource { constructor() { super("transferMarketSellingSettings_header"); } }
+export class RessourceTransferMarketSellingChangeDuration extends Ressource { constructor() { super("transferMarketSellingSettings_changeDuration"); } }
 
 export class RessourceTransferMarketProfessionalsTableSettingsMenu extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_menu"); } }
 export class RessourceTransferMarketProfessionalsTableSettingsHeader extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_header"); } }

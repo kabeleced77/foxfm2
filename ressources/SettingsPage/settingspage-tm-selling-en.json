@@ -1,0 +1,11 @@
+{
+  "transferMarketSellingSettings_menu": {
+    "message": "TM Selling"
+  },
+  "transferMarketSellingSettings_header": {
+    "message": "Settings to sell player on the transfer market"
+  },
+  "transferMarketSellingSettings_changeDuration":{
+    "message": "Take following duration to sell a player on the transfer market: "
+  }
+}

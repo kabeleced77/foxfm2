@@ -4,5 +4,11 @@
   },
   "common_buttonImport": {
     "message": "Import"
+  },
+  "common_matchDay": {
+    "message": "Matchday"
+  },
+  "common_matchDays": {
+    "message": "Matchdays"
   }
 }

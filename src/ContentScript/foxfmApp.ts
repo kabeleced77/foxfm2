@@ -55,6 +55,13 @@ import { TransferMarketSearchResultTableSettings, ITransferMarketSearchResultTab
 import { HtmlTableColumnStringValues } from "../Common/Toolkit/HtmlTableColumnStringValues";
 import { SplitStringsToNumbers } from "../Common/Toolkit/SplitStrings";
 import { SettingNameTeamTable } from "../Common/Settings/SettingNameTeamTable";
+import { PlayerWebPage } from "./Player/PlayerWebPage";
+import { HtmlSelect } from "../Common/Toolkit/HtmlSelect";
+import { PlayerTransferMarketSellingWebPageUrl } from "../Common/Urls/PlayerTransferMarketSellingWebPageUrl";
+import { PlayerTransferMarketDurationSelect } from "./Player/PlayerTransferMarketDurationSelect";
+import { TransferMarketSellingDurationSettings, ITransferMarketSellingDurationSettings } from "../Common/Settings/TransferMarketSellingDurationSettings";
+import { SettingNameTransferMarketSellingDuration } from "../Common/Settings/SettingNameTransferMarketDuration";
+import { HtmlSelectById } from "../Common/Toolkit/HtmlSelectById";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -100,6 +107,31 @@ var app = new foxfmApp(
   ),
   new ExtendWebPages(
     new Array<IExtendWebPage>(
+      // Extend player information - selling duration
+      new ExtendWebPage(
+        new Url(currentUrl),
+        new PlayerWebPage(
+          new PlayerTransferMarketSellingWebPageUrl(),
+          new PlayerTransferMarketDurationSelect(
+            new HtmlSelect(
+              new HtmlSelectById(
+                new Dom(doc),
+                "startwoche")),
+            new StorageLocal<ITransferMarketSellingDurationSettings>(
+              new SettingNameTransferMarketSellingDuration(),
+              new TransferMarketSellingDurationSettings(
+                false,
+                3)),
+            new EasyLogger(
+              logger,
+              new RegisteredLoggingModule(
+                "PlayerTransferMarketSelling",
+                new LogLevelError())))),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "PlayerWebPage",
+            new LogLevelError()))),
       // Extend transfer market - search result table
       new ExtendWebPage(
         new Url(currentUrl),
