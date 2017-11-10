@@ -274,6 +274,7 @@ System.config({
       "ContentScript/Team/TeamWebPage.js",
       "ContentScript/TransferMarket/TransferMarketAmateurPlayerTable.js",
       "ContentScript/TransferMarket/TransferMarketAmateurWebPage.js",
+      "ContentScript/TransferMarket/TransferMarketOfferDurationSelect.js",
       "ContentScript/TransferMarket/TransferMarketOfferPlayerTable.js",
       "ContentScript/TransferMarket/TransferMarketOfferWebPage.js",
       "ContentScript/TransferMarket/TransferMarketProfessionalPlayerTable.js",

@@ -62,6 +62,7 @@ import { PlayerTransferMarketDurationSelect } from "./Player/PlayerTransferMarke
 import { TransferMarketSellingDurationSettings, ITransferMarketSellingDurationSettings } from "../Common/Settings/TransferMarketSellingDurationSettings";
 import { SettingNameTransferMarketSellingDuration } from "../Common/Settings/SettingNameTransferMarketDuration";
 import { HtmlSelectById } from "../Common/Toolkit/HtmlSelectById";
+import { TransferMarketOfferDurationSelect } from "./TransferMarket/TransferMarketOfferDurationSelect";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -228,7 +229,23 @@ var app = new foxfmApp(
               new TransferOfferTableSettings(
                 true,
                 true,
-                true)))),
+                true))),
+          new TransferMarketOfferDurationSelect(
+            new HtmlSelect(
+              new HtmlSelectById(
+                new Dom(doc),
+                "startwoche")),
+            new StorageLocal<ITransferMarketSellingDurationSettings>(
+              new SettingNameTransferMarketSellingDuration(),
+              new TransferMarketSellingDurationSettings(
+                false,
+                3)),
+            new EasyLogger(
+              logger,
+              new RegisteredLoggingModule(
+                "TransferMarketOfferDurationSelect",
+                new LogLevelError()))
+          )),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
