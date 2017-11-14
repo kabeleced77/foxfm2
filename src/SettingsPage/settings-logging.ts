@@ -13,20 +13,20 @@ import { ISetting } from "../Common/Toolkit/Setting";
 import { StorageLocal } from "../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
+import { EasyLogger, IEasyLogger } from '../Common/Logger/EasyLogger';
 
 export class SettingsLogging {
-  private thisModule: string = "SettingsLogging";
-  private loggingModule: IRegisteredLoggingModule;
   private log: ILogger;
+  private logger: IEasyLogger;
   private registeredLoggingModulesSetting: ISetting<IRegisteredLoggingModules>;
   private applicationLogLevel: ISetting<ILogLevel>;
 
   public ressourceHeading: String;
   public ressourceIntro: String;
   public ressourceButtonApply: String;
-  public loggingModules: Array<LoggingModule>;
-  public loggingLevels2: Array<ILogLevel>;
-  public viewApplicationLogLevel: ILogLevel;
+  public loggingModules: Array<LoggingModuleViewModel>;
+  public logLevels: Array<LogLevelViewModel>;
+  public viewApplicationLogLevel: LogLevelViewModel;
 
   constructor() {
     this.log = new Logger(
@@ -38,85 +38,87 @@ export class SettingsLogging {
         new StorageLocal<IRegisteredLoggingModules>(
           new SettingNameLoggingModules(),
           new RegisteredLoggingModules(
-            new Array<IRegisteredLoggingModule>())))
-    );
+            new Array<IRegisteredLoggingModule>()))));
+    this.logger = new EasyLogger(this.log,
+      new RegisteredLoggingModule(
+        "SettingsLogging",
+        new LogLevelError()));
+
     this.registeredLoggingModulesSetting = this.log.registeredModules();
-    this.loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
-    this.log.registerModuleForLogging(this.loggingModule);
     this.applicationLogLevel = this.log.applicationLogLevel();
 
     this.ressourceHeading = new RessourceSettingsPageLoggerHeading().value();
     this.ressourceIntro = new RessourceSettingsPageLoggerIntro().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
-
-    this.applicationLogLevel.value()
-      .then(logLevel =>
-        this.viewApplicationLogLevel = new LogLevel(logLevel.name(), logLevel.level()));
-
-    this.collectLogLevels2();
-    this.loggingModules = new Array<LoggingModule>();
-    this.registeredLoggingModulesSetting.value().then(modules => {
-      modules.modules().forEach(m => {
-        this.debug(`Loaded logging modules: ${m.name()}, ${JSON.stringify(m.logLevel())}`);
-        this.loggingModules.push(new LoggingModule(m.name(), m.logLevel()));
-      });
-    });
+    this.initialiseViewValues();
   }
 
+  public logLevelMatcher = (logLevel1: LogLevelViewModel, logLevel2: LogLevelViewModel): Boolean => logLevel1.name === logLevel2.name;
+
   public submit() {
-    this.info(`Submitted called`);
+    this.logger.info(`Submitted called`);
 
     this.applicationLogLevel
       .update((currentAppLogLevel: ILogLevel) => {
-        currentAppLogLevel.update(this.viewApplicationLogLevel);
-        return currentAppLogLevel;
+        return new LogLevel(this.viewApplicationLogLevel.name, this.viewApplicationLogLevel.level);
       });
 
     this.registeredLoggingModulesSetting
       .update((modules: IRegisteredLoggingModules) => {
         return new RegisteredLoggingModules(
           this.loggingModules.map(m =>
-            new RegisteredLoggingModule(m.name, m.logLevel)));
+            new RegisteredLoggingModule(m.name, new LogLevel(m.logLevel.name, m.logLevel.level))));
       });
   }
 
-  public logLevelMatcher = (logLevel1: ILogLevel, logLevel2: ILogLevel): Boolean => logLevel1.name() === logLevel2.name();
+  private async initialiseViewValues() {
+    let appLogLevel = await this.applicationLogLevel.value();
+    this.viewApplicationLogLevel = new LogLevelViewModel(appLogLevel.name(), appLogLevel.level());
 
-  private collectLogLevels2() {
-    this.loggingLevels2 = new Array<ILogLevel>();
-    this.loggingLevels2.push(new LogLevelOff());
-    this.loggingLevels2.push(new LogLevelAll());
-    this.loggingLevels2.push(new LogLevelDebug());
-    this.loggingLevels2.push(new LogLevelWarn());
-    this.loggingLevels2.push(new LogLevelError());
-    this.loggingLevels2.push(new LogLevelInfo());
-    this.loggingLevels2 = this.loggingLevels2.sort((a, b) =>
-      (a.level().valueOf() - b.level().valueOf()).valueOf());
-    this.debug(`Created array of log levels: ${this.loggingLevels2.map(ll => JSON.stringify(ll)).join(", ")}`);
+    this.logLevels = this.logLevelsViewModules();
+    this.loggingModules = await this.loggingModulesViewModules(await this.registeredLoggingModulesSetting.value());
   }
 
-  private info(msg: string): void {
-    this.log.info(this.thisModule, msg);
+  private async loggingModulesViewModules(registeredLoggingModules: IRegisteredLoggingModules) {
+    let loggingModules = new Array<LoggingModuleViewModel>();
+    let regLogModules = await this.registeredLoggingModulesSetting.value();
+    registeredLoggingModules
+        .modules().forEach(m => {
+          this.logger.debug(`Loaded logging modules: ${m.name()}, ${JSON.stringify(m.logLevel())}`);
+          loggingModules.push(new LoggingModuleViewModel(m.name(), new LogLevelViewModel(m.logLevel().name(), m.logLevel().level())));
+        });
+    return loggingModules;
   }
-  private debug(msg: string): void {
-    this.log.debug(this.thisModule, msg);
+
+  private logLevelsViewModules(): Array<LogLevelViewModel> {
+    let logLevels = new Array<LogLevelViewModel>();
+    logLevels.push(this.collectLogLevel(new LogLevelOff()));
+    logLevels.push(this.collectLogLevel(new LogLevelAll()));
+    logLevels.push(this.collectLogLevel(new LogLevelDebug()));
+    logLevels.push(this.collectLogLevel(new LogLevelWarn()));
+    logLevels.push(this.collectLogLevel(new LogLevelError()));
+    logLevels.push(this.collectLogLevel(new LogLevelInfo()));
+    logLevels = logLevels.sort((a, b) => (a.level.valueOf() - b.level.valueOf()).valueOf());
+    this.logger.debug(`Created array of log levels: ${logLevels.map(ll => JSON.stringify(ll)).join(", ")}`);
+    return logLevels;
   }
-  private warn(msg: string): void {
-    this.log.warn(this.thisModule, msg);
+
+  private collectLogLevel(logLevel: ILogLevel): LogLevelViewModel {
+    return new LogLevelViewModel(logLevel.name(), logLevel.level());
   }
 }
 
-class LoggingModule {
+class LoggingModuleViewModel {
   public name: String;
-  public logLevel: ILogLevel;
+  public logLevel: LogLevelViewModel;
 
-  constructor(name: String, logLevel: ILogLevel) {
+  constructor(name: String, logLevel: LogLevelViewModel) {
     this.name = name;
     this.logLevel = logLevel;
   }
 }
 
-class LoggerLogLevel {
+class LogLevelViewModel {
   public name: String;
   public level: Number;
 

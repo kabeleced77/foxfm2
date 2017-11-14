@@ -10,7 +10,7 @@
             <th>
               Modules
             </th>
-            <th colspan="${loggingLevels2.length}">
+            <th colspan="${logLevels.length}">
               Log Levels
             </th>
           </tr>
@@ -18,42 +18,32 @@
             <td>
               Application Log Level
             </td>
-            <td repeat.for="level of loggingLevels2">
+            <td repeat.for="level of logLevels">
               <label class="radio-inline">
-                <input type="radio"
-                name="viewApplicationLogLevel"
-                model.bind="level" 
-                matcher.bind="logLevelMatcher" 
-                checked.bind="$parent.viewApplicationLogLevel"
-                />
-                ${level.name()}
+                <input type="radio" name="viewApplicationLogLevel" model.bind="level" matcher.bind="logLevelMatcher" checked.bind="viewApplicationLogLevel"
+                /> ${level.name}
               </label>
             </td>
           </tr>
 
-          <tr repeat.for="module of loggingModules"> 
+          <tr repeat.for="module of loggingModules">
             <td>
               ${module.name}
             </td>
-            <td repeat.for="level of loggingLevels2">
+            <td repeat.for="level of logLevels">
               <label class="radio-inline">
-                <input type="radio"
-                name="${$parent.module.name}" 
-                model.bind="level" 
-                matcher.bind="logLevelMatcher" 
-                checked.bind="$parent.module.logLevel"
-                />
-                ${level.name()}
+                <input type="radio" name="${module.name}" model.bind="level" matcher.bind="logLevelMatcher" checked.bind="module.logLevel"
+                /> ${level.name}
               </label>
             </td>
           </tr>
         </table>
-        
-      <div class="form-group">
-        <button class="btn btn-primary " name="submit" type="submit">
-          ${ressourceButtonApply}
-        </button>
-      </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary " name="submit" type="submit">
+            ${ressourceButtonApply}
+          </button>
+        </div>
     </form>
   </section>
 </template>
