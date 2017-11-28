@@ -55,7 +55,7 @@ import { TransferMarketSearchResultTableSettings, ITransferMarketSearchResultTab
 import { HtmlTableColumnStringValues } from "../Common/Toolkit/HtmlTableColumnStringValues";
 import { SplitStringsToNumbers } from "../Common/Toolkit/SplitStrings";
 import { SettingNameTeamTable } from "../Common/Settings/SettingNameTeamTable";
-import { PlayerWebPage } from "./Player/PlayerWebPage";
+import { PlayerTransferMarketWebPage } from "./Player/PlayerTransferMarketWebPage";
 import { HtmlSelect } from "../Common/Toolkit/HtmlSelect";
 import { PlayerTransferMarketSellingWebPageUrl } from "../Common/Urls/PlayerTransferMarketSellingWebPageUrl";
 import { PlayerTransferMarketDurationSelect } from "./Player/PlayerTransferMarketDurationSelect";
@@ -111,7 +111,7 @@ var app = new foxfmApp(
       // Extend player information - selling duration
       new ExtendWebPage(
         new Url(currentUrl),
-        new PlayerWebPage(
+        new PlayerTransferMarketWebPage(
           new PlayerTransferMarketSellingWebPageUrl(),
           new PlayerTransferMarketDurationSelect(
             new HtmlSelect(
@@ -131,7 +131,7 @@ var app = new foxfmApp(
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
-            "PlayerWebPage",
+            "PlayerInformationWebPage",
             new LogLevelError()))),
       // Extend transfer market - search result table
       new ExtendWebPage(

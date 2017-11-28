@@ -2,7 +2,7 @@ import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
 import { IWebPageToExtend } from "../../Common/Toolkit/WebPageToExtend";
 import { IUrl } from "../../Common/Toolkit/Url";
 
-export class PlayerWebPage implements IWebPageToExtend {
+export class PlayerTransferMarketWebPage implements IWebPageToExtend {
   private urlField: IUrl;
   private transferMarketDurationSelect: IWebElementToExtend;
 
