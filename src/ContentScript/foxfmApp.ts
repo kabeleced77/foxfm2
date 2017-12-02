@@ -131,7 +131,7 @@ var app = new foxfmApp(
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
-            "PlayerInformationWebPage",
+            "PlayerTransferMarketWebPage",
             new LogLevelError()))),
       // Extend transfer market - search result table
       new ExtendWebPage(
