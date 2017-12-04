@@ -1,12 +1,12 @@
 import { IUrl } from "../Toolkit/Url"
 
 export class TeamWebPageUrl implements IUrl {
-  private urlField: String;
+  private urlField: string;
 
   constructor() {
     this.urlField = "team/players.php";
   }
-  public url(): String {
+  public url(): string {
     return this.urlField;
   }
   fromJson(jsonString: String): IUrl {

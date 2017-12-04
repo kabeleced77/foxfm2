@@ -1,16 +1,16 @@
 export interface IUrl {
-  url(): String;
+  url(): string | RegExp;
   fromJson(jsonString: String): IUrl;
 }
 
 export class Url implements IUrl {
-  private urlString: String;
+  private urlString: string | RegExp;
 
-  constructor(url: String) {
+  constructor(url: string | RegExp) {
     this.urlString = url;
   }
 
-  public url(): String {
+  public url(): string | RegExp {
     return this.urlString;
   }
   public fromJson(jsonString: String): IUrl {

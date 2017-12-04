@@ -23,7 +23,7 @@ export class ExtendWebPage implements IExtendWebPage {
 
   public extend(): void {
     var currentUrl = this.currentUrl.url().toString();
-    var targetUrl = this.webPage.pageUrl().url().toString();
+    var targetUrl = this.webPage.pageUrl().url();
     var extendPage = currentUrl.match(targetUrl) !== null;
     this.log.info(`called from: ${currentUrl} compared to ${targetUrl}: ${extendPage}`);
     if (extendPage) this.webPage.extend();
