@@ -63,6 +63,12 @@ import { TransferMarketSellingDurationSettings, ITransferMarketSellingDurationSe
 import { SettingNameTransferMarketSellingDuration } from "../Common/Settings/SettingNameTransferMarketDuration";
 import { HtmlSelectById } from "../Common/Toolkit/HtmlSelectById";
 import { TransferMarketOfferDurationSelect } from "./TransferMarket/TransferMarketOfferDurationSelect";
+import { PlayerInformationWebPage } from "./Player/PlayerInformationWebPage";
+import { PlayerInformationWebPageUrl } from "../Common/Urls/PlayerInformationWebPageUrl";
+import { FocusElementByXPathConfigureable } from "../Common/Toolkit/FocusElementByXPathConfigureable";
+import { FocusElementSetting } from "../Common/Settings/FocusElementSetting";
+import { SettingNamePlayerInformationWebPageFocusElement } from "../Common/Settings/SettingNamePlayerInformationWebPageFocusElement";
+import { RessourcePlayerInformationWebPageElementTransferMarket } from "../Common/Ressource";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -108,7 +114,32 @@ var app = new foxfmApp(
   ),
   new ExtendWebPages(
     new Array<IExtendWebPage>(
-      // Extend player information - selling duration
+      // Extend player information - set focus
+      new ExtendWebPage(
+        new Url(currentUrl),
+        new PlayerInformationWebPage(
+          new PlayerInformationWebPageUrl(),
+          new FocusElementByXPathConfigureable(
+            new StorageLocal(
+              new SettingNamePlayerInformationWebPageFocusElement(),
+              new FocusElementSetting(
+                false,
+                "/html/body[1]/div[2]/table[3]/tbody[1]/tr[1]/td[2]/a[3]",
+                new RessourcePlayerInformationWebPageElementTransferMarket()
+              )
+            ),
+            new Dom(doc),
+            new EasyLogger(
+              logger,
+              new RegisteredLoggingModule(
+                "FocusElementByXPathConfigureable",
+                new LogLevelError())))),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "PlayerInformationWebPage",
+            new LogLevelError()))),
+      // Extend player transfer market - selling duration
       new ExtendWebPage(
         new Url(currentUrl),
         new PlayerTransferMarketWebPage(

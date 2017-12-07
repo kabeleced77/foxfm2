@@ -76,3 +76,5 @@ export class RessourceStrengthAwpLimitsSettingsIntro extends Ressource { constru
 export class RessourceStrengthAwpLimitsSettingsImportLabel extends Ressource { constructor() { super("strengthAwpLimitsSettings_importLabel"); } }
 export class RessourceStrengthAwpLimitsSettingsTableHeaderStrength extends Ressource { constructor() { super("strengthAwpLimitsSettings_tableHeaderStrength"); } }
 export class RessourceStrengthAwpLimitsSettingsTableHeaderAwps extends Ressource { constructor() { super("strengthAwpLimitsSettings_tableHeaderAwps"); } }
+
+export class RessourcePlayerInformationWebPageElementTransferMarket extends Ressource { constructor() { super("playerInformationWebPage_elementTransferMarket"); } }
