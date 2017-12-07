@@ -6,7 +6,9 @@ import { IFirstElementInXPathNodeOrParents } from "./FirstElementInXPathNodeOrPa
 export class HtmlTableByXPath<T> implements ITable<HTMLTableElement> {
   private xPath: IFirstElementInXPathNodeOrParents<T, HTMLTableElement>;
 
-  constructor(xpath: IFirstElementInXPathNodeOrParents<T, HTMLTableElement>) {
+  constructor(
+    xpath: IFirstElementInXPathNodeOrParents<T, HTMLTableElement>
+  ) {
     this.xPath = xpath;
   }
 
