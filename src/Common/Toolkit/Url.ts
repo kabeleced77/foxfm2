@@ -1,5 +1,6 @@
 export interface IUrl {
   url(): string | RegExp;
+  // TODO: is method 'fromJson()' required at all?
   fromJson(jsonString: String): IUrl;
 }
 
