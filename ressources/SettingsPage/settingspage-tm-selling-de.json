@@ -5,7 +5,13 @@
   "transferMarketSellingSettings_header": {
     "message": "Einstellungen für den Verkauf von Spielern auf dem Transfermarkt"
   },
-  "transferMarketSellingSettings_changeDuration":{
+  "transferMarketSellingSettings_changeDuration": {
     "message": "Verwende folgende Standarddauer beim Verkauf von Spielern auf dem Transfermarkt: "
+  },
+  "transferMarketSellingImproveSellingProcessSettings_header": {
+    "message": "Folgende Einstellungen sollen den Verkaufsprozess vereinfachen - optimiert für Tastatur Bedienung"
+  },
+  "transferMarketSellingPlayerInformationPage_setFocus": {
+    "message": "Aktiviere Fokus auf folgendes Web Element auf der Spielerinformationsseite (Klick auf Spielernamen): "
   }
 }

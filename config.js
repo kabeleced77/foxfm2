@@ -267,7 +267,6 @@ System.config({
       "BackgroundPage/background.js"
     ],
     "app-contentscript-build.js": [
-      "ContentScript/Player/PlayerInformationDefaultFocus.js",
       "ContentScript/Player/PlayerInformationWebPage.js",
       "ContentScript/Player/PlayerTransferMarketDurationSelect.js",
       "ContentScript/Player/PlayerTransferMarketWebPage.js",
@@ -412,7 +411,6 @@ System.config({
       "Common/Logger/RegisteredLoggingModules.js",
       "Common/Ressource.js",
       "Common/Settings/FocusElementSetting.js",
-      "Common/Settings/PlayerWebPageDefaultFocusSettings.js",
       "Common/Settings/SettingNameApplicationLogLevel.js",
       "Common/Settings/SettingNameLoggingModules.js",
       "Common/Settings/SettingNamePlayerInformationWebPageFocusElement.js",

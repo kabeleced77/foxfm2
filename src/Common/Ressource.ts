@@ -1,6 +1,7 @@
 export interface IRessource {
   key(): String;
   value(): String;
+  fromJson(jsonString: String): IRessource;
 }
 
 export class Ressource implements IRessource {
@@ -15,6 +16,9 @@ export class Ressource implements IRessource {
   }
   public value(): String {
     return chrome.i18n.getMessage(this.ressourceKey.valueOf());
+  }
+  public fromJson(jsonString: String): IRessource {
+    return new Ressource(jsonString["ressourceKey"]);
   }
 }
 
@@ -62,7 +66,9 @@ export class RessourceTransferMarketOfferTableSettingsHeader extends Ressource {
 
 export class RessourceTransferMarketSellingSettingsMenu extends Ressource { constructor() { super("transferMarketSellingSettings_menu"); } }
 export class RessourceTransferMarketSellingSettingsHeader extends Ressource { constructor() { super("transferMarketSellingSettings_header"); } }
+export class RessourceTransferMarketSellingImproveSellingProcessSettingsHeader extends Ressource { constructor() { super("transferMarketSellingImproveSellingProcessSettings_header"); } }
 export class RessourceTransferMarketSellingChangeDuration extends Ressource { constructor() { super("transferMarketSellingSettings_changeDuration"); } }
+export class RessourceTransferMarketSellingPlayerInformationPageSetFocus extends Ressource { constructor() { super("transferMarketSellingPlayerInformationPage_setFocus"); } }
 
 export class RessourceTransferMarketProfessionalsTableSettingsMenu extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_menu"); } }
 export class RessourceTransferMarketProfessionalsTableSettingsHeader extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_header"); } }
