@@ -38,13 +38,13 @@ export class StorageLocal<T extends ITypeInStorage<T>> implements ISetting<T> {
     return new Promise<T>((resolve, reject) => {
       chrome.storage.local.get(this.storageKey.name(), (items: { [key: string]: String }) => {
         var value = items[this.storageKey.name().toString()];
-        // console.debug("loaded from storage [" + this.key().name() + "]: " + JSON.stringify(value));
+         // console.debug("loaded from storage [" + this.key().name() + "]: " + JSON.stringify(value));
         if (value === undefined) {
-          // console.debug(`${this.key().name()}: will use default value: ${JSON.stringify(this.defaultValue)}`);
+           // console.debug(`${this.key().name()}: will use default value: ${JSON.stringify(this.defaultValue)}`);
           this.save(this.defaultValue);
           resolve(this.defaultValue);
         } else {
-          // console.debug(`${this.key().name()}: will create object from JSON value: ${JSON.stringify(this.defaultValue)}`);
+           // console.debug(`${this.key().name()}: will create object from JSON value: ${JSON.stringify(value)}`);
           resolve(this.defaultValue.fromJson(value));
         }
       });
