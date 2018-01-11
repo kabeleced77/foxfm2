@@ -1,4 +1,7 @@
 {
+  "common_selectElement": {
+    "message": "Wähle Element"
+  },
   "common_buttonApply": {
     "message": "Übernehmen"
   },

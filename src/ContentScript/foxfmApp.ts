@@ -68,7 +68,12 @@ import { PlayerInformationWebPageUrl } from "../Common/Urls/PlayerInformationWeb
 import { FocusElementByXPathConfigureable } from "../Common/Toolkit/FocusElementByXPathConfigureable";
 import { FocusElementSetting } from "../Common/Settings/FocusElementSetting";
 import { SettingNamePlayerInformationWebPageFocusElement } from "../Common/Settings/SettingNamePlayerInformationWebPageFocusElement";
-import { RessourcePlayerInformationWebPageElementTransferMarket } from "../Common/Ressource";
+import { RessourcePlayerInformationWebPageElementTransferMarket, RessourcePlayerTransferMarketPageElementCloseWindow, RessourcePlayerTransferMarketPageElementBack } from "../Common/Ressource";
+import { IArrayInStorage, ArrayInStorage } from "../Common/ArrayInStorage";
+import { IFocusElementsSetting, FocusElementsSetting } from "../Common/Settings/FocusElementsSetting";
+import { PlayerInformationPageFocusElementSettingDefaultValue } from "../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue";
+import { PlayerTransferMarketPageFocusElementSettingName } from "../Common/Settings/PlayerTransferMarketPageFocusElementSettingName";
+import { PlayerTransferMarketPageFocusElementSettingDefaultValue } from "../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -120,14 +125,9 @@ var app = new foxfmApp(
         new PlayerInformationWebPage(
           new PlayerInformationWebPageUrl(),
           new FocusElementByXPathConfigureable(
-            new StorageLocal(
+            new StorageLocal<IFocusElementsSetting>(
               new SettingNamePlayerInformationWebPageFocusElement(),
-              new FocusElementSetting(
-                false,
-                "/html/body[1]/div[2]/table[3]/tbody[1]/tr[1]/td[2]/a[3]",
-                new RessourcePlayerInformationWebPageElementTransferMarket()
-              )
-            ),
+              new PlayerInformationPageFocusElementSettingDefaultValue()),
             new Dom(doc),
             new EasyLogger(
               logger,
@@ -158,6 +158,16 @@ var app = new foxfmApp(
               logger,
               new RegisteredLoggingModule(
                 "PlayerTransferMarketSelling",
+                new LogLevelError()))),
+          new FocusElementByXPathConfigureable(
+            new StorageLocal<IFocusElementsSetting>(
+              new PlayerTransferMarketPageFocusElementSettingName(),
+              new PlayerTransferMarketPageFocusElementSettingDefaultValue()),
+            new Dom(doc),
+            new EasyLogger(
+              logger,
+              new RegisteredLoggingModule(
+                "FocusElementByXPathConfigureable",
                 new LogLevelError())))),
         new EasyLogger(
           logger,

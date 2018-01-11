@@ -402,6 +402,7 @@ System.config({
       "npm:jquery@3.2.1/dist/jquery.js"
     ],
     "app-common-build.js": [
+      "Common/ArrayInStorage.js",
       "Common/ExperienceAndTrainingColumn.js",
       "Common/GameKind.js",
       "Common/Logger/EasyLogger.js",
@@ -411,6 +412,8 @@ System.config({
       "Common/Logger/RegisteredLoggingModules.js",
       "Common/Ressource.js",
       "Common/Settings/FocusElementSetting.js",
+      "Common/Settings/FocusElementsSetting.js",
+      "Common/Settings/PlayerTransferMarketPageFocusElementSettingName.js",
       "Common/Settings/SettingNameApplicationLogLevel.js",
       "Common/Settings/SettingNameLoggingModules.js",
       "Common/Settings/SettingNamePlayerInformationWebPageFocusElement.js",
@@ -428,6 +431,8 @@ System.config({
       "Common/Settings/TransferMarketSearchResultTableSettings.js",
       "Common/Settings/TransferMarketSellingDurationSettings.js",
       "Common/Settings/TransferOfferTableSettings.js",
+      "Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue.js",
+      "Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue.js",
       "Common/StadiumBlock.js",
       "Common/StadiumBlockName.js",
       "Common/StadiumBlocks.js",
@@ -449,6 +454,7 @@ System.config({
       "Common/Toolkit/FirstElementInXPathNodeOrParents.js",
       "Common/Toolkit/FocusElementByXPath.js",
       "Common/Toolkit/FocusElementByXPathConfigureable.js",
+      "Common/Toolkit/FocusElementsByXPaths.js",
       "Common/Toolkit/HtmlAttribute.js",
       "Common/Toolkit/HtmlElement.js",
       "Common/Toolkit/HtmlElementWithChilds.js",

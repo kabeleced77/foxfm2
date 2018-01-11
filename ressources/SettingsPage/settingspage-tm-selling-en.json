@@ -7,5 +7,14 @@
   },
   "transferMarketSellingSettings_changeDuration":{
     "message": "Take following duration to sell a player on the transfer market: "
+  },
+  "transferMarketSellingSettings_improveSellingProcessSettings_header": {
+    "message": "Following settings shall improve the selling process - optimised using the keyboard"
+  },
+  "transferMarketSellingSettings_playerInformationPage_setFocus": {
+    "message": "Set focus on following web element on player information page (opens after click on player name): "
+  },
+  "transferMarketSellingSettings_playerTransferMarketPage_setFocus": {
+    "message": "Set focus on following web element on player transfer market (reachable through player information page): "
   }
 }

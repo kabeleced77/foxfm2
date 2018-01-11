@@ -21,7 +21,18 @@
       <h4>${ressourceHeadingImproveSellingProcess}</h4>
       <div class="checkbox">
         <label style="padding-right: 7px;">
-          <input type="checkbox" checked.bind="playerInformationPageSetFocus">${ressourcePlayerInformationPageSetFocus}${playerInformationPageFocusElementName}</label>
+          <input type="checkbox" checked.bind="playerInformationPageFocusElements.settingStatus">${ressourcePlayerInformationPageSetFocus}${playerInformationPageFocusElementName}</label>
+        <select value.bind="playerInformationPageFocusElements.selectedElement">
+          <option repeat.for="element of playerInformationPageFocusElements.elements" model.bind="element">${element.name}</option>
+        </select>
+      </div>
+
+      <div class="checkbox">
+        <label style="padding-right: 7px;">
+          <input type="checkbox" checked.bind="playerTransferMarketPageFocusElements.settingStatus">${ressourcePlayerTransferMarketPageSetFocus}${playerTransferMarketPageFocusElementName}</label>
+        <select value.bind="playerTransferMarketPageFocusElements.selectedElement">
+          <option repeat.for="element of playerTransferMarketPageFocusElements.elements" model.bind="element">${element.name}</option>
+        </select>
       </div>
 
       <div class="form-group">

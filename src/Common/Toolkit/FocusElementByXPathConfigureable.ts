@@ -7,14 +7,15 @@ import { XPathSingleResult } from "./XPathSingleResult";
 import { IDom } from "./Dom";
 import { XPathAllResults } from "./XPathAllResults";
 import { XPathString } from "./XPathString";
+import { IFocusElementsSetting } from "../Settings/FocusElementsSetting";
 
 export class FocusElementByXPathConfigureable<T extends HTMLElement> implements IWebElementToFocus {
-  private readonly settings: ISetting<IFocusElementSetting>;
+  private readonly settings: ISetting<IFocusElementsSetting>;
   private readonly log: IEasyLogger;
   private readonly dom: IDom;
 
   constructor(
-    settings: ISetting<IFocusElementSetting>,
+    settings: ISetting<IFocusElementsSetting>,
     dom: IDom,
     log: IEasyLogger
   ) {
@@ -27,17 +28,36 @@ export class FocusElementByXPathConfigureable<T extends HTMLElement> implements 
     this.settings
       .value()
       .then(setting => {
-        let configStatus = setting.focusElement();
-        let xPath = setting.xPathToElement();
-        this.log.info(`if activated the focus will be set to the element given by following xpath: ${xPath} (configration status: ${configStatus})`);
-        if (configStatus) {
-          let element = new FocusElementByXPath<T>(
-            new XPathSingleResult<T>(
-              new XPathAllResults(this.dom.dom(),
-                new XPathString(xPath))),
-            this.log);
-          element.focus();
+        if (setting.activated()) {
+          let elements = this.elementsToFocus(setting.elements().array());
+          if (elements.length === 0) {
+            return;
+          } else if (elements.length > 1) {
+            throw new Error(`More than one element has been activated to be focused.`);
+          }
+          let focusElement = elements[0].focusElement();
+          let xPath = elements[0].xPathToElement();
+
+          this.log.info(`if activated the focus will be set to the element given by following xpath: ${xPath} (configration status: ${focusElement})`);
+          if (focusElement) {
+            new FocusElementByXPath<T>(
+              new XPathSingleResult<T>(
+                new XPathAllResults(this.dom.dom(),
+                  new XPathString(xPath))),
+              this.log)
+              .focus();
+          }
         }
       });
+  }
+
+  private elementsToFocus(settings: Array<IFocusElementSetting>): Array<IFocusElementSetting> {
+    let activatedSetting: IFocusElementSetting[] = [];
+    settings.forEach(setting => {
+      if (setting.focusElement()) {
+        activatedSetting.push(setting);
+      }
+    });
+    return activatedSetting;
   }
 }
