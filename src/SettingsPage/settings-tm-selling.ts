@@ -23,6 +23,9 @@ import { IFocusElementsSetting, FocusElementsSetting } from '../Common/Settings/
 import { PlayerInformationPageFocusElementSettingDefaultValue } from '../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue';
 import { PlayerTransferMarketPageFocusElementSettingName } from '../Common/Settings/PlayerTransferMarketPageFocusElementSettingName';
 import { PlayerTransferMarketPageFocusElementSettingDefaultValue } from '../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue';
+import { ICheckboxViewModel, CheckboxViewModel } from '../Common/ViewModels/CheckboxViewModel';
+import { ISelectViewModel, SelectViewModel } from '../Common/ViewModels/SelectViewModel';
+import { ICheckboxWithSelectViewModel, CheckboxWithSelectViewModel } from '../Common/ViewModels/CheckboxWithSelectViewModel';
 
 export class SettingsTransferMarketSelling {
   private log: IEasyLogger;
@@ -39,8 +42,8 @@ export class SettingsTransferMarketSelling {
   public ressourceChangeSellingDuration: String;
   public ressourcePlayerInformationPageSetFocus: String;
   public ressourcePlayerTransferMarketPageSetFocus: String;
-  public changeDefaultSellingDuration: Boolean;
-  public defaultSellingDuration: Number;
+
+  public defaultSellingDurationViewModel: ICheckboxWithSelectViewModel<String>;
 
   public playerInformationPageFocusElements: FocusElementsViewModel;
   public playerTransferMarketPageFocusElements: FocusElementsViewModel;
@@ -89,9 +92,10 @@ export class SettingsTransferMarketSelling {
   }
 
   submit() {
-    this.settingsTransferMarketSellingDuration.save(new TransferMarketSellingDurationSettings(
-      this.changeDefaultSellingDuration,
-      this.defaultSellingDuration));
+    this.settingsTransferMarketSellingDuration.save(
+      new TransferMarketSellingDurationSettings(
+        this.defaultSellingDurationViewModel.checkbox.state,
+        this.defaultSellingDurationViewModel.select.selectedOption));
 
     this.settingsPlayerInformationWebPageFocus.update(value => { return this.updateFocusElemensSetting(value, this.playerInformationPageFocusElements); });
     this.settingsPlayerTransferMarketWebPageFocus.update(value => { return this.updateFocusElemensSetting(value, this.playerTransferMarketPageFocusElements); });
@@ -107,13 +111,39 @@ export class SettingsTransferMarketSelling {
 
   private async initialiseSettings() {
     let settingsSellingDuration = await this.settingsTransferMarketSellingDuration.value();
-    this.changeDefaultSellingDuration = settingsSellingDuration.changeDefaultSellingDuration();
-    this.defaultSellingDuration = settingsSellingDuration.defaultSellingDuration();
+    this.defaultSellingDurationViewModel =
+      new CheckboxWithSelectViewModel<String>(
+        new CheckboxViewModel(
+          settingsSellingDuration.changeDefaultSellingDuration(),
+          this.ressourceChangeSellingDuration),
+        new SelectViewModel<String>(
+          this.initialiseListOfSellingDurations(7),
+          settingsSellingDuration.defaultSellingDuration()));
 
     let settingsPlayerInformationPageFocus = await this.settingsPlayerInformationWebPageFocus.value();
     let settingsPlayerTransferMarketPageFocus = await this.settingsPlayerTransferMarketWebPageFocus.value();
     this.initialiseFocusElemensViewModel(settingsPlayerInformationPageFocus, this.playerInformationPageFocusElements);
     this.initialiseFocusElemensViewModel(settingsPlayerTransferMarketPageFocus, this.playerTransferMarketPageFocusElements);
+  }
+
+  private initialiseListOfSellingDurations(maxSellingDuration: Number): Array<String> {
+    let sellingDurations: Array<String> = [];
+    for (let index = maxSellingDuration.valueOf(); index > 0; index--) {
+      let sellingDuration: String;
+      switch (index) {
+        case 1:
+          sellingDuration = `${index} ${this.ressourceGameDay} 80 Kixx`;
+          break;
+        case 2:
+          sellingDuration = `${index} ${this.ressourceGameDays} 80 Kixx`;
+          break;
+        default:
+          sellingDuration = `${index} ${this.ressourceGameDays}`;
+          break;
+      }
+      sellingDurations.push(sellingDuration);
+    }
+    return sellingDurations;
   }
 
   private initialiseFocusElemensViewModel(focusElementsSetting: IFocusElementsSetting, focusElementsSettingViewModel: FocusElementsViewModel) {

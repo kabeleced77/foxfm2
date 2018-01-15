@@ -499,7 +499,10 @@ System.config({
       "Common/Urls/TeamWebPageUrl.js",
       "Common/Urls/TransferMarketAmateurWebPageUrl.js",
       "Common/Urls/TransferMarketProfessionalsUiUrl.js",
-      "Common/Urls/TransferOfferWebPageUrl.js"
+      "Common/Urls/TransferOfferWebPageUrl.js",
+      "Common/ViewModels/CheckboxViewModel.js",
+      "Common/ViewModels/CheckboxWithSelectViewModel.js",
+      "Common/ViewModels/SelectViewModel.js"
     ]
   }
 });

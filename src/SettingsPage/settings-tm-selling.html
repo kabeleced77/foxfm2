@@ -5,15 +5,9 @@
       <div class="form-group">
         <div class="checkbox">
           <label style="padding-right: 7px;">
-            <input type="checkbox" checked.bind="changeDefaultSellingDuration">${ressourceChangeSellingDuration}</label>
-          <select value.bind="defaultSellingDuration">
-            <option value="0">7 ${ressourceGameDays}</option>
-            <option value="1">6 ${ressourceGameDays}</option>
-            <option value="2">5 ${ressourceGameDays}</option>
-            <option value="3">4 ${ressourceGameDays}</option>
-            <option value="4">3 ${ressourceGameDays}</option>
-            <option value="5">2 ${ressourceGameDays} 80 Kixx</option>
-            <option value="6">1 ${ressourceGameDay} 80 Kixx</option>
+            <input type="checkbox" checked.bind="defaultSellingDurationViewModel.checkbox.state">${defaultSellingDurationViewModel.checkbox.label}</label>
+          <select value.bind="defaultSellingDurationViewModel.select.selectedOption">
+            <option repeat.for="option of defaultSellingDurationViewModel.select.options" value.bind="$index">${option}</option>
           </select>
         </div>
       </div>
