@@ -502,6 +502,7 @@ System.config({
       "Common/Urls/TransferOfferWebPageUrl.js",
       "Common/ViewModels/CheckboxViewModel.js",
       "Common/ViewModels/CheckboxWithSelectViewModel.js",
+      "Common/ViewModels/FocusElementViewModel.js",
       "Common/ViewModels/SelectViewModel.js"
     ]
   }
