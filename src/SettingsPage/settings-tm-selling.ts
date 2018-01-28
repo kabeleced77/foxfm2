@@ -45,9 +45,7 @@ export class SettingsTransferMarketSelling {
   public ressourcePlayerTransferMarketPageSetFocus: IRessource;
 
   public defaultSellingDurationViewModel: ICheckboxWithSelectViewModel<String, Number>;
-
-  public playerInformationPageFocusElementsViewModel: ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>;
-  public playerTransferMarketPageFocusElementsViewModel: ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>;
+  public playerPageFocusElementsViewModel: Array<ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>> = [];
 
   constructor() {
     this.log = new EasyLogger(
@@ -93,8 +91,8 @@ export class SettingsTransferMarketSelling {
       this.defaultSellingDurationViewModel.checkbox.state,
       this.defaultSellingDurationViewModel.select.selectedOption));
 
-    this.settingsPlayerInformationWebPageFocus.update(value => { return this.updateFocusElemensSetting(value, this.playerInformationPageFocusElementsViewModel); });
-    this.settingsPlayerTransferMarketWebPageFocus.update(value => { return this.updateFocusElemensSetting(value, this.playerTransferMarketPageFocusElementsViewModel); });
+    this.settingsPlayerInformationWebPageFocus.update(value => { return this.updateFocusElemensSetting(value, this.playerPageFocusElementsViewModel[0]); });
+    this.settingsPlayerTransferMarketWebPageFocus.update(value => { return this.updateFocusElemensSetting(value, this.playerPageFocusElementsViewModel[1]); });
   }
 
   private updateFocusElemensSetting(value: IFocusElementsSetting, viewModel: ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>): IFocusElementsSetting {
@@ -119,10 +117,10 @@ export class SettingsTransferMarketSelling {
           settingsSellingDuration.defaultSellingDuration()));
 
     let settingsPlayerInformationPageFocusElements = await this.settingsPlayerInformationWebPageFocus.value();
-    this.playerInformationPageFocusElementsViewModel = this.initialiseFocusElementsViewModel(settingsPlayerInformationPageFocusElements, this.ressourcePlayerInformationPageSetFocus.value());
+    this.playerPageFocusElementsViewModel.push(this.initialiseFocusElementsViewModel(settingsPlayerInformationPageFocusElements, this.ressourcePlayerInformationPageSetFocus.value()));
 
     let settingsPlayerTransferMarketPageFocus = await this.settingsPlayerTransferMarketWebPageFocus.value();
-    this.playerTransferMarketPageFocusElementsViewModel = this.initialiseFocusElementsViewModel(settingsPlayerTransferMarketPageFocus, this.ressourcePlayerTransferMarketPageSetFocus.value());
+    this.playerPageFocusElementsViewModel.push(this.initialiseFocusElementsViewModel(settingsPlayerTransferMarketPageFocus, this.ressourcePlayerTransferMarketPageSetFocus.value()));
   }
 
   private initialiseFocusElementsViewModel(settings: IFocusElementsSetting, labelText: String): ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel> {

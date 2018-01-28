@@ -13,25 +13,17 @@
       </div>
 
       <h4>${ressourceHeadingImproveSellingProcess}</h4>
-      <div class="form-group">
-        <div class="checkbox">
-          <label style="padding-right: 7px;">
-            <input type="checkbox" checked.bind="playerInformationPageFocusElementsViewModel.checkbox.state">${playerInformationPageFocusElementsViewModel.checkbox.label}</label>
-          <select value.bind="playerInformationPageFocusElementsViewModel.select.selectedOption">
-            <option repeat.for="option of playerInformationPageFocusElementsViewModel.select.options" model.bind="option">${option.name()}</option>
-          </select>
+      <template repeat.for="fe of playerPageFocusElementsViewModel">
+        <div class="form-group">
+          <div class="checkbox">
+            <label style="padding-right: 7px;">
+              <input type="checkbox" checked.bind="fe.checkbox.state">${fe.checkbox.label}</label>
+            <select value.bind="fe.select.selectedOption">
+              <option repeat.for="option of fe.select.options" model.bind="option">${option.name()}</option>
+            </select>
+          </div>
         </div>
-      </div>
-
-      <div class="form-group">
-        <div class="checkbox">
-          <label style="padding-right: 7px;">
-            <input type="checkbox" checked.bind="playerTransferMarketPageFocusElementsViewModel.checkbox.state">${playerTransferMarketPageFocusElementsViewModel.checkbox.label}</label>
-          <select value.bind="playerTransferMarketPageFocusElementsViewModel.select.selectedOption">
-            <option repeat.for="option of playerTransferMarketPageFocusElementsViewModel.select.options" model.bind="option">${option.name()}</option>
-          </select>
-        </div>
-      </div>
+      </template>
 
       <div class="form-group">
         <button class="btn btn-primary " name="submit" type="submit">${ressourceButtonApply}</button>
