@@ -17,9 +17,9 @@
         <div class="form-group">
           <div class="checkbox">
             <label style="padding-right: 7px;">
-              <input type="checkbox" checked.bind="fe.checkbox.state">${fe.checkbox.label}</label>
-            <select value.bind="fe.select.selectedOption">
-              <option repeat.for="option of fe.select.options" model.bind="option">${option.name()}</option>
+              <input type="checkbox" checked.bind="fe.viewModel().checkbox.state">${fe.viewModel().checkbox.label}</label>
+            <select value.bind="fe.viewModel().select.selectedOption">
+              <option repeat.for="option of fe.viewModel().select.options" model.bind="option">${option.name()}</option>
             </select>
           </div>
         </div>
