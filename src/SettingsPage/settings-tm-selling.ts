@@ -30,17 +30,13 @@ import { FocusElementViewModel, IFocusElementViewModel } from '../Common/ViewMod
 
 export class SettingsTransferMarketSelling {
   private log: IEasyLogger;
-  private settingsTransferMarketSellingDuration: ISetting<ITransferMarketSellingDurationSettings>;
 
   public ressourceHeading: String;
   public ressourceHeadingImproveSellingProcess: String;
   public ressourceButtonApply: String;
-  public ressourceSelectElement: String;
-  public ressourceGameDay: String;
-  public ressourceGameDays: String;
-  public ressourceChangeSellingDuration: String;
 
   public defaultSellingDurationViewModel: ICheckboxWithSelectViewModel<String, Number>;
+  public defaultSellingDurationSettingModel: SettingsModelViewModel2;
   public playerPageFocusElementsSettingModels: Array<SettingsModelViewModel>;
   public playerPageFocusElementsViewModels: Array<ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>> = [];
 
@@ -60,18 +56,16 @@ export class SettingsTransferMarketSelling {
         "SettingsTransferMarketSelling",
         new LogLevelError()));
 
-    this.settingsTransferMarketSellingDuration = new StorageLocal<ITransferMarketSellingDurationSettings>(
-      new SettingNameTransferMarketSellingDuration(),
-      new TransferMarketSellingDurationSettings(false, 4));
-
     this.ressourceHeading = new RessourceTransferMarketSellingSettingsHeader().value();
     this.ressourceHeadingImproveSellingProcess = new RessourceTransferMarketSellingSettingsImproveSellingProcessSettingsHeader().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
-    this.ressourceSelectElement = new RessourceCommonSelectElement().value();
-    this.ressourceGameDay = new RessourceCommonMatchday().value();
-    this.ressourceGameDays = new RessourceCommonMatchdays().value();
-    this.ressourceChangeSellingDuration = new RessourceTransferMarketSellingSettingsChangeDuration().value();
 
+    this.defaultSellingDurationSettingModel = new SettingsModelViewModel2(
+      new StorageLocal<ITransferMarketSellingDurationSettings>(
+        new SettingNameTransferMarketSellingDuration(),
+        new TransferMarketSellingDurationSettings(false, 4)),
+      new RessourceTransferMarketSellingSettingsChangeDuration()
+    );
     this.playerPageFocusElementsSettingModels = [
       new SettingsModelViewModel(
         new StorageLocal<IFocusElementsSetting>(
@@ -87,10 +81,11 @@ export class SettingsTransferMarketSelling {
     this.initialiseSettings();
   }
 
-  public submit() {
-    this.settingsTransferMarketSellingDuration.save(new TransferMarketSellingDurationSettings(
-      this.defaultSellingDurationViewModel.checkbox.state,
-      this.defaultSellingDurationViewModel.select.selectedOption));
+  public async submit() {
+    let viewModel = await this.defaultSellingDurationSettingModel.viewModel();
+    this.defaultSellingDurationSettingModel.settingsModel().save(new TransferMarketSellingDurationSettings(
+      viewModel.checkbox.state,
+      viewModel.select.selectedOption));
 
     this.playerPageFocusElementsSettingModels.forEach(async settingsModelViewModel => {
       let viewModel = await settingsModelViewModel.viewModel();
@@ -111,37 +106,8 @@ export class SettingsTransferMarketSelling {
   }
 
   private async initialiseSettings(): Promise<void> {
-    let settingsSellingDuration = await this.settingsTransferMarketSellingDuration.value();
-    this.defaultSellingDurationViewModel =
-      new CheckboxWithSelectViewModel<String, Number>(
-        new CheckboxViewModel(
-          settingsSellingDuration.changeDefaultSellingDuration(),
-          this.ressourceChangeSellingDuration),
-        new SelectViewModel<String, Number>(
-          this.initialiseListOfSellingDurations(7),
-          settingsSellingDuration.defaultSellingDuration()));
-
+    this.defaultSellingDurationViewModel = await this.defaultSellingDurationSettingModel.viewModel();
     this.playerPageFocusElementsSettingModels.forEach(async e => this.playerPageFocusElementsViewModels.push(await e.viewModel()));
-  }
-
-  private initialiseListOfSellingDurations(maxSellingDuration: Number): Array<String> {
-    let sellingDurations: Array<String> = [];
-    for (let index = maxSellingDuration.valueOf(); index > 0; index--) {
-      let sellingDuration: String;
-      switch (index) {
-        case 1:
-          sellingDuration = `${index} ${this.ressourceGameDay} 80 Kixx`;
-          break;
-        case 2:
-          sellingDuration = `${index} ${this.ressourceGameDays} 80 Kixx`;
-          break;
-        default:
-          sellingDuration = `${index} ${this.ressourceGameDays}`;
-          break;
-      }
-      sellingDurations.push(sellingDuration);
-    }
-    return sellingDurations;
   }
 }
 
@@ -150,11 +116,16 @@ export interface ISettingsModelViewModel {
   viewModel(): Promise<ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>>;
 }
 
+export interface ISettingsModelViewModel2 {
+  settingsModel(): ISetting<ITransferMarketSellingDurationSettings>;
+  viewModel(): Promise<ICheckboxWithSelectViewModel<String, Number>>;
+}
+
 export class SettingsModelViewModel implements ISettingsModelViewModel {
   private settings: ISetting<IFocusElementsSetting>;
   private settingsViewModel: Promise<ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>>;
-  private ressourceSelectElement: IRessource;
   private ressourceCheckboxLabel: IRessource;
+  private ressourceSelectElement: IRessource;
 
   constructor(settings: ISetting<IFocusElementsSetting>, checkboxLabel: IRessource) {
     this.settings = settings;
@@ -190,5 +161,59 @@ export class SettingsModelViewModel implements ISettingsModelViewModel {
       elementsToFocusViewModels,
       selectedElementViewModel
     )
+  }
+}
+
+export class SettingsModelViewModel2 implements ISettingsModelViewModel2 {
+  private settings: ISetting<ITransferMarketSellingDurationSettings>;
+  private settingsViewModel: Promise<ICheckboxWithSelectViewModel<String, Number>>;
+  private ressourceCheckboxLabel: IRessource;
+  private ressourceGameDay: IRessource;
+  private ressourceGameDays: IRessource;
+
+  constructor(settings: ISetting<ITransferMarketSellingDurationSettings>, checkboxLabel: IRessource) {
+    this.settings = settings;
+    this.settingsViewModel = this.initialiseViewModel(settings);
+    this.ressourceCheckboxLabel = checkboxLabel;
+    this.ressourceGameDay = new RessourceCommonMatchday();
+    this.ressourceGameDays = new RessourceCommonMatchdays();
+  }
+
+  public settingsModel(): ISetting<ITransferMarketSellingDurationSettings> {
+    return this.settings;
+  }
+  public async viewModel(): Promise<ICheckboxWithSelectViewModel<String, Number>> {
+    return this.settingsViewModel;
+  }
+
+  private async initialiseViewModel(settings: ISetting<ITransferMarketSellingDurationSettings>): Promise<ICheckboxWithSelectViewModel<String, Number>> {
+    let settingsSellingDuration = await settings.value();
+    return new CheckboxWithSelectViewModel<String, Number>(
+      new CheckboxViewModel(
+        settingsSellingDuration.changeDefaultSellingDuration(),
+        this.ressourceCheckboxLabel.value()),
+      new SelectViewModel<String, Number>(
+        this.initialiseListOfSellingDurations(7),
+        settingsSellingDuration.defaultSellingDuration()));
+  }
+
+  private initialiseListOfSellingDurations(maxSellingDuration: Number): Array<String> {
+    let sellingDurations: Array<String> = [];
+    for (let index = maxSellingDuration.valueOf(); index > 0; index--) {
+      let sellingDuration: String;
+      switch (index) {
+        case 1:
+          sellingDuration = `${index} ${this.ressourceGameDay.value()} 80 Kixx`;
+          break;
+        case 2:
+          sellingDuration = `${index} ${this.ressourceGameDays.value()} 80 Kixx`;
+          break;
+        default:
+          sellingDuration = `${index} ${this.ressourceGameDays.value()}`;
+          break;
+      }
+      sellingDurations.push(sellingDuration);
+    }
+    return sellingDurations;
   }
 }
