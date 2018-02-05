@@ -433,6 +433,7 @@ System.config({
       "Common/Settings/TransferOfferTableSettings.js",
       "Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue.js",
       "Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue.js",
+      "Common/SettingsDefaultValues/TransferMarketSellingDurationSettingsDefaultValue.js",
       "Common/StadiumBlock.js",
       "Common/StadiumBlockName.js",
       "Common/StadiumBlocks.js",

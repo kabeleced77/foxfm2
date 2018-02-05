@@ -59,7 +59,7 @@ import { PlayerTransferMarketWebPage } from "./Player/PlayerTransferMarketWebPag
 import { HtmlSelect } from "../Common/Toolkit/HtmlSelect";
 import { PlayerTransferMarketSellingWebPageUrl } from "../Common/Urls/PlayerTransferMarketSellingWebPageUrl";
 import { PlayerTransferMarketDurationSelect } from "./Player/PlayerTransferMarketDurationSelect";
-import { TransferMarketSellingDurationSettings, ITransferMarketSellingDurationSettings } from "../Common/Settings/TransferMarketSellingDurationSettings";
+import { ITransferMarketSellingDurationSettings } from "../Common/Settings/TransferMarketSellingDurationSettings";
 import { SettingNameTransferMarketSellingDuration } from "../Common/Settings/SettingNameTransferMarketDuration";
 import { HtmlSelectById } from "../Common/Toolkit/HtmlSelectById";
 import { TransferMarketOfferDurationSelect } from "./TransferMarket/TransferMarketOfferDurationSelect";
@@ -74,6 +74,7 @@ import { IFocusElementsSetting, FocusElementsSetting } from "../Common/Settings/
 import { PlayerInformationPageFocusElementSettingDefaultValue } from "../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue";
 import { PlayerTransferMarketPageFocusElementSettingName } from "../Common/Settings/PlayerTransferMarketPageFocusElementSettingName";
 import { PlayerTransferMarketPageFocusElementSettingDefaultValue } from "../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue";
+import { TransferMarketSellingDurationSettingsDefaultValue } from "../Common/SettingsDefaultValues/TransferMarketSellingDurationSettingsDefaultValue";
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -151,9 +152,7 @@ var app = new foxfmApp(
                 "startwoche")),
             new StorageLocal<ITransferMarketSellingDurationSettings>(
               new SettingNameTransferMarketSellingDuration(),
-              new TransferMarketSellingDurationSettings(
-                false,
-                3)),
+              new TransferMarketSellingDurationSettingsDefaultValue()),
             new EasyLogger(
               logger,
               new RegisteredLoggingModule(
@@ -278,9 +277,7 @@ var app = new foxfmApp(
                 "startwoche")),
             new StorageLocal<ITransferMarketSellingDurationSettings>(
               new SettingNameTransferMarketSellingDuration(),
-              new TransferMarketSellingDurationSettings(
-                false,
-                3)),
+              new TransferMarketSellingDurationSettingsDefaultValue()),
             new EasyLogger(
               logger,
               new RegisteredLoggingModule(

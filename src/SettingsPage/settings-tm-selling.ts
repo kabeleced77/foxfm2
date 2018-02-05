@@ -27,6 +27,7 @@ import { ICheckboxViewModel, CheckboxViewModel } from '../Common/ViewModels/Chec
 import { ISelectViewModel, SelectViewModel } from '../Common/ViewModels/SelectViewModel';
 import { ICheckboxWithSelectViewModel, CheckboxWithSelectViewModel } from '../Common/ViewModels/CheckboxWithSelectViewModel';
 import { FocusElementViewModel, IFocusElementViewModel } from '../Common/ViewModels/FocusElementViewModel';
+import { TransferMarketSellingDurationSettingsDefaultValue } from '../Common/SettingsDefaultValues/TransferMarketSellingDurationSettingsDefaultValue';
 
 export class SettingsTransferMarketSelling {
   private log: IEasyLogger;
@@ -63,7 +64,7 @@ export class SettingsTransferMarketSelling {
     this.defaultSellingDurationSettingModel = new SettingsModelViewModel2(
       new StorageLocal<ITransferMarketSellingDurationSettings>(
         new SettingNameTransferMarketSellingDuration(),
-        new TransferMarketSellingDurationSettings(false, 4)),
+        new TransferMarketSellingDurationSettingsDefaultValue()),
       new RessourceTransferMarketSellingSettingsChangeDuration()
     );
     this.playerPageFocusElementsSettingModels = [
