@@ -1,6 +1,6 @@
 import { IUrl } from "../Toolkit/Url"
 
-export class PlayerTransferMarketSellingWebPageUrl implements IUrl {
+export class PlayerTransferMarketWebPageUrl implements IUrl {
   private urlField: string;
 
   constructor() {
@@ -10,6 +10,6 @@ export class PlayerTransferMarketSellingWebPageUrl implements IUrl {
     return this.urlField;
   }
   public fromJson(jsonString: String): IUrl {
-    return new PlayerTransferMarketSellingWebPageUrl();
+    return new PlayerTransferMarketWebPageUrl();
   }
 }

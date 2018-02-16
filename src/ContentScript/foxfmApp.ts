@@ -66,7 +66,7 @@ import { XPathHtmlTableCell } from '../Common/Toolkit/XPathHtmlTableCell';
 import { XPathSingleResult } from '../Common/Toolkit/XPathSingleResult';
 import { XPathString } from '../Common/Toolkit/XPathString';
 import { PlayerInformationWebPageUrl } from '../Common/Urls/PlayerInformationWebPageUrl';
-import { PlayerTransferMarketSellingWebPageUrl } from '../Common/Urls/PlayerTransferMarketSellingWebPageUrl';
+import { PlayerTransferMarketWebPageUrl } from '../Common/Urls/PlayerTransferMarketWebPageUrl';
 import { StadiumWebPageUrl } from '../Common/Urls/StadiumWebPageUrl';
 import { TeamWebPageUrl } from '../Common/Urls/TeamWebPageUrl';
 import { TransferMarketAmateurWebPageUrl } from '../Common/Urls/TransferMarketAmateurWebPageUrl';
@@ -154,7 +154,7 @@ var app = new foxfmApp(
       new ExtendWebPage(
         new Url(currentUrl),
         new PlayerTransferMarketWebPage(
-          new PlayerTransferMarketSellingWebPageUrl(),
+          new PlayerTransferMarketWebPageUrl(),
           new PlayerTransferMarketDurationSelect(
             new HtmlSelect(
               new HtmlSelectById(
