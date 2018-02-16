@@ -1,80 +1,90 @@
-import { Logger, ILogger } from "../Common/Logger/Logger"
-import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
+import { EasyLogger, IEasyLogger } from '../Common/Logger/EasyLogger';
+import { Logger } from '../Common/Logger/Logger';
+import { ILogLevel, LogLevelError } from '../Common/Logger/LogLevel';
 import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { LogLevelError, ILogLevel } from '../Common/Logger/LogLevel';
-import { StadiumManagerUi } from "./Stadium/StadiumManagerUi"
-import { TeamWebPage } from "./Team/TeamWebPage"
-import { StrengthsLimitsSetting } from "../Common/Settings/StrengthsLimitsSetting"
-import { TeamTableSetting, ITeamTableSetting } from "../Common/Settings/TeamTableSetting"
-import { TransferMarketOfferWebPage } from "./TransferMarket/TransferMarketOfferWebPage"
-import { TransferOfferTableSettings, ITransferOfferTableSettings } from "../Common/Settings/TransferOfferTableSettings";
-import { XPathHtmlTableCell2, XPathHtmlTableCell } from "../Common/Toolkit/XPathHtmlTableCell";
-import { XPathSingleResult2, XPathSingleResult } from "../Common/Toolkit/XPathSingleResult";
-import { XPathAllResults2, XPathAllResults } from "../Common/Toolkit/XPathAllResults";
-import { XPathInformation, XPathString } from "../Common/Toolkit/XPathString";
-import { TransferOfferWebPageUrl } from "../Common/Urls/TransferOfferWebPageUrl";
-import { TransferMarketProfessionalWebPage } from "./TransferMarket/TransferMarketProfessionalWebPage";
-import { TransferMarketProfessionalPlayerTable } from "./TransferMarket/TransferMarketProfessionalPlayerTable";
-import { TransferMarketProfessionalsUiUrl } from "../Common/Urls/TransferMarketProfessionalsUiUrl";
-import { TransferMarketAmateurWebPageUrl } from "../Common/Urls/TransferMarketAmateurWebPageUrl";
-import { ExperienceAndTrainingColumn } from "../Common/ExperienceAndTrainingColumn";
-import { Url } from "../Common/Toolkit/Url";
-import { HtmlTableColumnByXpath } from "../Common/Toolkit/HtmlTableColumnByXpath";
-import { Mutex } from "../Common/Toolkit/Mutex";
-import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/Logger/RegisteredLoggingModules";
-import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
-import { SettingNameTransferTablePossibleOffers } from "../Common/Settings/SettingNameTransferTablePossibleOffers";
-import { SettingNameTransferMarketProfessionalsSearchResultTable } from "../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable";
-import { SettingNameTransferMarketAmateurTable } from "../Common/Settings/SettingNameTransferMarketAmateurTable";
-import { StorageLocal } from "../Common/Toolkit/StorageLocal";
-import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
-import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
-import { IEasyLogger, EasyLogger } from "../Common/Logger/EasyLogger";
-import { ExtendWebPage, IExtendWebPage } from "../Common/Toolkit/ExtendWebPage";
-import { Dom } from "../Common/Toolkit/Dom";
-import { ExtendWebPages, IExtendWebPages } from "../Common/Toolkit/ExtendWebPages";
-import { TeamWebPageUrl } from "../Common/Urls/TeamWebPageUrl";
-import { StadiumWebPageUrl } from "../Common/Urls/StadiumWebPageUrl";
-import { ITransferMarketAmateurPlayerTableSettings, TransferMarketAmateurPlayerTableSettings } from "../Common/Settings/TransferMarketAmateurPlayerTableSettings";
-import { TransferMarketAmateurWebPage } from "./TransferMarket/TransferMarketAmateurWebPage";
-import { TransferMarketAmateurPlayerTable } from "./TransferMarket/TransferMarketAmateurPlayerTable";
-import { HtmlTable } from "../Common/Toolkit/HtmlTable";
-import { HtmlTableByXPath } from "../Common/Toolkit/HtmlTableByXPath";
-import { FirstElementInXPathNodeOrParents } from "../Common/Toolkit/FirstElementInXPathNodeOrParents";
-import { HtmlTableColumn } from "../Common/Toolkit/HtmlTableColumn";
-import { HtmlTableColumnNumberValues } from "../Common/Toolkit/HtmlTableColumnNumberValues";
-import { HtmlTableColumnHeader } from "../Common/Toolkit/HtmlTableColumnHeader";
-import { HtmlAttribute, IHtmlAttribute } from "../Common/Toolkit/HtmlAttribute";
-import { HtmlElement } from "../Common/Toolkit/HtmlElement";
-import { StrengthLevels } from "../Common/StrengthLevels";
-import { AwpPointsByEpTp, AwpPoints, AwpPointsBySplittedString } from "../Common/Toolkit/AwpPoints";
-import { StrengthValues } from "../Common/StrengthValues";
-import { TeamPlayerTable } from "./Team/TeamPlayerTable";
-import { TransferMarketOfferPlayerTable } from "./TransferMarket/TransferMarketOfferPlayerTable";
-import { TransferMarketSearchResultTableSettings, ITransferMarketSearchResultTableSettings } from "../Common/Settings/TransferMarketSearchResultTableSettings";
-import { HtmlTableColumnStringValues } from "../Common/Toolkit/HtmlTableColumnStringValues";
-import { SplitStringsToNumbers } from "../Common/Toolkit/SplitStrings";
-import { SettingNameTeamTable } from "../Common/Settings/SettingNameTeamTable";
-import { PlayerTransferMarketWebPage } from "./Player/PlayerTransferMarketWebPage";
-import { HtmlSelect } from "../Common/Toolkit/HtmlSelect";
-import { PlayerTransferMarketSellingWebPageUrl } from "../Common/Urls/PlayerTransferMarketSellingWebPageUrl";
-import { PlayerTransferMarketDurationSelect } from "./Player/PlayerTransferMarketDurationSelect";
-import { ITransferMarketSellingDurationSettings } from "../Common/Settings/TransferMarketSellingDurationSettings";
-import { SettingNameTransferMarketSellingDuration } from "../Common/Settings/SettingNameTransferMarketDuration";
-import { HtmlSelectById } from "../Common/Toolkit/HtmlSelectById";
-import { TransferMarketOfferDurationSelect } from "./TransferMarket/TransferMarketOfferDurationSelect";
-import { PlayerInformationWebPage } from "./Player/PlayerInformationWebPage";
-import { PlayerInformationWebPageUrl } from "../Common/Urls/PlayerInformationWebPageUrl";
-import { FocusElementByXPathConfigureable } from "../Common/Toolkit/FocusElementByXPathConfigureable";
-import { FocusElementSetting } from "../Common/Settings/FocusElementSetting";
-import { SettingNamePlayerInformationWebPageFocusElement } from "../Common/Settings/SettingNamePlayerInformationWebPageFocusElement";
-import { RessourcePlayerInformationWebPageElementTransferMarket, RessourcePlayerTransferMarketPageElementCloseWindow, RessourcePlayerTransferMarketPageElementBack } from "../Common/Ressource";
-import { IArrayInStorage, ArrayInStorage } from "../Common/ArrayInStorage";
-import { IFocusElementsSetting, FocusElementsSetting } from "../Common/Settings/FocusElementsSetting";
-import { PlayerInformationPageFocusElementSettingDefaultValue } from "../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue";
-import { PlayerTransferMarketPageFocusElementSettingName } from "../Common/Settings/PlayerTransferMarketPageFocusElementSettingName";
-import { PlayerTransferMarketPageFocusElementSettingDefaultValue } from "../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue";
-import { TransferMarketSellingDurationSettingsDefaultValue } from "../Common/SettingsDefaultValues/TransferMarketSellingDurationSettingsDefaultValue";
+import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
+import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
+import { IFocusElementsSetting } from '../Common/Settings/FocusElementsSetting';
+import {
+  PlayerTransferMarketPageFocusElementSettingName,
+} from '../Common/Settings/PlayerTransferMarketPageFocusElementSettingName';
+import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
+import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
+import {
+  SettingNamePlayerInformationWebPageFocusElement,
+} from '../Common/Settings/SettingNamePlayerInformationWebPageFocusElement';
+import { SettingNameTeamTable } from '../Common/Settings/SettingNameTeamTable';
+import { SettingNameTransferMarketAmateurTable } from '../Common/Settings/SettingNameTransferMarketAmateurTable';
+import { SettingNameTransferMarketSellingDuration } from '../Common/Settings/SettingNameTransferMarketDuration';
+import {
+  SettingNameTransferMarketProfessionalsSearchResultTable,
+} from '../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable';
+import { SettingNameTransferTablePossibleOffers } from '../Common/Settings/SettingNameTransferTablePossibleOffers';
+import { StrengthsLimitsSetting } from '../Common/Settings/StrengthsLimitsSetting';
+import { ITeamTableSetting, TeamTableSetting } from '../Common/Settings/TeamTableSetting';
+import {
+  ITransferMarketAmateurPlayerTableSettings,
+  TransferMarketAmateurPlayerTableSettings,
+} from '../Common/Settings/TransferMarketAmateurPlayerTableSettings';
+import {
+  ITransferMarketSearchResultTableSettings,
+  TransferMarketSearchResultTableSettings,
+} from '../Common/Settings/TransferMarketSearchResultTableSettings';
+import { ITransferMarketSellingDurationSettings } from '../Common/Settings/TransferMarketSellingDurationSettings';
+import { ITransferOfferTableSettings, TransferOfferTableSettings } from '../Common/Settings/TransferOfferTableSettings';
+import {
+  PlayerInformationPageFocusElementSettingDefaultValue,
+} from '../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue';
+import {
+  PlayerTransferMarketPageFocusElementSettingDefaultValue,
+} from '../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue';
+import {
+  TransferMarketSellingDurationSettingsDefaultValue,
+} from '../Common/SettingsDefaultValues/TransferMarketSellingDurationSettingsDefaultValue';
+import { StrengthLevels } from '../Common/StrengthLevels';
+import { StrengthValues } from '../Common/StrengthValues';
+import { AwpPoints, AwpPointsByEpTp, AwpPointsBySplittedString } from '../Common/Toolkit/AwpPoints';
+import { Dom } from '../Common/Toolkit/Dom';
+import { ExtendWebPage, IExtendWebPage } from '../Common/Toolkit/ExtendWebPage';
+import { ExtendWebPages, IExtendWebPages } from '../Common/Toolkit/ExtendWebPages';
+import { FirstElementInXPathNodeOrParents } from '../Common/Toolkit/FirstElementInXPathNodeOrParents';
+import { FocusElementByXPathConfigureable } from '../Common/Toolkit/FocusElementByXPathConfigureable';
+import { HtmlSelect } from '../Common/Toolkit/HtmlSelect';
+import { HtmlSelectById } from '../Common/Toolkit/HtmlSelectById';
+import { HtmlTable } from '../Common/Toolkit/HtmlTable';
+import { HtmlTableByXPath } from '../Common/Toolkit/HtmlTableByXPath';
+import { HtmlTableColumnByXpath } from '../Common/Toolkit/HtmlTableColumnByXpath';
+import { HtmlTableColumnNumberValues } from '../Common/Toolkit/HtmlTableColumnNumberValues';
+import { HtmlTableColumnStringValues } from '../Common/Toolkit/HtmlTableColumnStringValues';
+import { Mutex } from '../Common/Toolkit/Mutex';
+import { SplitStringsToNumbers } from '../Common/Toolkit/SplitStrings';
+import { StorageLocal } from '../Common/Toolkit/StorageLocal';
+import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
+import { Url } from '../Common/Toolkit/Url';
+import { XPathAllResults } from '../Common/Toolkit/XPathAllResults';
+import { XPathHtmlTableCell } from '../Common/Toolkit/XPathHtmlTableCell';
+import { XPathSingleResult } from '../Common/Toolkit/XPathSingleResult';
+import { XPathString } from '../Common/Toolkit/XPathString';
+import { PlayerInformationWebPageUrl } from '../Common/Urls/PlayerInformationWebPageUrl';
+import { PlayerTransferMarketSellingWebPageUrl } from '../Common/Urls/PlayerTransferMarketSellingWebPageUrl';
+import { StadiumWebPageUrl } from '../Common/Urls/StadiumWebPageUrl';
+import { TeamWebPageUrl } from '../Common/Urls/TeamWebPageUrl';
+import { TransferMarketAmateurWebPageUrl } from '../Common/Urls/TransferMarketAmateurWebPageUrl';
+import { TransferMarketProfessionalsUiUrl } from '../Common/Urls/TransferMarketProfessionalsUiUrl';
+import { TransferOfferWebPageUrl } from '../Common/Urls/TransferOfferWebPageUrl';
+import { PlayerInformationWebPage } from './Player/PlayerInformationWebPage';
+import { PlayerTransferMarketDurationSelect } from './Player/PlayerTransferMarketDurationSelect';
+import { PlayerTransferMarketWebPage } from './Player/PlayerTransferMarketWebPage';
+import { StadiumManagerUi } from './Stadium/StadiumManagerUi';
+import { TeamPlayerTable } from './Team/TeamPlayerTable';
+import { TeamWebPage } from './Team/TeamWebPage';
+import { TransferMarketAmateurPlayerTable } from './TransferMarket/TransferMarketAmateurPlayerTable';
+import { TransferMarketAmateurWebPage } from './TransferMarket/TransferMarketAmateurWebPage';
+import { TransferMarketOfferDurationSelect } from './TransferMarket/TransferMarketOfferDurationSelect';
+import { TransferMarketOfferPlayerTable } from './TransferMarket/TransferMarketOfferPlayerTable';
+import { TransferMarketOfferWebPage } from './TransferMarket/TransferMarketOfferWebPage';
+import { TransferMarketProfessionalPlayerTable } from './TransferMarket/TransferMarketProfessionalPlayerTable';
+import { TransferMarketProfessionalWebPage } from './TransferMarket/TransferMarketProfessionalWebPage';
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -140,7 +150,7 @@ var app = new foxfmApp(
           new RegisteredLoggingModule(
             "PlayerInformationWebPage",
             new LogLevelError()))),
-      // Extend player transfer market - selling duration
+      // Extend player transfer market - selling duration & focus element
       new ExtendWebPage(
         new Url(currentUrl),
         new PlayerTransferMarketWebPage(

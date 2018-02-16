@@ -1,4 +1,4 @@
-import { ISettingName } from "./SettingName";
+import { ISettingName } from './SettingName';
 
 export interface ISetting<T> {
   key(): ISettingName;
