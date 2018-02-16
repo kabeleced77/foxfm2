@@ -35,7 +35,7 @@ export class FocusElementByXPathConfigureable<T extends HTMLElement> implements 
           } else if (elements.length > 1) {
             throw new Error(`More than one element has been activated to be focused.`);
           }
-          let focusElement = elements[0].focusElement();
+          let focusElement = elements[0].activated();
           let xPath = elements[0].xPathToElement();
 
           this.log.info(`if activated the focus will be set to the element given by following xpath: ${xPath} (configration status: ${focusElement})`);
@@ -54,7 +54,7 @@ export class FocusElementByXPathConfigureable<T extends HTMLElement> implements 
   private elementsToFocus(settings: Array<IFocusElementSetting>): Array<IFocusElementSetting> {
     let activatedSetting: IFocusElementSetting[] = [];
     settings.forEach(setting => {
-      if (setting.focusElement()) {
+      if (setting.activated()) {
         activatedSetting.push(setting);
       }
     });

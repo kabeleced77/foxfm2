@@ -1,15 +1,14 @@
 import { IRessource, Ressource } from "../Ressource";
+import { IUserSetting } from "../Toolkit/UserSetting";
 
-export interface IFocusElementSetting {
-  focusElement(): Boolean;
-  changeFocusElementStatus(status: Boolean): void;
+export interface IFocusElementSetting extends IUserSetting{
   xPathToElement(): string;
   ressourceOfElement(): IRessource;
   fromJson(jsonString: String): IFocusElementSetting;
 }
 
 export class FocusElementSetting implements IFocusElementSetting {
-  private focus: Boolean;
+  private readonly focus: Boolean;
   private readonly xPath: string;
   private readonly ressource: IRessource;
 
@@ -23,11 +22,8 @@ export class FocusElementSetting implements IFocusElementSetting {
     this.ressource = ressource;
   }
 
-  public focusElement(): Boolean {
+  public activated(): Boolean {
     return this.focus;
-  }
-  public changeFocusElementStatus(status: Boolean): void {
-    this.focus = status;
   }
   public xPathToElement(): string {
     return this.xPath;

@@ -1,5 +1,6 @@
-export interface ITransferMarketSellingDurationSettings {
-  changeDefaultSellingDuration(): Boolean;
+import { IUserSetting } from "../Toolkit/UserSetting";
+
+export interface ITransferMarketSellingDurationSettings extends IUserSetting {
   defaultSellingDuration(): Number;
   fromJson(jsonString: String): ITransferMarketSellingDurationSettings;
 }
@@ -16,7 +17,7 @@ export class TransferMarketSellingDurationSettings implements ITransferMarketSel
     this.defaultSellingDurationValue = defaultSellingDuration;
   }
 
-  public changeDefaultSellingDuration(): Boolean {
+  public activated(): Boolean {
     return this.changeDefaultSellingDurationActivated;
   }
   public defaultSellingDuration(): Number {

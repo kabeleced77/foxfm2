@@ -24,7 +24,7 @@ export class PlayerTransferMarketDurationSelect implements IWebElementToExtend {
     this.playerTmDurationSettings
       .value()
       .then(setting => {
-        let changeDefaultSellingDuration = setting.changeDefaultSellingDuration();
+        let changeDefaultSellingDuration = setting.activated();
 
         if (changeDefaultSellingDuration) {
           let currentSellingDurationIndex = this.select.select().selectedIndex;
