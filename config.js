@@ -29,6 +29,7 @@ System.config({
     "aurelia-templating-router": "npm:aurelia-templating-router@1.2.0",
     "bootstrap": "github:twbs/bootstrap@3.3.7",
     "chrome": "npm:chrome@0.1.0",
+    "dexie": "npm:dexie@2.0.1",
     "fetch": "github:github/fetch@2.0.3",
     "font-awesome": "npm:font-awesome@4.6.3",
     "jquery": "npm:jquery@3.2.1",
@@ -37,7 +38,7 @@ System.config({
       "assert": "npm:assert@1.4.1"
     },
     "github:jspm/nodelibs-buffer@0.1.1": {
-      "buffer": "npm:buffer@5.0.8"
+      "buffer": "npm:buffer@5.1.0"
     },
     "github:jspm/nodelibs-events@0.1.1": {
       "events": "npm:events@1.0.2"
@@ -189,8 +190,8 @@ System.config({
     "npm:bluebird@3.5.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:buffer@5.0.8": {
-      "base64-js": "npm:base64-js@1.2.1",
+    "npm:buffer@5.1.0": {
+      "base64-js": "npm:base64-js@1.2.3",
       "ieee754": "npm:ieee754@1.1.8"
     },
     "npm:chrome@0.1.0": {
@@ -199,6 +200,9 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "plist": "npm:plist@1.2.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:dexie@2.0.1": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:exeq@2.4.0": {
@@ -509,7 +513,13 @@ System.config({
       "Common/ViewModels/CheckboxViewModel.js",
       "Common/ViewModels/CheckboxWithSelectViewModel.js",
       "Common/ViewModels/FocusElementViewModel.js",
-      "Common/ViewModels/SelectViewModel.js"
+      "Common/ViewModels/SelectViewModel.js",
+      "github:jspm/nodelibs-process@0.1.2.js",
+      "github:jspm/nodelibs-process@0.1.2/index.js",
+      "npm:dexie@2.0.1.js",
+      "npm:dexie@2.0.1/dist/dexie.js",
+      "npm:process@0.11.10.js",
+      "npm:process@0.11.10/browser.js"
     ]
   }
 });

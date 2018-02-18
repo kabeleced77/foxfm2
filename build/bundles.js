@@ -2,7 +2,8 @@ module.exports = {
   "bundles": {
     "dist/app-common-build": {
       "includes": [
-        "[Common/**/*.js]"
+        "[Common/**/*.js]",
+        "dexie"
       ],
       "options": {
         "inject": true,
