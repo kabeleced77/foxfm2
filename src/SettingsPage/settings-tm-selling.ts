@@ -16,6 +16,7 @@ import {
   RessourceTransferMarketSellingSettingsImproveSellingProcessSettingsHeader,
   RessourceTransferMarketSellingSettingsPlayerInformationPageSetFocus,
   RessourceTransferMarketSellingSettingsPlayerTransferMarketPageSetFocus,
+  RessourceTransferMarketSellingSettingsPlayerTransferMarketPlayerPageSetFocus,
 } from '../Common/Ressource';
 import { FocusElementSetting, IFocusElementSetting } from '../Common/Settings/FocusElementSetting';
 import { FocusElementsSetting, IFocusElementsSetting } from '../Common/Settings/FocusElementsSetting';
@@ -49,6 +50,8 @@ import { CheckboxViewModel } from '../Common/ViewModels/CheckboxViewModel';
 import { CheckboxWithSelectViewModel, ICheckboxWithSelectViewModel } from '../Common/ViewModels/CheckboxWithSelectViewModel';
 import { FocusElementViewModel, IFocusElementViewModel } from '../Common/ViewModels/FocusElementViewModel';
 import { ISelectViewModel, SelectViewModel } from '../Common/ViewModels/SelectViewModel';
+import { PlayerTransferMarketPlayerPageFocusElementSettingName } from '../Common/Settings/PlayerTransferMarketPlayerPageFocusElementSettingName';
+import { PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue } from '../Common/SettingsDefaultValues/PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue';
 
 export class SettingsTransferMarketSelling {
   private log: IEasyLogger;
@@ -94,6 +97,11 @@ export class SettingsTransferMarketSelling {
           new SettingNamePlayerInformationWebPageFocusElement(),
           new PlayerInformationPageFocusElementSettingDefaultValue()),
         new RessourceTransferMarketSellingSettingsPlayerInformationPageSetFocus()),
+      new SettingsModelViewModel(
+        new StorageLocal<IFocusElementsSetting>(
+          new PlayerTransferMarketPlayerPageFocusElementSettingName(),
+          new PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue()),
+        new RessourceTransferMarketSellingSettingsPlayerTransferMarketPlayerPageSetFocus()),
       new SettingsModelViewModel(
         new StorageLocal<IFocusElementsSetting>(
           new PlayerTransferMarketPageFocusElementSettingName(),

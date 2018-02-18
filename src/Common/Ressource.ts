@@ -71,6 +71,7 @@ export class RessourceTransferMarketSellingSettingsImproveSellingProcessSettings
 export class RessourceTransferMarketSellingSettingsChangeDuration extends Ressource { constructor() { super("transferMarketSellingSettings_changeDuration"); } }
 export class RessourceTransferMarketSellingSettingsPlayerInformationPageSetFocus extends Ressource { constructor() { super("transferMarketSellingSettings_playerInformationPage_setFocus"); } }
 export class RessourceTransferMarketSellingSettingsPlayerTransferMarketPageSetFocus extends Ressource { constructor() { super("transferMarketSellingSettings_playerTransferMarketPage_setFocus"); } }
+export class RessourceTransferMarketSellingSettingsPlayerTransferMarketPlayerPageSetFocus extends Ressource { constructor() { super("transferMarketSellingSettings_playerTransferMarketPlayerPage_setFocus"); } }
 
 export class RessourceTransferMarketProfessionalsTableSettingsMenu extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_menu"); } }
 export class RessourceTransferMarketProfessionalsTableSettingsHeader extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_header"); } }
@@ -90,3 +91,6 @@ export class RessourcePlayerInformationWebPageElementExtendContract extends Ress
 
 export class RessourcePlayerTransferMarketPageElementCloseWindow extends Ressource { constructor() { super("playerTransferMarketPage_elementCloseWindow"); } }
 export class RessourcePlayerTransferMarketPageElementBack extends Ressource { constructor() { super("playerTransferMarketPage_elementBack"); } }
+
+export class RessourcePlayerTransferMarketPlayerPageElementCloseWindow extends Ressource { constructor() { super("playerTransferMarketPlayerPage_elementCloseWindow"); } }
+export class RessourcePlayerTransferMarketPlayerPageElementBack extends Ressource { constructor() { super("playerTransferMarketPlayerPage_elementBack"); } }

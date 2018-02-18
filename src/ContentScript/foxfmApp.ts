@@ -85,6 +85,10 @@ import { TransferMarketOfferPlayerTable } from './TransferMarket/TransferMarketO
 import { TransferMarketOfferWebPage } from './TransferMarket/TransferMarketOfferWebPage';
 import { TransferMarketProfessionalPlayerTable } from './TransferMarket/TransferMarketProfessionalPlayerTable';
 import { TransferMarketProfessionalWebPage } from './TransferMarket/TransferMarketProfessionalWebPage';
+import { PlayerTransferMarketPlayerWebPageUrl } from '../Common/Urls/PlayerTransferMarketPlayerWebPageUrl';
+import { PlayerTransferMarketPlayerWebPage } from './Player/PlayerTransferMarketPlayerWebPage';
+import { PlayerTransferMarketPlayerPageFocusElementSettingName } from '../Common/Settings/PlayerTransferMarketPlayerPageFocusElementSettingName';
+import { PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue } from '../Common/SettingsDefaultValues/PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue';
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -150,24 +154,11 @@ var app = new foxfmApp(
           new RegisteredLoggingModule(
             "PlayerInformationWebPage",
             new LogLevelError()))),
-      // Extend player transfer market - selling duration & focus element
+      // Extend player transfer market - focus elements
       new ExtendWebPage(
         new Url(currentUrl),
         new PlayerTransferMarketWebPage(
           new PlayerTransferMarketWebPageUrl(),
-          new PlayerTransferMarketDurationSelect(
-            new HtmlSelect(
-              new HtmlSelectById(
-                new Dom(doc),
-                "startwoche")),
-            new StorageLocal<ITransferMarketSellingDurationSettings>(
-              new SettingNameTransferMarketSellingDuration(),
-              new TransferMarketSellingDurationSettingsDefaultValue()),
-            new EasyLogger(
-              logger,
-              new RegisteredLoggingModule(
-                "PlayerTransferMarketSelling",
-                new LogLevelError()))),
           new FocusElementByXPathConfigureable(
             new StorageLocal<IFocusElementsSetting>(
               new PlayerTransferMarketPageFocusElementSettingName(),
@@ -182,6 +173,39 @@ var app = new foxfmApp(
           logger,
           new RegisteredLoggingModule(
             "PlayerTransferMarketWebPage",
+            new LogLevelError()))),
+      // Extend player transfer market player - selling duration & focus element
+      new ExtendWebPage(
+        new Url(currentUrl),
+        new PlayerTransferMarketPlayerWebPage(
+          new PlayerTransferMarketPlayerWebPageUrl(),
+          new PlayerTransferMarketDurationSelect(
+            new HtmlSelect(
+              new HtmlSelectById(
+                new Dom(doc),
+                "startwoche")),
+            new StorageLocal<ITransferMarketSellingDurationSettings>(
+              new SettingNameTransferMarketSellingDuration(),
+              new TransferMarketSellingDurationSettingsDefaultValue()),
+            new EasyLogger(
+              logger,
+              new RegisteredLoggingModule(
+                "PlayerTransferMarketPlayerDurationSelect",
+                new LogLevelError()))),
+          new FocusElementByXPathConfigureable(
+            new StorageLocal<IFocusElementsSetting>(
+              new PlayerTransferMarketPlayerPageFocusElementSettingName(),
+              new PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue()),
+            new Dom(doc),
+            new EasyLogger(
+              logger,
+              new RegisteredLoggingModule(
+                "FocusElementByXPathConfigureable",
+                new LogLevelError())))),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "PlayerTransferMarketPlayerWebPage",
             new LogLevelError()))),
       // Extend transfer market - search result table
       new ExtendWebPage(

@@ -3,18 +3,18 @@ import { RessourcePlayerTransferMarketPlayerPageElementCloseWindow, RessourcePla
 import { FocusElementSetting } from "../Settings/FocusElementSetting";
 import { ArrayInStorage } from "../ArrayInStorage";
 
-export class PlayerTransferMarketPageFocusElementSettingDefaultValue extends FocusElementsSetting {
+export class PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue extends FocusElementsSetting {
   constructor() {
     super(
       false,
       new ArrayInStorage([
         new FocusElementSetting(
           false,
-          "/html/body/div[2]/table/tbody/tr[3]/td[2]/div/input[2]",
+          "/html/body/div[2]/form/table/tbody/tr[5]/td/div/input[2]",
           new RessourcePlayerTransferMarketPlayerPageElementCloseWindow()),
         new FocusElementSetting(
           false,
-          "/html/body/div[2]/table/tbody/tr[3]/td[2]/div/input[1]",
+          "/html/body/div[2]/form/table/tbody/tr[5]/td/div/input[1]",
           new RessourcePlayerTransferMarketPlayerPageElementBack()),
       ]));
   }
