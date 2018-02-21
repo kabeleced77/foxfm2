@@ -60,7 +60,7 @@ import { Mutex } from '../Common/Toolkit/Mutex';
 import { SplitStringsToNumbers } from '../Common/Toolkit/SplitStrings';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
-import { Url } from '../Common/Toolkit/Url';
+import { Url, IUrl } from '../Common/Toolkit/Url';
 import { XPathAllResults } from '../Common/Toolkit/XPathAllResults';
 import { XPathHtmlTableCell } from '../Common/Toolkit/XPathHtmlTableCell';
 import { XPathSingleResult } from '../Common/Toolkit/XPathSingleResult';
@@ -90,6 +90,46 @@ import { PlayerTransferMarketPlayerWebPage } from './Player/PlayerTransferMarket
 import { PlayerTransferMarketPlayerPageFocusElementSettingName } from '../Common/Settings/PlayerTransferMarketPlayerPageFocusElementSettingName';
 import { PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue } from '../Common/SettingsDefaultValues/PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue';
 
+import Dexie from "dexie";
+
+interface IFriend {
+  id?: number;
+  name?: string;
+  age?: number;
+}
+
+//
+// Declare Database
+//
+export interface IMatchday {
+  server: String;
+  day: Number;
+  season: Number;
+}
+
+export class Matchday implements IMatchday {
+  server: String;
+  season: Number;
+  day: Number;
+
+  constructor(server: String, season: Number, day: Number) {
+    this.server = server;
+    this.season = season;
+    this.day = day;
+  }
+}
+
+class FoxfmIndexedDb extends Dexie {
+  public matchdays: Dexie.Table<IMatchday, String[]>;
+
+  constructor() {
+    super("foxfm");
+    this.version(1).stores({
+      matchdays: "[server+season+day], server, season, day"
+    });
+  }
+}
+
 class foxfmApp {
   private logger: IEasyLogger;
   private extendWebPages: IExtendWebPages;
@@ -104,6 +144,20 @@ class foxfmApp {
     var location = doc.location.href;
     this.logger.info(`S t a r t e d on ${location}`);
     this.extendWebPages.extend();
+
+    let db = new FoxfmIndexedDb();
+    //
+    // Manipulate and Query Database
+    //
+    db.matchdays.add(new Matchday("server", 157, 6)).then(() => {
+      return db.matchdays.where("server").equals("server").toArray();
+    }).then(youngFriends => {
+      this.logger.info("Server: " + JSON.stringify(youngFriends));
+    }).catch(e => {
+      this.logger.error(e.stack || e);
+    });
+
+
   }
 }
 
