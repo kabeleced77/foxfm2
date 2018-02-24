@@ -105,17 +105,20 @@ export interface IMatchday {
   server: String;
   day: Number;
   season: Number;
+  date: Date;
 }
 
 export class Matchday implements IMatchday {
   server: String;
   season: Number;
   day: Number;
+  date: Date;
 
-  constructor(server: String, season: Number, day: Number) {
+  constructor(server: String, season: Number, day: Number, date: Date) {
     this.server = server;
     this.season = season;
     this.day = day;
+    this.date = date;
   }
 }
 
@@ -149,7 +152,7 @@ class foxfmApp {
     //
     // Manipulate and Query Database
     //
-    db.matchdays.add(new Matchday("server", 157, 6)).then(() => {
+    db.matchdays.add(new Matchday("server", 157, 6, new Date())).then(() => {
       return db.matchdays.where("server").equals("server").toArray();
     }).then(youngFriends => {
       this.logger.info("Server: " + JSON.stringify(youngFriends));
