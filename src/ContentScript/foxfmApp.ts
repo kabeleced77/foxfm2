@@ -98,27 +98,82 @@ interface IFriend {
   age?: number;
 }
 
-//
-// Declare Database
-//
+export interface IMatchdays {
+  matchdays(): Promise<IMatchday[]>;
+  add(server: String, day: Number, season: Number, date: Date): Promise<void | IMatchday>;
+}
+
 export interface IMatchday {
-  server: String;
-  day: Number;
-  season: Number;
-  date: Date;
+  // IndexedDB properties
+  serverValue: String;
+  dayValue: Number;
+  seasonValue: Number;
+  dateValue: Date;
+  // method calls
+  server(): String;
+  day(): Number;
+  season(): Number;
+  date(): Date;
+}
+
+export class Matchdays implements IMatchdays {
+  private dataBase: FoxfmIndexedDb;
+
+  constructor(source: FoxfmIndexedDb) {
+    this.dataBase = source;
+  }
+
+  public matchdays(): Promise<IMatchday[]> {
+    return this.dataBase
+      .matchdays
+      .toArray();
+  }
+  public add(server: String, season: Number, day: Number, date: Date): Promise<void | IMatchday> {
+    return this.dataBase
+      .matchdays
+      .add(new Matchday(
+        this.dataBase,
+        server,
+        season,
+        day,
+        date))
+      .then((id) => {
+        console.debug("id" + JSON.stringify(id));
+        return new Matchday(
+        this.dataBase,
+          id[0],
+          parseFloat(id[1].toString()),
+          parseFloat(id[2].toString()),
+          date);
+      }).catch(e => {
+        console.error("Could not add new matchday: ", e);
+      });
+  }
 }
 
 export class Matchday implements IMatchday {
-  server: String;
-  season: Number;
-  day: Number;
-  date: Date;
+  server(): String {
+    throw new Error("Method not implemented.");
+  }
+  day(): Number {
+    throw new Error("Method not implemented.");
+  }
+  season(): Number {
+    throw new Error("Method not implemented.");
+  }
+  date(): Date {
+    throw new Error("Method not implemented.");
+  }
+  public serverValue: String;
+  public seasonValue: Number;
+  public dayValue: Number;
+  public dateValue: Date;
 
-  constructor(server: String, season: Number, day: Number, date: Date) {
-    this.server = server;
-    this.season = season;
-    this.day = day;
-    this.date = date;
+  constructor(db: FoxfmIndexedDb, server: String, season: Number, day: Number, date: Date) {
+    this.serverValue = server;
+    this.seasonValue = season;
+    this.dayValue = day;
+    this.dateValue = date;
   }
 }
 
@@ -128,7 +183,7 @@ class FoxfmIndexedDb extends Dexie {
   constructor() {
     super("foxfm");
     this.version(1).stores({
-      matchdays: "[server+season+day], server, season, day"
+      matchdays: "[serverValue+seasonValue+dayValue], serverValue, seasonValue, dayValue"
     });
   }
 }
@@ -142,25 +197,20 @@ class foxfmApp {
     this.extendWebPages = extendWebPages;
   }
 
-  public main(): void {
+  public async main(): Promise<void> {
     var doc = window.document;
     var location = doc.location.href;
     this.logger.info(`S t a r t e d on ${location}`);
     this.extendWebPages.extend();
 
     let db = new FoxfmIndexedDb();
-    //
-    // Manipulate and Query Database
-    //
-    db.matchdays.add(new Matchday("server", 157, 6, new Date())).then(() => {
-      return db.matchdays.where("server").equals("server").toArray();
-    }).then(youngFriends => {
-      this.logger.info("Server: " + JSON.stringify(youngFriends));
+    let mds = new Matchdays(db);
+    await mds.add("server", 157, 6, new Date());
+    await mds.matchdays().then(mds => {
+      mds.forEach(md => this.logger.info("Server: " + JSON.stringify(mds)));
     }).catch(e => {
       this.logger.error(e.stack || e);
     });
-
-
   }
 }
 
