@@ -103,15 +103,36 @@ export interface IMatchdays {
   add(server: String, day: Number, season: Number, date: Date): Promise<void | IMatchday>;
 }
 
-export interface IMatchday {
-  // IndexedDB properties
+export interface IMatchdayDataModel {
   serverValue: String;
   dayValue: Number;
   seasonValue: Number;
   dateValue: Date;
-  // method calls
-  server(): String;
-  day(): Number;
+}
+
+export class MatchdayDataModel implements IMatchdayDataModel {
+  public serverValue: String;
+  public dayValue: Number;
+  public seasonValue: Number;
+  public dateValue: Date;
+
+  constructor(
+    server: String,
+    season: Number,
+    day: Number,
+    date: Date,
+  ) {
+    this.serverValue = server;
+    this.seasonValue = season;
+    this.dayValue = day;
+    this.dateValue = date;
+  }
+}
+
+export interface IMatchday {
+  id(): String[];
+  server(): Promise<String>;
+  day(): Promise<Number>;
   season(): Number;
   date(): Date;
 }
@@ -124,61 +145,70 @@ export class Matchdays implements IMatchdays {
   }
 
   public matchdays(): Promise<IMatchday[]> {
+    let mds: IMatchday[] = [];
     return this.dataBase
       .matchdays
-      .toArray();
+      .toCollection()
+      .eachPrimaryKey((pk: String[]) => mds.push(new Matchday(this.dataBase, pk)))
+      .then(() => mds);
   }
   public add(server: String, season: Number, day: Number, date: Date): Promise<void | IMatchday> {
-    return this.dataBase
-      .matchdays
-      .add(new Matchday(
-        this.dataBase,
-        server,
-        season,
-        day,
-        date))
-      .then((id) => {
-        console.debug("id" + JSON.stringify(id));
-        return new Matchday(
-        this.dataBase,
-          id[0],
-          parseFloat(id[1].toString()),
-          parseFloat(id[2].toString()),
-          date);
-      }).catch(e => {
-        console.error("Could not add new matchday: ", e);
-      });
+    return Promise
+      .resolve()
+      .then(() => {
+        return this.dataBase
+          .matchdays
+          .add(new MatchdayDataModel(
+            server,
+            season,
+            day,
+            date,
+          ))
+          .then(id => {
+            return new Matchday(
+              this.dataBase,
+              id,
+            );
+          });
+      })
+      .catch(e => { throw `Could not add new matchday: ${e}` });
   }
 }
 
 export class Matchday implements IMatchday {
-  server(): String {
-    throw new Error("Method not implemented.");
-  }
-  day(): Number {
-    throw new Error("Method not implemented.");
-  }
-  season(): Number {
-    throw new Error("Method not implemented.");
-  }
-  date(): Date {
-    throw new Error("Method not implemented.");
-  }
-  public serverValue: String;
-  public seasonValue: Number;
-  public dayValue: Number;
-  public dateValue: Date;
+  private source: FoxfmIndexedDb;
+  private idValue: String[];
 
-  constructor(db: FoxfmIndexedDb, server: String, season: Number, day: Number, date: Date) {
-    this.serverValue = server;
-    this.seasonValue = season;
-    this.dayValue = day;
-    this.dateValue = date;
+  constructor(db: FoxfmIndexedDb, id: String[]) {
+    this.source = db;
+    this.idValue = id;
+  }
+
+  public id(): String[] {
+    return this.idValue;
+  }
+  public server(): Promise<String> {
+    return this.source
+      .matchdays
+      .get(this.idValue)
+      .then((result: IMatchdayDataModel) => result.serverValue);
+  }
+  public day(): Promise<Number> {
+    return this.source
+      .matchdays
+      .get(this.idValue)
+      .then((result: IMatchdayDataModel) => result.dayValue);
+  }
+  public season(): Number {
+    throw new Error("Method not implemented.");
+  }
+  public date(): Date {
+    throw new Error("Method not implemented.");
   }
 }
 
 class FoxfmIndexedDb extends Dexie {
-  public matchdays: Dexie.Table<IMatchday, String[]>;
+  public matchdays: Dexie.Table<IMatchdayDataModel, String[]>;
 
   constructor() {
     super("foxfm");
@@ -204,13 +234,18 @@ class foxfmApp {
     this.extendWebPages.extend();
 
     let db = new FoxfmIndexedDb();
-    let mds = new Matchdays(db);
-    await mds.add("server", 157, 6, new Date());
-    await mds.matchdays().then(mds => {
-      mds.forEach(md => this.logger.info("Server: " + JSON.stringify(mds)));
-    }).catch(e => {
-      this.logger.error(e.stack || e);
-    });
+    let matchdays = new Matchdays(db);
+    for (let i = 0; i < 10; i++) {
+      await matchdays
+        .add("server", 157, i, new Date())
+        .catch(e => this.logger.error(e.stack || e));
+    }
+    await matchdays
+      .matchdays()
+      .then(mds => mds
+        .forEach(async md =>
+          this.logger.info(`Server (id: ${JSON.stringify(md.id())}: ${await md.server()}, day: ${await md.day()}`)))
+      .catch(e => this.logger.error(e.stack || e));
   }
 }
 
