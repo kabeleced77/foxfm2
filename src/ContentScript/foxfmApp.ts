@@ -92,18 +92,13 @@ import { PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue } from '.
 
 import Dexie from "dexie";
 
-interface IFriend {
-  id?: number;
-  name?: string;
-  age?: number;
-}
-
 export interface IMatchdays {
   matchdays(): Promise<IMatchday[]>;
   add(server: String, day: Number, season: Number, date: Date): Promise<void | IMatchday>;
 }
 
 export interface IMatchdayDataModel {
+  id?: Number;
   serverValue: String;
   dayValue: Number;
   seasonValue: Number;
@@ -111,6 +106,7 @@ export interface IMatchdayDataModel {
 }
 
 export class MatchdayDataModel implements IMatchdayDataModel {
+  public id: Number;
   public serverValue: String;
   public dayValue: Number;
   public seasonValue: Number;
@@ -130,7 +126,7 @@ export class MatchdayDataModel implements IMatchdayDataModel {
 }
 
 export interface IMatchday {
-  id(): String[];
+  id(): Number;
   server(): Promise<String>;
   day(): Promise<Number>;
   season(): Number;
@@ -149,7 +145,7 @@ export class Matchdays implements IMatchdays {
     return this.dataBase
       .matchdays
       .toCollection()
-      .eachPrimaryKey((pk: String[]) => mds.push(new Matchday(this.dataBase, pk)))
+      .eachPrimaryKey((pk: Number) => mds.push(new Matchday(this.dataBase, pk)))
       .then(() => mds);
   }
   public add(server: String, season: Number, day: Number, date: Date): Promise<void | IMatchday> {
@@ -173,18 +169,39 @@ export class Matchdays implements IMatchdays {
       })
       .catch(e => { throw `Could not add new matchday: ${e}` });
   }
+  public put(server: String, season: Number, day: Number, date: Date): Promise<void | IMatchday> {
+    return Promise
+      .resolve()
+      .then(() => {
+        return this.dataBase
+          .matchdays
+          .put(new MatchdayDataModel(
+            server,
+            season,
+            day,
+            date,
+          ))
+          .then(id => {
+            return new Matchday(
+              this.dataBase,
+              id,
+            );
+          });
+      })
+      .catch(e => { throw `Could not put new matchday: ${e}` });
+  }
 }
 
 export class Matchday implements IMatchday {
   private source: FoxfmIndexedDb;
-  private idValue: String[];
+  private idValue: Number;
 
-  constructor(db: FoxfmIndexedDb, id: String[]) {
+  constructor(db: FoxfmIndexedDb, id: Number) {
     this.source = db;
     this.idValue = id;
   }
 
-  public id(): String[] {
+  public id(): Number {
     return this.idValue;
   }
   public server(): Promise<String> {
@@ -208,12 +225,12 @@ export class Matchday implements IMatchday {
 }
 
 class FoxfmIndexedDb extends Dexie {
-  public matchdays: Dexie.Table<IMatchdayDataModel, String[]>;
+  public matchdays: Dexie.Table<IMatchdayDataModel, Number>;
 
   constructor() {
     super("foxfm");
     this.version(1).stores({
-      matchdays: "[serverValue+seasonValue+dayValue], serverValue, seasonValue, dayValue"
+      matchdays: "++id, &[serverValue+seasonValue+dayValue], serverValue, seasonValue, dayValue"
     });
   }
 }
@@ -238,6 +255,11 @@ class foxfmApp {
     for (let i = 0; i < 10; i++) {
       await matchdays
         .add("server", 157, i, new Date())
+        .catch(e => this.logger.error(e.stack || e));
+    }
+    for (let i = 0; i < 10; i++) {
+      await matchdays
+        .put("server", 157, i, new Date())
         .catch(e => this.logger.error(e.stack || e));
     }
     await matchdays
