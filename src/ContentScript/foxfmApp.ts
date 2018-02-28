@@ -149,46 +149,25 @@ export class Matchdays implements IMatchdays {
       .then(() => mds);
   }
   public add(server: String, season: Number, day: Number, date: Date): Promise<void | IMatchday> {
-    return Promise
-      .resolve()
-      .then(() => {
-        return this.dataBase
-          .matchdays
-          .add(new MatchdayDataModel(
-            server,
-            season,
-            day,
-            date,
-          ))
-          .then(id => {
-            return new Matchday(
-              this.dataBase,
-              id,
-            );
-          });
+    return this.dataBase
+      .matchdays
+      .add(new MatchdayDataModel(
+        server,
+        season,
+        day,
+        date,
+      ))
+      .then(id => {
+        return new Matchday(
+          this.dataBase,
+          id,
+        );
       })
-      .catch(e => { throw `Could not add new matchday: ${e}` });
-  }
-  public put(server: String, season: Number, day: Number, date: Date): Promise<void | IMatchday> {
-    return Promise
-      .resolve()
-      .then(() => {
-        return this.dataBase
-          .matchdays
-          .put(new MatchdayDataModel(
-            server,
-            season,
-            day,
-            date,
-          ))
-          .then(id => {
-            return new Matchday(
-              this.dataBase,
-              id,
-            );
-          });
-      })
-      .catch(e => { throw `Could not put new matchday: ${e}` });
+      .catch('ConstraintError',
+        e => { /* accepted, no handling necessary */ })
+      .catch(
+        e => { throw `Could not add new matchday: ${e}` }
+      );
   }
 }
 
@@ -255,11 +234,6 @@ class foxfmApp {
     for (let i = 0; i < 10; i++) {
       await matchdays
         .add("server", 157, i, new Date())
-        .catch(e => this.logger.error(e.stack || e));
-    }
-    for (let i = 0; i < 10; i++) {
-      await matchdays
-        .put("server", 157, i, new Date())
         .catch(e => this.logger.error(e.stack || e));
     }
     await matchdays
