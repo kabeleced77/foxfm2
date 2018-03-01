@@ -91,6 +91,8 @@ import { PlayerTransferMarketPlayerPageFocusElementSettingName } from '../Common
 import { PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue } from '../Common/SettingsDefaultValues/PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue';
 import { Matchdays } from '../Common/Matchdays';
 import { FoxfmIndexedDb } from '../Common/IndexedDb/FoxfmIndexedDb';
+import { GameWebPageUrl } from '../Common/Urls/GameWebPageUrl';
+import { GameWebPage } from './Game/GameWebPage';
 
 class foxfmApp {
   private logger: IEasyLogger;
@@ -106,20 +108,6 @@ class foxfmApp {
     var location = doc.location.href;
     this.logger.info(`S t a r t e d on ${location}`);
     this.extendWebPages.extend();
-
-    let db = new FoxfmIndexedDb();
-    let matchdays = new Matchdays(db);
-    for (let i = 0; i < 10; i++) {
-      await matchdays
-        .add("server", 157, i, new Date())
-        .catch(e => this.logger.error(e.stack || e));
-    }
-    await matchdays
-      .matchdays()
-      .then(mds => mds
-        .forEach(async md =>
-          this.logger.info(`Server (id: ${JSON.stringify(md.id())}: ${await md.server()}, day: ${await md.day()}`)))
-      .catch(e => this.logger.error(e.stack || e));
   }
 }
 
@@ -150,6 +138,16 @@ var app = new foxfmApp(
   ),
   new ExtendWebPages(
     new Array<IExtendWebPage>(
+      // Extend office/header - get matchday
+      new ExtendWebPage(
+        new Url(currentUrl),
+        new GameWebPage(
+          new GameWebPageUrl()),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "GameWebPage",
+            new LogLevelError()))),
       // Extend player information - set focus
       new ExtendWebPage(
         new Url(currentUrl),
