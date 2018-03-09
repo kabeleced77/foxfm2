@@ -134,8 +134,7 @@ var app = new foxfmApp(
     logger,
     new RegisteredLoggingModule(
       "foxfmApp",
-      new LogLevelError())
-  ),
+      new LogLevelError())),
   new ExtendWebPages(
     new Array<IExtendWebPage>(
       // Extend office/header - get matchday
@@ -272,9 +271,7 @@ var app = new foxfmApp(
           logger,
           new RegisteredLoggingModule(
             "ExtendWebPage",
-            new LogLevelError())
-        )
-      ),
+            new LogLevelError()))),
       // Extend transfer market - possible offer table
       new ExtendWebPage(
         new Url(currentUrl),
