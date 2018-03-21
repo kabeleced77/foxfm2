@@ -4,6 +4,8 @@ import { ILogLevel, LogLevelError } from '../Common/Logger/LogLevel';
 import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
 import { IFocusElementsSetting } from '../Common/Settings/FocusElementsSetting';
+import { IFoxfmSetting } from '../Common/Settings/FoxfmSetting';
+import { FoxfmSettingName } from '../Common/Settings/FoxfmSettingName';
 import {
   PlayerTransferMarketPageFocusElementSettingName,
 } from '../Common/Settings/PlayerTransferMarketPageFocusElementSettingName';
@@ -34,6 +36,7 @@ import {
 } from '../Common/Settings/TransferMarketSearchResultTableSettings';
 import { ITransferMarketSellingDurationSettings } from '../Common/Settings/TransferMarketSellingDurationSettings';
 import { ITransferOfferTableSettings, TransferOfferTableSettings } from '../Common/Settings/TransferOfferTableSettings';
+import { FoxfmSettingDefaultValue } from '../Common/SettingsDefaultValues/FoxfmSettingDefaultValue';
 import {
   PlayerInformationPageFocusElementSettingDefaultValue,
 } from '../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue';
@@ -54,7 +57,8 @@ import { IExtendWebElement } from '../Common/Toolkit/ExtendWebElement';
 import { ExtendWebPage, IExtendWebPage } from '../Common/Toolkit/ExtendWebPage';
 import { FirstElementInXPathNodeOrParents } from '../Common/Toolkit/FirstElementInXPathNodeOrParents';
 import { FocusElementByXPathConfigureable } from '../Common/Toolkit/FocusElementByXPathConfigureable';
-import { IFocusElementOnWebPage, FocusElementOnWebPage } from '../Common/Toolkit/FocusElementOnWebPage';
+import { FocusElementOnWebPage, IFocusElementOnWebPage } from '../Common/Toolkit/FocusElementOnWebPage';
+import { IFocusWebElement } from '../Common/Toolkit/FocusWebElement';
 import { HtmlSelect } from '../Common/Toolkit/HtmlSelect';
 import { HtmlSelectById } from '../Common/Toolkit/HtmlSelectById';
 import { HtmlTable } from '../Common/Toolkit/HtmlTable';
@@ -65,6 +69,7 @@ import { HtmlTableColumnStringValues } from '../Common/Toolkit/HtmlTableColumnSt
 import { Mutex } from '../Common/Toolkit/Mutex';
 import { IScrabWebElement } from '../Common/Toolkit/ScrabWebElement';
 import { IScrabWebPage, ScrabWebPage } from '../Common/Toolkit/ScrabWebPage';
+import { ISetting } from '../Common/Toolkit/Setting';
 import { SplitStringsToNumbers } from '../Common/Toolkit/SplitStrings';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
@@ -90,15 +95,22 @@ import { TransferMarketAmateurPlayerTable } from './TransferMarket/TransferMarke
 import { TransferMarketOfferDurationSelect } from './TransferMarket/TransferMarketOfferDurationSelect';
 import { TransferMarketOfferPlayerTable } from './TransferMarket/TransferMarketOfferPlayerTable';
 import { TransferMarketProfessionalPlayerTable } from './TransferMarket/TransferMarketProfessionalPlayerTable';
-import { IFocusWebElement } from '../Common/Toolkit/FocusWebElement';
 
 class foxfmApp {
+  private readonly settings: ISetting<IFoxfmSetting>;
   private logger: IEasyLogger;
   private extendWebPage: IExtendWebPage;
   private focusElementOnWebPage: IFocusElementOnWebPage;
   private scrabWebPage: IScrabWebPage;
 
-  constructor(logger: IEasyLogger, extendWebPage: IExtendWebPage, focuElementOnWebPage: IFocusElementOnWebPage, scrabWebPage: IScrabWebPage) {
+  constructor(
+    settings: ISetting<IFoxfmSetting>,
+    logger: IEasyLogger,
+    extendWebPage: IExtendWebPage,
+    focuElementOnWebPage: IFocusElementOnWebPage,
+    scrabWebPage: IScrabWebPage
+  ) {
+    this.settings = settings;
     this.logger = logger;
     this.extendWebPage = extendWebPage;
     this.focusElementOnWebPage = focuElementOnWebPage;
@@ -111,7 +123,7 @@ class foxfmApp {
     this.logger.info(`S t a r t e d on ${location}`);
     this.extendWebPage.extend(this.logger);
     this.focusElementOnWebPage.focus(this.logger);
-    this.scrabWebPage.scrab(this.logger);
+    if ((await this.settings.value()).persistInBrowser()) this.scrabWebPage.scrab(this.logger);
   }
 }
 
@@ -134,6 +146,9 @@ var logger = new Logger(
         new Array<IRegisteredLoggingModule>()))));
 
 var app = new foxfmApp(
+  new StorageLocal<IFoxfmSetting>(
+    new FoxfmSettingName(),
+    new FoxfmSettingDefaultValue()),
   new EasyLogger(
     logger,
     new RegisteredLoggingModule(
