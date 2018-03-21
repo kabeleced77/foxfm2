@@ -1,18 +1,24 @@
-import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
-import { ISetting } from "../../Common/Toolkit/Setting";
-import { IEasyLogger } from "../../Common/Logger/EasyLogger";
-import { IHtmlTable } from "../../Common/Toolkit/HtmlTable";
-import { HtmlTableColumn } from "../../Common/Toolkit/HtmlTableColumn";
-import { IHtmlTableColumnByXpath } from "../../Common/Toolkit/HtmlTableColumnByXpath";
-import { IStrengthLevel } from "../../Common/StrengthLevel";
-import { IStrengthLevels } from "../../Common/StrengthLevels";
-import { HtmlElement } from "../../Common/Toolkit/HtmlElement";
-import { IHtmlAttribute, HtmlAttribute } from "../../Common/Toolkit/HtmlAttribute";
-import { ITeamTableSetting } from "../../Common/Settings/TeamTableSetting";
-import { HtmlElementWithChilds, IHtmlElementWithChilds } from "../../Common/Toolkit/HtmlElementWithChilds";
-import { IRessource, RessourceCommonTableExtensionsHeaderAwpDiff, RessourceCommonTableExtensionsHeaderNextStrength } from "../../Common/Ressource";
+import { IEasyLogger } from '../../Common/Logger/EasyLogger';
+import {
+  IRessource,
+  RessourceCommonTableExtensionsHeaderAwpDiff,
+  RessourceCommonTableExtensionsHeaderNextStrength,
+} from '../../Common/Ressource';
+import { ITeamTableSetting } from '../../Common/Settings/TeamTableSetting';
+import { IStrengthLevel } from '../../Common/StrengthLevel';
+import { IStrengthLevels } from '../../Common/StrengthLevels';
+import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
+import { HtmlAttribute, IHtmlAttribute } from '../../Common/Toolkit/HtmlAttribute';
+import { HtmlElement } from '../../Common/Toolkit/HtmlElement';
+import { HtmlElementWithChilds, IHtmlElementWithChilds } from '../../Common/Toolkit/HtmlElementWithChilds';
+import { IHtmlTable } from '../../Common/Toolkit/HtmlTable';
+import { HtmlTableColumn } from '../../Common/Toolkit/HtmlTableColumn';
+import { IHtmlTableColumnByXpath } from '../../Common/Toolkit/HtmlTableColumnByXpath';
+import { ISetting } from '../../Common/Toolkit/Setting';
+import { IUrl } from '../../Common/Toolkit/Url';
 
-export class TeamPlayerTable implements IWebElementToExtend {
+export class TeamPlayerTable implements IExtendWebElement {
+  private readonly url: IUrl;
   private readonly table: IHtmlTable;
   private readonly strengthColumn: IHtmlTableColumnByXpath;
   private readonly teamTableSettings: ISetting<ITeamTableSetting>;
@@ -22,12 +28,14 @@ export class TeamPlayerTable implements IWebElementToExtend {
   private readonly ressourceTableHeaderNextStrength: IRessource;
 
   constructor(
+    targetUrl: IUrl,
     table: IHtmlTable,
     strengthColumn: IHtmlTableColumnByXpath,
     strengthLevels: IStrengthLevels,
     teamTableSettings: ISetting<ITeamTableSetting>,
     log: IEasyLogger
   ) {
+    this.url = targetUrl;
     this.table = table;
     this.strengthColumn = strengthColumn;
     this.teamTableSettings = teamTableSettings;
@@ -37,6 +45,9 @@ export class TeamPlayerTable implements IWebElementToExtend {
     this.ressourceTableHeaderNextStrength = new RessourceCommonTableExtensionsHeaderNextStrength();
   }
 
+  public targetUrl(): IUrl {
+    return this.url;
+  }
   public extend(): void {
     this.log.info("start extension");
     this.teamTableSettings
@@ -59,7 +70,7 @@ export class TeamPlayerTable implements IWebElementToExtend {
 
               this.table.tableHeader().rows[0].cells[this.strengthColumn.index().valueOf()].style.width = "70px";
               this.increaseStyleWidth(90);
-              this.increaseColspanInFooter(this.table.tableFooter(), 1, columnNumber-colspanNumber);
+              this.increaseColspanInFooter(this.table.tableFooter(), 1, columnNumber - colspanNumber);
             });
         }
       })
@@ -116,7 +127,6 @@ export class TeamPlayerTable implements IWebElementToExtend {
       for (j = 0; j < sheet.cssRules.length; j++) {
         if (sheet.cssRules[j].type === CSSRule.STYLE_RULE) {
           let currentRule = <CSSStyleRule>sheet.cssRules[j];
-          console.debug(`selector text: ${currentRule.selectorText}`);
           if (currentRule.selectorText.toLowerCase() === '.pagewrapper') {
             let width = currentRule.style.width;
             if (width !== null) {

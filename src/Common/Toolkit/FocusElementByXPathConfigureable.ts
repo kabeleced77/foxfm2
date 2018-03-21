@@ -1,29 +1,36 @@
-import { IEasyLogger } from "../Logger/EasyLogger";
-import { IWebElementToFocus } from "./WebElementToFocus";
-import { ISetting } from "./Setting";
-import { IFocusElementSetting } from "../Settings/FocusElementSetting";
-import { FocusElementByXPath } from "./FocusElementByXPath";
-import { XPathSingleResult } from "./XPathSingleResult";
-import { IDom } from "./Dom";
-import { XPathAllResults } from "./XPathAllResults";
-import { XPathString } from "./XPathString";
-import { IFocusElementsSetting } from "../Settings/FocusElementsSetting";
+import { IEasyLogger } from '../Logger/EasyLogger';
+import { IFocusElementSetting } from '../Settings/FocusElementSetting';
+import { IFocusElementsSetting } from '../Settings/FocusElementsSetting';
+import { IDom } from './Dom';
+import { FocusElementByXPath } from './FocusElementByXPath';
+import { IFocusWebElement } from './FocusWebElement';
+import { ISetting } from './Setting';
+import { IUrl } from './Url';
+import { XPathAllResults } from './XPathAllResults';
+import { XPathSingleResult } from './XPathSingleResult';
+import { XPathString } from './XPathString';
 
-export class FocusElementByXPathConfigureable<T extends HTMLElement> implements IWebElementToFocus {
+export class FocusElementByXPathConfigureable<T extends HTMLElement> implements IFocusWebElement {
+  private readonly url: IUrl;
   private readonly settings: ISetting<IFocusElementsSetting>;
   private readonly log: IEasyLogger;
   private readonly dom: IDom;
 
   constructor(
+    targetUrl: IUrl,
     settings: ISetting<IFocusElementsSetting>,
     dom: IDom,
-    log: IEasyLogger
+    log: IEasyLogger,
   ) {
+    this.url = targetUrl;
     this.settings = settings;
     this.dom = dom;
     this.log = log;
   }
 
+  public targetUrl(): IUrl {
+    return this.url;
+  }
   public focus(): void {
     this.settings
       .value()
@@ -41,8 +48,10 @@ export class FocusElementByXPathConfigureable<T extends HTMLElement> implements 
           this.log.info(`if activated the focus will be set to the element given by following xpath: ${xPath} (configration status: ${focusElement})`);
           if (focusElement) {
             new FocusElementByXPath<T>(
+              this.url,
               new XPathSingleResult<T>(
-                new XPathAllResults(this.dom.dom(),
+                new XPathAllResults(
+                  this.dom.dom(),
                   new XPathString(xPath))),
               this.log)
               .focus();

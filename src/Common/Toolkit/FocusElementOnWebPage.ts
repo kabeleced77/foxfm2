@@ -1,30 +1,30 @@
 import { IEasyLogger } from '../Logger/EasyLogger';
-import { IExtendWebElement } from './ExtendWebElement';
+import { IFocusWebElement } from './FocusWebElement';
 import { IUrl } from './Url';
 
-export interface IExtendWebPage {
-  extend(log: IEasyLogger): void;
+export interface IFocusElementOnWebPage {
+  focus(log: IEasyLogger): void;
 }
 
-export class ExtendWebPage implements IExtendWebPage {
+export class FocusElementOnWebPage implements IFocusElementOnWebPage {
   private currentUrl: IUrl;
-  private webElements: Array<IExtendWebElement>;
+  private webElements: Array<IFocusWebElement>;
 
   constructor(
     currentUrl: IUrl,
-    elements: Array<IExtendWebElement>,
+    elements: Array<IFocusWebElement>,
   ) {
     this.currentUrl = currentUrl;
     this.webElements = elements;
   }
 
-  public extend(log: IEasyLogger): void {
+  public focus(log: IEasyLogger): void {
     this.webElements.forEach(webElement => {
       var currentUrl = this.currentUrl.url().toString();
       var targetUrl = webElement.targetUrl().url();
       var extendPage = currentUrl.match(targetUrl) !== null;
       log.info(`called from: ${currentUrl} compared to ${targetUrl}: ${extendPage}`);
-      if (extendPage) webElement.extend();
+      if (extendPage) webElement.focus();
     });
   }
 }

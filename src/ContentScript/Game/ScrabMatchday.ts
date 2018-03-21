@@ -1,9 +1,9 @@
-import { IWebPageToExtend } from "../../Common/Toolkit/WebPageToExtend";
-import { IUrl } from "../../Common/Toolkit/Url";
-import { FoxfmIndexedDb } from "../../Common/IndexedDb/FoxfmIndexedDb";
-import { Matchdays } from "../../Common/Matchdays";
+import { FoxfmIndexedDb } from '../../Common/IndexedDb/FoxfmIndexedDb';
+import { Matchdays } from '../../Common/Matchdays';
+import { IScrabWebElement } from '../../Common/Toolkit/ScrabWebElement';
+import { IUrl } from '../../Common/Toolkit/Url';
 
-export class GameWebPage implements IWebPageToExtend {
+export class ScrabMatchday implements IScrabWebElement {
   private urlField: IUrl;
 
   constructor(
@@ -12,10 +12,10 @@ export class GameWebPage implements IWebPageToExtend {
     this.urlField = url;
   }
 
-  public pageUrl(): IUrl {
+  public targetUrl(): IUrl {
     return this.urlField;
   }
-  public async extend(): Promise<void> {
+  public async scrab(): Promise<void> {
     let db = new FoxfmIndexedDb();
     let matchdays = new Matchdays(db);
     for (let i = 0; i < 10; i++) {

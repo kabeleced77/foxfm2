@@ -1,17 +1,24 @@
-import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
-import { IHtmlTable } from "../../Common/Toolkit/HtmlTable";
-import { IHtmlTableColumnByXpath } from "../../Common/Toolkit/HtmlTableColumnByXpath";
-import { IStrengthLevels } from "../../Common/StrengthLevels";
-import { ISetting } from "../../Common/Toolkit/Setting";
-import { IStrengthLevel } from "../../Common/StrengthLevel";
-import { HtmlTableColumn } from "../../Common/Toolkit/HtmlTableColumn";
-import { HtmlElementWithChilds, IHtmlElementWithChilds } from "../../Common/Toolkit/HtmlElementWithChilds";
-import { IHtmlAttribute, HtmlAttribute } from "../../Common/Toolkit/HtmlAttribute";
-import { HtmlElement } from "../../Common/Toolkit/HtmlElement";
-import { ITransferMarketAmateurPlayerTableSettings } from "../../Common/Settings/TransferMarketAmateurPlayerTableSettings";
-import { IRessource, RessourceCommonTableExtensionsHeaderAwp, RessourceCommonTableExtensionsHeaderAwpDiff, RessourceCommonTableExtensionsHeaderNextStrength } from "../../Common/Ressource";
+import {
+  IRessource,
+  RessourceCommonTableExtensionsHeaderAwp,
+  RessourceCommonTableExtensionsHeaderAwpDiff,
+  RessourceCommonTableExtensionsHeaderNextStrength,
+} from '../../Common/Ressource';
+import { ITransferMarketAmateurPlayerTableSettings } from '../../Common/Settings/TransferMarketAmateurPlayerTableSettings';
+import { IStrengthLevel } from '../../Common/StrengthLevel';
+import { IStrengthLevels } from '../../Common/StrengthLevels';
+import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
+import { HtmlAttribute, IHtmlAttribute } from '../../Common/Toolkit/HtmlAttribute';
+import { HtmlElement } from '../../Common/Toolkit/HtmlElement';
+import { HtmlElementWithChilds, IHtmlElementWithChilds } from '../../Common/Toolkit/HtmlElementWithChilds';
+import { IHtmlTable } from '../../Common/Toolkit/HtmlTable';
+import { HtmlTableColumn } from '../../Common/Toolkit/HtmlTableColumn';
+import { IHtmlTableColumnByXpath } from '../../Common/Toolkit/HtmlTableColumnByXpath';
+import { ISetting } from '../../Common/Toolkit/Setting';
+import { IUrl } from '../../Common/Toolkit/Url';
 
-export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
+export class TransferMarketAmateurPlayerTable implements IExtendWebElement {
+  private readonly url: IUrl;
   private readonly table: IHtmlTable;
   private readonly strengthColumn: IHtmlTableColumnByXpath;
   private readonly settings: ISetting<ITransferMarketAmateurPlayerTableSettings>;
@@ -21,11 +28,13 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
   private readonly ressourceTableHeaderNextStrength: IRessource;
 
   constructor(
+    targetUrl:IUrl,
     table: IHtmlTable,
     strengthColumn: IHtmlTableColumnByXpath,
     strengthLevels: IStrengthLevels,
     settings: ISetting<ITransferMarketAmateurPlayerTableSettings>
   ) {
+    this.url = targetUrl;
     this.table = table;
     this.strengthColumn = strengthColumn;
     this.settings = settings;
@@ -35,6 +44,9 @@ export class TransferMarketAmateurPlayerTable implements IWebElementToExtend {
     this.ressourceTableHeaderNextStrength = new RessourceCommonTableExtensionsHeaderNextStrength();
   }
 
+  public targetUrl(): IUrl {
+    return this.url;
+  }
   public extend(): void {
     this.settings
       .value()
