@@ -1,24 +1,31 @@
-import { IWebElementToExtend } from "../../Common/Toolkit/WebElementToExtend";
-import { ISetting } from "../../Common/Toolkit/Setting";
-import { IEasyLogger } from "../../Common/Logger/EasyLogger";
-import { ITransferMarketSellingDurationSettings } from "../../Common/Settings/TransferMarketSellingDurationSettings";
-import { IHtmlSelect } from "../../Common/Toolkit/HtmlSelect";
+import { IEasyLogger } from '../../Common/Logger/EasyLogger';
+import { ITransferMarketSellingDurationSettings } from '../../Common/Settings/TransferMarketSellingDurationSettings';
+import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
+import { IHtmlSelect } from '../../Common/Toolkit/HtmlSelect';
+import { ISetting } from '../../Common/Toolkit/Setting';
+import { IUrl } from '../../Common/Toolkit/Url';
 
-export class TransferMarketOfferDurationSelect implements IWebElementToExtend {
+export class TransferMarketOfferDurationSelect implements IExtendWebElement {
+  private readonly url: IUrl;
   private readonly select: IHtmlSelect;
   private readonly tmSellingDurationSettings: ISetting<ITransferMarketSellingDurationSettings>;
   private readonly log: IEasyLogger;
 
   constructor(
+    targetUrl: IUrl,
     select: IHtmlSelect,
     transferMarketSellingDurationSettings: ISetting<ITransferMarketSellingDurationSettings>,
     log: IEasyLogger
   ) {
+    this.url = targetUrl;
     this.select = select;
     this.tmSellingDurationSettings = transferMarketSellingDurationSettings;
     this.log = log;
   }
 
+  public targetUrl(): IUrl {
+    return this.url;
+  }
   public extend(): void {
     this.log.info("start extension");
     this.tmSellingDurationSettings

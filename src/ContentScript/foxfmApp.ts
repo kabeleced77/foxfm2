@@ -1,13 +1,17 @@
 import { EasyLogger, IEasyLogger } from '../Common/Logger/EasyLogger';
 import { Logger } from '../Common/Logger/Logger';
 import { ILogLevel, LogLevelError } from '../Common/Logger/LogLevel';
-import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
+import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
 import { IFocusElementsSetting } from '../Common/Settings/FocusElementsSetting';
+import { IFoxfmSetting } from '../Common/Settings/FoxfmSetting';
+import { FoxfmSettingName } from '../Common/Settings/FoxfmSettingName';
 import {
   PlayerTransferMarketPageFocusElementSettingName,
 } from '../Common/Settings/PlayerTransferMarketPageFocusElementSettingName';
+import {
+  PlayerTransferMarketPlayerPageFocusElementSettingName,
+} from '../Common/Settings/PlayerTransferMarketPlayerPageFocusElementSettingName';
 import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
 import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
 import {
@@ -32,6 +36,7 @@ import {
 } from '../Common/Settings/TransferMarketSearchResultTableSettings';
 import { ITransferMarketSellingDurationSettings } from '../Common/Settings/TransferMarketSellingDurationSettings';
 import { ITransferOfferTableSettings, TransferOfferTableSettings } from '../Common/Settings/TransferOfferTableSettings';
+import { FoxfmSettingDefaultValue } from '../Common/SettingsDefaultValues/FoxfmSettingDefaultValue';
 import {
   PlayerInformationPageFocusElementSettingDefaultValue,
 } from '../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue';
@@ -39,16 +44,21 @@ import {
   PlayerTransferMarketPageFocusElementSettingDefaultValue,
 } from '../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue';
 import {
+  PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue,
+} from '../Common/SettingsDefaultValues/PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue';
+import {
   TransferMarketSellingDurationSettingsDefaultValue,
 } from '../Common/SettingsDefaultValues/TransferMarketSellingDurationSettingsDefaultValue';
 import { StrengthLevels } from '../Common/StrengthLevels';
 import { StrengthValues } from '../Common/StrengthValues';
 import { AwpPoints, AwpPointsByEpTp, AwpPointsBySplittedString } from '../Common/Toolkit/AwpPoints';
 import { Dom } from '../Common/Toolkit/Dom';
+import { IExtendWebElement } from '../Common/Toolkit/ExtendWebElement';
 import { ExtendWebPage, IExtendWebPage } from '../Common/Toolkit/ExtendWebPage';
-import { ExtendWebPages, IExtendWebPages } from '../Common/Toolkit/ExtendWebPages';
 import { FirstElementInXPathNodeOrParents } from '../Common/Toolkit/FirstElementInXPathNodeOrParents';
 import { FocusElementByXPathConfigureable } from '../Common/Toolkit/FocusElementByXPathConfigureable';
+import { FocusElementOnWebPage, IFocusElementOnWebPage } from '../Common/Toolkit/FocusElementOnWebPage';
+import { IFocusWebElement } from '../Common/Toolkit/FocusWebElement';
 import { HtmlSelect } from '../Common/Toolkit/HtmlSelect';
 import { HtmlSelectById } from '../Common/Toolkit/HtmlSelectById';
 import { HtmlTable } from '../Common/Toolkit/HtmlTable';
@@ -57,57 +67,63 @@ import { HtmlTableColumnByXpath } from '../Common/Toolkit/HtmlTableColumnByXpath
 import { HtmlTableColumnNumberValues } from '../Common/Toolkit/HtmlTableColumnNumberValues';
 import { HtmlTableColumnStringValues } from '../Common/Toolkit/HtmlTableColumnStringValues';
 import { Mutex } from '../Common/Toolkit/Mutex';
+import { IScrabWebElement } from '../Common/Toolkit/ScrabWebElement';
+import { IScrabWebPage, ScrabWebPage } from '../Common/Toolkit/ScrabWebPage';
+import { ISetting } from '../Common/Toolkit/Setting';
 import { SplitStringsToNumbers } from '../Common/Toolkit/SplitStrings';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
-import { Url, IUrl } from '../Common/Toolkit/Url';
+import { Url } from '../Common/Toolkit/Url';
 import { XPathAllResults } from '../Common/Toolkit/XPathAllResults';
 import { XPathHtmlTableCell } from '../Common/Toolkit/XPathHtmlTableCell';
 import { XPathSingleResult } from '../Common/Toolkit/XPathSingleResult';
 import { XPathString } from '../Common/Toolkit/XPathString';
+import { GameWebPageUrl } from '../Common/Urls/GameWebPageUrl';
 import { PlayerInformationWebPageUrl } from '../Common/Urls/PlayerInformationWebPageUrl';
+import { PlayerTransferMarketPlayerWebPageUrl } from '../Common/Urls/PlayerTransferMarketPlayerWebPageUrl';
 import { PlayerTransferMarketWebPageUrl } from '../Common/Urls/PlayerTransferMarketWebPageUrl';
 import { StadiumWebPageUrl } from '../Common/Urls/StadiumWebPageUrl';
 import { TeamWebPageUrl } from '../Common/Urls/TeamWebPageUrl';
 import { TransferMarketAmateurWebPageUrl } from '../Common/Urls/TransferMarketAmateurWebPageUrl';
 import { TransferMarketProfessionalsUiUrl } from '../Common/Urls/TransferMarketProfessionalsUiUrl';
 import { TransferOfferWebPageUrl } from '../Common/Urls/TransferOfferWebPageUrl';
-import { PlayerInformationWebPage } from './Player/PlayerInformationWebPage';
+import { ScrabMatchday } from './Game/ScrabMatchday';
 import { PlayerTransferMarketDurationSelect } from './Player/PlayerTransferMarketDurationSelect';
-import { PlayerTransferMarketWebPage } from './Player/PlayerTransferMarketWebPage';
 import { StadiumManagerUi } from './Stadium/StadiumManagerUi';
 import { TeamPlayerTable } from './Team/TeamPlayerTable';
-import { TeamWebPage } from './Team/TeamWebPage';
 import { TransferMarketAmateurPlayerTable } from './TransferMarket/TransferMarketAmateurPlayerTable';
-import { TransferMarketAmateurWebPage } from './TransferMarket/TransferMarketAmateurWebPage';
 import { TransferMarketOfferDurationSelect } from './TransferMarket/TransferMarketOfferDurationSelect';
 import { TransferMarketOfferPlayerTable } from './TransferMarket/TransferMarketOfferPlayerTable';
-import { TransferMarketOfferWebPage } from './TransferMarket/TransferMarketOfferWebPage';
 import { TransferMarketProfessionalPlayerTable } from './TransferMarket/TransferMarketProfessionalPlayerTable';
-import { TransferMarketProfessionalWebPage } from './TransferMarket/TransferMarketProfessionalWebPage';
-import { PlayerTransferMarketPlayerWebPageUrl } from '../Common/Urls/PlayerTransferMarketPlayerWebPageUrl';
-import { PlayerTransferMarketPlayerWebPage } from './Player/PlayerTransferMarketPlayerWebPage';
-import { PlayerTransferMarketPlayerPageFocusElementSettingName } from '../Common/Settings/PlayerTransferMarketPlayerPageFocusElementSettingName';
-import { PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue } from '../Common/SettingsDefaultValues/PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue';
-import { Matchdays } from '../Common/Matchdays';
-import { FoxfmIndexedDb } from '../Common/IndexedDb/FoxfmIndexedDb';
-import { GameWebPageUrl } from '../Common/Urls/GameWebPageUrl';
-import { GameWebPage } from './Game/GameWebPage';
 
 class foxfmApp {
+  private readonly settings: ISetting<IFoxfmSetting>;
   private logger: IEasyLogger;
-  private extendWebPages: IExtendWebPages;
+  private extendWebPage: IExtendWebPage;
+  private focusElementOnWebPage: IFocusElementOnWebPage;
+  private scrabWebPage: IScrabWebPage;
 
-  constructor(logger: IEasyLogger, extendWebPages: IExtendWebPages) {
+  constructor(
+    settings: ISetting<IFoxfmSetting>,
+    logger: IEasyLogger,
+    extendWebPage: IExtendWebPage,
+    focuElementOnWebPage: IFocusElementOnWebPage,
+    scrabWebPage: IScrabWebPage
+  ) {
+    this.settings = settings;
     this.logger = logger;
-    this.extendWebPages = extendWebPages;
+    this.extendWebPage = extendWebPage;
+    this.focusElementOnWebPage = focuElementOnWebPage;
+    this.scrabWebPage = scrabWebPage;
   }
 
   public async main(): Promise<void> {
     var doc = window.document;
     var location = doc.location.href;
     this.logger.info(`S t a r t e d on ${location}`);
-    this.extendWebPages.extend();
+    this.extendWebPage.extend(this.logger);
+    this.focusElementOnWebPage.focus(this.logger);
+    if ((await this.settings.value()).persistInBrowser()) this.scrabWebPage.scrab(this.logger);
   }
 }
 
@@ -130,354 +146,288 @@ var logger = new Logger(
         new Array<IRegisteredLoggingModule>()))));
 
 var app = new foxfmApp(
+  new StorageLocal<IFoxfmSetting>(
+    new FoxfmSettingName(),
+    new FoxfmSettingDefaultValue()),
   new EasyLogger(
     logger,
     new RegisteredLoggingModule(
       "foxfmApp",
-      new LogLevelError())
-  ),
-  new ExtendWebPages(
-    new Array<IExtendWebPage>(
-      // Extend office/header - get matchday
-      new ExtendWebPage(
-        new Url(currentUrl),
-        new GameWebPage(
-          new GameWebPageUrl()),
-        new EasyLogger(
-          logger,
-          new RegisteredLoggingModule(
-            "GameWebPage",
-            new LogLevelError()))),
-      // Extend player information - set focus
-      new ExtendWebPage(
-        new Url(currentUrl),
-        new PlayerInformationWebPage(
-          new PlayerInformationWebPageUrl(),
-          new FocusElementByXPathConfigureable(
-            new StorageLocal<IFocusElementsSetting>(
-              new SettingNamePlayerInformationWebPageFocusElement(),
-              new PlayerInformationPageFocusElementSettingDefaultValue()),
+      new LogLevelError())),
+  new ExtendWebPage(
+    new Url(currentUrl),
+    new Array<IExtendWebElement>(
+      // Extend player transfer market player - selling duration
+      new PlayerTransferMarketDurationSelect(
+        new PlayerTransferMarketPlayerWebPageUrl(),
+        new HtmlSelect(
+          new HtmlSelectById(
             new Dom(doc),
-            new EasyLogger(
-              logger,
-              new RegisteredLoggingModule(
-                "FocusElementByXPathConfigureable",
-                new LogLevelError())))),
+            "startwoche")),
+        new StorageLocal<ITransferMarketSellingDurationSettings>(
+          new SettingNameTransferMarketSellingDuration(),
+          new TransferMarketSellingDurationSettingsDefaultValue()),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
-            "PlayerInformationWebPage",
-            new LogLevelError()))),
-      // Extend player transfer market - focus elements
-      new ExtendWebPage(
-        new Url(currentUrl),
-        new PlayerTransferMarketWebPage(
-          new PlayerTransferMarketWebPageUrl(),
-          new FocusElementByXPathConfigureable(
-            new StorageLocal<IFocusElementsSetting>(
-              new PlayerTransferMarketPageFocusElementSettingName(),
-              new PlayerTransferMarketPageFocusElementSettingDefaultValue()),
-            new Dom(doc),
-            new EasyLogger(
-              logger,
-              new RegisteredLoggingModule(
-                "FocusElementByXPathConfigureable",
-                new LogLevelError())))),
-        new EasyLogger(
-          logger,
-          new RegisteredLoggingModule(
-            "PlayerTransferMarketWebPage",
-            new LogLevelError()))),
-      // Extend player transfer market player - selling duration & focus element
-      new ExtendWebPage(
-        new Url(currentUrl),
-        new PlayerTransferMarketPlayerWebPage(
-          new PlayerTransferMarketPlayerWebPageUrl(),
-          new PlayerTransferMarketDurationSelect(
-            new HtmlSelect(
-              new HtmlSelectById(
-                new Dom(doc),
-                "startwoche")),
-            new StorageLocal<ITransferMarketSellingDurationSettings>(
-              new SettingNameTransferMarketSellingDuration(),
-              new TransferMarketSellingDurationSettingsDefaultValue()),
-            new EasyLogger(
-              logger,
-              new RegisteredLoggingModule(
-                "PlayerTransferMarketPlayerDurationSelect",
-                new LogLevelError()))),
-          new FocusElementByXPathConfigureable(
-            new StorageLocal<IFocusElementsSetting>(
-              new PlayerTransferMarketPlayerPageFocusElementSettingName(),
-              new PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue()),
-            new Dom(doc),
-            new EasyLogger(
-              logger,
-              new RegisteredLoggingModule(
-                "FocusElementByXPathConfigureable",
-                new LogLevelError())))),
-        new EasyLogger(
-          logger,
-          new RegisteredLoggingModule(
-            "PlayerTransferMarketPlayerWebPage",
+            "PlayerTransferMarketPlayerDurationSelect",
             new LogLevelError()))),
       // Extend transfer market - search result table
-      new ExtendWebPage(
-        new Url(currentUrl),
-        new TransferMarketProfessionalWebPage(
-          new TransferMarketProfessionalsUiUrl(),
-          new TransferMarketProfessionalPlayerTable(
-            new HtmlTable(
-              new HtmlTableByXPath<HTMLTableCellElement>(
-                new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
-                  new XPathSingleResult<HTMLTableCellElement>(
-                    new XPathAllResults(
-                      window.document,
-                      new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[2]'))),
-                  "table"))),
+      new TransferMarketProfessionalPlayerTable(
+        new TransferMarketProfessionalsUiUrl(),
+        new HtmlTable(
+          new HtmlTableByXPath<HTMLTableCellElement>(
+            new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
+              new XPathSingleResult<HTMLTableCellElement>(
+                new XPathAllResults(
+                  window.document,
+                  new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[2]'))),
+              "table"))),
+        new HtmlTableColumnByXpath(
+          new XPathHtmlTableCell(
+            new XPathSingleResult<HTMLTableCellElement>(
+              new XPathAllResults(
+                window.document,
+                new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]'))))),
+        new StrengthLevels(
+          new StrengthsLimitsSetting(),
+          new StrengthValues(
             new HtmlTableColumnByXpath(
               new XPathHtmlTableCell(
                 new XPathSingleResult<HTMLTableCellElement>(
                   new XPathAllResults(
                     window.document,
-                    new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]'))))),
-            new StrengthLevels(
-              new StrengthsLimitsSetting(),
-              new StrengthValues(
+                    new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
+          new AwpPointsBySplittedString(
+            new SplitStringsToNumbers(
+              new HtmlTableColumnStringValues(
                 new HtmlTableColumnByXpath(
                   new XPathHtmlTableCell(
                     new XPathSingleResult<HTMLTableCellElement>(
                       new XPathAllResults(
                         window.document,
-                        new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
-              new AwpPointsBySplittedString(
-                new SplitStringsToNumbers(
-                  new HtmlTableColumnStringValues(
-                    new HtmlTableColumnByXpath(
-                      new XPathHtmlTableCell(
-                        new XPathSingleResult<HTMLTableCellElement>(
-                          new XPathAllResults(
-                            window.document,
-                            new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
-                  "/",
-                  ","))),
-            new StorageLocal<ITransferMarketSearchResultTableSettings>(
-              new SettingNameTransferMarketProfessionalsSearchResultTable(),
-              new TransferMarketSearchResultTableSettings(
-                false,
-                false,
-                false,
-                false)))),
-        new EasyLogger(
-          logger,
-          new RegisteredLoggingModule(
-            "ExtendWebPage",
-            new LogLevelError())
-        )
-      ),
+                        new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
+              "/",
+              ","))),
+        new StorageLocal<ITransferMarketSearchResultTableSettings>(
+          new SettingNameTransferMarketProfessionalsSearchResultTable(),
+          new TransferMarketSearchResultTableSettings(
+            false,
+            false,
+            false,
+            false))),
       // Extend transfer market - possible offer table
-      new ExtendWebPage(
-        new Url(currentUrl),
-        new TransferMarketOfferWebPage(
-          new TransferOfferWebPageUrl(),
-          new TransferMarketOfferPlayerTable(
-            new HtmlTable(
-              new HtmlTableByXPath<HTMLTableCellElement>(
-                new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
-                  new XPathSingleResult<HTMLTableCellElement>(
-                    new XPathAllResults(
-                      window.document,
-                      new XPathString('//*[@id="players_to_market"]'))),
-                  "table"))),
+      new TransferMarketOfferPlayerTable(
+        new TransferOfferWebPageUrl(),
+        new HtmlTable(
+          new HtmlTableByXPath<HTMLTableCellElement>(
+            new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
+              new XPathSingleResult<HTMLTableCellElement>(
+                new XPathAllResults(
+                  window.document,
+                  new XPathString('//*[@id="players_to_market"]'))),
+              "table"))),
+        new HtmlTableColumnByXpath(
+          new XPathHtmlTableCell(
+            new XPathSingleResult<HTMLTableCellElement>(
+              new XPathAllResults(
+                window.document,
+                new XPathString('//*[@id="staerke"]'))))),
+        new StrengthLevels(
+          new StrengthsLimitsSetting(),
+          new StrengthValues(
             new HtmlTableColumnByXpath(
               new XPathHtmlTableCell(
                 new XPathSingleResult<HTMLTableCellElement>(
                   new XPathAllResults(
                     window.document,
-                    new XPathString('//*[@id="staerke"]'))))),
-            new StrengthLevels(
-              new StrengthsLimitsSetting(),
-              new StrengthValues(
-                new HtmlTableColumnByXpath(
-                  new XPathHtmlTableCell(
-                    new XPathSingleResult<HTMLTableCellElement>(
-                      new XPathAllResults(
-                        window.document,
-                        new XPathString('//*[@id="staerke"]')))))),
-              new AwpPoints(
-                new HtmlTableColumnNumberValues(
-                  new HtmlTableColumnByXpath(
-                    new XPathHtmlTableCell(
-                      new XPathSingleResult<HTMLTableCellElement>(
-                        new XPathAllResults(
-                          window.document,
-                          new XPathString('//*[@id="punkte"]')))))))),
-            new StorageLocal<ITransferOfferTableSettings>(
-              new SettingNameTransferTablePossibleOffers(),
-              new TransferOfferTableSettings(
-                true,
-                true,
-                true))),
-          new TransferMarketOfferDurationSelect(
-            new HtmlSelect(
-              new HtmlSelectById(
-                new Dom(doc),
-                "startwoche")),
-            new StorageLocal<ITransferMarketSellingDurationSettings>(
-              new SettingNameTransferMarketSellingDuration(),
-              new TransferMarketSellingDurationSettingsDefaultValue()),
-            new EasyLogger(
-              logger,
-              new RegisteredLoggingModule(
-                "TransferMarketOfferDurationSelect",
-                new LogLevelError()))
-          )),
+                    new XPathString('//*[@id="staerke"]')))))),
+          new AwpPoints(
+            new HtmlTableColumnNumberValues(
+              new HtmlTableColumnByXpath(
+                new XPathHtmlTableCell(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="punkte"]')))))))),
+        new StorageLocal<ITransferOfferTableSettings>(
+          new SettingNameTransferTablePossibleOffers(),
+          new TransferOfferTableSettings(
+            true,
+            true,
+            true))),
+      // Extend transfer market - set default duration
+      new TransferMarketOfferDurationSelect(
+        new TransferOfferWebPageUrl(),
+        new HtmlSelect(
+          new HtmlSelectById(
+            new Dom(doc),
+            "startwoche")),
+        new StorageLocal<ITransferMarketSellingDurationSettings>(
+          new SettingNameTransferMarketSellingDuration(),
+          new TransferMarketSellingDurationSettingsDefaultValue()),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
-            "ExtendWebPage",
+            "TransferMarketOfferDurationSelect",
             new LogLevelError()))),
       // Extend team table
-      new ExtendWebPage(
-        new Url(currentUrl),
-        new TeamWebPage(
-          new TeamWebPageUrl(),
-          new TeamPlayerTable(
-            new HtmlTable(
-              new HtmlTableByXPath<HTMLTableCellElement>(
-                new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
-                  new XPathSingleResult<HTMLTableCellElement>(
-                    new XPathAllResults(
-                      window.document,
-                      new XPathString('//*[@id="playerTable"]'))),
-                  "table"))),
+      new TeamPlayerTable(
+        new TeamWebPageUrl(),
+        new HtmlTable(
+          new HtmlTableByXPath<HTMLTableCellElement>(
+            new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
+              new XPathSingleResult<HTMLTableCellElement>(
+                new XPathAllResults(
+                  window.document,
+                  new XPathString('//*[@id="playerTable"]'))),
+              "table"))),
+        new HtmlTableColumnByXpath(
+          new XPathHtmlTableCell(
+            new XPathSingleResult<HTMLTableCellElement>(
+              new XPathAllResults(
+                window.document,
+                new XPathString('//*[@id="playerTable"]/thead/tr/th[10]'))))),
+        new StrengthLevels(
+          new StrengthsLimitsSetting(),
+          new StrengthValues(
             new HtmlTableColumnByXpath(
               new XPathHtmlTableCell(
                 new XPathSingleResult<HTMLTableCellElement>(
                   new XPathAllResults(
                     window.document,
-                    new XPathString('//*[@id="playerTable"]/thead/tr/th[10]'))))),
-            new StrengthLevels(
-              new StrengthsLimitsSetting(),
-              new StrengthValues(
-                new HtmlTableColumnByXpath(
-                  new XPathHtmlTableCell(
-                    new XPathSingleResult<HTMLTableCellElement>(
-                      new XPathAllResults(
-                        window.document,
-                        new XPathString('//*[@id="playerTable"]/thead/tr/th[10]')))))),
-              new AwpPointsByEpTp(
-                new HtmlTableColumnNumberValues(
-                  new HtmlTableColumnByXpath(
-                    new XPathHtmlTableCell(
-                      new XPathSingleResult<HTMLTableCellElement>(
-                        new XPathAllResults(
-                          window.document,
-                          new XPathString('//*[@id="playerTable"]/thead/tr/th[13]')))))),
-                new HtmlTableColumnNumberValues(
-                  new HtmlTableColumnByXpath(
-                    new XPathHtmlTableCell(
-                      new XPathSingleResult<HTMLTableCellElement>(
-                        new XPathAllResults(
-                          window.document,
-                          new XPathString('//*[@id="playerTable"]/thead/tr/th[14]')))))))),
-            new StorageLocal<ITeamTableSetting>(
-              new SettingNameTeamTable(),
-              new TeamTableSetting(
-                false,
-                false,
-                false)),
-            new EasyLogger(
-              logger,
-              new RegisteredLoggingModule(
-                "TeamUi",
-                new LogLevelError())))),
+                    new XPathString('//*[@id="playerTable"]/thead/tr/th[10]')))))),
+          new AwpPointsByEpTp(
+            new HtmlTableColumnNumberValues(
+              new HtmlTableColumnByXpath(
+                new XPathHtmlTableCell(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="playerTable"]/thead/tr/th[13]')))))),
+            new HtmlTableColumnNumberValues(
+              new HtmlTableColumnByXpath(
+                new XPathHtmlTableCell(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="playerTable"]/thead/tr/th[14]')))))))),
+        new StorageLocal<ITeamTableSetting>(
+          new SettingNameTeamTable(),
+          new TeamTableSetting(
+            false,
+            false,
+            false)),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
-            "ExtendWebPage",
+            "TeamUi",
             new LogLevelError()))),
       // Extend amateur transfer market
-      new ExtendWebPage(
-        new Url(currentUrl),
-        new TransferMarketAmateurWebPage(
-          new TransferMarketAmateurWebPageUrl(),
-          new TransferMarketAmateurPlayerTable(
-            new HtmlTable(
-              new HtmlTableByXPath<HTMLTableCellElement>(
-                new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
-                  new XPathSingleResult<HTMLTableCellElement>(
-                    new XPathAllResults(
-                      window.document,
-                      new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]')
-                    )
-                  ),
-                  "table"
+      new TransferMarketAmateurPlayerTable(
+        new TransferMarketAmateurWebPageUrl(),
+        new HtmlTable(
+          new HtmlTableByXPath<HTMLTableCellElement>(
+            new FirstElementInXPathNodeOrParents<HTMLTableCellElement, HTMLTableElement>(
+              new XPathSingleResult<HTMLTableCellElement>(
+                new XPathAllResults(
+                  window.document,
+                  new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]')
                 )
-              )),
+              ),
+              "table"
+            )
+          )),
+        new HtmlTableColumnByXpath(
+          new XPathHtmlTableCell(
+            new XPathSingleResult<HTMLTableCellElement>(
+              new XPathAllResults(
+                window.document,
+                new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]'))))),
+        new StrengthLevels(
+          new StrengthsLimitsSetting(),
+          new StrengthValues(
             new HtmlTableColumnByXpath(
               new XPathHtmlTableCell(
                 new XPathSingleResult<HTMLTableCellElement>(
                   new XPathAllResults(
                     window.document,
-                    new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]'))))),
-            new StrengthLevels(
-              new StrengthsLimitsSetting(),
-              new StrengthValues(
-                new HtmlTableColumnByXpath(
-                  new XPathHtmlTableCell(
-                    new XPathSingleResult<HTMLTableCellElement>(
-                      new XPathAllResults(
-                        window.document,
-                        new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]')))))),
-              new AwpPointsByEpTp(
-                new HtmlTableColumnNumberValues(
-                  new HtmlTableColumnByXpath(
-                    new XPathHtmlTableCell(
-                      new XPathSingleResult<HTMLTableCellElement>(
-                        new XPathAllResults(
-                          window.document,
-                          new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[6]')))))),
-                new HtmlTableColumnNumberValues(
-                  new HtmlTableColumnByXpath(
-                    new XPathHtmlTableCell(
-                      new XPathSingleResult<HTMLTableCellElement>(
-                        new XPathAllResults(
-                          window.document,
-                          new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]')))))))),
-            new StorageLocal<ITransferMarketAmateurPlayerTableSettings>(
-              new SettingNameTransferMarketAmateurTable(),
-              new TransferMarketAmateurPlayerTableSettings(
-                false,
-                false,
-                false,
-                false)))),
-        new EasyLogger(
-          logger,
-          new RegisteredLoggingModule(
-            "ExtendWebPage",
-            new LogLevelError()))),
+                    new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[5]')))))),
+          new AwpPointsByEpTp(
+            new HtmlTableColumnNumberValues(
+              new HtmlTableColumnByXpath(
+                new XPathHtmlTableCell(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[6]')))))),
+            new HtmlTableColumnNumberValues(
+              new HtmlTableColumnByXpath(
+                new XPathHtmlTableCell(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="amateurmarkt"]/table/tbody/tr/td[1]/div/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table/thead/tr/td[7]')))))))),
+        new StorageLocal<ITransferMarketAmateurPlayerTableSettings>(
+          new SettingNameTransferMarketAmateurTable(),
+          new TransferMarketAmateurPlayerTableSettings(
+            false,
+            false,
+            false,
+            false))),
       // Extend stadium
-      new ExtendWebPage(
-        new Url(currentUrl),
-        new StadiumManagerUi(
-          new Dom(doc),
-          new StadiumWebPageUrl(),
-          new EasyLogger(
-            logger,
-            new RegisteredLoggingModule(
-              "StadiumManagerUi",
-              new LogLevelError())
-          )
-        ),
+      new StadiumManagerUi(
+        new Dom(doc),
+        new StadiumWebPageUrl(),
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
-            "ExtendWebPage",
-            new LogLevelError())
-        )
-      ),
-    )
-  )
+            "StadiumManagerUi",
+            new LogLevelError()))))),
+  new FocusElementOnWebPage(
+    new Url(currentUrl),
+    new Array<IFocusWebElement>(
+      // Extend player information - set focus
+      new FocusElementByXPathConfigureable(
+        new PlayerInformationWebPageUrl(),
+        new StorageLocal<IFocusElementsSetting>(
+          new SettingNamePlayerInformationWebPageFocusElement(),
+          new PlayerInformationPageFocusElementSettingDefaultValue()),
+        new Dom(doc),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "FocusElementByXPathConfigureable",
+            new LogLevelError()))),
+      // Extend player transfer market - focus elements
+      new FocusElementByXPathConfigureable(
+        new PlayerTransferMarketWebPageUrl(),
+        new StorageLocal<IFocusElementsSetting>(
+          new PlayerTransferMarketPageFocusElementSettingName(),
+          new PlayerTransferMarketPageFocusElementSettingDefaultValue()),
+        new Dom(doc),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "FocusElementByXPathConfigureable",
+            new LogLevelError()))),
+      // Extend player transfer market player - focus element
+      new FocusElementByXPathConfigureable(
+        new PlayerTransferMarketPlayerWebPageUrl(),
+        new StorageLocal<IFocusElementsSetting>(
+          new PlayerTransferMarketPlayerPageFocusElementSettingName(),
+          new PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue()),
+        new Dom(doc),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "FocusElementByXPathConfigureable",
+            new LogLevelError()))))),
+  new ScrabWebPage(
+    new Url(currentUrl),
+    new Array<IScrabWebElement>(
+      // Scrab office/header - get matchday
+      new ScrabMatchday(
+        new GameWebPageUrl())))
 );
 app.main();
