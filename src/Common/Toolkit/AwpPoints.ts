@@ -1,8 +1,6 @@
-import { IAwp, AwpByEpTp, Awp } from "./Awp";
-import { IHtmlTableColumnByXpath } from "./HtmlTableColumnByXpath";
-import { IValues } from "./Values";
-import { NumberFromString } from "./NumberFromString";
-import { ISplitStrings } from "./SplitStrings";
+import { Awp, AwpByEpTp, IAwp } from './Awp';
+import { ISplitStrings } from './SplitStrings';
+import { IValues } from './Values';
 
 export interface IAwpPoints {
   points(): IAwp[];
