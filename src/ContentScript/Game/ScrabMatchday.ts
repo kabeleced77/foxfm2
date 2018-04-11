@@ -6,15 +6,18 @@ import { IValue } from '../../Common/Toolkit/Value';
 
 export class ScrabMatchday implements IScrabWebElement {
   private urlField: IUrl;
+  private readonly hostname: String;
   private day: IValue<Number>;
   private season: IValue<Number>;
 
   constructor(
     url: IUrl,
+    hostname: String,
     day: IValue<Number>,
     season: IValue<Number>
   ) {
     this.urlField = url;
+    this.hostname = hostname;
     this.day = day;
     this.season = season;
   }
@@ -27,6 +30,6 @@ export class ScrabMatchday implements IScrabWebElement {
     let season = this.season.value();
     let db = new FoxfmIndexedDb();
     let matchdays = new Matchdays(db);
-    await matchdays.add("server", season, day, new Date())
+    await matchdays.add(this.hostname, season, day, new Date())
   }
 }

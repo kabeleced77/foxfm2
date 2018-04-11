@@ -432,6 +432,7 @@ var app = new foxfmApp(
       // Scrab office/header - get matchday
       new ScrabMatchday(
         new HeaderWebPageUrl(),
+        window.location.hostname,
         new NumberFromString(
           new TextContentFromNode(
             new DomNodesByXpath<HTMLSpanElement>(

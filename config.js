@@ -469,7 +469,6 @@ System.config({
       "Common/Toolkit/HtmlAttribute.js",
       "Common/Toolkit/HtmlElement.js",
       "Common/Toolkit/HtmlElementWithChilds.js",
-      "Common/Toolkit/HtmlElementsById.js",
       "Common/Toolkit/HtmlId.js",
       "Common/Toolkit/HtmlSelect.js",
       "Common/Toolkit/HtmlSelectById.js",
