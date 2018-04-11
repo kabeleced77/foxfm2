@@ -53,6 +53,7 @@ import { StrengthLevels } from '../Common/StrengthLevels';
 import { StrengthValues } from '../Common/StrengthValues';
 import { AwpPoints, AwpPointsByEpTp, AwpPointsBySplittedString } from '../Common/Toolkit/AwpPoints';
 import { Dom } from '../Common/Toolkit/Dom';
+import { DomNodesByXpath } from '../Common/Toolkit/DomNodesByXpath';
 import { IExtendWebElement } from '../Common/Toolkit/ExtendWebElement';
 import { ExtendWebPage, IExtendWebPage } from '../Common/Toolkit/ExtendWebPage';
 import { FirstElementInXPathNodeOrParents } from '../Common/Toolkit/FirstElementInXPathNodeOrParents';
@@ -67,18 +68,20 @@ import { HtmlTableColumnByXpath } from '../Common/Toolkit/HtmlTableColumnByXpath
 import { HtmlTableColumnNumberValues } from '../Common/Toolkit/HtmlTableColumnNumberValues';
 import { HtmlTableColumnStringValues } from '../Common/Toolkit/HtmlTableColumnStringValues';
 import { Mutex } from '../Common/Toolkit/Mutex';
+import { NumberFromString } from '../Common/Toolkit/NumberFromString';
 import { IScrabWebElement } from '../Common/Toolkit/ScrabWebElement';
 import { IScrabWebPage, ScrabWebPage } from '../Common/Toolkit/ScrabWebPage';
 import { ISetting } from '../Common/Toolkit/Setting';
 import { SplitStringsToNumbers } from '../Common/Toolkit/SplitStrings';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
+import { TextContentFromNode } from '../Common/Toolkit/TextContentFromNode';
 import { Url } from '../Common/Toolkit/Url';
 import { XPathAllResults } from '../Common/Toolkit/XPathAllResults';
 import { XPathHtmlTableCell } from '../Common/Toolkit/XPathHtmlTableCell';
 import { XPathSingleResult } from '../Common/Toolkit/XPathSingleResult';
 import { XPathString } from '../Common/Toolkit/XPathString';
-import { GameWebPageUrl } from '../Common/Urls/GameWebPageUrl';
+import { HeaderWebPageUrl } from '../Common/Urls/HeaderWebPageUrl';
 import { PlayerInformationWebPageUrl } from '../Common/Urls/PlayerInformationWebPageUrl';
 import { PlayerTransferMarketPlayerWebPageUrl } from '../Common/Urls/PlayerTransferMarketPlayerWebPageUrl';
 import { PlayerTransferMarketWebPageUrl } from '../Common/Urls/PlayerTransferMarketWebPageUrl';
@@ -428,6 +431,18 @@ var app = new foxfmApp(
     new Array<IScrabWebElement>(
       // Scrab office/header - get matchday
       new ScrabMatchday(
-        new GameWebPageUrl())))
+        new HeaderWebPageUrl(),
+        new NumberFromString(
+          new TextContentFromNode(
+            new DomNodesByXpath<HTMLSpanElement>(
+              new XPathAllResults(
+                window.document,
+                new XPathString('/html/body/div[2]/div[1]/div[2]/p/span[1]')))), ","),
+        new NumberFromString(
+          new TextContentFromNode(
+            new DomNodesByXpath<HTMLSpanElement>(
+              new XPathAllResults(
+                window.document,
+                new XPathString('/html/body/div[2]/div[1]/div[2]/p/span[2]')))), ","))))
 );
 app.main();

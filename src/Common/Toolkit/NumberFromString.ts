@@ -1,24 +1,22 @@
-export interface INumberFromString {
-  number(): Number;
-}
+import { IValue } from "./Value";
 
-export class NumberFromString implements INumberFromString {
-  private readonly string: String;
+export class NumberFromString implements IValue<Number> {
+  private readonly string: IValue<String>;
   private readonly decimalPoint: String;
 
   constructor(
-    string: String,
+    string: IValue<String>,
     decimalPoint: String
   ) {
     this.string = string;
     this.decimalPoint = decimalPoint;
   }
 
-  public number(): Number {
-    return this.getNumberFromString(this.string, this.decimalPoint.valueOf());
+  public value(): Number {
+    return this.getNumberFromString(this.string.value(), this.decimalPoint.valueOf());
   }
 
-  private getNumberFromString(str, decimalPoint): Number {
+  private getNumberFromString(str: String, decimalPoint: String): Number {
     let sNum;
     let num: Number = 0;
     // infoMessage(4, 'getNumberFromString(): started: string: ' + str);

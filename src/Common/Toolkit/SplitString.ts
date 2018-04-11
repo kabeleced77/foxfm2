@@ -1,4 +1,5 @@
 import { NumberFromString } from "./NumberFromString";
+import { IValue, StringValue } from "./Value";
 
 export interface ISplitString<T1, T2> {
   firstValue(): T1;
@@ -24,11 +25,15 @@ export class SplitStringToNumbers implements ISplitString<Number, Number> {
 
   public firstValue(): Number {
     this.split();
-    return new NumberFromString(this.split()[0].trim(), this.decimalPoint).number();
+    return new NumberFromString(
+      new StringValue(this.split()[0].trim()),
+      this.decimalPoint).value();
   }
   public secondValue(): Number {
     this.split();
-    return new NumberFromString(this.split()[1].trim(), this.decimalPoint).number();
+    return new NumberFromString(
+      new StringValue(this.split()[1].trim()),
+      this.decimalPoint).value();
   }
 
   private split(): string[] {
