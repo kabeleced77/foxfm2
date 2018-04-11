@@ -271,6 +271,8 @@ System.config({
       "BackgroundPage/background.js"
     ],
     "app-contentscript-build.js": [
+      "ContentScript/App.js",
+      "ContentScript/FoxfmApp.js",
       "ContentScript/Game/ScrabMatchday.js",
       "ContentScript/Player/PlayerTransferMarketDurationSelect.js",
       "ContentScript/Stadium/StadiumManagerUi.js",
@@ -278,8 +280,7 @@ System.config({
       "ContentScript/TransferMarket/TransferMarketAmateurPlayerTable.js",
       "ContentScript/TransferMarket/TransferMarketOfferDurationSelect.js",
       "ContentScript/TransferMarket/TransferMarketOfferPlayerTable.js",
-      "ContentScript/TransferMarket/TransferMarketProfessionalPlayerTable.js",
-      "ContentScript/foxfmApp.js"
+      "ContentScript/TransferMarket/TransferMarketProfessionalPlayerTable.js"
     ],
     "app-settingspage-build.js": [
       "SettingsPage/app.html!github:systemjs/plugin-text@0.0.11.js",

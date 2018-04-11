@@ -1,1 +1,1 @@
-System.import("ContentScript/foxfmApp");
+System.import("ContentScript/App");
