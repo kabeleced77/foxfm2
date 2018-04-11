@@ -148,7 +148,7 @@ var logger = new Logger(
       new RegisteredLoggingModules(
         new Array<IRegisteredLoggingModule>()))));
 
-var app = new foxfmApp(
+new foxfmApp(
   new StorageLocal<IFoxfmSetting>(
     new FoxfmSettingName(),
     new FoxfmSettingDefaultValue()),
@@ -445,5 +445,4 @@ var app = new foxfmApp(
               new XPathAllResults(
                 window.document,
                 new XPathString('/html/body/div[2]/div[1]/div[2]/p/span[2]')))), ","))))
-);
-app.main();
+).main();
