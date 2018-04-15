@@ -2,13 +2,14 @@ export interface IValue<T> {
   value(): T;
 }
 
-export class StringValue implements IValue<String> {
-  private readonly stringValue: String;
+export class Value<T> implements IValue<T> {
+  private readonly v: T;
 
-  constructor(value: String) {
-    this.stringValue = value;
+  constructor(value: T) {
+    this.v = value;
   }
-  public value(): String {
-    return this.stringValue;
+
+  public value(): T {
+    return this.v;
   }
 }
