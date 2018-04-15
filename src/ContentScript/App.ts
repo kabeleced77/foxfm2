@@ -60,6 +60,7 @@ import { FirstElementInXPathNodeOrParents } from '../Common/Toolkit/FirstElement
 import { FocusElementByXPathConfigureable } from '../Common/Toolkit/FocusElementByXPathConfigureable';
 import { FocusElementOnWebPage } from '../Common/Toolkit/FocusElementOnWebPage';
 import { IFocusWebElement } from '../Common/Toolkit/FocusWebElement';
+import { HrefTextFromAnchorElement } from '../Common/Toolkit/HrefTextFromAnchorElement';
 import { HtmlSelect } from '../Common/Toolkit/HtmlSelect';
 import { HtmlSelectById } from '../Common/Toolkit/HtmlSelectById';
 import { HtmlTable } from '../Common/Toolkit/HtmlTable';
@@ -72,6 +73,7 @@ import { NumberFromString } from '../Common/Toolkit/NumberFromString';
 import { IScrabWebElement } from '../Common/Toolkit/ScrabWebElement';
 import { ScrabWebPage } from '../Common/Toolkit/ScrabWebPage';
 import { SplitStringsToNumbers } from '../Common/Toolkit/SplitStrings';
+import { SplitStringToString } from '../Common/Toolkit/SplitStringToString';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
 import { TextContentFromNode } from '../Common/Toolkit/TextContentFromNode';
@@ -90,7 +92,8 @@ import { TransferMarketAmateurWebPageUrl } from '../Common/Urls/TransferMarketAm
 import { TransferMarketProfessionalsUiUrl } from '../Common/Urls/TransferMarketProfessionalsUiUrl';
 import { TransferOfferWebPageUrl } from '../Common/Urls/TransferOfferWebPageUrl';
 import { FoxfmApp } from './FoxfmApp';
-import { ScrabMatchday } from './Game/ScrabMatchday';
+import { ScrabClub } from './Header/ScrabClub';
+import { ScrabMatchday } from './Header/ScrabMatchday';
 import { PlayerTransferMarketDurationSelect } from './Player/PlayerTransferMarketDurationSelect';
 import { StadiumManagerUi } from './Stadium/StadiumManagerUi';
 import { TeamPlayerTable } from './Team/TeamPlayerTable';
@@ -398,6 +401,35 @@ new FoxfmApp(
   new ScrabWebPage(
     new Url(currentUrl),
     new Array<IScrabWebElement>(
+      // Scrab office/header - get club
+      new ScrabClub(
+        new HeaderWebPageUrl(),
+        new SplitStringToString(
+          new SplitStringToString(
+            new HrefTextFromAnchorElement(
+              new DomNodesByXpath<HTMLAnchorElement>(
+                new XPathAllResults(
+                  window.document,
+                  new XPathString('/html/body/div[2]/div[1]/div[2]/div[1]/a')))),
+            "/",
+            5),
+          /^(\d+)-(.*)$/, // splits the url to the club in 5 parts -> last one is name of club
+          3),
+        new NumberFromString(
+          new SplitStringToString(
+            new SplitStringToString(
+              new HrefTextFromAnchorElement(
+                new DomNodesByXpath<HTMLAnchorElement>(
+                  new XPathAllResults(
+                    window.document,
+                    new XPathString('/html/body/div[2]/div[1]/div[2]/div[1]/a')))),
+              "/",
+              5),
+            "-",
+            1),
+          ","
+        )
+      ),
       // Scrab office/header - get matchday
       new ScrabMatchday(
         new HeaderWebPageUrl(),
