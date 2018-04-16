@@ -1,11 +1,11 @@
-import { SplitStringToNumbers } from "./SplitString";
-import { IValues } from "./Values";
-import { NumberValues } from "./NumberValues";
+import { SplitStringToNumbers } from './SplitString';
+import { IValues, Values } from './Values';
 
 export interface ISplitStrings<T1, T2> {
   firstValues(): IValues<T1>;
   secondValues(): IValues<T2>;
 }
+
 export class SplitStringsToNumbers implements ISplitStrings<Number, Number> {
   private readonly strings: IValues<String>;
   private readonly splitBy: String;
@@ -27,11 +27,11 @@ export class SplitStringsToNumbers implements ISplitStrings<Number, Number> {
 
   firstValues(): IValues<Number> {
     if (this.strings.values().length !== this.firstValuesOfStrings.length) this.split();
-    return new NumberValues(this.firstValuesOfStrings);
+    return new Values<Number>(this.firstValuesOfStrings);
   }
   secondValues(): IValues<Number>{
     if (this.strings.values().length !== this.secondValuesOfStrings.length) this.split();
-    return new NumberValues(this.secondValuesOfStrings);
+    return new Values<Number>(this.secondValuesOfStrings);
   }
   private split(): void {
     this.strings.values().forEach(string => {
