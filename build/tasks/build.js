@@ -29,7 +29,7 @@ gulp.task('build-system', function() {
     .pipe(gulp.dest(paths.output));
 });
 
-let mergeFileManifest = {fileName: 'manifest.json'};
+var mergeFileManifest = {fileName: 'manifest.json'};
 gulp.task('build-manifest-chrome', function() {
   gulp.src('configurations/manifest-base.json')
     .pipe(merge(mergeFileManifest))
@@ -42,7 +42,7 @@ gulp.task('build-manifest-firefox', function() {
     .pipe(gulp.dest(paths.root)); 
 });
 
-let mergeFileMessage = {fileName: 'message.json'};
+var mergeFileMessage = {fileName: 'message.json'};
 gulp.task('build-locales-en', function() {
   gulp.src(paths.ressourcesEn)
     .pipe(merge(mergeFileMessage))
