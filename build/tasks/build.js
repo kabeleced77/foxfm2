@@ -29,27 +29,29 @@ gulp.task('build-system', function() {
     .pipe(gulp.dest(paths.output));
 });
 
+let mergeFileManifest = {fileName: 'manifest.json'};
 gulp.task('build-manifest-chrome', function() {
   gulp.src('configurations/manifest-base.json')
-    .pipe(merge('manifest.json'))
+    .pipe(merge(mergeFileManifest))
     .pipe(gulp.dest(paths.root)); 
 });
 
 gulp.task('build-manifest-firefox', function() {
   gulp.src('configurations/**/*.json')
-    .pipe(merge('manifest.json'))
+    .pipe(merge(mergeFileManifest))
     .pipe(gulp.dest(paths.root)); 
 });
 
+let mergeFileMessage = {fileName: 'message.json'};
 gulp.task('build-locales-en', function() {
   gulp.src(paths.ressourcesEn)
-    .pipe(merge('messages.json'))
+    .pipe(merge(mergeFileMessage))
     .pipe(gulp.dest(paths.ressourcesEnDir)); 
 });
 
 gulp.task('build-locales-de', function() {
   gulp.src(paths.ressourcesDe)
-    .pipe(merge('messages.json'))
+    .pipe(merge(mergeFileMessage))
     .pipe(gulp.dest(paths.ressourcesDeDir)); 
 });
 
