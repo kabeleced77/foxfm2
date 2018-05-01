@@ -3,11 +3,15 @@ import Dexie from 'dexie';
 import { IClubDataModel } from '../DataModel/ClubDataModel';
 import { IMatchdayDataModel } from '../DataModel/MatchdayDataModel';
 import { IPlayerPositionDataModel } from '../DataModel/PlayerPositionDataModel';
+import { IGameServerDataModel } from '../DataModel/GamerServerDataModel';
+import { IPlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
 
 export class FoxfmIndexedDb extends Dexie {
   public matchdays: Dexie.Table<IMatchdayDataModel, Number>;
   public clubs: Dexie.Table<IClubDataModel, Number>;
   public playerPosition: Dexie.Table<IPlayerPositionDataModel, Number>;
+  public gameServer: Dexie.Table<IGameServerDataModel, Number>;
+  public transfers: Dexie.Table<IPlayerTransferDataModel, Number>;
 
   constructor() {
     super("foxfm");
@@ -17,7 +21,9 @@ export class FoxfmIndexedDb extends Dexie {
       .stores({
         matchdays: "++id, &[serverValue+seasonValue+dayValue], serverValue, seasonValue, dayValue",
         clubs: "++id, name, &externalId",
-        playerPosition: "++id, &i18nName, &i18nShortName"
+        playerPosition: "++id, &i18nName, &i18nShortName",
+        gameServer: "++id, uri",
+        transfers: "++id",
       });
 
     // initial data population - also after upgrades and only diffs to previous version
