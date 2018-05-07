@@ -22,5 +22,13 @@ export class FoxfmIndexedDb extends Dexie {
         gameServer: "++id, uri",
         transfers: "++id",
       });
+
+    // initial data population - also after upgrades and only diffs to previous version
+    this.on("populate", () => this.gameServer
+      .bulkAdd([
+        { uri: "www.onlinefussballmanager.de" },
+        { uri: "en.onlinefootballmanager.com" },
+        { uri: "server2.onlinefussballmanager.de" },
+      ]));
   }
 }
