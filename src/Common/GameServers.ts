@@ -1,4 +1,4 @@
-import { GameServerDataModel } from './DataModel/GamerServerDataModel';
+import { GameServerDataModel } from './DataModel/GameServerDataModel';
 import { GameServer, IGameServer } from './GameServer';
 import { FoxfmIndexedDb } from './IndexedDb/FoxfmIndexedDb';
 
@@ -17,14 +17,14 @@ export class Clubs implements IGameServers {
   public gameServers(): Promise<IGameServer[]> {
     let vals: IGameServer[] = [];
     return this.dataBase
-      .gameServer
+      .gameServers
       .toCollection()
       .eachPrimaryKey((pk: Number) => vals.push(new GameServer(this.dataBase, pk)))
       .then(() => vals);
   }
   public add(name: String): Promise<void | IGameServer> {
     return this.dataBase
-      .gameServer
+      .gameServers
       .add(new GameServerDataModel(
         name,
       ))

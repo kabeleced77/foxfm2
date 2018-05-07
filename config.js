@@ -407,7 +407,7 @@ System.config({
       "Common/Club.js",
       "Common/Clubs.js",
       "Common/DataModel/ClubDataModel.js",
-      "Common/DataModel/GamerServerDataModel.js",
+      "Common/DataModel/GameServerDataModel.js",
       "Common/DataModel/MatchdayDataModel.js",
       "Common/DataModel/PlayerTransferDataModel.js",
       "Common/GameKind.js",

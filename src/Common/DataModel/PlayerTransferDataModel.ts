@@ -1,5 +1,5 @@
 import { IMatchdayDataModel } from "./MatchdayDataModel";
-import { IGameServerDataModel } from "./GamerServerDataModel";
+import { IGameServerDataModel } from "./GameServerDataModel";
 
 export interface IPlayerTransferDataModel {
   id?: Number;
