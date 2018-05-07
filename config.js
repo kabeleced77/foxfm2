@@ -409,7 +409,6 @@ System.config({
       "Common/DataModel/ClubDataModel.js",
       "Common/DataModel/GamerServerDataModel.js",
       "Common/DataModel/MatchdayDataModel.js",
-      "Common/DataModel/PlayerPositionDataModel.js",
       "Common/DataModel/PlayerTransferDataModel.js",
       "Common/GameKind.js",
       "Common/IndexedDb/FoxfmIndexedDb.js",
