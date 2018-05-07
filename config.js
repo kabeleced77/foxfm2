@@ -411,6 +411,8 @@ System.config({
       "Common/DataModel/MatchdayDataModel.js",
       "Common/DataModel/PlayerTransferDataModel.js",
       "Common/GameKind.js",
+      "Common/GameServer.js",
+      "Common/GameServers.js",
       "Common/IndexedDb/FoxfmIndexedDb.js",
       "Common/Logger/EasyLogger.js",
       "Common/Logger/LogLevel.js",
