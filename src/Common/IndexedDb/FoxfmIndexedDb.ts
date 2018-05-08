@@ -19,7 +19,7 @@ export class FoxfmIndexedDb extends Dexie {
       .stores({
         matchdays: "++id, &[serverValue+seasonValue+dayValue], serverValue, seasonValue, dayValue",
         clubs: "++id, name, &externalId",
-        gameServer: "++id, uri",
+        gameServers: "++id, uri",
         transfers: "++id",
       });
 
