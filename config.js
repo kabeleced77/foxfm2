@@ -421,6 +421,8 @@ System.config({
       "Common/Logger/RegisteredLoggingModules.js",
       "Common/Matchday.js",
       "Common/Matchdays.js",
+      "Common/PlayerTransfer.js",
+      "Common/PlayerTransfers.js",
       "Common/Ressource.js",
       "Common/Settings/FocusElementSetting.js",
       "Common/Settings/FocusElementsSetting.js",

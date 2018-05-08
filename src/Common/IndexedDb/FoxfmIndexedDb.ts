@@ -9,7 +9,7 @@ export class FoxfmIndexedDb extends Dexie {
   public matchdays: Dexie.Table<IMatchdayDataModel, Number>;
   public clubs: Dexie.Table<IClubDataModel, Number>;
   public gameServers: Dexie.Table<IGameServerDataModel, Number>;
-  public transfers: Dexie.Table<IPlayerTransferDataModel, Number>;
+  public playerTransfers: Dexie.Table<IPlayerTransferDataModel, Number>;
 
   constructor() {
     super("foxfm");
@@ -20,7 +20,7 @@ export class FoxfmIndexedDb extends Dexie {
         matchdays: "++id, &[gameServerId+seasonValue+dayValue], gameServerId, seasonValue, dayValue",
         clubs: "++id, name, &externalId",
         gameServers: "++id, uri",
-        transfers: "++id, &[gameServerId+matchdayId+transferId]",
+        playerTransfers: "++id, &[gameServerId+matchdayId+transferId]",
       });
 
     // initial data population - also after upgrades and only diffs to previous version
