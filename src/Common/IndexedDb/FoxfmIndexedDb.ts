@@ -20,7 +20,7 @@ export class FoxfmIndexedDb extends Dexie {
         matchdays: "++id, &[gameServerId+seasonValue+dayValue], gameServerId, seasonValue, dayValue",
         clubs: "++id, name, &externalId",
         gameServers: "++id, uri",
-        transfers: "++id",
+        transfers: "++id, &[gameServerId+matchdayId+transferId]",
       });
 
     // initial data population - also after upgrades and only diffs to previous version

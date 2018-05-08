@@ -1,10 +1,11 @@
-import { IMatchdayDataModel } from "./MatchdayDataModel";
-import { IGameServerDataModel } from "./GameServerDataModel";
-
 export interface IPlayerTransferDataModel {
   id?: Number;
-  gameServer: IGameServerDataModel;
-  matchday: IMatchdayDataModel;
+  gameServerId: Number;
+  matchdayId: Number;
+  transferId: Number;
+  sellingTeam: String;
+  buyingTeam: String;
+  name: String;
   position: String;
   age: Number;
   strength: Number;
@@ -13,23 +14,35 @@ export interface IPlayerTransferDataModel {
 
 export class PlayerTransferDateModel implements IPlayerTransferDataModel {
   public id: Number;
-  gameServer: IGameServerDataModel;
-  matchday: IMatchdayDataModel;
-  position: String;
-  age: Number;
-  strength: Number;
-  price: Number;
+  public gameServerId: Number;
+  public matchdayId: Number;
+  public transferId: Number;
+  public sellingTeam: String;
+  public buyingTeam: String;
+  public name: String;
+  public position: String;
+  public age: Number;
+  public strength: Number;
+  public price: Number;
 
   constructor(
-    gameServer: IGameServerDataModel,
-    matchday: IMatchdayDataModel,
+    gameServerId: Number,
+    matchdayId: Number,
+    transferId: Number,
+    sellingTeam: String,
+    buyingTeam: String,
+    name: String,
     position: String,
     age: Number,
     strength: Number,
     price: Number,
   ) {
-    this.gameServer = gameServer;
-    this.matchday = matchday;
+    this.gameServerId = gameServerId;
+    this.matchdayId = matchdayId;
+    this.transferId = transferId;
+    this.sellingTeam = sellingTeam;
+    this.buyingTeam = buyingTeam;
+    this.name = name;
     this.position = position;
     this.age = age;
     this.strength = strength;
