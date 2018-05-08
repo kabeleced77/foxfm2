@@ -1,6 +1,6 @@
 export interface IMatchdayDataModel {
   id?: Number;
-  serverValue: String;
+  gameServerId: Number;
   dayValue: Number;
   seasonValue: Number;
   dateValue: Date;
@@ -8,18 +8,18 @@ export interface IMatchdayDataModel {
 
 export class MatchdayDataModel implements IMatchdayDataModel {
   public id: Number;
-  public serverValue: String;
+  public gameServerId: Number;
   public dayValue: Number;
   public seasonValue: Number;
   public dateValue: Date;
 
   constructor(
-    server: String,
+    gameServerId: Number,
     season: Number,
     day: Number,
     date: Date,
   ) {
-    this.serverValue = server;
+    this.gameServerId = gameServerId;
     this.seasonValue = season;
     this.dayValue = day;
     this.dateValue = date;

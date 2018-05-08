@@ -4,7 +4,7 @@ import { FoxfmIndexedDb } from "./IndexedDb/FoxfmIndexedDb";
 
 export interface IMatchdays {
   matchdays(): Promise<IMatchday[]>;
-  add(server: String, day: Number, season: Number, date: Date): Promise<void | IMatchday>;
+  add(gameServerId: Number, day: Number, season: Number, date: Date): Promise<void | IMatchday>;
 }
 export class Matchdays implements IMatchdays {
   private dataBase: FoxfmIndexedDb;
@@ -21,11 +21,11 @@ export class Matchdays implements IMatchdays {
       .eachPrimaryKey((pk: Number) => mds.push(new Matchday(this.dataBase, pk)))
       .then(() => mds);
   }
-  public add(server: String, season: Number, day: Number, date: Date): Promise<void | IMatchday> {
+  public add(gameServer: Number, season: Number, day: Number, date: Date): Promise<void | IMatchday> {
     return this.dataBase
       .matchdays
       .add(new MatchdayDataModel(
-        server,
+        gameServer,
         season,
         day,
         date,

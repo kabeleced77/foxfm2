@@ -29,7 +29,15 @@ export class ScrabMatchday implements IScrabWebElement {
     let day = this.day.value();
     let season = this.season.value();
     let db = new FoxfmIndexedDb();
-    let matchdays = new Matchdays(db);
-    await matchdays.add(this.hostname, season, day, new Date())
+    db.transaction("rw", db.gameServers, db.matchdays, async () => {
+      let gameServers = db.gameServers.filter(gs => gs.uri === this.hostname);
+      if (await gameServers.count() === 1) {
+        let gameServer = await gameServers.first();
+        let matchdays = new Matchdays(db);
+        await matchdays.add(gameServer!.id!, season, day, new Date())
+      } else {
+        throw `could not add matchday to database: given game server is not supported yet: ${this.hostname}`;
+      }
+    });
   }
 }

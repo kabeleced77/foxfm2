@@ -3,7 +3,7 @@ import { FoxfmIndexedDb } from "./IndexedDb/FoxfmIndexedDb";
 
 export interface IMatchday {
   id(): Number;
-  server(): Promise<String>;
+  gameServerId(): Promise<Number>;
   day(): Promise<Number>;
   season(): Number;
   date(): Date;
@@ -21,11 +21,11 @@ export class Matchday implements IMatchday {
   public id(): Number {
     return this.idValue;
   }
-  public server(): Promise<String> {
+  public gameServerId(): Promise<Number> {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IMatchdayDataModel) => result.serverValue);
+      .then((result: IMatchdayDataModel) => result.gameServerId);
   }
   public day(): Promise<Number> {
     return this.source
