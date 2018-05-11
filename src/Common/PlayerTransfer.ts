@@ -9,7 +9,7 @@ export interface IPlayerTransfer {
   position(): Promise<String>;
   age(): Promise<Number>;
   strength(): Promise<Number>;
-  prics(): Promise<Number>;
+  price(): Promise<Number>;
 }
 
 export class PlayerTransfer implements IPlayerTransfer {
@@ -54,7 +54,7 @@ export class PlayerTransfer implements IPlayerTransfer {
       .get(this.idValue)
       .then((result: IPlayerTransferDataModel) => result.strength);
   }
-  public prics(): Promise<Number> {
+  public price(): Promise<Number> {
     return this.source
       .playerTransfers
       .get(this.idValue)
