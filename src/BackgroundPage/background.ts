@@ -10,6 +10,8 @@ import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLogging
 import { StorageLocal } from "../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
+import { MessagingBackgroundScript } from "../Common/Messaging/MessagingBackgroundScript";
+import { EasyLogger } from "../Common/Logger/EasyLogger";
 
 class FoxfmBackground {
   private log: ILogger;
@@ -26,6 +28,14 @@ class FoxfmBackground {
   public main(): void {
     this.log.info(this.thisModule, "S t a r t e d");
     this.createContextMenu();
+    let messaging = new MessagingBackgroundScript(
+      "",
+      new EasyLogger(
+        this.log,
+        new RegisteredLoggingModule(
+          "MessagingBackgroundScript",
+          new LogLevelError())));
+    messaging.connect();
   }
 
   private createContextMenu() {

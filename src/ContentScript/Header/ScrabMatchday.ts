@@ -1,5 +1,10 @@
-import { FoxfmIndexedDb } from '../../Common/IndexedDb/FoxfmIndexedDb';
-import { Matchdays } from '../../Common/Matchdays';
+import { MatchdayMessagingDataModel } from '../../Common/DataModel/MatchdayMessagingDataModel';
+import { MessagingContentScript } from '../../Common/Messaging/MessagingContentScript';
+import { MessagingMessageAddMatchdayToIndexedDb } from '../../Common/Messaging/MessagingMessageAddMatchdayToIndexedDb';
+import {
+  MessagingMessageTypeAddMatchdayToIndexedDb,
+} from '../../Common/Messaging/MessagingMessageTypeAddMatchdayToIndexedDb';
+import { MessagingPortIndexedDb } from '../../Common/Messaging/MessagingPortIndexedDb';
 import { IScrabWebElement } from '../../Common/Toolkit/ScrabWebElement';
 import { IUrl } from '../../Common/Toolkit/Url';
 import { IValue } from '../../Common/Toolkit/Value';
@@ -26,18 +31,14 @@ export class ScrabMatchday implements IScrabWebElement {
     return this.urlField;
   }
   public async scrab(): Promise<void> {
-    let day = this.day.value();
-    let season = this.season.value();
-    let db = new FoxfmIndexedDb();
-    db.transaction("rw", db.gameServers, db.matchdays, async () => {
-      let gameServers = db.gameServers.filter(gs => gs.uri === this.hostname);
-      if (await gameServers.count() === 1) {
-        let gameServer = await gameServers.first();
-        let matchdays = new Matchdays(db);
-        await matchdays.add(gameServer!.id!, season, day, new Date())
-      } else {
-        throw `could not add matchday to database: given game server is not supported yet: ${this.hostname}`;
-      }
-    });
+    new MessagingContentScript(
+      new MessagingPortIndexedDb()
+    ).send(
+      new MessagingMessageAddMatchdayToIndexedDb(
+        new MessagingMessageTypeAddMatchdayToIndexedDb(),
+        new MatchdayMessagingDataModel(
+          this.hostname,
+          this.season.value(),
+          this.day.value())));
   }
 }
