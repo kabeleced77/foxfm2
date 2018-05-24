@@ -404,6 +404,7 @@ new FoxfmApp(
       // Scrab office/header - get club
       new ScrabClub(
         new HeaderWebPageUrl(),
+        window.location.hostname,
         new SplitStringToString(
           new SplitStringToString(
             new HrefTextFromAnchorElement(

@@ -1,7 +1,7 @@
 import { IMessaging } from './Messaging';
 import { IMessagingPort } from './MessagingPort';
 
-export class MessagingContentScript implements IMessaging {
+export class MessagingContentScript implements IMessaging<Object> {
   private port: IMessagingPort;
 
   constructor(

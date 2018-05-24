@@ -1,6 +1,6 @@
-import { MatchdayMessagingDataModel } from '../../Common/DataModel/MatchdayMessagingDataModel';
+import { IMatchdayMessagingDataModel, MatchdayMessagingDataModel } from '../../Common/DataModel/MatchdayMessagingDataModel';
 import { MessagingContentScript } from '../../Common/Messaging/MessagingContentScript';
-import { MessagingMessageAddMatchdayToIndexedDb } from '../../Common/Messaging/MessagingMessageAddMatchdayToIndexedDb';
+import { MessagingMessage } from '../../Common/Messaging/MessagingMessage';
 import {
   MessagingMessageTypeAddMatchdayToIndexedDb,
 } from '../../Common/Messaging/MessagingMessageTypeAddMatchdayToIndexedDb';
@@ -30,11 +30,11 @@ export class ScrabMatchday implements IScrabWebElement {
   public targetUrl(): IUrl {
     return this.urlField;
   }
-  public async scrab(): Promise<void> {
+  public scrab(): void {
     new MessagingContentScript(
       new MessagingPortIndexedDb()
     ).send(
-      new MessagingMessageAddMatchdayToIndexedDb(
+      new MessagingMessage<IMatchdayMessagingDataModel>(
         new MessagingMessageTypeAddMatchdayToIndexedDb(),
         new MatchdayMessagingDataModel(
           this.hostname,

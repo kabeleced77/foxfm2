@@ -1,5 +1,5 @@
 import { IMessagingMessage } from "./MessagingMessage";
 
-export interface IMessaging {
-  send(message: IMessagingMessage);
+export interface IMessaging<T> {
+  send(message: IMessagingMessage<T>);
 }

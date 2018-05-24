@@ -4,7 +4,7 @@ import { FoxfmIndexedDb } from './IndexedDb/FoxfmIndexedDb';
 
 export interface IClubs {
   clubs(): Promise<IClub[]>;
-  add(name: String, externalId: Number): Promise<void | IClub>;
+  add(gameServerId: Number, name: String, externalId: Number): Promise<void | IClub>;
 }
 
 export class Clubs implements IClubs {
@@ -22,10 +22,11 @@ export class Clubs implements IClubs {
       .eachPrimaryKey((pk: Number) => vals.push(new Club(this.dataBase, pk)))
       .then(() => vals);
   }
-  public add(name: String, externalId: Number): Promise<void | IClub> {
+  public add(gameServerId: Number, name: String, externalId: Number): Promise<void | IClub> {
     return this.dataBase
       .clubs
       .add(new ClubDataModel(
+        gameServerId,
         name,
         externalId,
       ))
