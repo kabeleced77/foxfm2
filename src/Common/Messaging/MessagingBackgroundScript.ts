@@ -6,7 +6,7 @@ import { Matchdays } from '../IndexedDb/MatchdaysIndexedDb';
 import { IEasyLogger } from '../Logger/EasyLogger';
 import { IMessaging } from './Messaging';
 import { IMessagingMessage } from './MessagingMessage';
-import { MessagingMessageTypeAddMatchdayToIndexedDb } from './MessagingMessageTypeAddMatchdayToIndexedDb';
+import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageTypeIndexedDbAddMatchday';
 import { MessagingMessageTypeIndexedDbAddClub } from './MessagingMessageTypeIndexedDbAddClub';
 
 export class MessagingBackgroundScript implements IMessaging<Object> {
@@ -35,7 +35,7 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
         this.logger.info(`received message from type: ${message.type.name}`);
         this.logger.info(`received message with content: ${JSON.stringify(message.content)}`);
         switch (message.type.name) {
-          case new MessagingMessageTypeAddMatchdayToIndexedDb().name:
+          case new MessagingMessageTypeIndexedDbAddMatchday().name:
             this.addMatchdayToIndexedDb(<IMatchdayMessagingDataModel>message.content);
             break;
           case new MessagingMessageTypeIndexedDbAddClub().name:

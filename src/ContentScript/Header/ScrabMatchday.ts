@@ -2,8 +2,8 @@ import { IMatchdayMessagingDataModel, MatchdayMessagingDataModel } from '../../C
 import { MessagingContentScript } from '../../Common/Messaging/MessagingContentScript';
 import { MessagingMessage } from '../../Common/Messaging/MessagingMessage';
 import {
-  MessagingMessageTypeAddMatchdayToIndexedDb,
-} from '../../Common/Messaging/MessagingMessageTypeAddMatchdayToIndexedDb';
+  MessagingMessageTypeIndexedDbAddMatchday,
+} from '../../Common/Messaging/MessagingMessageTypeIndexedDbAddMatchday';
 import { MessagingPortIndexedDb } from '../../Common/Messaging/MessagingPortIndexedDb';
 import { IScrabWebElement } from '../../Common/Toolkit/ScrabWebElement';
 import { IUrl } from '../../Common/Toolkit/Url';
@@ -35,7 +35,7 @@ export class ScrabMatchday implements IScrabWebElement {
       new MessagingPortIndexedDb()
     ).send(
       new MessagingMessage<IMatchdayMessagingDataModel>(
-        new MessagingMessageTypeAddMatchdayToIndexedDb(),
+        new MessagingMessageTypeIndexedDbAddMatchday(),
         new MatchdayMessagingDataModel(
           this.hostname,
           this.season.value(),

@@ -1,6 +1,6 @@
 import { IMessagingMessageTypeDataModel } from './MessagingMessageType';
 
-export class MessagingMessageTypeAddMatchdayToIndexedDb implements IMessagingMessageTypeDataModel {
+export class MessagingMessageTypeIndexedDbAddMatchday implements IMessagingMessageTypeDataModel {
   public name: String;
 
   constructor() {
