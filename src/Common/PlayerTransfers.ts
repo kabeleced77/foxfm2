@@ -7,7 +7,7 @@ export interface IPlayerTransfers {
   add(
     gameServerId: Number,
     matchdayId: Number,
-    transferId: Number,
+    externalTransferId: Number,
     sellingTeam: String,
     buyingTeam: String,
     name: String,
@@ -36,7 +36,7 @@ export class PlayerTransfers implements IPlayerTransfers {
   public add(
     gameServerId: Number,
     matchdayId: Number,
-    transferId: Number,
+    externalTransferId: Number,
     sellingTeam: String,
     buyingTeam: String,
     name: String,
@@ -50,7 +50,7 @@ export class PlayerTransfers implements IPlayerTransfers {
       .add(new PlayerTransferDateModel(
         gameServerId,
         matchdayId,
-        transferId,
+        externalTransferId,
         sellingTeam,
         buyingTeam,
         name,
