@@ -68,9 +68,15 @@ export class TeamPlayerTable implements IExtendWebElement {
               if (addNextStrength) this.addNextStrengthColumn(strengthLevels, columnNumber++);
               if (extendStrength) this.extendStrengthColumn(strengthLevels);
 
-              this.table.tableHeader().rows[0].cells[this.strengthColumn.index().valueOf()].style.width = "70px";
+              let tHeads = this.table.tableHeaders();
+              if (tHeads.length === 1) {
+                tHeads[0].element().rows[0].cells[this.strengthColumn.index().valueOf()].style.width = "70px";
+              }
               this.increaseStyleWidth(90);
-              this.increaseColspanInFooter(this.table.tableFooter(), 1, columnNumber - colspanNumber);
+              let tFooter = this.table.tableFooters();
+              if (tFooter.length == 1) {
+                this.increaseColspanInFooter(tFooter[0].element(), 1, columnNumber - colspanNumber);
+              }
             });
         }
       })
