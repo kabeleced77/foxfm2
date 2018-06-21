@@ -84,13 +84,13 @@ export class TransferMarketOfferPlayerTable implements IExtendWebElement {
         new HtmlAttribute("role", "columnHeader"),
         new HtmlAttribute("style", `"width: ${width}"`)
       ),
-      new Array<HTMLElement>(
+      new Array(
         new HtmlElement(
           "span",
           new Array<IHtmlAttribute>(
             new HtmlAttribute("style", "color:#04143e;"),
             new HtmlAttribute("class", "bold")),
-          headerText).element()));
+          headerText)));
   }
   private element(content: String, i: Number): IHtmlElementWithChilds {
     let newElement = new HtmlElement(
@@ -105,7 +105,7 @@ export class TransferMarketOfferPlayerTable implements IExtendWebElement {
         new HtmlAttribute("class", "textRight"),
         new HtmlAttribute("style", background)
       ),
-      new Array<HTMLElement>(newElement.element()));
+      new Array(newElement));
     return tdEle;
   }
   private extendStrengthColumn(strengthLevels: IStrengthLevel[]) {

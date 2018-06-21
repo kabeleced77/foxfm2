@@ -1,17 +1,18 @@
-import { IHtmlAttribute } from "./HtmlAttribute";
+import { IHtmlAttribute } from './HtmlAttribute';
+import { IHtmlElement } from './HtmlElement';
 
 export interface IHtmlElementWithChilds {
   attributes(): IHtmlAttribute[];
-  childElements(): HTMLElement[];
+  childElements(): IHtmlElement<HTMLElement>[];
 }
 
 export class HtmlElementWithChilds implements IHtmlElementWithChilds {
   private readonly columnElemenAttributes: IHtmlAttribute[];
-  private readonly columnChildElements: HTMLElement[];
+  private readonly columnChildElements: IHtmlElement<HTMLElement>[];
 
   constructor(
     attributes: IHtmlAttribute[],
-    childElements: HTMLElement[]
+    childElements: IHtmlElement<HTMLElement>[]
   ) {
     this.columnElemenAttributes = attributes;
     this.columnChildElements = childElements;
@@ -20,7 +21,7 @@ export class HtmlElementWithChilds implements IHtmlElementWithChilds {
   public attributes(): IHtmlAttribute[] {
     return this.columnElemenAttributes;
   }
-  public childElements(): HTMLElement[] {
+  public childElements(): IHtmlElement<HTMLElement>[] {
     return this.columnChildElements;
   }
 }

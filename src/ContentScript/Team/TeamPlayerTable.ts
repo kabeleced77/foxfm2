@@ -103,13 +103,13 @@ export class TeamPlayerTable implements IExtendWebElement {
         new HtmlAttribute("class", "textCenter"),
         new HtmlAttribute("style", "width:90px"),
         new HtmlAttribute("role", "columnheader")),
-      new Array<HTMLElement>(
+      new Array(
         new HtmlElement(
           "span",
           new Array<IHtmlAttribute>(
             new HtmlAttribute("style", "color:#04143e;"),
             new HtmlAttribute("class", "bold")),
-          headerText).element()));
+          headerText)));
   }
   private extendStrengthColumn(strengthLevels: IStrengthLevel[]) {
     this.table.extendColumn(
@@ -158,9 +158,9 @@ export class TeamPlayerTable implements IExtendWebElement {
       "span",
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "teamColorGreen bold")),
-      "")
-      .element();
+      "");
     newElement
+      .element()
       .appendChild(new HtmlElement(
         "span",
         new Array<IHtmlAttribute>(
@@ -170,7 +170,7 @@ export class TeamPlayerTable implements IExtendWebElement {
     let tdEle = new HtmlElementWithChilds(
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textRight table-middle greenDarker")),
-      new Array<HTMLElement>(newElement));
+      new Array(newElement));
     return tdEle;
   }
 }

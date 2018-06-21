@@ -28,7 +28,7 @@ export class TransferMarketAmateurPlayerTable implements IExtendWebElement {
   private readonly ressourceTableHeaderNextStrength: IRessource;
 
   constructor(
-    targetUrl:IUrl,
+    targetUrl: IUrl,
     table: IHtmlTable,
     strengthColumn: IHtmlTableColumnByXpath,
     strengthLevels: IStrengthLevels,
@@ -92,13 +92,13 @@ export class TransferMarketAmateurPlayerTable implements IExtendWebElement {
     return new HtmlElementWithChilds(
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textCenter")),
-      new Array<HTMLElement>(
+      new Array(
         new HtmlElement(
           "span",
           new Array<IHtmlAttribute>(
             new HtmlAttribute("style", "color:#04143e;"),
             new HtmlAttribute("class", "bold")),
-          headerText).element()));
+          headerText)));
   }
   private element(content: String, i: Number): IHtmlElementWithChilds {
     let newElement = new HtmlElement(
@@ -111,7 +111,7 @@ export class TransferMarketAmateurPlayerTable implements IExtendWebElement {
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textRight"),
         new HtmlAttribute("style", background)),
-      new Array<HTMLElement>(newElement.element()));
+      new Array(newElement));
     return tdEle;
   }
   private extendStrengthColumn(strengthLevels: IStrengthLevel[]) {

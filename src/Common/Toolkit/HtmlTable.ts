@@ -81,13 +81,13 @@ export class HtmlTable implements IHtmlTable {
       let newCell = window.document.createElement("th");
       tHeads[0].element().rows[0].insertBefore(newCell, tHeads[0].element().rows[0].children[column.index().valueOf()]);
       column.header().attributes().forEach(a => newCell.setAttribute(a.name().toString(), a.value().toString()));
-      column.header().childElements().forEach(e => newCell.appendChild(e));
+      column.header().childElements().forEach(e => newCell.appendChild(e.element()));
     }
     column.columnElements()
-      .forEach((element: IHtmlElementWithChilds, i: number) => {
+      .forEach((element, i) => {
         let newCell = table.firstTableBody().rows[i].insertCell(column.index().valueOf());
         element.attributes().forEach(e => newCell.setAttribute(e.name().toString(), e.value().toString()));
-        element.childElements().forEach(c => newCell.appendChild(c));
+        element.childElements().forEach(c => newCell.appendChild(c.element()));
       });
     return table;
   }
