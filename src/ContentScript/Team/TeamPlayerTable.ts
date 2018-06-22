@@ -68,9 +68,15 @@ export class TeamPlayerTable implements IExtendWebElement {
               if (addNextStrength) this.addNextStrengthColumn(strengthLevels, columnNumber++);
               if (extendStrength) this.extendStrengthColumn(strengthLevels);
 
-              this.table.tableHeader().rows[0].cells[this.strengthColumn.index().valueOf()].style.width = "70px";
+              let tHeads = this.table.tableHeaders();
+              if (tHeads.length === 1) {
+                tHeads[0].element().rows[0].cells[this.strengthColumn.index().valueOf()].style.width = "70px";
+              }
               this.increaseStyleWidth(90);
-              this.increaseColspanInFooter(this.table.tableFooter(), 1, columnNumber - colspanNumber);
+              let tFooter = this.table.tableFooters();
+              if (tFooter.length == 1) {
+                this.increaseColspanInFooter(tFooter[0].element(), 1, columnNumber - colspanNumber);
+              }
             });
         }
       })
@@ -97,13 +103,13 @@ export class TeamPlayerTable implements IExtendWebElement {
         new HtmlAttribute("class", "textCenter"),
         new HtmlAttribute("style", "width:90px"),
         new HtmlAttribute("role", "columnheader")),
-      new Array<HTMLElement>(
+      new Array(
         new HtmlElement(
           "span",
           new Array<IHtmlAttribute>(
             new HtmlAttribute("style", "color:#04143e;"),
             new HtmlAttribute("class", "bold")),
-          headerText).element()));
+          headerText)));
   }
   private extendStrengthColumn(strengthLevels: IStrengthLevel[]) {
     this.table.extendColumn(
@@ -152,9 +158,9 @@ export class TeamPlayerTable implements IExtendWebElement {
       "span",
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "teamColorGreen bold")),
-      "")
-      .element();
+      "");
     newElement
+      .element()
       .appendChild(new HtmlElement(
         "span",
         new Array<IHtmlAttribute>(
@@ -164,7 +170,7 @@ export class TeamPlayerTable implements IExtendWebElement {
     let tdEle = new HtmlElementWithChilds(
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textRight table-middle greenDarker")),
-      new Array<HTMLElement>(newElement));
+      new Array(newElement));
     return tdEle;
   }
 }

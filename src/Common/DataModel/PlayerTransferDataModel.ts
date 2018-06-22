@@ -2,7 +2,7 @@ export interface IPlayerTransferDataModel {
   id?: Number;
   gameServerId: Number;
   matchdayId: Number;
-  transferId: Number;
+  externalTransferId: Number;
   sellingTeam: String;
   buyingTeam: String;
   name: String;
@@ -16,7 +16,7 @@ export class PlayerTransferDateModel implements IPlayerTransferDataModel {
   public id: Number;
   public gameServerId: Number;
   public matchdayId: Number;
-  public transferId: Number;
+  public externalTransferId: Number;
   public sellingTeam: String;
   public buyingTeam: String;
   public name: String;
@@ -28,7 +28,7 @@ export class PlayerTransferDateModel implements IPlayerTransferDataModel {
   constructor(
     gameServerId: Number,
     matchdayId: Number,
-    transferId: Number,
+    externalTransferId: Number,
     sellingTeam: String,
     buyingTeam: String,
     name: String,
@@ -39,7 +39,7 @@ export class PlayerTransferDateModel implements IPlayerTransferDataModel {
   ) {
     this.gameServerId = gameServerId;
     this.matchdayId = matchdayId;
-    this.transferId = transferId;
+    this.externalTransferId = externalTransferId;
     this.sellingTeam = sellingTeam;
     this.buyingTeam = buyingTeam;
     this.name = name;

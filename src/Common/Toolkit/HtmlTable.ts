@@ -1,12 +1,14 @@
-import { ITable } from "./Table";
-import { IHtmlTableColumn } from "./HtmlTableColumn";
-import { IHtmlTableColumnByXpath } from "./HtmlTableColumnByXpath";
-import { IHtmlElementWithChilds } from "./HtmlElementWithChilds";
+import { IHtmlElement } from './HtmlElement';
+import { IHtmlElementWithChilds } from './HtmlElementWithChilds';
+import { HtmlElementWrapped } from './HtmlElementWrapped';
+import { IHtmlTableColumn } from './HtmlTableColumn';
+import { IHtmlTableColumnByXpath } from './HtmlTableColumnByXpath';
+import { ITable } from './Table';
 
 export interface IHtmlTable {
   table(): HTMLTableElement;
-  tableHeader(): HTMLTableSectionElement;
-  tableFooter(): HTMLTableSectionElement;
+  tableHeaders(): IHtmlElement<HTMLTableSectionElement>[];
+  tableFooters(): IHtmlElement<HTMLTableSectionElement>[];
   columnGroups(): NodeListOf<HTMLTableColElement>;
   firstTableBody(): HTMLTableSectionElement;
   addColumn(column: IHtmlTableColumn): IHtmlTable;
@@ -24,8 +26,13 @@ export class HtmlTable implements IHtmlTable {
     return this.htmlTable.table();
   }
 
-  public tableHeader(): HTMLTableSectionElement {
-    return this.table().tHead;
+  public tableHeaders(): IHtmlElement<HTMLTableSectionElement>[] {
+    let tHeaders = new Array<IHtmlElement<HTMLTableSectionElement>>(0);
+    let tHead = this.table().tHead;
+    if (tHead !== null) {
+      tHeaders.push(new HtmlElementWrapped<HTMLTableSectionElement>(tHead));
+    }
+    return tHeaders;
   }
 
   public columnGroups(): NodeListOf<HTMLTableColElement> {
@@ -42,8 +49,13 @@ export class HtmlTable implements IHtmlTable {
     }
   }
 
-  public tableFooter(): HTMLTableSectionElement {
-    return this.table().tFoot;
+  public tableFooters(): IHtmlElement<HTMLTableSectionElement>[] {
+    let tFooters = new Array<IHtmlElement<HTMLTableSectionElement>>(0);
+    let tFooter = this.table().tFoot;
+    if (tFooter !== null) {
+      tFooters.push(new HtmlElementWrapped<HTMLTableSectionElement>(tFooter));
+    }
+    return tFooters;
   }
 
   public addColumn(column: IHtmlTableColumn): IHtmlTable {
@@ -64,18 +76,18 @@ export class HtmlTable implements IHtmlTable {
       colgroup[0].insertBefore(newColgroupCell, this.columnGroups()[0].children[column.index().valueOf()]);
     }
     // add header values
-    let tHead = this.tableHeader();
-    if (tHead) {
+    let tHeads = this.tableHeaders();
+    if (tHeads.length == 1) {
       let newCell = window.document.createElement("th");
-      this.tableHeader().rows[0].insertBefore(newCell, this.tableHeader().rows[0].children[column.index().valueOf()]);
+      tHeads[0].element().rows[0].insertBefore(newCell, tHeads[0].element().rows[0].children[column.index().valueOf()]);
       column.header().attributes().forEach(a => newCell.setAttribute(a.name().toString(), a.value().toString()));
-      column.header().childElements().forEach(e => newCell.appendChild(e));
+      column.header().childElements().forEach(e => newCell.appendChild(e.element()));
     }
     column.columnElements()
-      .forEach((element: IHtmlElementWithChilds, i: number) => {
+      .forEach((element, i) => {
         let newCell = table.firstTableBody().rows[i].insertCell(column.index().valueOf());
         element.attributes().forEach(e => newCell.setAttribute(e.name().toString(), e.value().toString()));
-        element.childElements().forEach(c => newCell.appendChild(c));
+        element.childElements().forEach(c => newCell.appendChild(c.element()));
       });
     return table;
   }

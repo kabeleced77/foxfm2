@@ -1,16 +1,16 @@
 import { IHtmlAttribute } from "./HtmlAttribute";
 
-export interface IHtmlElement {
-  element(): HTMLElement;
+export interface IHtmlElement<T> {
+  element(): T;
 }
 
-export class HtmlElement implements IHtmlElement {
-  private tag: String;
+export class HtmlElement<K extends keyof HTMLElementTagNameMap, T extends HTMLElement> implements IHtmlElement<T> {
+  private tag: K;
   private attributes: IHtmlAttribute[];
   private value: String;
 
   constructor(
-    tag: String,
+    tag: K,
     attributes: IHtmlAttribute[],
     value: String
   ) {
@@ -19,8 +19,8 @@ export class HtmlElement implements IHtmlElement {
     this.value = value;
   }
 
-  public element(): HTMLElement {
-    var element = window.document.createElement(this.tag.toString());
+  public element(): T {
+    let element = <T>window.document.createElement<K>(this.tag);
     this.attributes
       .forEach(attribute =>
         element.setAttribute(attribute.name().toString(), attribute.value().toString()));
