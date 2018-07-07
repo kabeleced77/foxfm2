@@ -9,8 +9,7 @@ import { IStrengthLevel } from '../../Common/StrengthLevel';
 import { IStrengthLevels } from '../../Common/StrengthLevels';
 import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
 import { HtmlAttribute, IHtmlAttribute } from '../../Common/Toolkit/HtmlAttribute';
-import { HtmlElement } from '../../Common/Toolkit/HtmlElement';
-import { HtmlElementWithChilds, IHtmlElementWithChilds } from '../../Common/Toolkit/HtmlElementWithChilds';
+import { HtmlElement, IHtmlElement } from '../../Common/Toolkit/HtmlElement';
 import { IHtmlTable } from '../../Common/Toolkit/HtmlTable';
 import { HtmlTableColumn } from '../../Common/Toolkit/HtmlTableColumn';
 import { IHtmlTableColumnByXpath } from '../../Common/Toolkit/HtmlTableColumnByXpath';
@@ -97,19 +96,22 @@ export class TeamPlayerTable implements IExtendWebElement {
         strengthLevels.map(sl => this.element(`${sl.missingAwpsToNextStrengthValue()}`)),
         columnNumber));
   }
-  private header(headerText: String): IHtmlElementWithChilds {
-    return new HtmlElementWithChilds(
+  private header(headerText: String): IHtmlElement<HTMLTableHeaderCellElement> {
+    return new HtmlElement(
+      "th",
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textCenter"),
         new HtmlAttribute("style", "width:90px"),
         new HtmlAttribute("role", "columnheader")),
+      "",
       new Array(
         new HtmlElement(
           "span",
           new Array<IHtmlAttribute>(
             new HtmlAttribute("style", "color:#04143e;"),
             new HtmlAttribute("class", "bold")),
-          headerText)));
+          headerText,
+          new Array(0))));
   }
   private extendStrengthColumn(strengthLevels: IStrengthLevel[]) {
     this.table.extendColumn(
@@ -153,24 +155,25 @@ export class TeamPlayerTable implements IExtendWebElement {
       footerCell.setAttribute("colspan", increasedColspan.toString());
     }
   }
-  private element(content: String) {
-    let newElement = new HtmlElement(
-      "span",
-      new Array<IHtmlAttribute>(
-        new HtmlAttribute("class", "teamColorGreen bold")),
-      "");
-    newElement
-      .element()
-      .appendChild(new HtmlElement(
-        "span",
-        new Array<IHtmlAttribute>(
-          new HtmlAttribute("style", "padding-right:5px;")),
-        content)
-        .element());
-    let tdEle = new HtmlElementWithChilds(
+  private element(content: String): IHtmlElement<HTMLTableCellElement> {
+    return new HtmlElement(
+      "td",
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textRight table-middle greenDarker")),
-      new Array(newElement));
-    return tdEle;
+      "",
+      new Array(
+        new HtmlElement(
+          "span",
+          new Array<IHtmlAttribute>(
+            new HtmlAttribute("class",
+              "teamColorGreen bold")),
+          "",
+          new Array(
+            new HtmlElement(
+              "span",
+              new Array<IHtmlAttribute>(
+                new HtmlAttribute("style", "padding-right:5px;")),
+              content,
+              new Array(0))))));
   }
 }

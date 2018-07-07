@@ -1,19 +1,19 @@
-import { IHtmlElementWithChilds } from "./HtmlElementWithChilds";
+import { IHtmlElement } from './HtmlElement';
 
 export interface IHtmlTableColumn {
-  header(): IHtmlElementWithChilds;
-  columnElements(): IHtmlElementWithChilds[];
+  header(): IHtmlElement<HTMLTableHeaderCellElement>;
+  columnElements(): IHtmlElement<HTMLTableCellElement>[];
   index(): Number;
 }
 
 export class HtmlTableColumn implements IHtmlTableColumn {
-  private columnHeader: IHtmlElementWithChilds;
-  private columnElementsArray: IHtmlElementWithChilds[];
+  private columnHeader: IHtmlElement<HTMLTableHeaderCellElement>;
+  private columnElementsArray: IHtmlElement<HTMLTableCellElement>[];
   private columnNumber: Number;
 
   constructor(
-    header: IHtmlElementWithChilds,
-    columnElements: IHtmlElementWithChilds[],
+    header: IHtmlElement<HTMLTableHeaderCellElement>,
+    columnElements: IHtmlElement<HTMLTableCellElement>[],
     columnNumber: Number,
   ) {
     this.columnHeader = header;
@@ -24,10 +24,10 @@ export class HtmlTableColumn implements IHtmlTableColumn {
   public index(): Number {
     return this.columnNumber;
   }
-  public header(): IHtmlElementWithChilds {
+  public header(): IHtmlElement<HTMLTableHeaderCellElement> {
     return this.columnHeader;
   }
-  public columnElements(): IHtmlElementWithChilds[] {
+  public columnElements(): IHtmlElement<HTMLTableCellElement>[] {
     return this.columnElementsArray;
   }
 }

@@ -1,5 +1,4 @@
 import { IHtmlElement } from './HtmlElement';
-import { IHtmlElementWithChilds } from './HtmlElementWithChilds';
 import { HtmlElementWrapped } from './HtmlElementWrapped';
 import { IHtmlTableColumn } from './HtmlTableColumn';
 import { IHtmlTableColumnByXpath } from './HtmlTableColumnByXpath';
@@ -78,16 +77,11 @@ export class HtmlTable implements IHtmlTable {
     // add header values
     let tHeads = this.tableHeaders();
     if (tHeads.length == 1) {
-      let newCell = window.document.createElement("th");
-      tHeads[0].element().rows[0].insertBefore(newCell, tHeads[0].element().rows[0].children[column.index().valueOf()]);
-      column.header().attributes().forEach(a => newCell.setAttribute(a.name().toString(), a.value().toString()));
-      column.header().childElements().forEach(e => newCell.appendChild(e.element()));
+      tHeads[0].element().rows[0].insertBefore(column.header().element(), tHeads[0].element().rows[0].children[column.index().valueOf()]);
     }
     column.columnElements()
       .forEach((element, i) => {
-        let newCell = table.firstTableBody().rows[i].insertCell(column.index().valueOf());
-        element.attributes().forEach(e => newCell.setAttribute(e.name().toString(), e.value().toString()));
-        element.childElements().forEach(c => newCell.appendChild(c.element()));
+        table.firstTableBody().rows[i].insertBefore(element.element(), table.firstTableBody().rows[i].cells[column.index().valueOf()]);
       });
     return table;
   }

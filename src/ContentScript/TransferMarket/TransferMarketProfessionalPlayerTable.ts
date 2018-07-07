@@ -9,8 +9,7 @@ import { IStrengthLevel } from '../../Common/StrengthLevel';
 import { IStrengthLevels } from '../../Common/StrengthLevels';
 import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
 import { HtmlAttribute, IHtmlAttribute } from '../../Common/Toolkit/HtmlAttribute';
-import { HtmlElement } from '../../Common/Toolkit/HtmlElement';
-import { HtmlElementWithChilds, IHtmlElementWithChilds } from '../../Common/Toolkit/HtmlElementWithChilds';
+import { HtmlElement, IHtmlElement } from '../../Common/Toolkit/HtmlElement';
 import { IHtmlTable } from '../../Common/Toolkit/HtmlTable';
 import { HtmlTableColumn } from '../../Common/Toolkit/HtmlTableColumn';
 import { IHtmlTableColumnByXpath } from '../../Common/Toolkit/HtmlTableColumnByXpath';
@@ -64,21 +63,21 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
               if (addAwp) {
                 this.table.addColumn(
                   new HtmlTableColumn(
-                    new HtmlElementWithChilds([], []),
+                    new HtmlElement("th", [], "", []),
                     strengthLevels.map((sl, i) => { return i === 0 ? this.header(this.ressourceTableHeaderAwp.value()) : this.element(`${sl.awp().awpPoints()}`, i); }),
                     columnNumber++));
               }
               if (addAwpDiff) {
                 this.table.addColumn(
                   new HtmlTableColumn(
-                    new HtmlElementWithChilds([], []),
+                    new HtmlElement("th", [], "", []),
                     strengthLevels.map((sl, i) => { return i === 0 ? this.header(this.ressourceTableHeaderAwpDiff.value()) : this.element(`${sl.missingAwpsToNextStrengthValue()}`, i); }),
                     columnNumber++));
               }
               if (addNextStrength) {
                 this.table.addColumn(
                   new HtmlTableColumn(
-                    new HtmlElementWithChilds([], []),
+                    new HtmlElement("th", [], "", []),
                     strengthLevels.map((sl, i) => { return i === 0 ? this.header(this.ressourceTableHeaderNextStrength.value()) : this.element(`${sl.nextStrengthValue()}`, i); }),
                     columnNumber++));
               }
@@ -88,31 +87,36 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
       });
   }
 
-  private header(headerText: String): IHtmlElementWithChilds {
-    return new HtmlElementWithChilds(
+  private header(headerText: String): IHtmlElement<HTMLTableCellElement> {
+    return new HtmlElement(
+      "td",
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textCenter")),
+      "",
       new Array(
         new HtmlElement(
           "span",
           new Array<IHtmlAttribute>(
             new HtmlAttribute("style", "color:#04143e;"),
             new HtmlAttribute("class", "bold")),
-          headerText)));
+          headerText,
+          new Array(0))));
   }
-  private element(content: String, i: Number): IHtmlElementWithChilds {
-    let newElement = new HtmlElement(
-      "span",
-      new Array<IHtmlAttribute>(
-        new HtmlAttribute("style", "padding:5px;")),
-      content);
+  private element(content: String, i: Number): IHtmlElement<HTMLTableCellElement> {
     let background = i.valueOf() % 2 ? "background:#ebf0d9;" : "background:#d4e6bc;";
-    let tdEle = new HtmlElementWithChilds(
+    return new HtmlElement(
+      "td",
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textRight"),
         new HtmlAttribute("style", background)),
-      new Array(newElement));
-    return tdEle;
+      "",
+      new Array(
+        new HtmlElement(
+          "span",
+          new Array<IHtmlAttribute>(
+            new HtmlAttribute("style", "padding:5px;")),
+          content,
+          new Array(0))));
   }
   private extendStrengthColumn(strengthLevels: IStrengthLevel[]) {
     this.table.extendColumn(

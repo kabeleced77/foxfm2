@@ -1,32 +1,38 @@
-import { IHtmlAttribute } from "./HtmlAttribute";
+import { IHtmlAttribute } from './HtmlAttribute';
 
 export interface IHtmlElement<T> {
   element(): T;
 }
 
-export class HtmlElement<K extends keyof HTMLElementTagNameMap, T extends HTMLElement> implements IHtmlElement<T> {
+export class HtmlElement<K extends keyof HTMLElementTagNameMap> implements IHtmlElement<HTMLElementTagNameMap[K]> {
   private tag: K;
   private attributes: IHtmlAttribute[];
   private value: String;
+  private childElements: IHtmlElement<HTMLElement>[];
 
   constructor(
     tag: K,
     attributes: IHtmlAttribute[],
-    value: String
+    value: String,
+    childElements: IHtmlElement<HTMLElement>[],
   ) {
     this.tag = tag;
     this.attributes = attributes;
     this.value = value;
+    this.childElements = childElements;
   }
 
-  public element(): T {
-    let element = <T>window.document.createElement<K>(this.tag);
+  public element(): HTMLElementTagNameMap[K] {
+    let element = window.document.createElement<K>(this.tag);
     this.attributes
       .forEach(attribute =>
         element.setAttribute(attribute.name().toString(), attribute.value().toString()));
 
-    var textNode = window.document.createTextNode(this.value.toString());
-    element.appendChild(textNode);
+    element.innerText = this.value.toString();
+
+    this.childElements.forEach(child => {
+      element.appendChild(child.element());
+    });
 
     return element;
   }

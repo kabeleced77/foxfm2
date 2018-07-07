@@ -8,8 +8,7 @@ import { IStrengthLevel } from '../../Common/StrengthLevel';
 import { IStrengthLevels } from '../../Common/StrengthLevels';
 import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
 import { HtmlAttribute, IHtmlAttribute } from '../../Common/Toolkit/HtmlAttribute';
-import { HtmlElement } from '../../Common/Toolkit/HtmlElement';
-import { HtmlElementWithChilds, IHtmlElementWithChilds } from '../../Common/Toolkit/HtmlElementWithChilds';
+import { HtmlElement, IHtmlElement } from '../../Common/Toolkit/HtmlElement';
 import { IHtmlTable } from '../../Common/Toolkit/HtmlTable';
 import { HtmlTableColumn } from '../../Common/Toolkit/HtmlTableColumn';
 import { IHtmlTableColumnByXpath } from '../../Common/Toolkit/HtmlTableColumnByXpath';
@@ -77,36 +76,40 @@ export class TransferMarketOfferPlayerTable implements IExtendWebElement {
       });
   }
 
-  private header(headerText: String, width: String): IHtmlElementWithChilds {
-    return new HtmlElementWithChilds(
+  private header(headerText: String, width: String): IHtmlElement<HTMLTableHeaderCellElement> {
+    return new HtmlElement(
+      "th",
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textCenter"),
         new HtmlAttribute("role", "columnHeader"),
         new HtmlAttribute("style", `"width: ${width}"`)
       ),
+      "",
       new Array(
         new HtmlElement(
           "span",
           new Array<IHtmlAttribute>(
             new HtmlAttribute("style", "color:#04143e;"),
             new HtmlAttribute("class", "bold")),
-          headerText)));
+          headerText,
+          new Array(0))));
   }
-  private element(content: String, i: Number): IHtmlElementWithChilds {
-    let newElement = new HtmlElement(
-      "span",
-      new Array<IHtmlAttribute>(
-        new HtmlAttribute("style", "color:#00600b;padding:5px;"),
-        new HtmlAttribute("class", "bold")),
-      content);
+  private element(content: String, i: Number): IHtmlElement<HTMLTableCellElement> {
     let background = i.valueOf() % 2 ? "background:#bcdba5;" : "background:#d5efbb;";
-    let tdEle = new HtmlElementWithChilds(
+    return new HtmlElement(
+      "td",
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textRight"),
-        new HtmlAttribute("style", background)
-      ),
-      new Array(newElement));
-    return tdEle;
+        new HtmlAttribute("style", background)),
+      "",
+      new Array(
+        new HtmlElement(
+          "span",
+          new Array<IHtmlAttribute>(
+            new HtmlAttribute("style", "color:#00600b;padding:5px;"),
+            new HtmlAttribute("class", "bold")),
+          content,
+          new Array(0))));
   }
   private extendStrengthColumn(strengthLevels: IStrengthLevel[]) {
     this.table.extendColumn(
