@@ -33,7 +33,6 @@ export class SplitStringToString implements IValue<String> {
         throw new Error(`Number given for the element must be greater than 0, got: ${this.elementPosition}`);
       }
     }
-    console.debug(`split string '${this.string.value()}' into: ${elements.toString()} -> provide ${this.elementPosition}th element: '${s}'`);
     return s;
   }
 }
