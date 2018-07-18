@@ -14,10 +14,7 @@ export class SaveSoldPlayers implements ISaveSoldPlayers {
   constructor(
     private settings: ISetting<ITransferMarketSaveSoldPlayersSetting>,
     private log: IEasyLogger,
-  ) {
-    this.settings = settings;
-    this.log = log;
-  }
+  ) { }
 
   public async save(): Promise<void> {
     let activated = await (await this.settings.value()).activated();
