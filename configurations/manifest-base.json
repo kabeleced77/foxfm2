@@ -40,6 +40,9 @@
       ]
     }
   ],
+  "web_accessible_resources": [
+    "transfer/spielerwechsel_export.php"
+  ],
   "options_ui": {
     "page": "settings.html"
   }
