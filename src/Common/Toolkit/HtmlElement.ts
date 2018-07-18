@@ -7,18 +7,18 @@ export interface IHtmlElement<T> {
 export class HtmlElement<K extends keyof HTMLElementTagNameMap> implements IHtmlElement<HTMLElementTagNameMap[K]> {
   private tag: K;
   private attributes: IHtmlAttribute[];
-  private value: String;
+  private textContent: String;
   private childElements: IHtmlElement<HTMLElement>[];
 
   constructor(
     tag: K,
     attributes: IHtmlAttribute[],
-    value: String,
+    textContent: String,
     childElements: IHtmlElement<HTMLElement>[],
   ) {
     this.tag = tag;
     this.attributes = attributes;
-    this.value = value;
+    this.textContent = textContent;
     this.childElements = childElements;
   }
 
@@ -28,7 +28,7 @@ export class HtmlElement<K extends keyof HTMLElementTagNameMap> implements IHtml
       .forEach(attribute =>
         element.setAttribute(attribute.name().toString(), attribute.value().toString()));
 
-    element.innerText = this.value.toString();
+    element.textContent = this.textContent.toString();
 
     this.childElements.forEach(child => {
       element.appendChild(child.element());
