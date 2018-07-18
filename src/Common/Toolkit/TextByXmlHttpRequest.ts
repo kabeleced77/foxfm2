@@ -1,7 +1,7 @@
-import { ITextAsync } from "./TextAsync";
-import { IUrl } from "./Url";
+import { IUrl } from './Url';
+import { IValueAsync } from './ValueAsync';
 
-export class TextByXmlHttpRequest implements ITextAsync {
+export class TextByXmlHttpRequest implements IValueAsync<String> {
   private targetUrl: IUrl;
   private method: String;
   private async: Boolean;
@@ -16,7 +16,7 @@ export class TextByXmlHttpRequest implements ITextAsync {
     this.async = async;
   }
 
-  public text(): Promise<String> {
+  public value(): Promise<String> {
     return new Promise<String>((resolve, reject) => {
       try {
         let xhr = new XMLHttpRequest();
