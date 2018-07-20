@@ -1,10 +1,10 @@
 import { MatchdayDataModel } from "../DataModel/MatchdayDataModel";
-import { MatchdayIndexedDb, IMatchdayIndexedDb } from "./MatchdayIndexedDb";
+import { MatchdayIndexedDb, IMatchday } from "./MatchdayIndexedDb";
 import { FoxfmIndexedDb } from "./FoxfmIndexedDb";
 
 export interface IMatchdays {
-  matchdays(): Promise<IMatchdayIndexedDb[]>;
-  add(gameServerId: Number, day: Number, season: Number, date: Date): Promise<void | IMatchdayIndexedDb>;
+  matchdays(): Promise<IMatchday[]>;
+  add(gameServerId: Number, day: Number, season: Number, date: Date): Promise<void | IMatchday>;
 }
 export class Matchdays implements IMatchdays {
   private dataBase: FoxfmIndexedDb;
@@ -13,15 +13,15 @@ export class Matchdays implements IMatchdays {
     this.dataBase = source;
   }
 
-  public matchdays(): Promise<IMatchdayIndexedDb[]> {
-    let mds: IMatchdayIndexedDb[] = [];
+  public matchdays(): Promise<IMatchday[]> {
+    let mds: IMatchday[] = [];
     return this.dataBase
       .matchdays
       .toCollection()
       .eachPrimaryKey((pk: Number) => mds.push(new MatchdayIndexedDb(this.dataBase, pk)))
       .then(() => mds);
   }
-  public add(gameServer: Number, season: Number, day: Number, date: Date): Promise<void | IMatchdayIndexedDb> {
+  public add(gameServer: Number, season: Number, day: Number, date: Date): Promise<void | IMatchday> {
     return this.dataBase
       .matchdays
       .add(new MatchdayDataModel(

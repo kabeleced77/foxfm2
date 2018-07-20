@@ -1,7 +1,7 @@
 import { IMatchdayDataModel } from "../DataModel/MatchdayDataModel";
 import { FoxfmIndexedDb } from "./FoxfmIndexedDb";
 
-export interface IMatchdayIndexedDb {
+export interface IMatchday {
   id(): Number;
   gameServerId(): Promise<Number>;
   day(): Promise<Number>;
@@ -9,7 +9,7 @@ export interface IMatchdayIndexedDb {
   date(): Date;
 }
 
-export class MatchdayIndexedDb implements IMatchdayIndexedDb {
+export class MatchdayIndexedDb implements IMatchday {
   private source: FoxfmIndexedDb;
   private idValue: Number;
 
