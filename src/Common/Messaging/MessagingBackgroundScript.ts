@@ -2,12 +2,12 @@ import { Clubs } from '../Clubs';
 import { IClubMessagingDataModel } from '../DataModel/ClubMessagingDataModel';
 import { IMatchdayMessagingDataModel } from '../DataModel/MatchdayMessagingDataModel';
 import { FoxfmIndexedDb } from '../IndexedDb/FoxfmIndexedDb';
-import { Matchdays } from '../IndexedDb/MatchdaysIndexedDb';
+import { MatchdaysIDb } from '../IndexedDb/MatchdaysIndexedDb';
 import { IEasyLogger } from '../Logger/EasyLogger';
 import { IMessaging } from './Messaging';
 import { IMessagingMessage } from './MessagingMessage';
-import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageTypeIndexedDbAddMatchday';
 import { MessagingMessageTypeIndexedDbAddClub } from './MessagingMessageTypeIndexedDbAddClub';
+import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageTypeIndexedDbAddMatchday';
 
 export class MessagingBackgroundScript implements IMessaging<Object> {
   private portName: String;
@@ -56,7 +56,7 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
       let gameServers = this.indexedDb.gameServers.filter(gs => gs.uri === hostname);
       if (await gameServers.count() === 1) {
         let gameServer = await gameServers.first();
-        let matchdays = new Matchdays(this.indexedDb);
+        let matchdays = new MatchdaysIDb(this.indexedDb);
         await matchdays.add(gameServer!.id!, season, day, new Date())
       } else {
         throw `could not add matchday to database: given game server is not supported: ${hostname}`;

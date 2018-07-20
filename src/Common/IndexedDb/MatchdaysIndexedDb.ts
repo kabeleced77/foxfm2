@@ -7,7 +7,7 @@ export interface IMatchdays {
   matchdays(): Promise<IMatchday[]>;
   add(gameServerId: Number, day: Number, season: Number, date: Date): Promise<void | IMatchday>;
 }
-export class Matchdays implements IMatchdays {
+export class MatchdaysIDb implements IMatchdays {
   private dataBase: FoxfmIndexedDb;
 
   constructor(source: FoxfmIndexedDb) {
