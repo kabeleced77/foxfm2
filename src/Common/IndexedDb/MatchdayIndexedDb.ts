@@ -9,7 +9,7 @@ export interface IMatchday {
   date(): Date;
 }
 
-export class MatchdayIndexedDb implements IMatchday {
+export class MatchdayIDb implements IMatchday {
   private source: FoxfmIndexedDb;
   private idValue: Number;
 

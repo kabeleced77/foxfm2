@@ -1,5 +1,5 @@
 import { MatchdayDataModel } from "../DataModel/MatchdayDataModel";
-import { MatchdayIndexedDb, IMatchday } from "./MatchdayIndexedDb";
+import { MatchdayIDb, IMatchday } from "./MatchdayIndexedDb";
 import { FoxfmIndexedDb } from "./FoxfmIndexedDb";
 
 export interface IMatchdays {
@@ -18,7 +18,7 @@ export class Matchdays implements IMatchdays {
     return this.dataBase
       .matchdays
       .toCollection()
-      .eachPrimaryKey((pk: Number) => mds.push(new MatchdayIndexedDb(this.dataBase, pk)))
+      .eachPrimaryKey((pk: Number) => mds.push(new MatchdayIDb(this.dataBase, pk)))
       .then(() => mds);
   }
   public add(gameServer: Number, season: Number, day: Number, date: Date): Promise<void | IMatchday> {
@@ -31,7 +31,7 @@ export class Matchdays implements IMatchdays {
         date,
       ))
       .then(id => {
-        return new MatchdayIndexedDb(
+        return new MatchdayIDb(
           this.dataBase,
           id,
         );
