@@ -1,6 +1,5 @@
-import { IMatchdayDataModel } from "./DataModel/MatchdayDataModel";
-import { FoxfmIndexedDb } from "./IndexedDb/FoxfmIndexedDb";
-import { IClubDataModel } from "./DataModel/ClubDataModel";
+import { IClubDataModel } from './DataModel/ClubDataModel';
+import { FoxfmIndexedDb } from './IndexedDb/FoxfmIndexedDb';
 
 export interface IClub {
   id(): Number;
