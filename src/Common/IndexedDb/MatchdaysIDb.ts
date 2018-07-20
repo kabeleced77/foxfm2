@@ -1,12 +1,9 @@
 import { MatchdayDataModel } from '../DataModel/MatchdayDataModel';
 import { IMatchday } from '../IMatchday';
+import { IMatchdays } from '../IMatchdays';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { MatchdayIDb } from './MatchdayIDb';
 
-export interface IMatchdays {
-  matchdays(): Promise<IMatchday[]>;
-  add(gameServerId: Number, day: Number, season: Number, date: Date): Promise<void | IMatchday>;
-}
 export class MatchdaysIDb implements IMatchdays {
   private dataBase: FoxfmIndexedDb;
 

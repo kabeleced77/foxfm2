@@ -2,7 +2,7 @@ import { Clubs } from '../Clubs';
 import { IClubMessagingDataModel } from '../DataModel/ClubMessagingDataModel';
 import { IMatchdayMessagingDataModel } from '../DataModel/MatchdayMessagingDataModel';
 import { FoxfmIndexedDb } from '../IndexedDb/FoxfmIndexedDb';
-import { MatchdaysIDb } from '../IndexedDb/MatchdaysIndexedDb';
+import { MatchdaysIDb } from '../IndexedDb/MatchdaysIDb';
 import { IEasyLogger } from '../Logger/EasyLogger';
 import { IMessaging } from './Messaging';
 import { IMessagingMessage } from './MessagingMessage';
