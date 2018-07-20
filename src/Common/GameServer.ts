@@ -6,7 +6,7 @@ export interface IGameServer {
   uri(): Promise<String>;
 }
 
-export class GameServer implements IGameServer {
+export class GameServerIDb implements IGameServer {
   private source: FoxfmIndexedDb;
   private idValue: Number;
 

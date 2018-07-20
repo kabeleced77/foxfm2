@@ -1,5 +1,5 @@
 import { GameServerDataModel } from './DataModel/GameServerDataModel';
-import { GameServer, IGameServer } from './GameServer';
+import { GameServerIDb, IGameServer } from './GameServer';
 import { FoxfmIndexedDb } from './IndexedDb/FoxfmIndexedDb';
 
 export interface IGameServers {
@@ -19,7 +19,7 @@ export class GameServersIDb implements IGameServers {
     return this.dataBase
       .gameServers
       .toCollection()
-      .eachPrimaryKey((pk: Number) => vals.push(new GameServer(this.dataBase, pk)))
+      .eachPrimaryKey((pk: Number) => vals.push(new GameServerIDb(this.dataBase, pk)))
       .then(() => vals);
   }
   public add(name: String): Promise<void | IGameServer> {
@@ -29,7 +29,7 @@ export class GameServersIDb implements IGameServers {
         name,
       ))
       .then(id => {
-        return new GameServer(
+        return new GameServerIDb(
           this.dataBase,
           id,
         );
