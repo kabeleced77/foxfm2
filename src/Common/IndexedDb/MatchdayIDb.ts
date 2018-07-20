@@ -1,23 +1,14 @@
-import { IMatchdayDataModel } from "../DataModel/MatchdayDataModel";
-import { FoxfmIndexedDb } from "./FoxfmIndexedDb";
-
-export interface IMatchday {
-  id(): Number;
-  gameServerId(): Promise<Number>;
-  day(): Promise<Number>;
-  season(): Number;
-  date(): Date;
-}
+import { IMatchdayDataModel } from '../DataModel/MatchdayDataModel';
+import { FoxfmIndexedDb } from './FoxfmIndexedDb';
+import { IMatchday } from '../IMatchday';
 
 export class MatchdayIDb implements IMatchday {
   private source: FoxfmIndexedDb;
   private idValue: Number;
-
   constructor(db: FoxfmIndexedDb, id: Number) {
     this.source = db;
     this.idValue = id;
   }
-
   public id(): Number {
     return this.idValue;
   }
