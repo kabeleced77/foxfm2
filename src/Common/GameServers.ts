@@ -7,7 +7,7 @@ export interface IGameServers {
   add(uri: String): Promise<void | IGameServer>;
 }
 
-export class Clubs implements IGameServers {
+export class GameServersIDb implements IGameServers {
   private dataBase: FoxfmIndexedDb;
 
   constructor(source: FoxfmIndexedDb) {
