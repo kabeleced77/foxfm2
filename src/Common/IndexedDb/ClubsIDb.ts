@@ -1,14 +1,10 @@
-import { ClubIDb } from './IndexedDb/ClubIDb';
-import { ClubDataModel } from './DataModel/ClubDataModel';
-import { IClub } from './IClub';
-import { FoxfmIndexedDb } from './IndexedDb/FoxfmIndexedDb';
+import { ClubDataModel } from '../DataModel/ClubDataModel';
+import { IClub } from '../IClub';
+import { IClubs } from '../IClubs';
+import { ClubIDb } from './ClubIDb';
+import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 
-export interface IClubs {
-  clubs(): Promise<IClub[]>;
-  add(gameServerId: Number, name: String, externalId: Number): Promise<void | IClub>;
-}
-
-export class Clubs implements IClubs {
+export class ClubsIDb implements IClubs {
   private dataBase: FoxfmIndexedDb;
 
   constructor(source: FoxfmIndexedDb) {

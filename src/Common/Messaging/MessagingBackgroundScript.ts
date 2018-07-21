@@ -1,4 +1,4 @@
-import { Clubs } from '../Clubs';
+import { ClubsIDb } from '../IndexedDb/ClubsIDb';
 import { IClubMessagingDataModel } from '../DataModel/ClubMessagingDataModel';
 import { IMatchdayMessagingDataModel } from '../DataModel/MatchdayMessagingDataModel';
 import { FoxfmIndexedDb } from '../IndexedDb/FoxfmIndexedDb';
@@ -72,7 +72,7 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
       let gameServers = this.indexedDb.gameServers.filter(gs => gs.uri === hostname);
       if (await gameServers.count() === 1) {
         let gameServer = await gameServers.first();
-        let clubs = new Clubs(this.indexedDb);
+        let clubs = new ClubsIDb(this.indexedDb);
         await clubs.add(gameServer!.id!, name, externalId);
       } else {
         throw `could not add club to database: given game server is not supported: ${hostname}`;
