@@ -1,13 +1,8 @@
-import { IClubDataModel } from './DataModel/ClubDataModel';
-import { FoxfmIndexedDb } from './IndexedDb/FoxfmIndexedDb';
+import { IClubDataModel } from '../DataModel/ClubDataModel';
+import { IClub } from '../IClub';
+import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 
-export interface IClub {
-  id(): Number;
-  name(): Promise<String>;
-  externalId(): Promise<Number>;
-}
-
-export class Club implements IClub {
+export class ClubIDb implements IClub {
   private source: FoxfmIndexedDb;
   private idValue: Number;
 
