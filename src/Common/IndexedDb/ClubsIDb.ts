@@ -17,7 +17,7 @@ export class ClubsIDb implements IClubs {
       .eachPrimaryKey((pk: Number) => vals.push(new ClubIDb(this.dataBase, pk)))
       .then(() => vals);
   }
-  public async add(gameServerName: String, clubName: String, externalClubId: Number): Promise<void | IClub> {
+  public async add(gameServerName: String, clubName: String, externalClubId: Number): Promise<IClub> {
     return this.dataBase
       .transaction("rw", this.dataBase.gameServers, this.dataBase.clubs, async () => {
         let gameServers = this.dataBase.gameServers.filter(gs => gs.uri === gameServerName);
@@ -46,11 +46,11 @@ export class ClubsIDb implements IClubs {
                 );
               })
               .catch(
-                e => { throw `Could not add new club: ${e}` }
+                e => { throw `Could not add new club to IDb'${clubName}': ${e}` }
               );
           }
         } else {
-          throw `could not add club to database: given game server is not supported: ${gameServerName}`;
+          throw `Could not add club '${clubName}' to IDb: given game server is not supported: ${gameServerName}`;
         }
       });
   }
