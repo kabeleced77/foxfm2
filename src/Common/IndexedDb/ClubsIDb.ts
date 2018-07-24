@@ -5,11 +5,9 @@ import { ClubIDb } from './ClubIDb';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 
 export class ClubsIDb implements IClubs {
-  private dataBase: FoxfmIndexedDb;
-
-  constructor(source: FoxfmIndexedDb) {
-    this.dataBase = source;
-  }
+  constructor(
+    private dataBase: FoxfmIndexedDb,
+  ) { }
 
   public clubs(): Promise<IClub[]> {
     let vals: IClub[] = [];
@@ -19,24 +17,41 @@ export class ClubsIDb implements IClubs {
       .eachPrimaryKey((pk: Number) => vals.push(new ClubIDb(this.dataBase, pk)))
       .then(() => vals);
   }
-  public add(gameServerId: Number, name: String, externalId: Number): Promise<void | IClub> {
+  public async add(gameServerName: String, clubName: String, externalClubId: Number): Promise<void | IClub> {
     return this.dataBase
-      .clubs
-      .add(new ClubDataModel(
-        gameServerId,
-        name,
-        externalId,
-      ))
-      .then(id => {
-        return new ClubIDb(
-          this.dataBase,
-          id,
-        );
-      })
-      .catch('ConstraintError',
-        e => { /* accepted, no handling necessary */ })
-      .catch(
-        e => { throw `Could not add new club: ${e}` }
-      );
+      .transaction("rw", this.dataBase.gameServers, this.dataBase.clubs, async () => {
+        let gameServers = this.dataBase.gameServers.filter(gs => gs.uri === gameServerName);
+        if (await gameServers.count() === 1) {
+          let gameServer = await gameServers.first();
+          let clubInDb = this.dataBase.clubs.filter(c =>
+            true
+            && c.gameServerId === gameServer!.id!
+            && c.name === clubName.toString()
+            && c.externalId === externalClubId
+          );
+          if ((await clubInDb.count()) === 1) {
+            return new ClubIDb(this.dataBase, (await clubInDb.first())!.id!);
+          } else {
+            return this.dataBase
+              .clubs
+              .add(new ClubDataModel(
+                gameServer!.id!,
+                clubName,
+                externalClubId,
+              ))
+              .then(id => {
+                return new ClubIDb(
+                  this.dataBase,
+                  id,
+                );
+              })
+              .catch(
+                e => { throw `Could not add new club: ${e}` }
+              );
+          }
+        } else {
+          throw `could not add club to database: given game server is not supported: ${gameServerName}`;
+        }
+      });
   }
 }

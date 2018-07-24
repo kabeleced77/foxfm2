@@ -1,6 +1,7 @@
-import { ClubsIDb } from '../IndexedDb/ClubsIDb';
 import { IClubMessagingDataModel } from '../DataModel/ClubMessagingDataModel';
 import { IMatchdayMessagingDataModel } from '../DataModel/MatchdayMessagingDataModel';
+import { IClub } from '../IClub';
+import { ClubsIDb } from '../IndexedDb/ClubsIDb';
 import { FoxfmIndexedDb } from '../IndexedDb/FoxfmIndexedDb';
 import { MatchdaysIDb } from '../IndexedDb/MatchdaysIDb';
 import { IEasyLogger } from '../Logger/EasyLogger';
@@ -63,20 +64,9 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
       }
     });
   }
-  private addClubToIndexedDb(club: IClubMessagingDataModel): void {
-    let hostname = club.gameServerUrl;
-    let name = club.name;
-    let externalId = club.externalId.valueOf();
-
-    this.indexedDb.transaction("rw", this.indexedDb.gameServers, this.indexedDb.clubs, async () => {
-      let gameServers = this.indexedDb.gameServers.filter(gs => gs.uri === hostname);
-      if (await gameServers.count() === 1) {
-        let gameServer = await gameServers.first();
-        let clubs = new ClubsIDb(this.indexedDb);
-        await clubs.add(gameServer!.id!, name, externalId);
-      } else {
-        throw `could not add club to database: given game server is not supported: ${hostname}`;
-      }
-    });
+  private async addClubToIndexedDb(club: IClubMessagingDataModel): Promise<void> {
+    let clubs = new ClubsIDb(this.indexedDb);
+    let newClub = <IClub>(await clubs.add(club.gameServerUrl, club.name, club.externalId));
+    this.logger.debug(`added new club: ${JSON.stringify(await newClub.name())}`);
   }
 }
