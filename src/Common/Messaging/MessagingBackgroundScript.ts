@@ -65,8 +65,6 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
     });
   }
   private async addClubToIndexedDb(club: IClubMessagingDataModel): Promise<void> {
-    let clubs = new ClubsIDb(this.indexedDb);
-    let newClub = <IClub>(await clubs.add(club.gameServerUrl, club.name, club.externalId));
-    this.logger.debug(`added new club: ${JSON.stringify(await newClub.name())}`);
+    <IClub>(await (new ClubsIDb(this.indexedDb, this.logger).add(club.gameServerUrl, club.name, club.externalId)));
   }
 }
