@@ -3,6 +3,9 @@ import { Logger } from '../Common/Logger/Logger';
 import { ILogLevel, LogLevelError } from '../Common/Logger/LogLevel';
 import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
+import { ClubsMessaging } from '../Common/Messaging/ClubsMessaging';
+import { MessagingContentScript } from '../Common/Messaging/MessagingContentScript';
+import { MessagingPortIndexedDb } from '../Common/Messaging/MessagingPortIndexedDb';
 import { IFocusElementsSetting } from '../Common/Settings/FocusElementsSetting';
 import { IFoxfmSetting } from '../Common/Settings/FoxfmSetting';
 import { FoxfmSettingName } from '../Common/Settings/FoxfmSettingName';
@@ -107,9 +110,6 @@ import { TransferMarketOfferDurationSelect } from './TransferMarket/TransferMark
 import { TransferMarketOfferPlayerTable } from './TransferMarket/TransferMarketOfferPlayerTable';
 import { TransferMarketProfessionalPlayerTable } from './TransferMarket/TransferMarketProfessionalPlayerTable';
 import { SaveSoldPlayers } from './TransferMarket/TransferMarketSaveSoldPlayers';
-import { ClubsMessaging } from '../Common/Messaging/ClubsMessaging';
-import { MessagingContentScript } from '../Common/Messaging/MessagingContentScript';
-import { MessagingPortIndexedDb } from '../Common/Messaging/MessagingPortIndexedDb';
 
 var doc = window.document;
 var currentUrl = doc.location.href;
@@ -128,6 +128,15 @@ var logger = new Logger(
       new SettingNameLoggingModules(),
       new RegisteredLoggingModules(
         new Array<IRegisteredLoggingModule>()))));
+
+var messagingContentScript = new MessagingContentScript(
+  new MessagingPortIndexedDb(),
+  new EasyLogger(
+    logger,
+    new RegisteredLoggingModule(
+      "MessagingContentScript",
+      new LogLevelError()
+    )));
 
 new FoxfmApp(
   new StorageLocal<IFoxfmSetting>(
@@ -440,10 +449,7 @@ new FoxfmApp(
           ","
         ),
         new ClubsMessaging(
-          new MessagingContentScript(
-            new MessagingPortIndexedDb()
-          )
-        )
+          messagingContentScript),
       ),
       // Scrab office/header - get matchday
       new ScrabMatchday(
@@ -460,7 +466,13 @@ new FoxfmApp(
             new DomNodesByXpath<HTMLSpanElement>(
               new XPathAllResults(
                 window.document,
-                new XPathString('/html/body/div[2]/div[1]/div[2]/p/span[2]')))), ",")))),
+                new XPathString('/html/body/div[2]/div[1]/div[2]/p/span[2]')))), ","),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "ScrabMatchday",
+            new LogLevelError()))
+      ))),
   new SaveSoldPlayers(
     new StorageLocal<ITransferMarketSaveSoldPlayersSetting>(
       new TransferMarketSaveSoldPlayersSettingName(),

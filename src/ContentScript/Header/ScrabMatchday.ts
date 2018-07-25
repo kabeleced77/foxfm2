@@ -8,6 +8,7 @@ import { MessagingPortIndexedDb } from '../../Common/Messaging/MessagingPortInde
 import { IScrabWebElement } from '../../Common/Toolkit/ScrabWebElement';
 import { IUrl } from '../../Common/Toolkit/Url';
 import { IValue } from '../../Common/Toolkit/Value';
+import { IEasyLogger } from '../../Common/Logger/EasyLogger';
 
 export class ScrabMatchday implements IScrabWebElement {
   private urlField: IUrl;
@@ -19,7 +20,8 @@ export class ScrabMatchday implements IScrabWebElement {
     url: IUrl,
     hostname: String,
     day: IValue<Number>,
-    season: IValue<Number>
+    season: IValue<Number>,
+    private logger:IEasyLogger,
   ) {
     this.urlField = url;
     this.hostname = hostname;
@@ -32,7 +34,8 @@ export class ScrabMatchday implements IScrabWebElement {
   }
   public scrab(): void {
     new MessagingContentScript(
-      new MessagingPortIndexedDb()
+      new MessagingPortIndexedDb(),
+      this.logger,
     ).send(
       new MessagingMessage<IMatchdayMessagingDataModel>(
         new MessagingMessageTypeIndexedDbAddMatchday(),
