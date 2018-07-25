@@ -1,5 +1,9 @@
-import { IPersistClubMessagingDataModel } from '../DataModel/PersistClubMessagingDataModel';
 import { IMatchdayMessagingDataModel } from '../DataModel/MatchdayMessagingDataModel';
+import { IPersistClubMessagingDataModel } from '../DataModel/PersistClubMessagingDataModel';
+import {
+  IPersistedClubMessagingDataModel,
+  PersistedClubMessagingDataModel,
+} from '../DataModel/PersistedClubMessagingDataModel';
 import { IClub } from '../IClub';
 import { ClubsIDb } from '../IndexedDb/ClubsIDb';
 import { FoxfmIndexedDb } from '../IndexedDb/FoxfmIndexedDb';
@@ -41,7 +45,7 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
             break;
           case new MessagingMessageTypeIndexedDbAddClub().name:
             let addedClub = await this.addClubToIndexedDb(<IPersistClubMessagingDataModel>message.content);
-            port.postMessage(addedClub)
+            port.postMessage(addedClub);
             break;
           default:
             this.logger.error(`Unsupported messaging message type: ${message.type.name}`);
@@ -65,7 +69,13 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
       }
     });
   }
-  private async addClubToIndexedDb(club: IPersistClubMessagingDataModel): Promise<IClub> {
-    return <IClub>(await (new ClubsIDb(this.indexedDb, this.logger).add(club.gameServerUrl, club.name, club.externalId)));
+  private async addClubToIndexedDb(club: IPersistClubMessagingDataModel): Promise<IPersistedClubMessagingDataModel> {
+    let newClub = <IClub>(await (new ClubsIDb(this.indexedDb, this.logger).add(club.gameServerUrl, club.name, club.externalId)));
+    return new PersistedClubMessagingDataModel(
+      newClub.id(),
+      club.gameServerUrl,
+      club.name,
+      club.externalId,
+    );
   }
 }

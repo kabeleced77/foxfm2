@@ -411,6 +411,7 @@ System.config({
       "Common/DataModel/MatchdayDataModel.js",
       "Common/DataModel/MatchdayMessagingDataModel.js",
       "Common/DataModel/PersistClubMessagingDataModel.js",
+      "Common/DataModel/PersistedClubMessagingDataModel.js",
       "Common/DataModel/PlayerTransferDataModel.js",
       "Common/GameKind.js",
       "Common/GameServer.js",
