@@ -70,9 +70,8 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
     });
   }
   private async addClubToIndexedDb(club: IPersistClubMessagingDataModel): Promise<IPersistedClubMessagingDataModel> {
-    let newClub = <IClub>(await (new ClubsIDb(this.indexedDb, this.logger).add(club.gameServerUrl, club.name, club.externalId)));
     return new PersistedClubMessagingDataModel(
-      newClub.id(),
+      (<IClub>(await (new ClubsIDb(this.indexedDb, this.logger).add(club.gameServerUrl, club.name, club.externalId)))).id(),
       club.gameServerUrl,
       club.name,
       club.externalId,
