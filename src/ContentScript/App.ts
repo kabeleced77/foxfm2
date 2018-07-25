@@ -107,6 +107,9 @@ import { TransferMarketOfferDurationSelect } from './TransferMarket/TransferMark
 import { TransferMarketOfferPlayerTable } from './TransferMarket/TransferMarketOfferPlayerTable';
 import { TransferMarketProfessionalPlayerTable } from './TransferMarket/TransferMarketProfessionalPlayerTable';
 import { SaveSoldPlayers } from './TransferMarket/TransferMarketSaveSoldPlayers';
+import { ClubsMessaging } from '../Common/Messaging/ClubsMessaging';
+import { MessagingContentScript } from '../Common/Messaging/MessagingContentScript';
+import { MessagingPortIndexedDb } from '../Common/Messaging/MessagingPortIndexedDb';
 
 var doc = window.document;
 var currentUrl = doc.location.href;
@@ -435,6 +438,11 @@ new FoxfmApp(
             "-",
             1),
           ","
+        ),
+        new ClubsMessaging(
+          new MessagingContentScript(
+            new MessagingPortIndexedDb()
+          )
         )
       ),
       // Scrab office/header - get matchday

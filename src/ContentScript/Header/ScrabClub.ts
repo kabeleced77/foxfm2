@@ -1,8 +1,4 @@
-import { ClubMessagingDataModel, IClubMessagingDataModel } from '../../Common/DataModel/ClubMessagingDataModel';
-import { MessagingContentScript } from '../../Common/Messaging/MessagingContentScript';
-import { MessagingMessage } from '../../Common/Messaging/MessagingMessage';
-import { MessagingMessageTypeIndexedDbAddClub } from '../../Common/Messaging/MessagingMessageTypeIndexedDbAddClub';
-import { MessagingPortIndexedDb } from '../../Common/Messaging/MessagingPortIndexedDb';
+import { IClubs } from '../../Common/IClubs';
 import { IScrabWebElement } from '../../Common/Toolkit/ScrabWebElement';
 import { IUrl } from '../../Common/Toolkit/Url';
 import { IValue } from '../../Common/Toolkit/Value';
@@ -18,6 +14,7 @@ export class ScrabClub implements IScrabWebElement {
     hostname: String,
     clubName: IValue<String>,
     externalId: IValue<Number>,
+    private readonly clubs: IClubs,
   ) {
     this.urlField = url;
     this.hostname = hostname;
@@ -29,14 +26,10 @@ export class ScrabClub implements IScrabWebElement {
     return this.urlField;
   }
   public scrab(): void {
-    new MessagingContentScript(
-      new MessagingPortIndexedDb()
-    ).send(
-      new MessagingMessage<IClubMessagingDataModel>(
-        new MessagingMessageTypeIndexedDbAddClub(),
-        new ClubMessagingDataModel(
-          this.hostname,
-          this.name.value(),
-          this.externalId.value())));
+    this.clubs.add(
+      this.hostname,
+      this.name.value(),
+      this.externalId.value(),
+    );
   }
 }
