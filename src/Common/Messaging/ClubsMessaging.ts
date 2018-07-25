@@ -1,4 +1,4 @@
-import { ClubMessagingDataModel, IClubMessagingDataModel } from '../DataModel/ClubMessagingDataModel';
+import { PersistClubMessagingDataModel, IPersistClubMessagingDataModel } from '../DataModel/PersistClubMessagingDataModel';
 import { IClub } from '../IClub';
 import { IClubs } from '../IClubs';
 import { IMessaging } from './Messaging';
@@ -17,9 +17,9 @@ export class ClubsMessaging implements IClubs {
   public add(gameServerName: String, clubName: String, externalClubId: Number):
     Promise<IClub> {
     this.dataSource.send(
-      new MessagingMessage<IClubMessagingDataModel>(
+      new MessagingMessage<IPersistClubMessagingDataModel>(
         new MessagingMessageTypeIndexedDbAddClub(),
-        new ClubMessagingDataModel(
+        new PersistClubMessagingDataModel(
           gameServerName,
           clubName,
           externalClubId,

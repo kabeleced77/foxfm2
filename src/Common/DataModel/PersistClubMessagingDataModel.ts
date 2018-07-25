@@ -1,10 +1,10 @@
-export interface IClubMessagingDataModel {
+export interface IPersistClubMessagingDataModel {
   gameServerUrl: String;
   name: String;
   externalId: Number;
 }
 
-export class ClubMessagingDataModel implements IClubMessagingDataModel {
+export class PersistClubMessagingDataModel implements IPersistClubMessagingDataModel {
   public gameServerUrl: String;
   public name: String;
   public externalId: Number;

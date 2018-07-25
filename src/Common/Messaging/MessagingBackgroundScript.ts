@@ -1,4 +1,4 @@
-import { IClubMessagingDataModel } from '../DataModel/ClubMessagingDataModel';
+import { IPersistClubMessagingDataModel } from '../DataModel/PersistClubMessagingDataModel';
 import { IMatchdayMessagingDataModel } from '../DataModel/MatchdayMessagingDataModel';
 import { IClub } from '../IClub';
 import { ClubsIDb } from '../IndexedDb/ClubsIDb';
@@ -32,7 +32,7 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
     chrome.runtime.onConnect.addListener((port: chrome.runtime.Port) => {
       this.logger.info(`received connection request on port ${port.name}`);
       this.logger.debug(`sender: ${JSON.stringify(port.sender)}`);
-      port.onMessage.addListener((message: IMessagingMessage<Object>, p: chrome.runtime.Port) => {
+      port.onMessage.addListener(async (message: IMessagingMessage<Object>, p: chrome.runtime.Port) => {
         this.logger.info(`received message from type: ${message.type.name}`);
         this.logger.info(`received message with content: ${JSON.stringify(message.content)}`);
         switch (message.type.name) {
@@ -40,7 +40,8 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
             this.addMatchdayToIndexedDb(<IMatchdayMessagingDataModel>message.content);
             break;
           case new MessagingMessageTypeIndexedDbAddClub().name:
-            this.addClubToIndexedDb(<IClubMessagingDataModel>message.content);
+            let addedClub = await this.addClubToIndexedDb(<IPersistClubMessagingDataModel>message.content);
+            port.postMessage(addedClub)
             break;
           default:
             this.logger.error(`Unsupported messaging message type: ${message.type.name}`);
@@ -64,7 +65,7 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
       }
     });
   }
-  private async addClubToIndexedDb(club: IClubMessagingDataModel): Promise<void> {
-    <IClub>(await (new ClubsIDb(this.indexedDb, this.logger).add(club.gameServerUrl, club.name, club.externalId)));
+  private async addClubToIndexedDb(club: IPersistClubMessagingDataModel): Promise<IClub> {
+    return <IClub>(await (new ClubsIDb(this.indexedDb, this.logger).add(club.gameServerUrl, club.name, club.externalId)));
   }
 }
