@@ -5,7 +5,7 @@ export interface IPersistedClubMessagingDataModel {
   externalId: Number;
 }
 
-export class PersistClubMessagingDataModel implements IPersistedClubMessagingDataModel {
+export class PersistedClubMessagingDataModel implements IPersistedClubMessagingDataModel {
   constructor(
     public id: Number,
     public gameServerUrl: String,
