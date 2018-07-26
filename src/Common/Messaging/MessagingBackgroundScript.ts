@@ -55,20 +55,16 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
   }
 
   private addMatchdayToIndexedDb(matchday: IMatchdayMessagingDataModel): void {
-    let day = matchday.day.valueOf();
-    let season = matchday.season.valueOf();
-    let hostname = matchday.gameServerUrl;
-    this.indexedDb.transaction("rw", this.indexedDb.gameServers, this.indexedDb.matchdays, async () => {
-      let gameServers = this.indexedDb.gameServers.filter(gs => gs.uri === hostname);
-      if (await gameServers.count() === 1) {
-        let gameServer = await gameServers.first();
-        let matchdays = new MatchdaysIDb(this.indexedDb);
-        await matchdays.add(gameServer!.id!, season, day, new Date())
-      } else {
-        throw `could not add matchday to database: given game server is not supported: ${hostname}`;
-      }
-    });
+    new MatchdaysIDb(
+      this.indexedDb,
+      this.logger, )
+      .add(
+        matchday.gameServerUrl,
+        matchday.season,
+        matchday.day, new Date(),
+    );
   }
+
   private async addClubToIndexedDb(club: IPersistClubMessagingDataModel): Promise<IPersistedClubMessagingDataModel> {
     return new PersistedClubMessagingDataModel(
       (<IClub>(await (new ClubsIDb(this.indexedDb, this.logger).add(club.gameServerUrl, club.name, club.externalId)))).id(),
