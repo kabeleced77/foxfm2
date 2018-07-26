@@ -19,10 +19,10 @@ export class ClubsIDb implements IClubs {
       .eachPrimaryKey((pk: Number) => vals.push(new ClubIDb(this.dataBase, pk)))
       .then(() => vals);
   }
-  public async add(gameServerName: String, clubName: String, externalClubId: Number): Promise<IClub> {
+  public async add(gameServerUri: String, clubName: String, externalClubId: Number): Promise<IClub> {
     return this.dataBase
       .transaction("rw", this.dataBase.gameServers, this.dataBase.clubs, async () => {
-        let gameServers = this.dataBase.gameServers.filter(gs => gs.uri === gameServerName);
+        let gameServers = this.dataBase.gameServers.filter(gs => gs.uri === gameServerUri);
         if (await gameServers.count() === 1) {
           let gameServer = await gameServers.first();
           let clubsInDb = this.dataBase.clubs.filter(c =>
@@ -33,7 +33,7 @@ export class ClubsIDb implements IClubs {
           );
           if ((await clubsInDb.count()) === 1) {
             let clubInDb = await clubsInDb.first();
-            this.logger.debug(`already in IDb: club with name '${clubInDb!.name}' -> will be returned.`);
+            this.logger.debug(`already in IDb: club: '${JSON.stringify(clubInDb)}'`);
             return new ClubIDb(this.dataBase, (clubInDb!.id!));
           } else {
             return this.dataBase
@@ -44,18 +44,18 @@ export class ClubsIDb implements IClubs {
                 externalClubId,
               ))
               .then(id => {
-                this.logger.debug(`added to IDb: club with name '${clubName}' -> will be returned.`);
+                this.logger.debug(`added to IDb: new club: '${gameServerUri} ${clubName}-${externalClubId}'`);
                 return new ClubIDb(
                   this.dataBase,
                   id,
                 );
               })
               .catch(
-                e => { throw `Could not add new club to IDb'${clubName}': ${e}` }
+                e => { throw `Could not add new club to IDb '${gameServerUri} ${clubName}-${externalClubId}': ${e}` }
               );
           }
         } else {
-          throw `Could not add club '${clubName}' to IDb: given game server is not supported: ${gameServerName}`;
+          throw `Could not add club to IDb: '${gameServerUri} ${clubName}-${externalClubId}': given game server is not supported: ${gameServerUri}`;
         }
       });
   }
