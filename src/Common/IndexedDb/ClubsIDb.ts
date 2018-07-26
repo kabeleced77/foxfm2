@@ -19,6 +19,7 @@ export class ClubsIDb implements IClubs {
       .eachPrimaryKey((pk: Number) => vals.push(new ClubIDb(this.dataBase, pk)))
       .then(() => vals);
   }
+
   public async add(gameServerUri: String, clubName: String, externalClubId: Number): Promise<IClub> {
     return this.dataBase
       .transaction("rw", this.dataBase.gameServers, this.dataBase.clubs, async () => {
