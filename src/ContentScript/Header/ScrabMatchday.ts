@@ -1,14 +1,7 @@
-import { IMatchdayMessagingDataModel, MatchdayMessagingDataModel } from '../../Common/DataModel/MatchdayMessagingDataModel';
-import { MessagingContentScript } from '../../Common/Messaging/MessagingContentScript';
-import { MessagingMessage } from '../../Common/Messaging/MessagingMessage';
-import {
-  MessagingMessageTypeIndexedDbAddMatchday,
-} from '../../Common/Messaging/MessagingMessageTypeIndexedDbAddMatchday';
-import { MessagingPortIndexedDb } from '../../Common/Messaging/MessagingPortIndexedDb';
+import { IMatchdays } from '../../Common/IMatchdays';
 import { IScrabWebElement } from '../../Common/Toolkit/ScrabWebElement';
 import { IUrl } from '../../Common/Toolkit/Url';
 import { IValue } from '../../Common/Toolkit/Value';
-import { IEasyLogger } from '../../Common/Logger/EasyLogger';
 
 export class ScrabMatchday implements IScrabWebElement {
   private urlField: IUrl;
@@ -21,7 +14,7 @@ export class ScrabMatchday implements IScrabWebElement {
     hostname: String,
     day: IValue<Number>,
     season: IValue<Number>,
-    private logger:IEasyLogger,
+    private readonly matchdays: IMatchdays,
   ) {
     this.urlField = url;
     this.hostname = hostname;
@@ -32,16 +25,13 @@ export class ScrabMatchday implements IScrabWebElement {
   public targetUrl(): IUrl {
     return this.urlField;
   }
+
   public scrab(): void {
-    new MessagingContentScript(
-      new MessagingPortIndexedDb(),
-      this.logger,
-    ).send(
-      new MessagingMessage<IMatchdayMessagingDataModel>(
-        new MessagingMessageTypeIndexedDbAddMatchday(),
-        new MatchdayMessagingDataModel(
-          this.hostname,
-          this.season.value(),
-          this.day.value())));
+    this.matchdays.add(
+      this.hostname,
+      this.season.value(),
+      this.day.value(),
+      new Date(),
+    )
   }
 }

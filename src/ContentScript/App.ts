@@ -4,6 +4,7 @@ import { ILogLevel, LogLevelError } from '../Common/Logger/LogLevel';
 import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
 import { ClubsMessaging } from '../Common/Messaging/ClubsMessaging';
+import { MatchdaysMessaging } from '../Common/Messaging/MatchdaysMessaging';
 import { MessagingContentScript } from '../Common/Messaging/MessagingContentScript';
 import { MessagingPortIndexedDb } from '../Common/Messaging/MessagingPortIndexedDb';
 import { IFocusElementsSetting } from '../Common/Settings/FocusElementsSetting';
@@ -467,11 +468,8 @@ new FoxfmApp(
               new XPathAllResults(
                 window.document,
                 new XPathString('/html/body/div[2]/div[1]/div[2]/p/span[2]')))), ","),
-        new EasyLogger(
-          logger,
-          new RegisteredLoggingModule(
-            "ScrabMatchday",
-            new LogLevelError()))
+        new MatchdaysMessaging(
+          messagingContentScript),
       ))),
   new SaveSoldPlayers(
     new StorageLocal<ITransferMarketSaveSoldPlayersSetting>(

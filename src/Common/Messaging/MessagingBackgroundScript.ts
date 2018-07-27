@@ -1,9 +1,9 @@
-import { IMatchdayMessagingDataModel } from '../DataModel/MatchdayMessagingDataModel';
 import { IPersistClubMessagingDataModel } from '../DataModel/PersistClubMessagingDataModel';
 import {
   IPersistedClubMessagingDataModel,
   PersistedClubMessagingDataModel,
 } from '../DataModel/PersistedClubMessagingDataModel';
+import { IPersistMatchdayMessagingDataModel } from '../DataModel/PersistMatchdayMessagingDataModel';
 import { IClub } from '../IClub';
 import { ClubsIDb } from '../IndexedDb/ClubsIDb';
 import { FoxfmIndexedDb } from '../IndexedDb/FoxfmIndexedDb';
@@ -41,7 +41,7 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
         this.logger.info(`received message with content: ${JSON.stringify(message.content)}`);
         switch (message.type.name) {
           case new MessagingMessageTypeIndexedDbAddMatchday().name:
-            this.addMatchdayToIndexedDb(<IMatchdayMessagingDataModel>message.content);
+            this.addMatchdayToIndexedDb(<IPersistMatchdayMessagingDataModel>message.content);
             break;
           case new MessagingMessageTypeIndexedDbAddClub().name:
             let addedClub = await this.addClubToIndexedDb(<IPersistClubMessagingDataModel>message.content);
@@ -54,14 +54,16 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
     });
   }
 
-  private addMatchdayToIndexedDb(matchday: IMatchdayMessagingDataModel): void {
+  private addMatchdayToIndexedDb(matchday: IPersistMatchdayMessagingDataModel): void {
+    this.logger.debug(`add matchday to IDb: ${matchday.gameServerUrl} ${matchday.gameSeason}-${matchday.gameDay}`);
     new MatchdaysIDb(
       this.indexedDb,
       this.logger, )
       .add(
         matchday.gameServerUrl,
-        matchday.season,
-        matchday.day, new Date(),
+        matchday.gameSeason,
+        matchday.gameDay,
+        new Date(),
     );
   }
 
