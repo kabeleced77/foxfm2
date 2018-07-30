@@ -1,25 +1,24 @@
 import { ILogger, Logger } from '../Common/Logger/Logger';
-import { RegisteredLoggingModule, IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/Logger/RegisteredLoggingModules";
-import { ILogLevel } from '../Common/Logger/LogLevel';
-import { LogLevelError } from '../Common/Logger/LogLevel';
-import { IStadiumBlocks } from '../Common/stadiumBlocks';
-import { IStadiumBlocksSetting } from '../Common/Settings/StadiumBlocksSetting';
-import { StadiumBlocksSetting } from '../Common/Settings/StadiumBlocksSetting';
-import { IStadiumOverallEntryPricesSetting } from '../Common/Settings/StadiumOverallEntryPricesSetting';
-import { StadiumOverallEntryPricesSetting } from '../Common/Settings/StadiumOverallEntryPricesSetting';
+import { ILogLevel, LogLevelError } from '../Common/Logger/LogLevel';
+import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
+import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
+import {
+  RessourceCommonButtonApply,
+  RessourceStadiumAddOffsetPrices,
+  RessourceStadiumAddOverallPrices,
+  RessourceStadiumHeading,
+} from '../Common/Ressource';
+import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
+import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
+import { IStadiumBlocksSetting, StadiumBlocksSetting } from '../Common/Settings/StadiumBlocksSetting';
+import {
+  IStadiumOverallEntryPricesSetting,
+  StadiumOverallEntryPricesSetting,
+} from '../Common/Settings/StadiumOverallEntryPricesSetting';
 import { StadiumOverallEntryPrices } from '../Common/StadiumOverallEntryPrices';
-import { StadiumEntryPrices } from '../Common/StadiumEntryPrices';
-import { StadiumEntryPrice } from '../Common/StadiumEntryPrice';
-import { GameKindLeague, GameKindFriendly, GameKindCup } from '../Common/GameKind';
-import { RessourceStadiumHeading } from "../Common/Ressource"
-import { RessourceStadiumAddOverallPrices } from "../Common/Ressource"
-import { RessourceStadiumAddOffsetPrices, RessourceCommonButtonApply } from "../Common/Ressource"
-import { Mutex } from "../Common/Toolkit/Mutex";
-import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
-import { StorageLocal } from "../Common/Toolkit/StorageLocal";
-import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
-import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
+import { Mutex } from '../Common/Toolkit/Mutex';
+import { StorageLocal } from '../Common/Toolkit/StorageLocal';
+import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
 
 export class SettingsStadium {
   private thisModule: string = "SettingsStadium";
