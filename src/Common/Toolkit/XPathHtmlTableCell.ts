@@ -33,7 +33,4 @@ export class XPathHtmlTableCell implements IXPathHtmlTableCell {
     var row = <HTMLTableRowElement>this.tableCell().parentNode;
     return row.rowIndex;
   }
-  public column(): HTMLTableColElement {
-    return this.table().cols[this.columnIndex().valueOf()];
-  }
 }
