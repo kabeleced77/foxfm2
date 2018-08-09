@@ -1,4 +1,4 @@
-import { IXPathSingleResult } from '../Toolkit/XPathSingleResult';
+import { IXPathSingleResult } from './XPathSingleResult';
 import { FirstElementInXPathNodeOrParents } from './FirstElementInXPathNodeOrParents';
 
 export interface IXPathHtmlTableCell {
