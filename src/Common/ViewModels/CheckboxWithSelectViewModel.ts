@@ -1,5 +1,5 @@
 import { ISelectViewModel } from "./SelectViewModel";
-import { ICheckboxViewModel } from "./CheckBoxViewModel";
+import { ICheckboxViewModel } from "./CheckboxViewModel";
 
 export interface ICheckboxWithSelectViewModel<T1, T2> {
   checkbox: ICheckboxViewModel;
