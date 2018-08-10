@@ -7,28 +7,14 @@ import { ISetting } from '../Common/Toolkit/Setting';
 import { ISaveSoldPlayers } from './TransferMarket/TransferMarketSaveSoldPlayers';
 
 export class FoxfmApp {
-  private readonly settings: ISetting<IFoxfmSetting>;
-  private logger: IEasyLogger;
-  private extendWebPage: IExtendWebPage;
-  private focusElementOnWebPage: IFocusElementOnWebPage;
-  private scrabWebPage: IScrabWebPage;
-  private saveListOfSoldPlayers: ISaveSoldPlayers;
-
   constructor(
-    settings: ISetting<IFoxfmSetting>,
-    logger: IEasyLogger,
-    extendWebPage: IExtendWebPage,
-    focuElementOnWebPage: IFocusElementOnWebPage,
-    scrabWebPage: IScrabWebPage,
-    saveListOfSoldPlayers: ISaveSoldPlayers,
-  ) {
-    this.settings = settings;
-    this.logger = logger;
-    this.extendWebPage = extendWebPage;
-    this.focusElementOnWebPage = focuElementOnWebPage;
-    this.scrabWebPage = scrabWebPage;
-    this.saveListOfSoldPlayers = saveListOfSoldPlayers;
-  }
+    private readonly settings: ISetting<IFoxfmSetting>,
+    private readonly logger: IEasyLogger,
+    private readonly extendWebPage: IExtendWebPage,
+    private readonly focusElementOnWebPage: IFocusElementOnWebPage,
+    private readonly scrabWebPage: IScrabWebPage,
+    private readonly saveListOfSoldPlayers: ISaveSoldPlayers,
+  ) { }
 
   public async main(): Promise<void> {
     var doc = window.document;
