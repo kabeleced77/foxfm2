@@ -42,7 +42,7 @@ gulp.task('build-manifest-firefox', function() {
     .pipe(gulp.dest(paths.root)); 
 });
 
-var mergeFileMessage = {fileName: 'message.json'};
+var mergeFileMessage = {fileName: 'messages.json'};
 gulp.task('build-locales-en', function() {
   gulp.src(paths.ressourcesEn)
     .pipe(merge(mergeFileMessage))
