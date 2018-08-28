@@ -17,7 +17,12 @@ export class MatchdaysMessaging implements IMatchdays {
     return new Promise(() => new Object());
   }
 
-  public add(gameServerName: String, gameSeason: Number, gameDay: Number, date: Date): Promise<void | IMatchday> {
+  public add(
+    gameServerName: String,
+    gameSeason: Number,
+    gameDay: Number,
+    date: Date,
+  ): Promise<IMatchday> {
     this.dataSource.send(
       new MessagingMessage<IPersistMatchdayMessagingDataModel>(
         new MessagingMessageTypeIndexedDbAddMatchday(),
