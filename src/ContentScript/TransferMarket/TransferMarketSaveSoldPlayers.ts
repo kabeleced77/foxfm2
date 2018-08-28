@@ -28,7 +28,7 @@ export class SaveSoldPlayers implements ISaveSoldPlayers {
           "GET",
           true)).dom()).documentElement;
 
-      let tables = new HtmlTablesByTagName(dom, "table").tables();
+      let tables = new HtmlTablesByTagName(dom).tables();
 
       this.log.debug(`number of tables: ${tables.length}`);
       this.log.debug(`number of rows of 2nd table: ${tables[1].table().rows.length}`);
