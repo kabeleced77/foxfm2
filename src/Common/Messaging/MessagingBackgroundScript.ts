@@ -17,14 +17,14 @@ import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageType
 export class MessagingBackgroundScript implements IMessaging<Object> {
   private portName: String;
   private logger: IEasyLogger;
-  private indexedDb: FoxfmIndexedDb;
 
   constructor(
     portName: String,
-    logger: IEasyLogger) {
+    private indexedDb: FoxfmIndexedDb,
+    logger: IEasyLogger,
+  ) {
     this.portName = portName;
     this.logger = logger;
-    this.indexedDb = new FoxfmIndexedDb();
   }
 
   public send(message: Object) {
@@ -58,13 +58,13 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
     this.logger.debug(`add matchday to IDb: ${matchday.gameServerUrl} ${matchday.gameSeason}-${matchday.gameDay}`);
     new MatchdaysIDb(
       this.indexedDb,
-      this.logger, )
+      this.logger)
       .add(
         matchday.gameServerUrl,
         matchday.gameSeason,
         matchday.gameDay,
         new Date(),
-    );
+      );
   }
 
   private async addClubToIndexedDb(club: IPersistClubMessagingDataModel): Promise<IPersistedClubMessagingDataModel> {
