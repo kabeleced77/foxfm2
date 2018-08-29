@@ -35,11 +35,6 @@ import {
   TransferMarketAmateurPlayerTableSettings,
 } from '../Common/Settings/TransferMarketAmateurPlayerTableSettings';
 import {
-  ITransferMarketSaveSoldPlayersSetting,
-  TransferMarketSaveSoldPlayersSetting,
-} from '../Common/Settings/TransferMarketSaveSoldPlayersSetting';
-import { TransferMarketSaveSoldPlayersSettingName } from '../Common/Settings/TransferMarketSaveSoldPlayersSettingName';
-import {
   ITransferMarketSearchResultTableSettings,
   TransferMarketSearchResultTableSettings,
 } from '../Common/Settings/TransferMarketSearchResultTableSettings';
@@ -110,7 +105,6 @@ import { TransferMarketAmateurPlayerTable } from './TransferMarket/TransferMarke
 import { TransferMarketOfferDurationSelect } from './TransferMarket/TransferMarketOfferDurationSelect';
 import { TransferMarketOfferPlayerTable } from './TransferMarket/TransferMarketOfferPlayerTable';
 import { TransferMarketProfessionalPlayerTable } from './TransferMarket/TransferMarketProfessionalPlayerTable';
-import { SaveSoldPlayers } from './TransferMarket/TransferMarketSaveSoldPlayers';
 
 var doc = window.document;
 var currentUrl = doc.location.href;
@@ -471,14 +465,4 @@ new FoxfmApp(
         new MatchdaysMessaging(
           messagingContentScript),
       ))),
-  new SaveSoldPlayers(
-    new StorageLocal<ITransferMarketSaveSoldPlayersSetting>(
-      new TransferMarketSaveSoldPlayersSettingName(),
-      new TransferMarketSaveSoldPlayersSetting(
-        false)),
-    new EasyLogger(
-      logger,
-      new RegisteredLoggingModule(
-        "SaveSoldPlayers",
-        new LogLevelError()))),
 ).main();
