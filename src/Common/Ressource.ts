@@ -22,6 +22,42 @@ export class Ressource implements IRessource {
   }
 }
 
+export class RessourcePlayerTransferImportFieldNumber implements IRessource {
+  private readonly ressource: IRessource;
+  constructor() { this.ressource = new Ressource("playerTransfer_import_field_number"); }
+  public key(): String { return this.ressource.key() };
+  public value(): String { return this.ressource.value(); };
+  public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
+}
+export class RessourcePlayerTransferImportFieldPosition implements IRessource {
+  private readonly ressource: IRessource;
+  constructor() { this.ressource = new Ressource("playerTransfer_import_field_position"); }
+  public key(): String { return this.ressource.key() };
+  public value(): String { return this.ressource.value(); };
+  public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
+}
+export class RessourcePlayerTransferImportFieldAge implements IRessource {
+  private readonly ressource: IRessource;
+  constructor() { this.ressource = new Ressource("playerTransfer_import_field_age"); }
+  public key(): String { return this.ressource.key() };
+  public value(): String { return this.ressource.value(); };
+  public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
+}
+export class RessourcePlayerTransferImportFieldStrength implements IRessource {
+  private readonly ressource: IRessource;
+  constructor() { this.ressource = new Ressource("playerTransfer_import_field_strength"); }
+  public key(): String { return this.ressource.key() };
+  public value(): String { return this.ressource.value(); };
+  public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
+}
+export class RessourcePlayerTransferImportFieldPrice implements IRessource {
+  private readonly ressource: IRessource;
+  constructor() { this.ressource = new Ressource("playerTransfer_import_field_price"); }
+  public key(): String { return this.ressource.key() };
+  public value(): String { return this.ressource.value(); };
+  public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
+}
+
 export class RessourceCommonButtonApply extends Ressource { constructor() { super("common_buttonApply"); } }
 export class RessourceCommonButtonImport extends Ressource { constructor() { super("common_buttonImport"); } }
 export class RessourceCommonSelectElement extends Ressource { constructor() { super("common_selectElement"); } }

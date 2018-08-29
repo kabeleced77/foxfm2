@@ -1,0 +1,20 @@
+{
+  "playerTransfer_import_field_number": {
+    "message": "Nr."
+  },
+  "playerTransfer_import_field_season": {
+    "message": "Saison"
+  },
+  "playerTransfer_import_field_position": {
+    "message": "Pos"
+  },
+  "playerTransfer_import_field_age": {
+    "message": "Alter"
+  },
+  "playerTransfer_import_field_strength": {
+    "message": "Stärke"
+  },
+  "playerTransfer_import_field_price": {
+    "message": "Preis"
+  }
+}

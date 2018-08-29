@@ -3,9 +3,6 @@ export interface IPlayerTransferDataModel {
   gameServerId: Number;
   matchdayId: Number;
   externalTransferId: Number;
-  sellingTeam: String;
-  buyingTeam: String;
-  name: String;
   position: String;
   age: Number;
   strength: Number;
@@ -17,9 +14,6 @@ export class PlayerTransferDateModel implements IPlayerTransferDataModel {
   public gameServerId: Number;
   public matchdayId: Number;
   public externalTransferId: Number;
-  public sellingTeam: String;
-  public buyingTeam: String;
-  public name: String;
   public position: String;
   public age: Number;
   public strength: Number;
@@ -29,9 +23,6 @@ export class PlayerTransferDateModel implements IPlayerTransferDataModel {
     gameServerId: Number,
     matchdayId: Number,
     externalTransferId: Number,
-    sellingTeam: String,
-    buyingTeam: String,
-    name: String,
     position: String,
     age: Number,
     strength: Number,
@@ -40,9 +31,6 @@ export class PlayerTransferDateModel implements IPlayerTransferDataModel {
     this.gameServerId = gameServerId;
     this.matchdayId = matchdayId;
     this.externalTransferId = externalTransferId;
-    this.sellingTeam = sellingTeam;
-    this.buyingTeam = buyingTeam;
-    this.name = name;
     this.position = position;
     this.age = age;
     this.strength = strength;

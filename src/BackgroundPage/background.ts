@@ -16,6 +16,7 @@ import { TaskStatusReady } from '../Common/Tasking/TaskStatusReady';
 import { Mutex } from '../Common/Toolkit/Mutex';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
+import { MatchdayIDb } from '../Common/IndexedDb/MatchdayIDb';
 
 class FoxfmBackground {
   private log: ILogger;
@@ -87,6 +88,11 @@ var background = new FoxfmBackground(
         new TaskStatusReady(),
         new Date(2000, 2, 2, 2, 2, 2, 2),
         5,
+        new MatchdayIDb(
+          indexedDb,
+          1,
+        ),
+        indexedDb,
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
