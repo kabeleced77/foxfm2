@@ -22,6 +22,7 @@ import { ITaskConfiguration } from './ITaskConfiguration';
 import { ITaskConfigurations } from './ITaskConfigurations';
 import { ITaskStatus } from './ITaskStatus';
 import { TaskStatusSuccessful } from './TaskStatusSuccessful';
+import { ITaskName } from './ITaskName';
 
 export class Task implements ITask {
   private cacheTaskConfig: ITaskConfiguration;
@@ -49,13 +50,13 @@ export class Task implements ITask {
     this.ressourcePlayerTransferImportPrice = new RessourcePlayerTransferImportFieldPrice();
   }
 
-  public async name(): Promise<String> {
+  public async name(): Promise<ITaskName> {
     return (await this.taskConfig()).taskName();
   }
 
   public async run(): Promise<void> {
     let taskConfig = await this.taskConfig();
-    let taskName = await taskConfig.taskName();
+    let taskName = await (await taskConfig.taskName()).name();
     let activated = await taskConfig.activated();
     let lastExecutionTime = await taskConfig.lastExectionDate();
     let lastExecutionState = await taskConfig.lastExecutionStatus();

@@ -1,6 +1,6 @@
-import { ITaskStatus } from './ITaskStatus';
+import { ITaskName } from './ITaskName';
 
 export interface ITask {
-  name(): Promise<String>;
+  name(): Promise<ITaskName>;
   run(): void;
 }

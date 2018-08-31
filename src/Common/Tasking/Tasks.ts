@@ -10,7 +10,7 @@ export class Tasks implements ITasks {
 
   public run(): void {
     this.taskList.forEach(async task => {
-      this.log.info(`start next task: ${await task.name()}`);
+      this.log.info(`start next task: ${await (await task.name()).name()}`);
       task.run();
     });
   }

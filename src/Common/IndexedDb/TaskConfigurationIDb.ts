@@ -1,8 +1,10 @@
 import { DataModelIDbTaskConfiguration, IDataModelIDbTaskConfiguration } from '../DataModel/DataModelIDbTaskConfiguration';
 import { IEasyLogger } from '../Logger/EasyLogger';
 import { ITaskConfiguration } from '../Tasking/ITaskConfiguration';
+import { ITaskName } from '../Tasking/ITaskName';
 import { ITaskStatus } from '../Tasking/ITaskStatus';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
+import { TaskNameIDb } from './TaskNameIDb';
 import { TaskStatusesIDb } from './TaskStatusesIDb';
 import { TaskStatusIDb } from './TaskStatusIDb';
 
@@ -24,11 +26,18 @@ export class TaskConfigurationIDb implements ITaskConfiguration {
       .then((result: IDataModelIDbTaskConfiguration) => result.activated);
   }
 
-  public taskName(): Promise<String> {
+  public taskName(): Promise<ITaskName> {
     return this.dataBase
-      .taskConfigurations
-      .get(this.idValue)
-      .then((result: IDataModelIDbTaskConfiguration) => result.taskName);
+      .transaction("r",
+        this.dataBase.taskConfigurations,
+        this.dataBase.taskNames,
+        async () => {
+          let taskNameId = await this.dataBase
+            .taskConfigurations
+            .get(this.idValue)
+            .then((result: IDataModelIDbTaskConfiguration) => result.taskNameId);
+          return new TaskNameIDb(this.dataBase, taskNameId);
+        });
   }
 
   public exectionIntervalSeconds(): Promise<Number> {
@@ -56,7 +65,7 @@ export class TaskConfigurationIDb implements ITaskConfiguration {
             (await taskStatesInDb.first())!.id!
           );
         } else {
-          throw `${taskConfigurationInDb!.taskName}: no task state found`;
+          throw `${taskConfigurationInDb!.taskNameId}: no task state found`;
         }
       });
   }
@@ -68,18 +77,23 @@ export class TaskConfigurationIDb implements ITaskConfiguration {
     let lastExecutionStatusName = await lastExecutionStatus.name();
     this.logger.debug(`update: new last execution status: ${lastExecutionStatusName}; last execution time: ${lastExecutionTime}`);
     this.dataBase
-      .transaction("rw", this.dataBase.taskConfigurations, this.dataBase.taskStatuses, async () => {
-        let taskStatusInDb = await (new TaskStatusesIDb(this.dataBase, this.logger).getOrAdd(lastExecutionStatusName));
-        this.dataBase
-          .taskConfigurations
-          .update(this.id(),
-            new DataModelIDbTaskConfiguration(
-              await this.activated(),
-              await this.taskName(),
-              taskStatusInDb.id(),
-              lastExecutionTime,
-              await this.exectionIntervalSeconds()
-            ));
-      });
+      .transaction(
+        "rw",
+        this.dataBase.taskConfigurations,
+        this.dataBase.taskStatuses,
+        this.dataBase.taskNames,
+        async () => {
+          let taskStatusInDb = await (new TaskStatusesIDb(this.dataBase, this.logger).getOrAdd(lastExecutionStatusName));
+          this.dataBase
+            .taskConfigurations
+            .update(this.id(),
+              new DataModelIDbTaskConfiguration(
+                await this.activated(),
+                (await this.taskName()).id(),
+                taskStatusInDb.id(),
+                lastExecutionTime,
+                await this.exectionIntervalSeconds()
+              ));
+        });
   }
 }
