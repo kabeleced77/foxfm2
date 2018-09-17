@@ -7,6 +7,7 @@ import { IGameServerDataModel } from '../DataModel/GameServerDataModel';
 import { IMatchdayDataModel } from '../DataModel/MatchdayDataModel';
 import { IPlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
 import { IDataModelIDbTaskName } from '../DataModel/DataModelIDbTaskName';
+import { IDataModelIDbTaskExecution } from '../DataModel/DataModelIDbTaskExecution';
 
 export class FoxfmIndexedDb extends Dexie {
   public matchdays: Dexie.Table<IMatchdayDataModel, Number>;
@@ -16,6 +17,7 @@ export class FoxfmIndexedDb extends Dexie {
   public taskNames: Dexie.Table<IDataModelIDbTaskName, Number>;
   public taskConfigurations: Dexie.Table<IDataModelIDbTaskConfiguration, Number>;
   public taskStatuses: Dexie.Table<IDataModelIDbTaskStatus, Number>;
+  public taskExecutions: Dexie.Table<IDataModelIDbTaskExecution, Number>;
 
   constructor() {
     super("foxfm");
@@ -27,9 +29,10 @@ export class FoxfmIndexedDb extends Dexie {
         clubs: "++id, &[gameServerId+externalId+name]",
         gameServers: "++id, uri",
         playerTransfers: "++id, &[gameServerId+matchdayId+externalTransferId]",
-        taskNames: "++id, &taskName",
+        taskNames: "++id, &name",
         taskConfigurations: "++id, &taskNameId",
         taskStatuses: "++id, &name",
+        taskExecutions: "++id, &name",
       });
 
     // initial data population - also after upgrades and only diffs to previous version

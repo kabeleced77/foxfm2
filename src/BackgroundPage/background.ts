@@ -1,5 +1,9 @@
+import { IGameServer } from '../Common/GameServer';
+import { IMatchday } from '../Common/IMatchday';
 import { FoxfmIndexedDb } from '../Common/IndexedDb/FoxfmIndexedDb';
+import { MatchdayIDb } from '../Common/IndexedDb/MatchdayIDb';
 import { TaskConfigurationsIDb } from '../Common/IndexedDb/TaskConfigurationsIDb';
+import { TaskExecutionsIDb } from '../Common/IndexedDb/TaskExecutionsIDb';
 import { EasyLogger } from '../Common/Logger/EasyLogger';
 import { ILogger, Logger } from '../Common/Logger/Logger';
 import { ILogLevel, LogLevelError } from '../Common/Logger/LogLevel';
@@ -16,7 +20,6 @@ import { TaskStatusReady } from '../Common/Tasking/TaskStatusReady';
 import { Mutex } from '../Common/Toolkit/Mutex';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
-import { MatchdayIDb } from '../Common/IndexedDb/MatchdayIDb';
 
 class FoxfmBackground {
   private log: ILogger;
@@ -34,19 +37,25 @@ class FoxfmBackground {
     this.ressourceSettings = new Ressource("backgroundPageContextMenuAddonSettings");
   }
 
-  public main(): void {
-    this.log.info(this.thisModule, "S t a r t e d");
-    this.createContextMenu();
-    let messaging = new MessagingBackgroundScript(
-      "",
-      this.indexedDb,
-      new EasyLogger(
-        this.log,
-        new RegisteredLoggingModule(
-          "MessagingBackgroundScript",
-          new LogLevelError())));
-    messaging.connect();
-    this.tasks.run();
+  public async main(): Promise<void> {
+    try {
+      this.log.info(this.thisModule, "S t a r t e d");
+
+      this.createContextMenu();
+      let messaging = new MessagingBackgroundScript(
+        "",
+        this.indexedDb,
+        new EasyLogger(
+          this.log,
+          new RegisteredLoggingModule(
+            "MessagingBackgroundScript",
+            new LogLevelError())));
+      messaging.connect();
+      await this.tasks.run();
+    }
+    catch (e) {
+      this.log.error(this.thisModule, `Error in background script: ${e.message}`);
+    }
   }
 
   private createContextMenu() {
@@ -77,11 +86,22 @@ var background = new FoxfmBackground(
       new Task(
         new TaskConfigurationsIDb(
           indexedDb,
-          new EasyLogger(logger,
+          new EasyLogger(
+            logger,
             new RegisteredLoggingModule(
               "TaskConfigurationsIDb",
               new LogLevelError(),
             )),
+        ),
+        new TaskExecutionsIDb(
+          indexedDb,
+          new EasyLogger(
+            logger,
+            new RegisteredLoggingModule(
+              "TaskExecutionsIDb",
+              new LogLevelError(),
+            )
+          )
         ),
         "testTask",
         true,
@@ -110,4 +130,5 @@ var background = new FoxfmBackground(
   indexedDb,
   logger,
 );
+
 background.main();

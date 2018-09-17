@@ -20,6 +20,34 @@ export class TaskNamesIDb implements ITaskNames {
       .then(() => vals);
   }
 
+  public add(
+    taskName: String,
+  ): Promise<ITaskName> {
+    return this.dataBase
+      .taskNames
+      .add(new DataModelIDbTaskName(
+        taskName,
+      ))
+      .then(id => {
+        this.logger.debug(`added to IDb: new task name: '${taskName}'`);
+        return new TaskNameIDb(
+          this.dataBase,
+          id,
+        );
+      })
+      .catch(e => { throw `Could not add new task name to IDb: '${taskName}': ${e}` });
+  }
+
+  public async byName(
+    taskName: String,
+  ): Promise<ITaskName[]> {
+    return this.dataBase
+      .taskNames
+      .filter(ts => ts.name === taskName)
+      .toArray(ts => ts.map(ts => new TaskNameIDb(this.dataBase, ts.id!)))
+      .catch(e => { throw `error looking for task by name '${taskName}': ${e}`; });
+  }
+
   public getOrAdd(
     taskName: String,
   ): Promise<ITaskName> {
@@ -29,27 +57,12 @@ export class TaskNamesIDb implements ITaskNames {
         this.dataBase.taskNames,
         async () => {
           let taskNameInDb: ITaskName;
-          let taskNamesInDb = await this.dataBase
-            .taskNames
-            .filter(ts => ts.name === name)
-            .toArray(ts => ts.map(ts => new TaskNameIDb(this.dataBase, ts.id!)));
+          let taskNamesInDb = await this.byName(taskName);
           if (taskNamesInDb.length === 1) {
             taskNameInDb = taskNamesInDb[0];
             this.logger.debug(`already in IDb: task name: '${await taskNameInDb.name()}'`);
           } else {
-            taskNameInDb = await this.dataBase
-              .taskNames
-              .add(new DataModelIDbTaskName(
-                taskName,
-              ))
-              .then(id => {
-                this.logger.debug(`added to IDb: new task name: '${taskName}'`);
-                return new TaskNameIDb(
-                  this.dataBase,
-                  id,
-                );
-              })
-              .catch(e => { throw `Could not add new task name to IDb '${taskName}': ${e}` });
+            taskNameInDb = await this.add(taskName);
           }
           return taskNameInDb;
         });
