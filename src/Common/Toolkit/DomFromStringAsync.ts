@@ -7,6 +7,14 @@ export class DomFromStringAsync implements IDomAsync {
   ) { }
 
   public async dom(): Promise<Document> {
-    return new DOMParser().parseFromString((await this.string.value()).toString(), "text/html");
+    try {
+      return new DOMParser()
+        .parseFromString(
+          (await this.string.value()).toString(),
+          "text/html",
+        );
+    } catch (e) {
+      throw new Error(`Error parsing dom from string: ${e}`);
+    }
   }
 }
