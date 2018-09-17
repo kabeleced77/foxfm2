@@ -1,7 +1,7 @@
 import { IUrl } from './Url';
 import { IValueAsync } from './ValueAsync';
 
-export class TextByXmlHttpRequest implements IValueAsync<String> {
+export class FetchedText implements IValueAsync<String> {
   constructor(
     private target: IUrl,
   ) { }

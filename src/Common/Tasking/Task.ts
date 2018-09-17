@@ -11,10 +11,10 @@ import {
   RessourcePlayerTransferImportFieldStrength,
 } from '../Ressource';
 import { DomFromStringAsync } from '../Toolkit/DomFromStringAsync';
+import { FetchedText } from '../Toolkit/FetchedText';
 import { HtmlTablesByTagName } from '../Toolkit/HtmlTablesByTagName';
 import { NumberFromString } from '../Toolkit/NumberFromString';
 import { ITable } from '../Toolkit/Table';
-import { TextByXmlHttpRequest } from '../Toolkit/TextByXmlHttpRequest';
 import { Url } from '../Toolkit/Url';
 import { Value } from '../Toolkit/Value';
 import { ITask } from './ITask';
@@ -184,7 +184,7 @@ export class Task implements ITask {
       let uri = `http://${serverUri}/${downloadUrl}?select_spieltag=${day}&seite=alle`;
       this.log.debug(`about to download player transfers from: ${uri}`);
       let dom = (await new DomFromStringAsync(
-        new TextByXmlHttpRequest(
+        new FetchedText(
           new Url(uri),
         ))
         .dom())
