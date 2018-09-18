@@ -11,12 +11,13 @@ export class Tasks implements ITasks {
   public async run(): Promise<void> {
     try {
       for (let i = 0; i < this.taskList.length; i++) {
+        const task = this.taskList[i];
+        const name = await (await task.name()).name();
+        this.log.info(`start next task: ${name}`);
         try {
-          const task = this.taskList[i];
-          this.log.info(`start next task: ${await (await task.name()).name()}`);
           await task.run();
         } catch (e) {
-          throw new Error(`Could not run single task: ${e}`);
+          throw new Error(`Could not run task '${name}': ${e}`);
         }
       }
     } catch (e) {
