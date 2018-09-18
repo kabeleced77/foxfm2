@@ -44,7 +44,45 @@ export class TaskConfigurationsIDb implements ITaskConfigurations {
     lastExecutionDate: Date,
     intervalSeconds: Number,
   ): Promise<ITaskConfiguration> {
-    this.logger.debug(`about to add new task configuration to IDb: name=${taskName}, status=${lastExecutionTaskStatusName}, interval=${intervalSeconds} sec'`);
+    try {
+      this.logger.debug(`about to add new task configuration to IDb: name=${taskName}, status=${lastExecutionTaskStatusName}, interval=${intervalSeconds} sec'`);
+      return this.dataBase
+        .transaction(
+          "rw",
+          this.dataBase.taskConfigurations,
+          this.dataBase.taskStatuses,
+          this.dataBase.taskNames,
+          async () => {
+            let taskStatusInDb = await new TaskStatusesIDb(this.dataBase, this.logger).getOrAdd(lastExecutionTaskStatusName);
+            let taskNameInDb = await new TaskNamesIDb(this.dataBase, this.logger).getOrAdd(taskName);
+            let id = await this.dataBase
+              .taskConfigurations
+              .add(new DataModelIDbTaskConfiguration(
+                activated,
+                taskNameInDb.id(),
+                taskStatusInDb.id(),
+                lastExecutionDate,
+                intervalSeconds,
+              ));
+            this.logger.debug(`added to IDb: new task configuration: '${taskName} ${lastExecutionTaskStatusName}-${intervalSeconds}'`);
+            return new TaskConfigurationIDb(
+              this.dataBase,
+              id,
+              this.logger,
+            );
+          });
+    } catch (e) {
+      throw new Error(`Could not add new task configuration to IDb '${taskName} ${lastExecutionTaskStatusName}-${intervalSeconds}': ${e}`);
+    }
+  }
+
+  public async getOrAdd(
+    taskName: String,
+    activated: Boolean,
+    lastExecutionTaskStatusName: String,
+    lastExecutionDate: Date,
+    intervalSeconds: Number,
+  ): Promise<ITaskConfiguration> {
     return this.dataBase
       .transaction(
         "rw",
@@ -58,27 +96,13 @@ export class TaskConfigurationsIDb implements ITaskConfigurations {
             taskConfigInDb = await taskConfigsInDb[0];
             this.logger.debug(`already in IDb: task configuration for task: '${await taskConfigInDb.taskName()}'`);
           } else {
-            let taskStatusInDb = await new TaskStatusesIDb(this.dataBase, this.logger).getOrAdd(lastExecutionTaskStatusName);
-            let taskNameInDb = await new TaskNamesIDb(this.dataBase, this.logger).getOrAdd(taskName);
-            taskConfigInDb = await this.dataBase
-              .taskConfigurations
-              .add(new DataModelIDbTaskConfiguration(
-                activated,
-                taskNameInDb.id(),
-                taskStatusInDb.id(),
-                lastExecutionDate,
-                intervalSeconds,
-              ))
-              .then(id => {
-                this.logger.debug(`added to IDb: new task configuration: '${taskName} ${lastExecutionTaskStatusName}-${intervalSeconds}'`);
-                return new TaskConfigurationIDb(
-                  this.dataBase,
-                  id,
-                  this.logger,
-                );
-              })
-              .catch(e => { throw `Could not add new task configuration to IDb '${taskName} ${lastExecutionTaskStatusName}-${intervalSeconds}': ${e}` }
-              );
+            taskConfigInDb = await this.add(
+              taskName,
+              activated,
+              lastExecutionTaskStatusName,
+              lastExecutionDate,
+              intervalSeconds,
+            );
           }
           return taskConfigInDb;
         });

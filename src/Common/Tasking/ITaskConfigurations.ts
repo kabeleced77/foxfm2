@@ -12,4 +12,11 @@ export interface ITaskConfigurations {
   byTaskName(
     taskName: String,
   ): Promise<ITaskConfiguration[]>;
+  getOrAdd(
+    taskName: String,
+    activated: Boolean,
+    lastExecutionTaskStatusName: String,
+    lastExecutionDate: Date,
+    intervalSeconds: Number,
+  ): Promise<ITaskConfiguration>;
 }

@@ -103,7 +103,7 @@ export class Task implements ITask {
     if (this.cacheTaskConfig === undefined) {
       // fill cache
       this.log.debug(`fill caching object with new task configuration`);
-      this.cacheTaskConfig = await this.taskConfigs.add(
+      this.cacheTaskConfig = await this.taskConfigs.getOrAdd(
         this.taskName,
         this.activated,
         await this.lastExecutionStatus.name(),
