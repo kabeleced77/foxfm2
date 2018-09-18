@@ -20,6 +20,7 @@ import { Value } from '../Toolkit/Value';
 import { ITask } from './ITask';
 import { ITaskConfiguration } from './ITaskConfiguration';
 import { ITaskConfigurations } from './ITaskConfigurations';
+import { ITaskExecution } from './ITaskExecution';
 import { ITaskExecutions } from './ITaskExecutions';
 import { ITaskName } from './ITaskName';
 import { ITaskStatus } from './ITaskStatus';
@@ -28,6 +29,7 @@ import { TaskStatusSuccessful } from './TaskStatusSuccessful';
 
 export class Task implements ITask {
   private cacheTaskConfig: ITaskConfiguration;
+  private cacheTaskExecution: ITaskExecution;
   private ressourcePlayerTransferImportNumber: IRessource;
   private ressourcePlayerTransferImportPosition: IRessource;
   private ressourcePlayerTransferImportAge: IRessource;
@@ -59,12 +61,15 @@ export class Task implements ITask {
 
   public async run(): Promise<void> {
     try {
+      // get task configuration
       let taskConfig = await this.taskConfig();
       let taskName = await (await taskConfig.taskName()).name();
       let activated = await taskConfig.activated();
-      let lastExecutionTime = await taskConfig.lastExectionDate();
-      let lastExecutionState = await taskConfig.lastExecutionStatus();
       let executionIntervalSeconds = await taskConfig.exectionIntervalSeconds();
+      // get last task execution
+      let taskExecution = await this.taskExecution();
+      let lastExecutionTime = await taskExecution.exectionDate();
+      let lastExecutionState = await taskExecution.executionStatus();
       let nextExecution = new Date(lastExecutionTime.getTime() + (1000 * executionIntervalSeconds.valueOf()));
 
       this.log.debug(`name: ${taskName};activated: ${activated}; last execution state: ${await lastExecutionState.name()}; last execution: ${await lastExecutionTime}; execution interval (sec): ${executionIntervalSeconds} => next planned execution: ${nextExecution}`);
@@ -99,6 +104,23 @@ export class Task implements ITask {
     }
   }
 
+  private async taskExecution(): Promise<ITaskExecution> {
+    if (this.cacheTaskExecution === undefined) {
+      // fill cache
+      this.log.debug(`fill caching object with new task execution`);
+      this.cacheTaskExecution = await this.taskExecutions
+        .getOrAdd(
+          this.taskName,
+          await this.lastExecutionStatus.name(),
+          this.lastExecutionTime,
+          this.matchday,
+        );
+    } else {
+      this.log.debug(`using cached object`);
+    }
+    return this.cacheTaskExecution;
+  }
+
   private async taskConfig(): Promise<ITaskConfiguration> {
     if (this.cacheTaskConfig === undefined) {
       // fill cache
@@ -106,8 +128,6 @@ export class Task implements ITask {
       this.cacheTaskConfig = await this.taskConfigs.getOrAdd(
         this.taskName,
         this.activated,
-        await this.lastExecutionStatus.name(),
-        this.lastExecutionTime,
         this.executionIntervalSeconds,
       );
     } else {

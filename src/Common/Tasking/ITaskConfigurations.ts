@@ -5,8 +5,6 @@ export interface ITaskConfigurations {
   add(
     taskName: String,
     activated: Boolean,
-    lastExecutionTaskStatusName: String,
-    lastExecutionDate: Date,
     intervalSeconds: Number,
   ): Promise<ITaskConfiguration>;
   byTaskName(
@@ -15,8 +13,6 @@ export interface ITaskConfigurations {
   getOrAdd(
     taskName: String,
     activated: Boolean,
-    lastExecutionTaskStatusName: String,
-    lastExecutionDate: Date,
     intervalSeconds: Number,
   ): Promise<ITaskConfiguration>;
 }
