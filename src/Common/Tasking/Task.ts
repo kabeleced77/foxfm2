@@ -61,6 +61,7 @@ export class Task implements ITask {
 
   public async run(): Promise<void> {
     try {
+      let executionStatus: ITaskStatus = new TaskStatusFailed();
       // get task configuration
       let taskConfig = await this.taskConfig();
       let taskName = await (await taskConfig.taskName()).name();
@@ -69,36 +70,35 @@ export class Task implements ITask {
       this.log.debug(`name: ${taskName}; activated: ${activated}; execution interval (sec): ${executionIntervalSeconds}`);
 
       if (activated) {
-        // get last task execution
-        let taskExecution = await this.taskExecution();
-        let lastExecutionTime = await taskExecution.exectionDate();
-        let lastExecutionState = await taskExecution.executionStatus();
-        let nextExecution = new Date(lastExecutionTime.getTime() + (1000 * executionIntervalSeconds.valueOf()));
-        this.log.debug(`name: ${taskName}; last status: ${await lastExecutionState.name()}; last execution: ${await lastExecutionTime}; => next planned execution: ${nextExecution}`);
+        try {
+          // get last task execution
+          let taskExecution = await this.taskExecutions.latest(taskName);
+          let lastExecutionTime = await taskExecution.exectionDate();
+          let lastExecutionState = await taskExecution.executionStatus();
+          let nextExecution = new Date(lastExecutionTime.getTime() + (1000 * executionIntervalSeconds.valueOf()));
+          this.log.debug(`name: ${taskName}; last status: ${await lastExecutionState.name()}; last execution: ${await lastExecutionTime}; => next planned execution: ${nextExecution}`);
 
-        let now = new Date();
-        let executionStatus: ITaskStatus = new TaskStatusFailed();
-        if (
-          true
-          && (!(await lastExecutionState.name()).match((await new TaskStatusSuccessful().name()).toString())
-            || nextExecution <= now)) {
-          try {
+          let now = new Date();
+          if (
+            true
+            && (!(await lastExecutionState.name()).match((await new TaskStatusSuccessful().name()).toString())
+              || nextExecution <= now)) {
             this.log.debug(`${taskName}: started taks execution`);
             await this.save(this.matchday);
             executionStatus = new TaskStatusSuccessful();
-          } catch (e) {
-            throw new Error(`Could not save player transfers into db: '${taskName}': ${e}`);
-          } finally {
-            let statusName = await executionStatus.name();
-            let time = new Date();
-            this.log.info(`task '${taskName}' finished execution '${statusName}' at ${time}.`);
-            await this.taskExecutions.getOrAdd(
-              taskName,
-              statusName,
-              time,
-              this.matchday,
-            );
           }
+        } catch (e) {
+          throw new Error(`Task '${taskName}' could not save player transfers into db: ${e}`);
+        } finally {
+          let statusName = await executionStatus.name();
+          let time = new Date();
+          this.log.info(`task '${taskName}' finished execution '${statusName}' at ${time}.`);
+          await this.taskExecutions.getOrAdd(
+            taskName,
+            statusName,
+            time,
+            this.matchday,
+          );
         }
       }
     } catch (e) {

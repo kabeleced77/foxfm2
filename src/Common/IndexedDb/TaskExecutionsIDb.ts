@@ -3,11 +3,9 @@ import { IMatchday } from '../IMatchday';
 import { IEasyLogger } from '../Logger/EasyLogger';
 import { ITaskExecution } from '../Tasking/ITaskExecution';
 import { ITaskExecutions } from '../Tasking/ITaskExecutions';
-import { ITaskStatus } from '../Tasking/ITaskStatus';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { TaskExecutionIDb } from './TaskExecutionIDb';
 import { TaskNamesIDb } from './TaskNamesIDb';
-import { TaskStatusIDb } from './TaskStatusIDb';
 import { TaskStatusesIDb } from './TaskStatusesIDb';
 
 export class TaskExecutionsIDb implements ITaskExecutions {
@@ -40,6 +38,19 @@ export class TaskExecutionsIDb implements ITaskExecutions {
             .filter(taskExecution => taskExecution.taskNameId === taskNameInDb.id())
             .toArray(te => te.map(te => new TaskExecutionIDb(this.dataBase, te.id!)));
         });
+  }
+
+  public latest(taskName: String): Promise<ITaskExecution> {
+    return this.dataBase
+      .transaction("rw", this.dataBase.taskExecutions, this.dataBase.taskNames, async () => {
+        const taskNameInDb = await new TaskNamesIDb(this.dataBase, this.logger).getOrAdd(taskName);
+        return this.dataBase
+          .taskExecutions
+          .filter(v => v.taskNameId === taskNameInDb.id())
+          .reverse()
+          .sortBy('executionDate')
+          .then(values => new TaskExecutionIDb(this.dataBase, values[0]!.id!));
+      });
   }
 
   public async getOrAdd(
