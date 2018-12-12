@@ -26,6 +26,7 @@ import { ITaskName } from './ITaskName';
 import { ITaskStatus } from './ITaskStatus';
 import { TaskStatusFailed } from './TaskStatusFailed';
 import { TaskStatusSuccessful } from './TaskStatusSuccessful';
+import { TaskStatusReady } from './TaskStatusReady';
 
 export class Task implements ITask {
   private cacheTaskConfig: ITaskConfiguration;
@@ -61,7 +62,6 @@ export class Task implements ITask {
 
   public async run(): Promise<void> {
     try {
-      let executionStatus: ITaskStatus = new TaskStatusFailed();
       // get task configuration
       let taskConfig = await this.taskConfig();
       let taskName = await (await taskConfig.taskName()).name();
@@ -70,6 +70,7 @@ export class Task implements ITask {
       this.log.debug(`name: ${taskName}; activated: ${activated}; execution interval (sec): ${executionIntervalSeconds}`);
 
       if (activated) {
+        let executionStatus: ITaskStatus = new TaskStatusReady();
         try {
           // get last task execution
           let taskExecution = await this.taskExecutions.latest(taskName);
@@ -79,15 +80,13 @@ export class Task implements ITask {
           this.log.debug(`name: ${taskName}; last status: ${await lastExecutionState.name()}; last execution: ${await lastExecutionTime}; => next planned execution: ${nextExecution}`);
 
           let now = new Date();
-          if (
-            true
-            && (!(await lastExecutionState.name()).match((await new TaskStatusSuccessful().name()).toString())
-              || nextExecution <= now)) {
+          if (now >= nextExecution) {
             this.log.debug(`${taskName}: started taks execution`);
             await this.save(this.matchday);
             executionStatus = new TaskStatusSuccessful();
           }
         } catch (e) {
+          executionStatus = new TaskStatusFailed();
           throw new Error(`Task '${taskName}' could not save player transfers into db: ${e}`);
         } finally {
           let statusName = await executionStatus.name();
