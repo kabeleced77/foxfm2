@@ -14,7 +14,7 @@ import { IRessource, Ressource } from '../Common/Ressource';
 import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
 import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
 import { ITasks } from '../Common/Tasking/ITasks';
-import { Task } from '../Common/Tasking/Task';
+import { TaskDownloadPlayerTransfers } from '../Common/Tasking/Task';
 import { Tasks } from '../Common/Tasking/Tasks';
 import { TaskStatusReady } from '../Common/Tasking/TaskStatusReady';
 import { Mutex } from '../Common/Toolkit/Mutex';
@@ -83,7 +83,7 @@ var indexedDb = new FoxfmIndexedDb();
 var background = new FoxfmBackground(
   new Tasks(
     [
-      new Task(
+      new TaskDownloadPlayerTransfers(
         new TaskConfigurationsIDb(
           indexedDb,
           new EasyLogger(

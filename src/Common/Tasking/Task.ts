@@ -28,7 +28,7 @@ import { TaskStatusFailed } from './TaskStatusFailed';
 import { TaskStatusSuccessful } from './TaskStatusSuccessful';
 import { TaskStatusReady } from './TaskStatusReady';
 
-export class Task implements ITask {
+export class TaskDownloadPlayerTransfers implements ITask {
   private cacheTaskConfig: ITaskConfiguration;
   private cacheTaskExecution: ITaskExecution;
   private ressourcePlayerTransferImportNumber: IRessource;
