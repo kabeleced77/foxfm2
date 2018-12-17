@@ -87,7 +87,7 @@ export class TaskConfigurationsIDb implements ITaskConfigurations {
           let taskConfigsInDb = await this.byTaskName(taskName);
           if (await taskConfigsInDb.length === 1) {
             taskConfigInDb = await taskConfigsInDb[0];
-            this.logger.debug(`already in IDb: task configuration for task: '${await taskConfigInDb.taskName()}'`);
+            this.logger.debug(`already in IDb: task configuration for task: '${await (await taskConfigInDb.taskName()).name()}'`);
           } else {
             taskConfigInDb = await this.add(
               taskName,
