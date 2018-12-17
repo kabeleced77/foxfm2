@@ -14,7 +14,7 @@ import { IRessource, Ressource } from '../Common/Ressource';
 import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
 import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
 import { ITasks } from '../Common/Tasking/ITasks';
-import { TaskDownloadPlayerTransfers } from '../Common/Tasking/Task';
+import { TaskDownloadPlayerTransfers } from '../Common/Tasking/TaskDownloadPlayerTransfers';
 import { Tasks } from '../Common/Tasking/Tasks';
 import { TaskStatusReady } from '../Common/Tasking/TaskStatusReady';
 import { Mutex } from '../Common/Toolkit/Mutex';
@@ -103,7 +103,7 @@ var background = new FoxfmBackground(
             )
           )
         ),
-        "testTask",
+        "TaskDownloadPlayerTransfers",
         true,
         new TaskStatusReady(),
         new Date(2000, 2, 2, 2, 2, 2, 2),
