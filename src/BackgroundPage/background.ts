@@ -1,5 +1,3 @@
-import { IGameServer } from '../Common/GameServer';
-import { IMatchday } from '../Common/IMatchday';
 import { FoxfmIndexedDb } from '../Common/IndexedDb/FoxfmIndexedDb';
 import { MatchdayIDb } from '../Common/IndexedDb/MatchdayIDb';
 import { TaskConfigurationsIDb } from '../Common/IndexedDb/TaskConfigurationsIDb';
@@ -20,6 +18,7 @@ import { TaskStatusReady } from '../Common/Tasking/TaskStatusReady';
 import { Mutex } from '../Common/Toolkit/Mutex';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
+import { TaskLogDateTime } from '../Common/Tasking/TaskLogDateTime';
 
 class FoxfmBackground {
   private log: ILogger;
@@ -62,7 +61,7 @@ class FoxfmBackground {
     chrome.contextMenus.create({ "title": this.ressourceSettings.value().toString(), "onclick": this.contextMenuSettingCallback });
   }
 
-  private contextMenuSettingCallback(info: any, tab: any) {
+  private contextMenuSettingCallback() {
     chrome.tabs.create({ url: "settings.html" });
   }
 }
@@ -82,17 +81,17 @@ var indexedDb = new FoxfmIndexedDb();
 
 var background = new FoxfmBackground(
   new Tasks(
+    new TaskConfigurationsIDb(
+      indexedDb,
+      new EasyLogger(
+        logger,
+        new RegisteredLoggingModule(
+          "TaskConfigurationsIDb",
+          new LogLevelError(),
+        )),
+    ),
     [
       new TaskDownloadPlayerTransfers(
-        new TaskConfigurationsIDb(
-          indexedDb,
-          new EasyLogger(
-            logger,
-            new RegisteredLoggingModule(
-              "TaskConfigurationsIDb",
-              new LogLevelError(),
-            )),
-        ),
         new TaskExecutionsIDb(
           indexedDb,
           new EasyLogger(
@@ -104,10 +103,10 @@ var background = new FoxfmBackground(
           )
         ),
         "TaskDownloadPlayerTransfers",
-        true,
+        false,
         new TaskStatusReady(),
         new Date(2000, 2, 2, 2, 2, 2, 2),
-        5,
+        30,
         new MatchdayIDb(
           indexedDb,
           1,
@@ -116,7 +115,33 @@ var background = new FoxfmBackground(
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
-            "Task",
+            "TransferDownloadTask",
+            new LogLevelError(),
+          )
+        )
+      ),
+      new TaskLogDateTime(
+        new TaskExecutionsIDb(
+          indexedDb,
+          new EasyLogger(
+            logger,
+            new RegisteredLoggingModule(
+              "TaskExecutionsIDb",
+              new LogLevelError(),
+            )
+          )
+        ),
+        "TaskLogDateTime",
+        true,
+        3,
+        new MatchdayIDb(
+          indexedDb,
+          1,
+        ),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            "TimeTask",
             new LogLevelError(),
           )
         )

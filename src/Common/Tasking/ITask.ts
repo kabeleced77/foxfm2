@@ -1,6 +1,8 @@
 import { ITaskName } from './ITaskName';
 
 export interface ITask {
-  name(): Promise<ITaskName>;
-  run(): void;
+  name(): String;
+  activated(): Boolean;
+  intervalSeconds(): Number;
+  run(): Promise<void>;
 }

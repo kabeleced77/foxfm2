@@ -18,18 +18,13 @@ import { ITable } from '../Toolkit/Table';
 import { Url } from '../Toolkit/Url';
 import { Value } from '../Toolkit/Value';
 import { ITask } from './ITask';
-import { ITaskConfiguration } from './ITaskConfiguration';
-import { ITaskConfigurations } from './ITaskConfigurations';
 import { ITaskExecution } from './ITaskExecution';
 import { ITaskExecutions } from './ITaskExecutions';
-import { ITaskName } from './ITaskName';
 import { ITaskStatus } from './ITaskStatus';
 import { TaskStatusFailed } from './TaskStatusFailed';
 import { TaskStatusSuccessful } from './TaskStatusSuccessful';
-import { TaskStatusReady } from './TaskStatusReady';
 
 export class TaskDownloadPlayerTransfers implements ITask {
-  private cacheTaskConfig: ITaskConfiguration;
   private cacheTaskExecution: ITaskExecution;
   private ressourcePlayerTransferImportNumber: IRessource;
   private ressourcePlayerTransferImportPosition: IRessource;
@@ -38,10 +33,9 @@ export class TaskDownloadPlayerTransfers implements ITask {
   private ressourcePlayerTransferImportPrice: IRessource;
 
   constructor(
-    private taskConfigs: ITaskConfigurations,
     private taskExecutions: ITaskExecutions,
     private taskName: String,
-    private activated: Boolean,
+    private activationStatus: Boolean,
     private lastExecutionStatus: ITaskStatus,
     private lastExecutionTime: Date,
     private executionIntervalSeconds: Number,
@@ -56,44 +50,47 @@ export class TaskDownloadPlayerTransfers implements ITask {
     this.ressourcePlayerTransferImportPrice = new RessourcePlayerTransferImportFieldPrice();
   }
 
-  public async name(): Promise<ITaskName> {
-    return (await this.taskConfig()).taskName();
+  public name(): String {
+    return this.taskName;
+  }
+
+  public activated(): Boolean {
+    return this.activationStatus;
+  }
+
+  public intervalSeconds(): Number {
+    return this.executionIntervalSeconds;
   }
 
   public async run(): Promise<void> {
     try {
-      // get task configuration
-      let taskConfig = await this.taskConfig();
-      let taskName = await (await taskConfig.taskName()).name();
-      let activated = await taskConfig.activated();
-      let executionIntervalSeconds = await taskConfig.exectionIntervalSeconds();
-      this.log.debug(`name: ${taskName}; activated: ${activated}; execution interval (sec): ${executionIntervalSeconds}`);
+      // get last task execution
+      let taskExecution = await this.taskExecution();
+      let lastExecutionTime = await taskExecution.exectionDate();
+      let lastExecutionState = await taskExecution.executionStatus();
+      let nextExecution = new Date(lastExecutionTime.getTime() + (1000 * this.intervalSeconds().valueOf()));
 
-      if (activated) {
-        let executionStatus: ITaskStatus = new TaskStatusReady();
+      this.log.debug(`name: ${this.name()};activated: ${this.activated()}; last execution state: ${await lastExecutionState.name()}; last execution: ${await lastExecutionTime}; execution interval (sec): ${this.intervalSeconds()} => next planned execution: ${nextExecution}`);
+
+      let now = new Date();
+      let executionStatus: ITaskStatus = new TaskStatusFailed();
+      if (
+        true
+        && this.activated()
+        && (!(await lastExecutionState.name()).match((await new TaskStatusSuccessful().name()).toString())
+          || nextExecution <= now)) {
         try {
-          // get last task execution
-          let taskExecution = await this.taskExecutions.latest(taskName);
-          let lastExecutionTime = await taskExecution.exectionDate();
-          let lastExecutionState = await taskExecution.executionStatus();
-          let nextExecution = new Date(lastExecutionTime.getTime() + (1000 * executionIntervalSeconds.valueOf()));
-          this.log.debug(`name: ${taskName}; last status: ${await lastExecutionState.name()}; last execution: ${await lastExecutionTime}; => next planned execution: ${nextExecution}`);
-
-          let now = new Date();
-          if (now >= nextExecution) {
-            this.log.debug(`${taskName}: started taks execution`);
-            await this.save(this.matchday);
-            executionStatus = new TaskStatusSuccessful();
-          }
+          this.log.debug(`${this.name()}: started taks execution`);
+          await this.save(this.matchday);
+          executionStatus = new TaskStatusSuccessful();
         } catch (e) {
-          executionStatus = new TaskStatusFailed();
-          throw new Error(`Task '${taskName}' could not save player transfers into db: ${e}`);
+          throw new Error(`Could not save player transfers into db: '${this.name()}': ${e}`);
         } finally {
           let statusName = await executionStatus.name();
           let time = new Date();
-          this.log.info(`task '${taskName}' finished execution '${statusName}' at ${time}.`);
+          this.log.info(`task '${this.name()}' finished execution '${statusName}' at ${time}.`);
           await this.taskExecutions.getOrAdd(
-            taskName,
+            this.name(),
             statusName,
             time,
             this.matchday,
@@ -120,21 +117,6 @@ export class TaskDownloadPlayerTransfers implements ITask {
       this.log.debug(`using cached object`);
     }
     return this.cacheTaskExecution;
-  }
-
-  private async taskConfig(): Promise<ITaskConfiguration> {
-    if (this.cacheTaskConfig === undefined) {
-      // fill cache
-      this.log.debug(`fill caching object with new task configuration`);
-      this.cacheTaskConfig = await this.taskConfigs.getOrAdd(
-        this.taskName,
-        this.activated,
-        this.executionIntervalSeconds,
-      );
-    } else {
-      this.log.debug(`using cached object`);
-    }
-    return this.cacheTaskConfig;
   }
 
   private async save(matchday: IMatchday): Promise<void> {
