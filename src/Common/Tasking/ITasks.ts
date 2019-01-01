@@ -1,5 +1,5 @@
 import { ITask } from './ITask';
 
 export interface ITasks {
-  run(): void;
+  run(): Promise<void>;
 }
