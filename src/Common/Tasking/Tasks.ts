@@ -41,7 +41,7 @@ export class Tasks implements ITasks {
       );
 
       let activated = await taskConfig.activated();
-      let executionIntervalSeconds = await taskConfig.exectionIntervalSeconds();
+      let executionIntervalSeconds = await taskConfig.executionIntervalSeconds();
       let currentExecutionStatusName = await this.currentExecutionStatusName(taskName);
       this.log.debug(`next task: '${taskName}'; activated: ${activated}; interval: ${executionIntervalSeconds} sec; current status: ${currentExecutionStatusName}`);
       if (activated && !(currentExecutionStatusName.match((await new TaskStatusRunning().name()).toString()))) {

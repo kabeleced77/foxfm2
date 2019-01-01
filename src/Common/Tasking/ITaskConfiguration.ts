@@ -4,5 +4,5 @@ export interface ITaskConfiguration {
   id(): Number;
   activated(): Promise<Boolean>;
   taskName(): Promise<ITaskName>;
-  exectionIntervalSeconds(): Promise<Number>;
+  executionIntervalSeconds(): Promise<Number>;
 }

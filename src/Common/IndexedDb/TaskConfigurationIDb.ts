@@ -37,7 +37,7 @@ export class TaskConfigurationIDb implements ITaskConfiguration {
         });
   }
 
-  public exectionIntervalSeconds(): Promise<Number> {
+  public executionIntervalSeconds(): Promise<Number> {
     return this.dataBase
       .taskConfigurations
       .get(this.idValue)
