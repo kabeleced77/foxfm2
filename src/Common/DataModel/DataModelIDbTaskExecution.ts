@@ -1,8 +1,9 @@
 export interface IDataModelIDbTaskExecution {
   id?: Number;
   taskNameId: Number;
-  executionStatusId: Number;
-  executionDate: Date;
+  taskStatusId: Number;
+  startDateTime: Date;
+  endDateTime: any;
   matchdayId: Number;
 }
 
@@ -11,8 +12,9 @@ export class DataModelIDbTaskExecution implements IDataModelIDbTaskExecution {
 
   constructor(
     public taskNameId: Number,
-    public executionStatusId: Number,
-    public executionDate: Date,
+    public taskStatusId: Number,
+    public startDateTime: Date,
+    public endDateTime: Date,
     public matchdayId: Number,
   ) { }
 }

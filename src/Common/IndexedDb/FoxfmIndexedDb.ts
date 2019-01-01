@@ -32,7 +32,7 @@ export class FoxfmIndexedDb extends Dexie {
         taskNames: "++id, &name",
         taskConfigurations: "++id, &taskNameId",
         taskStatuses: "++id, &name",
-        taskExecutions: "++id, &name, executionDate",
+        taskExecutions: "++id, &[taskNameId+startDateTime], startDateTime",
       });
 
     // initial data population - also after upgrades and only diffs to previous version

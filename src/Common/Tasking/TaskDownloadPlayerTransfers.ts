@@ -18,14 +18,8 @@ import { ITable } from '../Toolkit/Table';
 import { Url } from '../Toolkit/Url';
 import { Value } from '../Toolkit/Value';
 import { ITask } from './ITask';
-import { ITaskExecution } from './ITaskExecution';
-import { ITaskExecutions } from './ITaskExecutions';
-import { ITaskStatus } from './ITaskStatus';
-import { TaskStatusFailed } from './TaskStatusFailed';
-import { TaskStatusSuccessful } from './TaskStatusSuccessful';
 
 export class TaskDownloadPlayerTransfers implements ITask {
-  private cacheTaskExecution: ITaskExecution;
   private ressourcePlayerTransferImportNumber: IRessource;
   private ressourcePlayerTransferImportPosition: IRessource;
   private ressourcePlayerTransferImportAge: IRessource;
@@ -33,11 +27,8 @@ export class TaskDownloadPlayerTransfers implements ITask {
   private ressourcePlayerTransferImportPrice: IRessource;
 
   constructor(
-    private taskExecutions: ITaskExecutions,
     private taskName: String,
     private activationStatus: Boolean,
-    private lastExecutionStatus: ITaskStatus,
-    private lastExecutionTime: Date,
     private executionIntervalSeconds: Number,
     private matchday: IMatchday,
     private dataBase: FoxfmIndexedDb,
@@ -64,59 +55,11 @@ export class TaskDownloadPlayerTransfers implements ITask {
 
   public async run(): Promise<void> {
     try {
-      // get last task execution
-      let taskExecution = await this.taskExecution();
-      let lastExecutionTime = await taskExecution.exectionDate();
-      let lastExecutionState = await taskExecution.executionStatus();
-      let nextExecution = new Date(lastExecutionTime.getTime() + (1000 * this.intervalSeconds().valueOf()));
-
-      this.log.debug(`name: ${this.name()};activated: ${this.activated()}; last execution state: ${await lastExecutionState.name()}; last execution: ${await lastExecutionTime}; execution interval (sec): ${this.intervalSeconds()} => next planned execution: ${nextExecution}`);
-
-      let now = new Date();
-      let executionStatus: ITaskStatus = new TaskStatusFailed();
-      if (
-        true
-        && this.activated()
-        && (!(await lastExecutionState.name()).match((await new TaskStatusSuccessful().name()).toString())
-          || nextExecution <= now)) {
-        try {
-          this.log.debug(`${this.name()}: started taks execution`);
-          await this.save(this.matchday);
-          executionStatus = new TaskStatusSuccessful();
-        } catch (e) {
-          throw new Error(`Could not save player transfers into db: '${this.name()}': ${e}`);
-        } finally {
-          let statusName = await executionStatus.name();
-          let time = new Date();
-          this.log.info(`task '${this.name()}' finished execution '${statusName}' at ${time}.`);
-          await this.taskExecutions.getOrAdd(
-            this.name(),
-            statusName,
-            time,
-            this.matchday,
-          );
-        }
-      }
+      this.log.debug(`${this.name()}: started`);
+      await this.save(this.matchday);
     } catch (e) {
       throw new Error(`Running task: ${e}`);
     }
-  }
-
-  private async taskExecution(): Promise<ITaskExecution> {
-    if (this.cacheTaskExecution === undefined) {
-      // fill cache
-      this.log.debug(`fill caching object with new task execution`);
-      this.cacheTaskExecution = await this.taskExecutions
-        .getOrAdd(
-          this.taskName,
-          await this.lastExecutionStatus.name(),
-          this.lastExecutionTime,
-          this.matchday,
-        );
-    } else {
-      this.log.debug(`using cached object`);
-    }
-    return this.cacheTaskExecution;
   }
 
   private async save(matchday: IMatchday): Promise<void> {

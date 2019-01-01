@@ -5,6 +5,8 @@ import { ITaskStatus } from '../Tasking/ITaskStatus';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { TaskNameIDb } from './TaskNameIDb';
 import { TaskStatusIDb } from './TaskStatusIDb';
+import { IMatchday } from '../IMatchday';
+import { MatchdayIDb } from './MatchdayIDb';
 
 export class TaskExecutionIDb implements ITaskExecution {
   constructor(
@@ -41,15 +43,39 @@ export class TaskExecutionIDb implements ITaskExecution {
           let taskExecutionInDb = await this.dataBase.taskExecutions.get(this.id());
           return new TaskStatusIDb(
             this.dataBase,
-            taskExecutionInDb!.executionStatusId,
+            taskExecutionInDb!.taskStatusId,
           );
         });
   }
 
-  public exectionDate(): Promise<Date> {
+  public startDateTime(): Promise<Date> {
     return this.dataBase
       .taskExecutions
       .get(this.idValue)
-      .then((result: IDataModelIDbTaskExecution) => result.executionDate);
+      .then((result: IDataModelIDbTaskExecution) => result.startDateTime);
   }
+
+  public endDateTime(): Promise<Date> {
+    return this.dataBase
+      .taskExecutions
+      .get(this.idValue)
+      .then((result: IDataModelIDbTaskExecution) => result.endDateTime);
+  }
+
+  public matchday(): Promise<IMatchday> {
+    return this.dataBase
+      .transaction(
+        "r",
+        this.dataBase.taskExecutions,
+        this.dataBase.matchdays,
+        async () => {
+          let taskExecutionInDb = await this.dataBase.taskExecutions.get(this.id());
+          return new MatchdayIDb(
+            this.dataBase,
+            taskExecutionInDb!.matchdayId,
+          );
+        });
+  }
+
+
 }

@@ -14,7 +14,6 @@ import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLogging
 import { ITasks } from '../Common/Tasking/ITasks';
 import { TaskDownloadPlayerTransfers } from '../Common/Tasking/TaskDownloadPlayerTransfers';
 import { Tasks } from '../Common/Tasking/Tasks';
-import { TaskStatusReady } from '../Common/Tasking/TaskStatusReady';
 import { Mutex } from '../Common/Toolkit/Mutex';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
@@ -90,22 +89,24 @@ var background = new FoxfmBackground(
           new LogLevelError(),
         )),
     ),
+    new TaskExecutionsIDb(
+      indexedDb,
+      new EasyLogger(
+        logger,
+        new RegisteredLoggingModule(
+          "TaskExecutionsIDb",
+          new LogLevelError(),
+        )
+      )
+    ),
+    new MatchdayIDb(
+      indexedDb,
+      1,
+    ),
     [
       new TaskDownloadPlayerTransfers(
-        new TaskExecutionsIDb(
-          indexedDb,
-          new EasyLogger(
-            logger,
-            new RegisteredLoggingModule(
-              "TaskExecutionsIDb",
-              new LogLevelError(),
-            )
-          )
-        ),
         "TaskDownloadPlayerTransfers",
         false,
-        new TaskStatusReady(),
-        new Date(2000, 2, 2, 2, 2, 2, 2),
         30,
         new MatchdayIDb(
           indexedDb,
@@ -115,22 +116,12 @@ var background = new FoxfmBackground(
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
-            "TransferDownloadTask",
+            "TaskDownloadPlayerTransfers",
             new LogLevelError(),
           )
         )
       ),
       new TaskLogDateTime(
-        new TaskExecutionsIDb(
-          indexedDb,
-          new EasyLogger(
-            logger,
-            new RegisteredLoggingModule(
-              "TaskExecutionsIDb",
-              new LogLevelError(),
-            )
-          )
-        ),
         "TaskLogDateTime",
         true,
         3,
@@ -141,7 +132,7 @@ var background = new FoxfmBackground(
         new EasyLogger(
           logger,
           new RegisteredLoggingModule(
-            "TimeTask",
+            "TaskLogDateTime",
             new LogLevelError(),
           )
         )
@@ -156,4 +147,4 @@ var background = new FoxfmBackground(
   logger,
 );
 
-background.main();
+background.main().catch(e => logger.error("Background", `error: ${e}`));
