@@ -8,6 +8,7 @@ import { ITaskExecutions } from './ITaskExecutions';
 import { IMatchday } from '../IMatchday';
 import { TaskStatusRunning } from './TaskStatusRunning';
 import { TaskStatusExecuted } from './TaskStatusExecuted';
+import { ITaskConfiguration } from './ITaskConfiguration';
 
 export class Tasks implements ITasks {
   constructor(
@@ -38,37 +39,41 @@ export class Tasks implements ITasks {
         taskName,
         await task.activated(),
         await task.intervalSeconds(),
+        await task.lastExecutionsToKeep(),
       );
-
       let activated = await taskConfig.activated();
-      let executionIntervalSeconds = await taskConfig.executionIntervalSeconds();
-      let currentExecutionStatusName = await this.currentExecutionStatusName(taskName);
-      this.log.debug(`next task: '${taskName}'; activated: ${activated}; interval: ${executionIntervalSeconds} sec; current status: ${currentExecutionStatusName}`);
-      if (activated && !(currentExecutionStatusName.match((await new TaskStatusRunning().name()).toString()))) {
-        this.log.info(`starting: ${taskName}`);
-        const exec = await this.taskExecutions.getOrAdd(
-          taskName,
-          await new TaskStatusRunning().name(),
-          new Date(),
-          new Date(8640000000000000),
-          this.matchday,
-        );
 
-        try {
-          await task.run();
-          await this.taskExecutions.updateStatusEndDateTime(
-            exec.id(),
-            await new TaskStatusExecuted().name(),
-            new Date(),
-          );
-        } catch (e) {
-          this.taskExecutions.updateStatusEndDateTime(
-            exec.id(),
-            await new TaskStatusFailed().name(),
-            new Date(),
-          );
-          throw e;
-        }
+      if (activated) {
+        let executionIntervalSeconds = await taskConfig.executionIntervalSeconds();
+        let currentExecutionStatusName = await this.currentExecutionStatusName(taskName);
+        this.log.debug(`next task: '${taskName}'; activated: ${activated}; interval: ${executionIntervalSeconds} sec; current status: ${currentExecutionStatusName}`);
+        await this.runTask(currentExecutionStatusName, taskName, task.run(), await taskConfig.lastExecutionsToKeep());
+      }
+    }
+  }
+
+  private removeOldTaskExecutions(taskName: String, lastExecutionsToKeep: Number): any {
+    this.taskExecutions.deleteFinalised(taskName, lastExecutionsToKeep);
+  }
+
+  private async runTask(
+    currentExecutionStatusName: String,
+    taskName: String,
+    task: Promise<void>,
+    lastExecutionsToKeep: Number,
+  ): Promise<void> {
+
+    if (!(currentExecutionStatusName.match((await new TaskStatusRunning().name()).toString()))) {
+      this.log.info(`starting: ${taskName}`);
+      const exec = await this.taskExecutions.getOrAdd(taskName, new TaskStatusRunning(), new Date(), new Date(8640000000000000), this.matchday);
+      try {
+        await task;
+        await this.taskExecutions.updateStatusEndDateTime(exec.id(), new TaskStatusExecuted(), new Date());
+      }
+      catch (e) {
+        await this.taskExecutions.updateStatusEndDateTime(exec.id(), new TaskStatusFailed(), new Date());
+        await this.removeOldTaskExecutions(taskName, lastExecutionsToKeep);
+        throw e;
       }
     }
   }

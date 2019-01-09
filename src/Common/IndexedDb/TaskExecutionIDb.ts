@@ -41,6 +41,7 @@ export class TaskExecutionIDb implements ITaskExecution {
         this.dataBase.taskStatuses,
         async () => {
           let taskExecutionInDb = await this.dataBase.taskExecutions.get(this.id());
+          let taskStatusInDb = await this.dataBase.taskStatuses.get(taskExecutionInDb!.taskStatusId);
           return new TaskStatusIDb(
             this.dataBase,
             taskExecutionInDb!.taskStatusId,

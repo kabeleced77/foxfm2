@@ -19,6 +19,12 @@ export class TaskStatusIDb implements ITaskStatus {
       .then((result: IDataModelIDbTaskStatus) => result.name);
   }
 
+  public final(): Promise<Boolean> {
+    return this.dataBase
+      .taskStatuses
+      .get(this.idValue)
+      .then((result: IDataModelIDbTaskStatus) => result.final);
+  }
   /*
   public updateNextExecution(nextExection: Date): void {
     this.dataBase

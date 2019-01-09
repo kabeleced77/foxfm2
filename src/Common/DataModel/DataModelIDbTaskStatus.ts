@@ -1,6 +1,7 @@
 export interface IDataModelIDbTaskStatus {
   id?: Number;
   name: String;
+  final: Boolean;
 }
 
 export class DataModelIDbTaskStatus implements IDataModelIDbTaskStatus {
@@ -8,5 +9,6 @@ export class DataModelIDbTaskStatus implements IDataModelIDbTaskStatus {
 
   constructor(
     public name: String,
+    public final: Boolean,
   ) { }
 }

@@ -43,4 +43,11 @@ export class TaskConfigurationIDb implements ITaskConfiguration {
       .get(this.idValue)
       .then((result: IDataModelIDbTaskConfiguration) => result.executionIntervalSeconds);
   }
+
+  public lastExecutionsToKeep(): Promise<Number> {
+    return this.dataBase
+      .taskConfigurations
+      .get(this.idValue)
+      .then((result: IDataModelIDbTaskConfiguration) => result.lastExecutionsToKeep);
+  }
 }

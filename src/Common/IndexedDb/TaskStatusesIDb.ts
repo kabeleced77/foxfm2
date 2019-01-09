@@ -29,6 +29,7 @@ export class TaskStatusesIDb implements ITaskStatuses {
 
   public getOrAdd(
     taskStatusName: String,
+    final: Boolean,
   ): Promise<ITaskStatus> {
     return this.dataBase
       .transaction("rw", this.dataBase.taskStatuses, async () => {
@@ -42,6 +43,7 @@ export class TaskStatusesIDb implements ITaskStatuses {
             .taskStatuses
             .add(new DataModelIDbTaskStatus(
               taskStatusName,
+              final,
             ))
             .then(id => {
               this.logger.debug(`added to IDb: new task status: '${taskStatusName}'`);

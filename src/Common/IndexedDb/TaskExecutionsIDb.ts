@@ -8,6 +8,9 @@ import { TaskExecutionIDb } from './TaskExecutionIDb';
 import { TaskNamesIDb } from './TaskNamesIDb';
 import { TaskStatusesIDb } from './TaskStatusesIDb';
 import { TaskExecutionNotFound } from './TaskExecutionNotFound';
+import { TaskStatusRunning } from '../Tasking/TaskStatusRunning';
+import { TaskStatusExecuted } from '../Tasking/TaskStatusExecuted';
+import { ITaskStatus } from '../Tasking/ITaskStatus';
 
 export class TaskExecutionsIDb implements ITaskExecutions {
   constructor(
@@ -22,24 +25,6 @@ export class TaskExecutionsIDb implements ITaskExecutions {
       .toCollection()
       .eachPrimaryKey((pk: Number) => vals.push(new TaskExecutionIDb(this.dataBase, pk)))
       .then(() => vals);
-  }
-
-  public byTaskName(
-    taskName: String,
-  ): Promise<ITaskExecution[]> {
-
-    return this.dataBase
-      .transaction(
-        "rw",
-        this.dataBase.taskExecutions,
-        this.dataBase.taskNames,
-        async () => {
-          let taskNameInDb = await new TaskNamesIDb(this.dataBase, this.logger).getOrAdd(taskName);
-          return this.dataBase
-            .taskExecutions
-            .filter(taskExecution => taskExecution.taskNameId === taskNameInDb.id())
-            .toArray(te => te.map(te => new TaskExecutionIDb(this.dataBase, te.id!)));
-        });
   }
 
   public latest(
@@ -60,7 +45,7 @@ export class TaskExecutionsIDb implements ITaskExecutions {
           if (await executions.count() > 0) {
             latestExecution = executions
               .reverse() // see also Dexie doc: To sort in descending order, use Collection.reverse() on the collection before calling sortBy().
-              .sortBy('executionDate')
+              .sortBy('endDateTime')
               .then(values => new TaskExecutionIDb(this.dataBase, values[0]!.id!));
           } else {
             latestExecution = new Promise<ITaskExecution>(resolve => resolve(new TaskExecutionNotFound()));
@@ -70,9 +55,35 @@ export class TaskExecutionsIDb implements ITaskExecutions {
         });
   }
 
+  public deleteFinalised(
+    taskName: String,
+    lastExecutionsToKeep: Number,
+  ): Promise<Number> {
+
+    return this.dataBase
+      .transaction(
+        "rw",
+        this.dataBase.taskExecutions,
+        this.dataBase.taskStatuses,
+        async () => {
+         const finalStatusIds = await this.dataBase
+            .taskStatuses
+            .filter(status => status.final === true)
+            .primaryKeys();
+
+          return this.dataBase
+            .taskExecutions
+            .filter(te => finalStatusIds.find(ft => ft === te.taskStatusId) !== undefined)
+            .reverse()
+            .offset(lastExecutionsToKeep.valueOf())
+            .delete()
+            ;
+        });
+  }
+
   public async getOrAdd(
     taskName: String,
-    executionStatusName: String,
+    executionStatusName: ITaskStatus,
     startDateTime: Date,
     endDateTime: Date,
     executionMatchday: IMatchday,
@@ -89,7 +100,11 @@ export class TaskExecutionsIDb implements ITaskExecutions {
         async () => {
           let taskExecutionInDb: ITaskExecution;
           let taskNameInDb = await new TaskNamesIDb(this.dataBase, this.logger).getOrAdd(taskName);
-          let taskStatusInDb = await new TaskStatusesIDb(this.dataBase, this.logger).getOrAdd(executionStatusName);
+          let taskStatusInDb = await new TaskStatusesIDb(this.dataBase, this.logger)
+            .getOrAdd(
+              await executionStatusName.name(),
+              await executionStatusName.final(),
+            );
           taskExecutionInDb = await this.dataBase
             .taskExecutions
             .add(new DataModelIDbTaskExecution(
@@ -114,7 +129,7 @@ export class TaskExecutionsIDb implements ITaskExecutions {
 
   public updateStatusEndDateTime(
     id: Number,
-    statusName: String,
+    taskStatus: ITaskStatus,
     endDateTime: Date,
   ): Promise<ITaskExecution> {
 
@@ -126,7 +141,11 @@ export class TaskExecutionsIDb implements ITaskExecutions {
         this.dataBase.taskNames,
         this.dataBase.matchdays,
         async () => {
-          let taskStatusInDb = await new TaskStatusesIDb(this.dataBase, this.logger).getOrAdd(statusName);
+          let taskStatusInDb = await new TaskStatusesIDb(this.dataBase, this.logger)
+            .getOrAdd(
+              await taskStatus.name(),
+              await taskStatus.final(),
+            );
           let lastestTaskExecution = new TaskExecutionIDb(this.dataBase, id);
 
           if (lastestTaskExecution.id() > 0) {
@@ -146,10 +165,10 @@ export class TaskExecutionsIDb implements ITaskExecutions {
               .update(id, updateExecution)
               .then(async updated => {
                 if (updated) {
-                  this.logger.debug(`updated task execution in IDb '${taskName}': '${statusName}', ${endDateTime}`);
+                  this.logger.debug(`updated task execution in IDb '${taskName}': '${taskStatus}', ${endDateTime}`);
                 }
                 else {
-                  this.logger.debug(`did NOT update task execution in IDb '${taskName}': '${statusName}', ${endDateTime}`);
+                  this.logger.debug(`did NOT update task execution in IDb '${taskName}': '${taskStatus}', ${endDateTime}`);
                 }
                 return new TaskExecutionIDb(
                   this.dataBase,

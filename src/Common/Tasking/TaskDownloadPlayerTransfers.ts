@@ -30,6 +30,7 @@ export class TaskDownloadPlayerTransfers implements ITask {
     private taskName: String,
     private activationStatus: Boolean,
     private executionIntervalSeconds: Number,
+    private lastExecutionsToKeepValue: Number,
     private matchday: IMatchday,
     private dataBase: FoxfmIndexedDb,
     private log: IEasyLogger,
@@ -51,6 +52,10 @@ export class TaskDownloadPlayerTransfers implements ITask {
 
   public intervalSeconds(): Number {
     return this.executionIntervalSeconds;
+  }
+
+  public lastExecutionsToKeep(): Number {
+    return this.lastExecutionsToKeepValue;
   }
 
   public async run(): Promise<void> {

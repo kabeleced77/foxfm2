@@ -5,4 +5,5 @@ export interface ITaskConfiguration {
   activated(): Promise<Boolean>;
   taskName(): Promise<ITaskName>;
   executionIntervalSeconds(): Promise<Number>;
+  lastExecutionsToKeep(): Promise<Number>;
 }

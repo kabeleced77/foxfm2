@@ -3,11 +3,11 @@ import { IEasyLogger } from '../Logger/EasyLogger';
 import { ITask } from './ITask';
 
 export class TaskLogDateTime implements ITask {
-
   constructor(
     private taskName: String,
     private activationStatus: Boolean,
     private executionIntervalSeconds: Number,
+    private lastExecutionsToKeepValue: Number,
     private matchday: IMatchday,
     private log: IEasyLogger,
   ) {
@@ -23,6 +23,10 @@ export class TaskLogDateTime implements ITask {
 
   public intervalSeconds(): Number {
     return this.executionIntervalSeconds;
+  }
+
+  public lastExecutionsToKeep(): Number {
+    return this.lastExecutionsToKeepValue;
   }
 
   public async run(): Promise<void> {

@@ -108,6 +108,7 @@ var background = new FoxfmBackground(
         "TaskDownloadPlayerTransfers",
         false,
         30,
+        5,
         new MatchdayIDb(
           indexedDb,
           1,
@@ -125,6 +126,7 @@ var background = new FoxfmBackground(
         "TaskLogDateTime",
         true,
         3,
+        5,
         new MatchdayIDb(
           indexedDb,
           1,

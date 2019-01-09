@@ -41,6 +41,7 @@ export class TaskConfigurationsIDb implements ITaskConfigurations {
     taskName: String,
     activated: Boolean,
     intervalSeconds: Number,
+    lastExecutionsToKeep: Number,
   ): Promise<ITaskConfiguration> {
     try {
       this.logger.debug(`will add new task configuration to IDb: name='${taskName}', activated='${activated}', interval[sec]='${intervalSeconds}'`);
@@ -58,6 +59,7 @@ export class TaskConfigurationsIDb implements ITaskConfigurations {
                 activated,
                 taskNameInDb.id(),
                 intervalSeconds,
+                lastExecutionsToKeep,
               ));
             this.logger.debug(`added to IDb: new task configuration: name='${taskName}', activated='${activated}', interval[sec]='${intervalSeconds}'`);
             return new TaskConfigurationIDb(
@@ -75,6 +77,7 @@ export class TaskConfigurationsIDb implements ITaskConfigurations {
     taskName: String,
     activated: Boolean,
     intervalSeconds: Number,
+    lastExecutionsToKeep,
   ): Promise<ITaskConfiguration> {
     return this.dataBase
       .transaction(
@@ -93,6 +96,7 @@ export class TaskConfigurationsIDb implements ITaskConfigurations {
               taskName,
               activated,
               intervalSeconds,
+              lastExecutionsToKeep,
             );
           }
           return taskConfigInDb;

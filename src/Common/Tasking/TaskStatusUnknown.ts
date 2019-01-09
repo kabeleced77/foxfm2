@@ -10,4 +10,8 @@ export class TaskStatusUnknown implements ITaskStatus {
   public name(): Promise<String> {
     return new Promise((resolve) => resolve("Unknown"));
   }
+
+  public final(): Promise<Boolean> {
+    return new Promise((resolve) => resolve(false));
+  }
 }

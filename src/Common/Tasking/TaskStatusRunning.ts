@@ -13,4 +13,8 @@ export class TaskStatusRunning implements ITaskStatus {
       resolve(this.statusName);
     });
   }
+
+  public final(): Promise<Boolean> {
+    return new Promise((resolve) => resolve(false));
+  }
 }
