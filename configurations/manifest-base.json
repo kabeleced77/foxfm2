@@ -6,7 +6,8 @@
   "permissions": [
     "contextMenus",
     "tabs",
-    "storage"
+    "storage",
+    "notifications"
   ],
   "icons": {
     "16": "foxfm16.png",
