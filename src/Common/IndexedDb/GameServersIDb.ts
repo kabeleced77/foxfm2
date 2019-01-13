@@ -1,7 +1,7 @@
 import { GameServerDataModel } from '../DataModel/GameServerDataModel';
 import { GameServerIDb, IGameServer } from './GameServerIDb';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
-import { IGameServers } from '../GameServers';
+import { IGameServers } from '../IGameServers';
 
 export class GameServersIDb implements IGameServers {
   private dataBase: FoxfmIndexedDb;
