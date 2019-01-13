@@ -1,4 +1,4 @@
-import { IPlayerTransfer } from './PlayerTransfer';
+import { IPlayerTransfer } from "./IPlayerTransfer";
 
 export interface IPlayerTransfers {
   playerTransfers(): Promise<IPlayerTransfer[]>;

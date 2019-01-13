@@ -4,19 +4,7 @@ import { GameServerIDb, IGameServer } from './IndexedDb/GameServerIDb';
 import { IMatchday } from './IMatchday';
 import { FoxfmIndexedDb } from './IndexedDb/FoxfmIndexedDb';
 import { MatchdayIDb } from './IndexedDb/MatchdayIDb';
-
-export interface IPlayerTransfer {
-  id(): Number;
-  gameServerId(): Promise<Number>;
-  gameServer(): Promise<IGameServer>;
-  externalTransferId(): Promise<Number>;
-  matchdayId(): Promise<Number>;
-  matchday(): Promise<IMatchday>;
-  position(): Promise<String>;
-  age(): Promise<Number>;
-  strength(): Promise<Number>;
-  price(): Promise<Number>;
-}
+import { IPlayerTransfer } from './IPlayerTransfer';
 
 export class PlayerTransfer implements IPlayerTransfer {
   private source: FoxfmIndexedDb;
