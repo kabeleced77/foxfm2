@@ -2,7 +2,7 @@ import { IMatchdayDataModel } from '../DataModel/MatchdayDataModel';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IMatchday } from '../IMatchday';
 import { GameServerIDb } from './GameServerIDb';
-import { IGameServer } from "./IGameServer";
+import { IGameServer } from "../IGameServer";
 
 export class MatchdayIDb implements IMatchday {
   constructor(

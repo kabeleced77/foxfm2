@@ -1,4 +1,4 @@
-import { IGameServer } from "./IndexedDb/IGameServer";
+import { IGameServer } from "./IGameServer";
 import { IMatchday } from './IMatchday';
 
 export interface IPlayerTransfer {

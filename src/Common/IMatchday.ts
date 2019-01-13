@@ -1,4 +1,4 @@
-import { IGameServer } from "./IndexedDb/IGameServer";
+import { IGameServer } from "./IGameServer";
 
 export interface IMatchday {
   id(): Number;

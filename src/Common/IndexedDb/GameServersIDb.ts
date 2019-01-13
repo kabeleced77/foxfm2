@@ -1,6 +1,6 @@
 import { GameServerDataModel } from '../DataModel/GameServerDataModel';
 import { GameServerIDb } from './GameServerIDb';
-import { IGameServer } from "./IGameServer";
+import { IGameServer } from "../IGameServer";
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IGameServers } from '../IGameServers';
 
