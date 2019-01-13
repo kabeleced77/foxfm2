@@ -427,6 +427,7 @@ System.config({
       "Common/IndexedDb/ClubsIDb.js",
       "Common/IndexedDb/FoxfmIndexedDb.js",
       "Common/IndexedDb/GameServerIDb.js",
+      "Common/IndexedDb/GameServersIDb.js",
       "Common/IndexedDb/MatchdayIDb.js",
       "Common/IndexedDb/MatchdaysIDb.js",
       "Common/IndexedDb/PlayerTransfersIDb.js",
