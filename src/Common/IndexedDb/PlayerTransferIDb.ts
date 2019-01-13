@@ -1,10 +1,10 @@
-import { IMatchdayDataModel } from './DataModel/MatchdayDataModel';
-import { IPlayerTransferDataModel } from './DataModel/PlayerTransferDataModel';
-import { GameServerIDb, IGameServer } from './IndexedDb/GameServerIDb';
-import { IMatchday } from './IMatchday';
-import { FoxfmIndexedDb } from './IndexedDb/FoxfmIndexedDb';
-import { MatchdayIDb } from './IndexedDb/MatchdayIDb';
-import { IPlayerTransfer } from './IPlayerTransfer';
+import { IMatchdayDataModel } from '../DataModel/MatchdayDataModel';
+import { IPlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
+import { GameServerIDb, IGameServer } from './GameServerIDb';
+import { IMatchday } from '../IMatchday';
+import { FoxfmIndexedDb } from './FoxfmIndexedDb';
+import { MatchdayIDb } from './MatchdayIDb';
+import { IPlayerTransfer } from '../IPlayerTransfer';
 
 export class PlayerTransferIDb implements IPlayerTransfer {
   private source: FoxfmIndexedDb;

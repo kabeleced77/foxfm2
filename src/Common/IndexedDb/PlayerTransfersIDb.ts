@@ -1,6 +1,6 @@
 import { PlayerTransferDateModel } from '../DataModel/PlayerTransferDataModel';
 import { IPlayerTransfers } from '../IPlayerTransfers';
-import { PlayerTransferIDb } from '../PlayerTransfer';
+import { PlayerTransferIDb } from './PlayerTransferIDb';
 import { IPlayerTransfer } from "../IPlayerTransfer";
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 
