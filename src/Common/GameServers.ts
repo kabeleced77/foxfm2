@@ -1,5 +1,5 @@
 import { GameServerDataModel } from './DataModel/GameServerDataModel';
-import { GameServerIDb, IGameServer } from './GameServer';
+import { GameServerIDb, IGameServer } from './IndexedDb/GameServerIDb';
 import { FoxfmIndexedDb } from './IndexedDb/FoxfmIndexedDb';
 
 export interface IGameServers {
