@@ -6,7 +6,7 @@ import { FoxfmIndexedDb } from './IndexedDb/FoxfmIndexedDb';
 import { MatchdayIDb } from './IndexedDb/MatchdayIDb';
 import { IPlayerTransfer } from './IPlayerTransfer';
 
-export class PlayerTransfer implements IPlayerTransfer {
+export class PlayerTransferIDb implements IPlayerTransfer {
   private source: FoxfmIndexedDb;
   private idValue: Number;
 

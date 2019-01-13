@@ -1,6 +1,6 @@
 import { PlayerTransferDateModel } from '../DataModel/PlayerTransferDataModel';
 import { IPlayerTransfers } from '../IPlayerTransfers';
-import { PlayerTransfer } from '../PlayerTransfer';
+import { PlayerTransferIDb } from '../PlayerTransfer';
 import { IPlayerTransfer } from "../IPlayerTransfer";
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 
@@ -14,7 +14,7 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
     return this.dataBase
       .playerTransfers
       .toCollection()
-      .eachPrimaryKey((pk: Number) => vals.push(new PlayerTransfer(this.dataBase, pk)))
+      .eachPrimaryKey((pk: Number) => vals.push(new PlayerTransferIDb(this.dataBase, pk)))
       .then(() => vals);
   }
 
@@ -39,7 +39,7 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
         price,
       ))
       .then(id => {
-        return new PlayerTransfer(this.dataBase, id);
+        return new PlayerTransferIDb(this.dataBase, id);
       })
       .catch('ConstraintError', e => { })
       .catch(e => { throw `Could not add new player transfer: ${e}`; });
