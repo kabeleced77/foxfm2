@@ -1,6 +1,7 @@
 import { IMatchdayDataModel } from '../DataModel/MatchdayDataModel';
 import { IPlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
-import { GameServerIDb, IGameServer } from './GameServerIDb';
+import { GameServerIDb } from './GameServerIDb';
+import { IGameServer } from "./IGameServer";
 import { IMatchday } from '../IMatchday';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { MatchdayIDb } from './MatchdayIDb';

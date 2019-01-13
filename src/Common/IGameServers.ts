@@ -1,4 +1,4 @@
-import { IGameServer } from './IndexedDb/GameServerIDb';
+import { IGameServer } from "./IndexedDb/IGameServer";
 
 export interface IGameServers {
   gameServers(): Promise<IGameServer[]>;

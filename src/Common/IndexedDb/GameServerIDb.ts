@@ -1,10 +1,6 @@
 import { IGameServerDataModel } from '../DataModel/GameServerDataModel';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
-
-export interface IGameServer {
-  id(): Number;
-  uri(): Promise<String>;
-}
+import { IGameServer } from './IGameServer';
 
 export class GameServerIDb implements IGameServer {
   private source: FoxfmIndexedDb;
