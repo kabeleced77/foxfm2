@@ -39,8 +39,6 @@ class FoxfmBackground {
     try {
       this.log.info(this.thisModule, "S t a r t e d");
 
-      this.notifications();
-
       this.createContextMenu();
       let messaging = new MessagingBackgroundScript(
         "",
@@ -56,21 +54,6 @@ class FoxfmBackground {
     catch (e) {
       this.log.error(this.thisModule, `Error in background script: ${e.message}`);
     }
-  }
-
-  private notifications() {
-    const options = {
-      "icon": chrome.extension.getURL("foxfm64.png"),
-      //      "image": chrome.extension.getURL("foxfm16.png"),
-      "title": "foxfm",
-      "body": "Import player transfers (click here)",
-      "tag": "notify-player-transfer-download"
-    };
-    const notification = new Notification("foxfm", options);
-    notification.onclick = () => {
-      options.body = "Start downloading...";
-      new Notification("foxfm", options);
-    };
   }
 
   private createContextMenu() {
