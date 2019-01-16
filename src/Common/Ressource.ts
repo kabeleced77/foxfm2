@@ -1,6 +1,6 @@
 export interface IRessource {
   key(): String;
-  value(): String;
+  value(substituion?: String): String;
   fromJson(jsonString: String): IRessource;
 }
 
@@ -14,8 +14,8 @@ export class Ressource implements IRessource {
   public key(): String {
     return this.ressourceKey;
   }
-  public value(): String {
-    return chrome.i18n.getMessage(this.ressourceKey.valueOf());
+  public value(substitution?: String): String {
+    return chrome.i18n.getMessage(this.ressourceKey.valueOf(), substitution);
   }
   public fromJson(jsonString: String): IRessource {
     return new Ressource(jsonString["ressourceKey"]);
@@ -58,6 +58,7 @@ export class RessourcePlayerTransferImportFieldPrice implements IRessource {
   public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
 }
 
+export class RessourceCommonAppName extends Ressource { constructor() { super("common_appName"); } }
 export class RessourceCommonButtonApply extends Ressource { constructor() { super("common_buttonApply"); } }
 export class RessourceCommonButtonImport extends Ressource { constructor() { super("common_buttonImport"); } }
 export class RessourceCommonSelectElement extends Ressource { constructor() { super("common_selectElement"); } }
@@ -130,3 +131,7 @@ export class RessourcePlayerTransferMarketPageElementBack extends Ressource { co
 
 export class RessourcePlayerTransferMarketPlayerPageElementCloseWindow extends Ressource { constructor() { super("playerTransferMarketPlayerPage_elementCloseWindow"); } }
 export class RessourcePlayerTransferMarketPlayerPageElementBack extends Ressource { constructor() { super("playerTransferMarketPlayerPage_elementBack"); } }
+
+export class RessourceUserInteractionImportPlayerTransfersQuestionStartImport extends Ressource { constructor() { super("userInteractionImportPlayerTransfers_questionStartImport"); } }
+export class RessourceUserInteractionImportPlayerTransfersImportingStarted extends Ressource { constructor() { super("userInteractionImportPlayerTransfers_importingStarted"); } }
+export class RessourceUserInteractionImportPlayerTransfersImportingFinished extends Ressource { constructor() { super("userInteractionImportPlayerTransfers_importingFinished"); } }
