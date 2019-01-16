@@ -12,7 +12,6 @@ import { IRessource, Ressource } from '../Common/Ressource';
 import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
 import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
 import { ITasks } from '../Common/Tasking/ITasks';
-import { TaskDownloadPlayerTransfers } from '../Common/Tasking/TaskDownloadPlayerTransfers';
 import { Tasks } from '../Common/Tasking/Tasks';
 import { Mutex } from '../Common/Toolkit/Mutex';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
@@ -104,25 +103,7 @@ var background = new FoxfmBackground(
       1,
     ),
     [
-      new TaskDownloadPlayerTransfers(
-        "TaskDownloadPlayerTransfers",
-        false,
-        30,
-        5,
-        new MatchdayIDb(
-          indexedDb,
-          1,
-        ),
-        indexedDb,
-        new EasyLogger(
-          logger,
-          new RegisteredLoggingModule(
-            "TaskDownloadPlayerTransfers",
-            new LogLevelError(),
-          )
-        )
-      ),
-      new TaskLogDateTime(
+     new TaskLogDateTime(
         "TaskLogDateTime",
         true,
         3,

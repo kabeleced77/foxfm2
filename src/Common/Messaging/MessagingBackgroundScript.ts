@@ -8,11 +8,13 @@ import { IClub } from '../IClub';
 import { ClubsIDb } from '../IndexedDb/ClubsIDb';
 import { FoxfmIndexedDb } from '../IndexedDb/FoxfmIndexedDb';
 import { MatchdaysIDb } from '../IndexedDb/MatchdaysIDb';
-import { IEasyLogger } from '../Logger/EasyLogger';
+import { IEasyLogger, EasyLogger } from '../Logger/EasyLogger';
 import { IMessaging } from './Messaging';
 import { IMessagingMessage } from './MessagingMessage';
 import { MessagingMessageTypeIndexedDbAddClub } from './MessagingMessageTypeIndexedDbAddClub';
 import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageTypeIndexedDbAddMatchday';
+import { IMatchday } from '../IMatchday';
+import { UserInteractionImportPlayerTransfers } from '../../BackgroundPage/PlayerTransfers/UserInteractionImportPlayerTransfers';
 
 export class MessagingBackgroundScript implements IMessaging<Object> {
   private portName: String;
@@ -41,7 +43,10 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
         this.logger.info(`received message with content: ${JSON.stringify(message.content)}`);
         switch (message.type.name) {
           case new MessagingMessageTypeIndexedDbAddMatchday().name:
-            this.addMatchdayToIndexedDb(<IPersistMatchdayMessagingDataModel>message.content);
+            const matchday = await this.addMatchdayToIndexedDb(<IPersistMatchdayMessagingDataModel>message.content);
+
+            new UserInteractionImportPlayerTransfers(this.indexedDb, this.logger).import(matchday);
+
             break;
           case new MessagingMessageTypeIndexedDbAddClub().name:
             let addedClub = await this.addClubToIndexedDb(<IPersistClubMessagingDataModel>message.content);
@@ -54,9 +59,9 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
     });
   }
 
-  private addMatchdayToIndexedDb(matchday: IPersistMatchdayMessagingDataModel): void {
+  private async addMatchdayToIndexedDb(matchday: IPersistMatchdayMessagingDataModel): Promise<IMatchday> {
     this.logger.debug(`add matchday to IDb: ${matchday.gameServerUrl} ${matchday.gameSeason}-${matchday.gameDay}`);
-    new MatchdaysIDb(
+    return new MatchdaysIDb(
       this.indexedDb,
       this.logger)
       .add(
