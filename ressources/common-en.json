@@ -1,4 +1,7 @@
 {
+  "common_appName": {
+    "message": "foxfm"
+  },
   "common_selectElement": {
     "message": "Select element"
   },
