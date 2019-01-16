@@ -1,0 +1,26 @@
+{
+  "userInteractionImportPlayerTransfers_questionStartImport": {
+    "message": "Klicke hier, um den Import der Transfers für Spieltag $MATCHDAY$ zu starten",
+    "placeholders": {
+      "matchday": {
+        "content": "$1"
+      }
+    }
+  },
+  "userInteractionImportPlayerTransfers_importingStarted": {
+    "message": "Import der Transfers für Spieltag $MATCHDAY$ gestartet",
+    "placeholders": {
+      "matchday": {
+        "content": "$1"
+      }
+    }
+  },
+  "userInteractionImportPlayerTransfers_importingFinished": {
+    "message": "Import der Transfers für Spieltag $MATCHDAY$ beendet",
+    "placeholders": {
+      "matchday": {
+        "content": "$1"
+      }
+    }
+  }
+}

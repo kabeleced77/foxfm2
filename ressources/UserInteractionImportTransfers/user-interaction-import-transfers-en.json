@@ -1,0 +1,11 @@
+{
+  "userInteractionImportPlayerTransfers_questionStartImport": {
+    "message": "Click here importing transfers of matchday "
+  },
+  "userInteractionImportPlayerTransfers_importingStarted": {
+    "message": "Starting import of transfers of matchday "
+  },
+  "userInteractionImportPlayerTransfers_importingFinished": {
+    "message": "Finished import of transfers of matchday "
+  }
+}
