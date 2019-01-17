@@ -32,6 +32,7 @@
     "minimatch": "^3.0.4",
     "require-dir": "^0.3.0",
     "run-sequence": "^2.2.0",
+    "ts-nameof": "^2.0.0",
     "tslint": "^5.7.0",
     "typescript": "^2.5.3",
     "vinyl-paths": "^2.1.0"

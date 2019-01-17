@@ -8,6 +8,7 @@ var assign = Object.assign || require('object.assign');
 var typescript = require('gulp-typescript');
 var htmlmin = require('gulp-htmlmin');
 var merge = require('gulp-merge-json');
+const tsNameof = require("ts-nameof");
 
 // transpiles changed es6 files to SystemJS format
 // the plumber() call prevents 'pipe breaking' caused
@@ -24,7 +25,9 @@ gulp.task('build-system', function () {
     .pipe(plumber())
     .pipe(changed(paths.output, { extension: '.ts' }))
     .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(typescriptCompiler())
+    .pipe(typescriptCompiler({
+      getCustomTransformers: () => ({ before: [tsNameof] })
+    }))
     .pipe(sourcemaps.write('.', { includeContent: false, sourceRoot: '/src' }))
     .pipe(gulp.dest(paths.output));
 });
