@@ -32,10 +32,9 @@ export class DOMHelper {
     if (className) newCell.className = className;
     return newCell;
   }
-  public static createRow(verticalAlign?: string, height?: string): HTMLTableRowElement {
+  public static createRow(verticalAlign?: string): HTMLTableRowElement {
     var newRow = document.createElement('tr');
     if (verticalAlign) newRow.vAlign = verticalAlign;
-    if (height) newRow.height = height;
     return newRow;
   }
   public static createDropdown(id: string, name: string, className: string, style: string, tooltip: string, onChange?: (e: Event) => any): HTMLSelectElement {
