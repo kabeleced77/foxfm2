@@ -24,7 +24,14 @@ export class XPathHtmlTableCell implements IXPathHtmlTableCell {
     return table.element();
   }
   public firstTableBody(): HTMLTableSectionElement {
-    return this.table().tBodies.item(0);
+    let firstBody: HTMLTableSectionElement = new HTMLTableSectionElement();
+    const tableBodies = this.table().tBodies;
+
+    if (tableBodies.length > 0) {
+      firstBody = tableBodies.item(0)!;
+    }
+
+    return firstBody;
   }
   public columnIndex(): Number {
     return this.tableCell().cellIndex;
