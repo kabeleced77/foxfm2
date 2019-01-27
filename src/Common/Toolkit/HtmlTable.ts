@@ -8,7 +8,7 @@ export interface IHtmlTable {
   table(): HTMLTableElement;
   tableHeaders(): IHtmlElement<HTMLTableSectionElement>[];
   tableFooters(): IHtmlElement<HTMLTableSectionElement>[];
-  columnGroups(): NodeListOf<HTMLTableColElement>;
+  columnGroups(): HTMLCollectionOf<HTMLTableColElement>;
   firstTableBody(): HTMLTableSectionElement;
   addColumn(column: IHtmlTableColumn): IHtmlTable;
   extendColumn(column: IHtmlTableColumnByXpath, values: String[]): void;
@@ -34,7 +34,7 @@ export class HtmlTable implements IHtmlTable {
     return tHeaders;
   }
 
-  public columnGroups(): NodeListOf<HTMLTableColElement> {
+  public columnGroups(): HTMLCollectionOf<HTMLTableColElement> {
     return this.table().getElementsByTagName("colgroup");
   }
 
