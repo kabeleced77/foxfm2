@@ -65,34 +65,41 @@ export class ImportedPlayerTransfers implements IImportedPlayerTransfers {
     let transferTable = (await this.playerTransferTable(serverUri, day)).table();
     let transferTableFirstRow = transferTable.rows.item(0);
 
-    let columnValues = "";
-    for (let i = 0; i < transferTableFirstRow.cells.length; i++) {
-      columnValues += `${transferTableFirstRow.cells.item(i).innerHTML};`;
-    }
-    this.log.debug(`first row: ${columnValues}`);
-    this.log.debug(`number of rows of 2nd table: ${transferTable.rows.length}`);
+    if (transferTableFirstRow && transferTableFirstRow.cells.length > 0) {
+      let columnValues = "";
+      for (let i = 0; i < transferTableFirstRow.cells.length; i++) {
+        columnValues += `${transferTableFirstRow.cells.item(i)!.innerHTML};`;
+      }
+      this.log.debug(`first row: ${columnValues}`);
+      this.log.debug(`number of rows of 2nd table: ${transferTable.rows.length}`);
 
-    let colIdxNumber = this.columnIndex(transferTableFirstRow, this.ressourcePlayerTransferImportNumber.value());
-    let colIdxPosition = this.columnIndex(transferTableFirstRow, this.ressourcePlayerTransferImportPosition.value());
-    let colIdxAge = this.columnIndex(transferTableFirstRow, this.ressourcePlayerTransferImportAge.value());
-    let colIdxStrength = this.columnIndex(transferTableFirstRow, this.ressourcePlayerTransferImportStrength.value());
-    let colIdxPrice = this.columnIndex(transferTableFirstRow, this.ressourcePlayerTransferImportPrice.value());
+      let colIdxNumber = this.columnIndex(transferTableFirstRow, this.ressourcePlayerTransferImportNumber.value()).valueOf();
+      let colIdxPosition = this.columnIndex(transferTableFirstRow, this.ressourcePlayerTransferImportPosition.value()).valueOf();
+      let colIdxAge = this.columnIndex(transferTableFirstRow, this.ressourcePlayerTransferImportAge.value()).valueOf();
+      let colIdxStrength = this.columnIndex(transferTableFirstRow, this.ressourcePlayerTransferImportStrength.value()).valueOf();
+      let colIdxPrice = this.columnIndex(transferTableFirstRow, this.ressourcePlayerTransferImportPrice.value()).valueOf();
 
-    let playerTransfersIDb = new PlayerTransfersIDb(this.dataBase);
+      let playerTransfersIDb = new PlayerTransfersIDb(this.dataBase);
 
-    // start from second row
-    for (let i = 1; i < transferTable.rows.length; i++) {
-      let cells = transferTable.rows.item(i).cells;
+      // start from second row
+      if (transferTable.rows.length > 1) {
+        for (let i = 1; i < transferTable.rows.length; i++) {
+          const iThRow = transferTable.rows.item(i)!;
+          let cells = iThRow.cells;
 
-      await playerTransfersIDb.add(
-        serverId,
-        matchdayId,
-        this.stringToNumberArray(cells.item(colIdxNumber).innerHTML),
-        cells.item(colIdxPosition).innerHTML,
-        this.stringToNumberArray(cells.item(colIdxAge).innerHTML),
-        this.stringToNumberArray(cells.item(colIdxStrength).innerHTML),
-        this.stringToNumberArray(cells.item(colIdxPrice).innerHTML),
-      );
+          if (cells.length > Math.max(colIdxNumber, colIdxPosition, colIdxAge, colIdxStrength, colIdxPrice)) {
+            await playerTransfersIDb.add(
+              serverId,
+              matchdayId,
+              this.stringToNumberArray(cells.item(colIdxNumber)!.innerHTML),
+              cells.item(colIdxPosition)!.innerHTML,
+              this.stringToNumberArray(cells.item(colIdxAge)!.innerHTML),
+              this.stringToNumberArray(cells.item(colIdxStrength)!.innerHTML),
+              this.stringToNumberArray(cells.item(colIdxPrice)!.innerHTML),
+            );
+          }
+        }
+      }
     }
   }
 
@@ -105,10 +112,10 @@ export class ImportedPlayerTransfers implements IImportedPlayerTransfers {
     ).value();
   }
 
-  private columnIndex(row: HTMLTableRowElement, name: String): any {
+  private columnIndex(row: HTMLTableRowElement, name: String): Number {
     let index = -1;
     for (let i = 0; i < row.cells.length; i++) {
-      if (row.cells.item(i).innerHTML === name) {
+      if (row.cells.item(i)!.innerHTML === name) {
         index = i;
         break;
       }
