@@ -18,16 +18,15 @@ var typescriptCompiler = typescriptCompiler || null;
 gulp.task('build-system', function () {
   if (!typescriptCompiler) {
     typescriptCompiler = typescript.createProject('tsconfig.json', {
-      "typescript": require('typescript')
+      "typescript": require('typescript'),
+      getCustomTransformers: () => ({ before: [tsNameof] })
     });
   }
   return gulp.src(paths.dtsSrc.concat(paths.source))
     .pipe(plumber())
     .pipe(changed(paths.output, { extension: '.ts' }))
     .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(typescriptCompiler({
-      getCustomTransformers: () => ({ before: [tsNameof] })
-    }))
+    .pipe(typescriptCompiler())
     .pipe(sourcemaps.write('.', { includeContent: false, sourceRoot: '/src' }))
     .pipe(gulp.dest(paths.output));
 });
