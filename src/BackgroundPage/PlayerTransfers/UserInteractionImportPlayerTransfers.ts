@@ -4,6 +4,7 @@ import { IMatchday } from '../../Common/IMatchday';
 import { ImportedPlayerTransfers } from './ImportedPlayerTransfers';
 import { IUserInteractionImportPlayerTransfers } from './IUserInteractionImportPlayerTransfers';
 import { RessourceUserInteractionImportPlayerTransfersQuestionStartImport, RessourceCommonAppName, RessourceUserInteractionImportPlayerTransfersImportingStarted, RessourceUserInteractionImportPlayerTransfersImportingFinished, IRessource } from '../../Common/Ressource';
+import { ImportedTransfersOfMatchdaysIDb } from '../../Common/IndexedDb/ImportedTransfersOfMatchdaysIDb';
 
 export class UserInteractionImportPlayerTransfers implements IUserInteractionImportPlayerTransfers {
   private resourceAppName: string;
@@ -39,6 +40,16 @@ export class UserInteractionImportPlayerTransfers implements IUserInteractionImp
       await new ImportedPlayerTransfers(this.database, this.logger).import(matchday);
       options.body = this.resourceImportingFinished.value(`${season}-${day}`).toString();
       new Notification("foxfm", options);
+
+      // safe last successful import
+      new ImportedTransfersOfMatchdaysIDb(
+        this.database,
+        this.logger
+      )
+        .add(
+          matchday,
+          new Date(),
+        )
     };
   }
 }
