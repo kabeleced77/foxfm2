@@ -25,7 +25,7 @@
     "gulp-plumber": "^1.1.0",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-tslint": "^8.1.2",
-    "gulp-typescript": "^3.2.2",
+    "gulp-typescript": "^5.0.0",
     "gulp-zip": "^4.0.0",
     "jspm": "^0.16.53",
     "lodash": "^4.17.4",
@@ -34,7 +34,7 @@
     "run-sequence": "^2.2.0",
     "ts-nameof": "^2.0.0",
     "tslint": "^5.7.0",
-    "typescript": "^2.5.3",
+    "typescript": "^3.2.4",
     "vinyl-paths": "^2.1.0"
   },
   "jspm": {
