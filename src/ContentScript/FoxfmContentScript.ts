@@ -5,7 +5,7 @@ import { IFocusElementOnWebPage } from '../Common/Toolkit/FocusElementOnWebPage'
 import { IScrabWebPage } from '../Common/Toolkit/ScrabWebPage';
 import { ISetting } from '../Common/Toolkit/Setting';
 
-export class FoxfmApp {
+export class FoxfmContentScript {
   constructor(
     private readonly settings: ISetting<IFoxfmSetting>,
     private readonly logger: IEasyLogger,

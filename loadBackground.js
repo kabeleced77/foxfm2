@@ -1,1 +1,1 @@
-System.import("BackgroundPage/background");
+System.import("BackgroundPage/foxfmBackgroundScriptApp");

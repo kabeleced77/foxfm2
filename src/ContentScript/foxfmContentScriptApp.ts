@@ -95,7 +95,7 @@ import { TeamWebPageUrl } from '../Common/Urls/TeamWebPageUrl';
 import { TransferMarketAmateurWebPageUrl } from '../Common/Urls/TransferMarketAmateurWebPageUrl';
 import { TransferMarketProfessionalsUiUrl } from '../Common/Urls/TransferMarketProfessionalsUiUrl';
 import { TransferOfferWebPageUrl } from '../Common/Urls/TransferOfferWebPageUrl';
-import { FoxfmApp } from './FoxfmApp';
+import { FoxfmContentScript } from './FoxfmContentScript';
 import { ScrabClub } from './Header/ScrabClub';
 import { ScrabMatchday } from './Header/ScrabMatchday';
 import { PlayerTransferMarketDurationSelect } from './Player/PlayerTransferMarketDurationSelect';
@@ -109,10 +109,9 @@ import { TransferMarketProfessionalPlayerTable } from './TransferMarket/Transfer
 var doc = window.document;
 var currentUrl = doc.location.href;
 
-// use Singleton to prevent race condition saving registered logging modules from different instances
-// --> Nevertheless, if loaded several times in parallel (mainly more than one fram on a web site), 
-//     race condition still happens
-// ==> 
+/****************************************************
+ * Create logger used withing content script
+*/
 var logger = new Logger(
   new StorageLocal<ILogLevel>(
     new SettingNameApplicationLogLevel(),
@@ -124,6 +123,9 @@ var logger = new Logger(
       new RegisteredLoggingModules(
         new Array<IRegisteredLoggingModule>()))));
 
+/****************************************************
+ * Create messaging for content script side
+*/
 var messagingContentScript = new MessagingContentScript(
   new MessagingPortIndexedDb(),
   new EasyLogger(
@@ -133,7 +135,10 @@ var messagingContentScript = new MessagingContentScript(
       new LogLevelError()
     )));
 
-new FoxfmApp(
+/****************************************************
+ * Create content script application entry poing
+ */
+new FoxfmContentScript(
   new StorageLocal<IFoxfmSetting>(
     new FoxfmSettingName(),
     new FoxfmSettingDefaultValue()),
@@ -465,4 +470,4 @@ new FoxfmApp(
         new MatchdaysMessaging(
           messagingContentScript),
       ))),
-).main();
+).main().catch(e => logger.error("Content script", `error: ${e}`));

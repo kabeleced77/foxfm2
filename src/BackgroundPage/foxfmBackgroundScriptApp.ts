@@ -3,67 +3,22 @@ import { MatchdayIDb } from '../Common/IndexedDb/MatchdayIDb';
 import { TaskConfigurationsIDb } from '../Common/IndexedDb/TaskConfigurationsIDb';
 import { TaskExecutionsIDb } from '../Common/IndexedDb/TaskExecutionsIDb';
 import { EasyLogger } from '../Common/Logger/EasyLogger';
-import { ILogger, Logger } from '../Common/Logger/Logger';
+import { Logger } from '../Common/Logger/Logger';
 import { ILogLevel, LogLevelError } from '../Common/Logger/LogLevel';
 import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
-import { MessagingBackgroundScript } from '../Common/Messaging/MessagingBackgroundScript';
-import { IRessource, Ressource } from '../Common/Ressource';
 import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
 import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
-import { ITasks } from '../Common/Tasking/ITasks';
 import { Tasks } from '../Common/Tasking/Tasks';
 import { Mutex } from '../Common/Toolkit/Mutex';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
 import { TaskLogDateTime } from '../Common/Tasking/TaskLogDateTime';
+import { FoxfmBackground } from './FoxfmBackground';
 
-class FoxfmBackground {
-  private log: ILogger;
-  private thisModule: string = "FoxfmBackground";
-  private ressourceSettings: IRessource;
-
-  constructor(
-    private tasks: ITasks,
-    private indexedDb: FoxfmIndexedDb,
-    logger: ILogger,
-  ) {
-    this.log = logger;
-    var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
-    this.log.registerModuleForLogging(loggingModule);
-    this.ressourceSettings = new Ressource("backgroundPageContextMenuAddonSettings");
-  }
-
-  public async main(): Promise<void> {
-    try {
-      this.log.info(this.thisModule, "S t a r t e d");
-
-      this.createContextMenu();
-      let messaging = new MessagingBackgroundScript(
-        "",
-        this.indexedDb,
-        new EasyLogger(
-          this.log,
-          new RegisteredLoggingModule(
-            "MessagingBackgroundScript",
-            new LogLevelError())));
-      messaging.connect();
-      await this.tasks.run();
-    }
-    catch (e) {
-      this.log.error(this.thisModule, `Error in background script: ${e.message}`);
-    }
-  }
-
-  private createContextMenu() {
-    chrome.contextMenus.create({ "title": this.ressourceSettings.value().toString(), "onclick": this.contextMenuSettingCallback });
-  }
-
-  private contextMenuSettingCallback() {
-    chrome.tabs.create({ url: "settings.html" });
-  }
-}
-
+/****************************************************
+ * Create logger used within background script
+*/
 var logger = new Logger(
   new StorageLocal<ILogLevel>(
     new SettingNameApplicationLogLevel(),
@@ -75,9 +30,16 @@ var logger = new Logger(
       new RegisteredLoggingModules(
         new Array<IRegisteredLoggingModule>())))
 );
+
+/****************************************************
+ * Create IndexedDb used within background script
+ */
 var indexedDb = new FoxfmIndexedDb();
 
-var background = new FoxfmBackground(
+/****************************************************
+ * Create background script application entry poing
+ */
+new FoxfmBackground(
   new Tasks(
     new TaskConfigurationsIDb(
       indexedDb,
@@ -103,7 +65,7 @@ var background = new FoxfmBackground(
       1,
     ),
     [
-     new TaskLogDateTime(
+      new TaskLogDateTime(
         "TaskLogDateTime",
         true,
         3,
@@ -128,6 +90,4 @@ var background = new FoxfmBackground(
   ),
   indexedDb,
   logger,
-);
-
-background.main().catch(e => logger.error("Background", `error: ${e}`));
+).main().catch(e => logger.error("Background script", `error: ${e}`));

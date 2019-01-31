@@ -268,15 +268,15 @@ System.config({
   },
   bundles: {
     "app-backgroundpage-build.js": [
+      "BackgroundPage/FoxfmBackground.js",
       "BackgroundPage/PlayerTransfers/IImportedPlayerTransfers.js",
       "BackgroundPage/PlayerTransfers/IUserInteractionImportPlayerTransfers.js",
       "BackgroundPage/PlayerTransfers/ImportedPlayerTransfers.js",
       "BackgroundPage/PlayerTransfers/UserInteractionImportPlayerTransfers.js",
-      "BackgroundPage/background.js"
+      "BackgroundPage/foxfmBackgroundScriptApp.js"
     ],
     "app-contentscript-build.js": [
-      "ContentScript/App.js",
-      "ContentScript/FoxfmApp.js",
+      "ContentScript/FoxfmContentScript.js",
       "ContentScript/Header/ScrabClub.js",
       "ContentScript/Header/ScrabMatchday.js",
       "ContentScript/Player/PlayerTransferMarketDurationSelect.js",
@@ -286,7 +286,8 @@ System.config({
       "ContentScript/TransferMarket/TransferMarketAmateurPlayerTable.js",
       "ContentScript/TransferMarket/TransferMarketOfferDurationSelect.js",
       "ContentScript/TransferMarket/TransferMarketOfferPlayerTable.js",
-      "ContentScript/TransferMarket/TransferMarketProfessionalPlayerTable.js"
+      "ContentScript/TransferMarket/TransferMarketProfessionalPlayerTable.js",
+      "ContentScript/foxfmContentScriptApp.js"
     ],
     "app-settingspage-build.js": [
       "SettingsPage/app.html!github:systemjs/plugin-text@0.0.11.js",
@@ -415,6 +416,7 @@ System.config({
       "Common/DataModel/DataModelIDbTaskName.js",
       "Common/DataModel/DataModelIDbTaskStatus.js",
       "Common/DataModel/GameServerDataModel.js",
+      "Common/DataModel/IDataModelImportedTransfersOfMatchday.js",
       "Common/DataModel/MatchdayDataModel.js",
       "Common/DataModel/PersistClubMessagingDataModel.js",
       "Common/DataModel/PersistMatchdayMessagingDataModel.js",
@@ -425,6 +427,8 @@ System.config({
       "Common/IClubs.js",
       "Common/IGameServer.js",
       "Common/IGameServers.js",
+      "Common/IImportedTransfersOfMatchday.js",
+      "Common/IImportedTransfersOfMatchdays.js",
       "Common/IMatchday.js",
       "Common/IMatchdays.js",
       "Common/IPlayerTransfer.js",
@@ -434,6 +438,8 @@ System.config({
       "Common/IndexedDb/FoxfmIndexedDb.js",
       "Common/IndexedDb/GameServerIDb.js",
       "Common/IndexedDb/GameServersIDb.js",
+      "Common/IndexedDb/ImportedTransfersOfMatchdayIDb.js",
+      "Common/IndexedDb/ImportedTransfersOfMatchdaysIDb.js",
       "Common/IndexedDb/MatchdayIDb.js",
       "Common/IndexedDb/MatchdaysIDb.js",
       "Common/IndexedDb/PlayerTransferIDb.js",
