@@ -15,8 +15,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "types": [
-      "chrome"
+    "typeRoots": [
+      "node_modules/@types"
     ],
     "lib": [
       "es2015",
