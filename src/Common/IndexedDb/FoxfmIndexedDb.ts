@@ -1,5 +1,3 @@
-/// <reference path="../../../node_modules/ts-nameof/ts-nameof.d.ts"/>
-
 import Dexie from 'dexie';
 
 import { IClubDataModel } from '../DataModel/ClubDataModel';
@@ -26,7 +24,6 @@ export class FoxfmIndexedDb extends Dexie {
   constructor() {
     super("foxfm");
 
-    var s = nameof(console.log);
     // scheme migration
     this.version(1)
       .stores({

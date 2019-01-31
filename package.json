@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@types/chrome": "0.0.50",
+    "@types/ts-nameof": "^2.0.0",
     "aurelia-bundler": "^0.4.0",
     "aurelia-framework": "^1.1.5",
     "aurelia-router": "^1.4.0",
@@ -32,7 +33,7 @@
     "minimatch": "^3.0.4",
     "require-dir": "^0.3.0",
     "run-sequence": "^2.2.0",
-    "ts-nameof": "^2.0.0",
+    "ts-nameof": "^3.0.1",
     "tslint": "^5.7.0",
     "typescript": "^3.2.4",
     "vinyl-paths": "^2.1.0"
