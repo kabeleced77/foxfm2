@@ -23,10 +23,6 @@
       "dom"
     ]
   },
-  "filesGlob": [
-    "./src/**/*.ts",
-    "./test/**/*.ts"
-  ],
   "exclude": [
     "node_modules",
     "jspm_packages"
