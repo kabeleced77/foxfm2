@@ -22,7 +22,7 @@ gulp.task('build-system', function () {
       getCustomTransformers: () => ({ before: [tsNameof] })
     });
   }
-  return gulp.src(paths.dtsSrc.concat(paths.source))
+  return typescriptCompiler.src()
     .pipe(plumber())
     .pipe(changed(paths.output, { extension: '.ts' }))
     .pipe(sourcemaps.init({ loadMaps: true }))
