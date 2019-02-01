@@ -410,7 +410,7 @@ System.config({
     ],
     "app-common-build.js": [
       "Common/ArrayInStorage.js",
-      "Common/DataModel/ClubDataModel.js",
+      "Common/DataModel/DataModelIDbClub.js",
       "Common/DataModel/DataModelIDbGameServer.js",
       "Common/DataModel/DataModelIDbMatchday.js",
       "Common/DataModel/DataModelIDbPlayerTransfer.js",

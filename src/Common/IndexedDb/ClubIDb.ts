@@ -1,4 +1,4 @@
-import { IDataModelIDbClub } from '../DataModel/ClubDataModel';
+import { IDataModelIDbClub } from '../DataModel/DataModelIDbClub';
 import { IClub } from '../IClub';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 

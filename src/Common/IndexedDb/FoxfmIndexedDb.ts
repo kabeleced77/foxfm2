@@ -1,6 +1,6 @@
 import Dexie from 'dexie';
 
-import { IDataModelIDbClub } from '../DataModel/ClubDataModel';
+import { IDataModelIDbClub } from '../DataModel/DataModelIDbClub';
 import { IDataModelIDbTaskConfiguration } from '../DataModel/DataModelIDbTaskConfiguration';
 import { IDataModelIDbTaskStatus } from '../DataModel/DataModelIDbTaskStatus';
 import { IDataModelIDbGameServer } from '../DataModel/DataModelIDbGameServer';

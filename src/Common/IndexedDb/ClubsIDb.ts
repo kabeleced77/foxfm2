@@ -1,4 +1,4 @@
-import { DataModelIDbClub } from '../DataModel/ClubDataModel';
+import { DataModelIDbClub } from '../DataModel/DataModelIDbClub';
 import { IClub } from '../IClub';
 import { IClubs } from '../IClubs';
 import { ClubIDb } from './ClubIDb';
