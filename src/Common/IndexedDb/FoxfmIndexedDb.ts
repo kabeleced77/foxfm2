@@ -28,7 +28,7 @@ export class FoxfmIndexedDb extends Dexie {
     this.version(1)
       .stores({
         // following usages of "nameof"s are a little bit unhandy but ensure type safety for changes to underlying data models
-        matchdays: "++id, &[gameServerId+seasonValue+dayValue], gameServerId, seasonValue, dayValue",
+        matchdays: `++${nameof<IDataModelIDbMatchday>(o=>o.id)}, &[${nameof<IDataModelIDbMatchday>(o=>o.gameServerId)}+${nameof<IDataModelIDbMatchday>(o=>o.season)}+${nameof<IDataModelIDbMatchday>(o=>o.day)}], ${nameof<IDataModelIDbMatchday>(o=>o.gameServerId)}, ${nameof<IDataModelIDbMatchday>(o=>o.season)}, ${nameof<IDataModelIDbMatchday>(o=>o.day)}`,
         clubs: "++id, &[gameServerId+externalId+name]",
         gameServers: "++id, uri",
         playerTransfers: "++id, &[gameServerId+matchdayId+externalTransferId]",

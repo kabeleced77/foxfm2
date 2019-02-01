@@ -29,8 +29,8 @@ export class MatchdaysIDb implements IMatchdays {
           let matchdaysInDb = this.dataBase.matchdays.filter(m =>
             true
             && m.gameServerId === gameServer!.id!
-            && m.seasonValue === gameSeason
-            && m.dayValue === gameDay
+            && m.season=== gameSeason
+            && m.day=== gameDay
           );
           if (await matchdaysInDb.count() === 1) {
             let matchdayInDb = await matchdaysInDb!.first();

@@ -1,27 +1,18 @@
 export interface IDataModelIDbMatchday {
   id?: Number;
   gameServerId: Number;
-  dayValue: Number;
-  seasonValue: Number;
-  dateValue: Date;
+  day: Number;
+  season: Number;
+  date: Date;
 }
 
 export class DataModelIDbMatchday implements IDataModelIDbMatchday {
   public id: Number;
-  public gameServerId: Number;
-  public dayValue: Number;
-  public seasonValue: Number;
-  public dateValue: Date;
 
   constructor(
-    gameServerId: Number,
-    season: Number,
-    day: Number,
-    date: Date,
-  ) {
-    this.gameServerId = gameServerId;
-    this.seasonValue = season;
-    this.dayValue = day;
-    this.dateValue = date;
-  }
+    public gameServerId: Number,
+    public season: Number,
+    public day: Number,
+    public date: Date,
+  ) { }
 }

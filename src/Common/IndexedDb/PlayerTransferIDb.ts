@@ -52,21 +52,21 @@ export class PlayerTransferIDb implements IPlayerTransfer {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IDataModelIDbMatchday) => result.dayValue);
+      .then((result: IDataModelIDbMatchday) => result.day);
   }
 
   public season(): Promise<Number> {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IDataModelIDbMatchday) => result.seasonValue);
+      .then((result: IDataModelIDbMatchday) => result.season);
   }
 
   public date(): Promise<Date> {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IDataModelIDbMatchday) => result.dateValue);
+      .then((result: IDataModelIDbMatchday) => result.date);
   }
 
   public matchdayId(): Promise<Number> {

@@ -32,7 +32,7 @@ export class MatchdayIDb implements IMatchday {
           (await gameServersInDb.first())!.id!
         );
       } else {
-        throw `${matchdayInIdb!.seasonValue}-${matchdayInIdb!.dayValue}: game server id: ${matchdayInIdb!.gameServerId}: no game server found`;
+        throw `${matchdayInIdb!.season}-${matchdayInIdb!.day}: game server id: ${matchdayInIdb!.gameServerId}: no game server found`;
       }
     });
   }
@@ -41,20 +41,20 @@ export class MatchdayIDb implements IMatchday {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IDataModelIDbMatchday) => result.dayValue);
+      .then((result: IDataModelIDbMatchday) => result.day);
   }
 
   public season(): Promise<Number> {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IDataModelIDbMatchday) => result.seasonValue);
+      .then((result: IDataModelIDbMatchday) => result.season);
   }
 
   public date(): Promise<Date> {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IDataModelIDbMatchday) => result.dateValue);
+      .then((result: IDataModelIDbMatchday) => result.date);
   }
 }
