@@ -1,4 +1,4 @@
-import { IDataModelIDbMatchday } from '../DataModel/MatchdayDataModel';
+import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { IPlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
 import { GameServerIDb } from './GameServerIDb';
 import { IGameServer } from "../IGameServer";

@@ -1,4 +1,4 @@
-import { IDataModelIDbMatchday } from '../DataModel/MatchdayDataModel';
+import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IMatchday } from '../IMatchday';
 import { GameServerIDb } from './GameServerIDb';

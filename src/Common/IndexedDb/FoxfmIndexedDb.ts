@@ -4,7 +4,7 @@ import { IClubDataModel } from '../DataModel/ClubDataModel';
 import { IDataModelIDbTaskConfiguration } from '../DataModel/DataModelIDbTaskConfiguration';
 import { IDataModelIDbTaskStatus } from '../DataModel/DataModelIDbTaskStatus';
 import { IGameServerDataModel } from '../DataModel/GameServerDataModel';
-import { IDataModelIDbMatchday } from '../DataModel/MatchdayDataModel';
+import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { IPlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
 import { IDataModelIDbTaskName } from '../DataModel/DataModelIDbTaskName';
 import { IDataModelIDbTaskExecution } from '../DataModel/DataModelIDbTaskExecution';

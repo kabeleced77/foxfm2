@@ -1,4 +1,4 @@
-import { DataModelIDbMatchday } from '../DataModel/MatchdayDataModel';
+import { DataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { IMatchday } from '../IMatchday';
 import { IMatchdays } from '../IMatchdays';
 import { IEasyLogger } from '../Logger/EasyLogger';
