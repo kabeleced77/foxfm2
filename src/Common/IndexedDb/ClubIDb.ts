@@ -1,4 +1,4 @@
-import { IClubDataModel } from '../DataModel/ClubDataModel';
+import { IDataModelIDbClub } from '../DataModel/ClubDataModel';
 import { IClub } from '../IClub';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 
@@ -18,12 +18,12 @@ export class ClubIDb implements IClub {
     return this.source
       .clubs
       .get(this.idValue)
-      .then((result: IClubDataModel) => result.name);
+      .then((result: IDataModelIDbClub) => result.name);
   }
   public externalId(): Promise<Number> {
     return this.source
       .clubs
       .get(this.idValue)
-      .then((result: IClubDataModel) => result.externalId);
+      .then((result: IDataModelIDbClub) => result.externalId);
   }
 }

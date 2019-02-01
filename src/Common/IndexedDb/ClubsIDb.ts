@@ -1,4 +1,4 @@
-import { ClubDataModel } from '../DataModel/ClubDataModel';
+import { DataModelIDbClub } from '../DataModel/ClubDataModel';
 import { IClub } from '../IClub';
 import { IClubs } from '../IClubs';
 import { ClubIDb } from './ClubIDb';
@@ -39,7 +39,7 @@ export class ClubsIDb implements IClubs {
           } else {
             return this.dataBase
               .clubs
-              .add(new ClubDataModel(
+              .add(new DataModelIDbClub(
                 gameServer!.id!,
                 clubName,
                 externalClubId,

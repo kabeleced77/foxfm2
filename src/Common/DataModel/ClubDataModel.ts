@@ -1,11 +1,11 @@
-export interface IClubDataModel {
+export interface IDataModelIDbClub {
   id?: Number;
   gameServerId: Number;
   name: String;
   externalId: Number;
 }
 
-export class ClubDataModel implements IClubDataModel {
+export class DataModelIDbClub implements IDataModelIDbClub {
   public id: Number;
   public gameServerId: Number;
   public name: String;
