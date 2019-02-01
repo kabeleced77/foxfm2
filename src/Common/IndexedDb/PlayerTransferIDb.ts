@@ -1,4 +1,4 @@
-import { IMatchdayDataModel } from '../DataModel/MatchdayDataModel';
+import { IDataModelIDbMatchday } from '../DataModel/MatchdayDataModel';
 import { IPlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
 import { GameServerIDb } from './GameServerIDb';
 import { IGameServer } from "../IGameServer";
@@ -52,21 +52,21 @@ export class PlayerTransferIDb implements IPlayerTransfer {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IMatchdayDataModel) => result.dayValue);
+      .then((result: IDataModelIDbMatchday) => result.dayValue);
   }
 
   public season(): Promise<Number> {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IMatchdayDataModel) => result.seasonValue);
+      .then((result: IDataModelIDbMatchday) => result.seasonValue);
   }
 
   public date(): Promise<Date> {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IMatchdayDataModel) => result.dateValue);
+      .then((result: IDataModelIDbMatchday) => result.dateValue);
   }
 
   public matchdayId(): Promise<Number> {

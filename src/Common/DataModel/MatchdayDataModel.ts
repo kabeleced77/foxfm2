@@ -1,4 +1,4 @@
-export interface IMatchdayDataModel {
+export interface IDataModelIDbMatchday {
   id?: Number;
   gameServerId: Number;
   dayValue: Number;
@@ -6,7 +6,7 @@ export interface IMatchdayDataModel {
   dateValue: Date;
 }
 
-export class MatchdayDataModel implements IMatchdayDataModel {
+export class DataModelIDbMatchday implements IDataModelIDbMatchday {
   public id: Number;
   public gameServerId: Number;
   public dayValue: Number;

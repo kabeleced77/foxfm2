@@ -1,4 +1,4 @@
-import { MatchdayDataModel } from '../DataModel/MatchdayDataModel';
+import { DataModelIDbMatchday } from '../DataModel/MatchdayDataModel';
 import { IMatchday } from '../IMatchday';
 import { IMatchdays } from '../IMatchdays';
 import { IEasyLogger } from '../Logger/EasyLogger';
@@ -39,7 +39,7 @@ export class MatchdaysIDb implements IMatchdays {
           } else {
             return this.dataBase
               .matchdays
-              .add(new MatchdayDataModel(
+              .add(new DataModelIDbMatchday(
                 gameServer!.id!,
                 gameSeason,
                 gameDay,

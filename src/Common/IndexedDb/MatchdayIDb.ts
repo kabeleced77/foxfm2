@@ -1,4 +1,4 @@
-import { IMatchdayDataModel } from '../DataModel/MatchdayDataModel';
+import { IDataModelIDbMatchday } from '../DataModel/MatchdayDataModel';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IMatchday } from '../IMatchday';
 import { GameServerIDb } from './GameServerIDb';
@@ -19,7 +19,7 @@ export class MatchdayIDb implements IMatchday {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IMatchdayDataModel) => result.gameServerId);
+      .then((result: IDataModelIDbMatchday) => result.gameServerId);
   }
 
   public gameServer(): Promise<IGameServer> {
@@ -41,20 +41,20 @@ export class MatchdayIDb implements IMatchday {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IMatchdayDataModel) => result.dayValue);
+      .then((result: IDataModelIDbMatchday) => result.dayValue);
   }
 
   public season(): Promise<Number> {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IMatchdayDataModel) => result.seasonValue);
+      .then((result: IDataModelIDbMatchday) => result.seasonValue);
   }
 
   public date(): Promise<Date> {
     return this.source
       .matchdays
       .get(this.idValue)
-      .then((result: IMatchdayDataModel) => result.dateValue);
+      .then((result: IDataModelIDbMatchday) => result.dateValue);
   }
 }
