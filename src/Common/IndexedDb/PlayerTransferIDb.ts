@@ -1,5 +1,5 @@
 import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
-import { IDataModelIDbPlayerTransfer } from '../DataModel/PlayerTransferDataModel';
+import { IDataModelIDbPlayerTransfer } from '../DataModel/DataModelIDbPlayerTransfer';
 import { GameServerIDb } from './GameServerIDb';
 import { IGameServer } from "../IGameServer";
 import { IMatchday } from '../IMatchday';

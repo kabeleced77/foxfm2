@@ -5,7 +5,7 @@ import { IDataModelIDbTaskConfiguration } from '../DataModel/DataModelIDbTaskCon
 import { IDataModelIDbTaskStatus } from '../DataModel/DataModelIDbTaskStatus';
 import { IDataModelIDbGameServer } from '../DataModel/DataModelIDbGameServer';
 import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
-import { IDataModelIDbPlayerTransfer } from '../DataModel/PlayerTransferDataModel';
+import { IDataModelIDbPlayerTransfer } from '../DataModel/DataModelIDbPlayerTransfer';
 import { IDataModelIDbTaskName } from '../DataModel/DataModelIDbTaskName';
 import { IDataModelIDbTaskExecution } from '../DataModel/DataModelIDbTaskExecution';
 import { IDataModelImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';

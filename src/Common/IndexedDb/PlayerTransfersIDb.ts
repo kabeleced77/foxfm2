@@ -1,4 +1,4 @@
-import { DataModelIDbPlayerTransfer } from '../DataModel/PlayerTransferDataModel';
+import { DataModelIDbPlayerTransfer } from '../DataModel/DataModelIDbPlayerTransfer';
 import { IPlayerTransfers } from '../IPlayerTransfers';
 import { PlayerTransferIDb } from './PlayerTransferIDb';
 import { IPlayerTransfer } from "../IPlayerTransfer";
