@@ -3,7 +3,7 @@ import Dexie from 'dexie';
 import { IClubDataModel } from '../DataModel/ClubDataModel';
 import { IDataModelIDbTaskConfiguration } from '../DataModel/DataModelIDbTaskConfiguration';
 import { IDataModelIDbTaskStatus } from '../DataModel/DataModelIDbTaskStatus';
-import { IDataModelIDbGameServer } from '../DataModel/GameServerDataModel';
+import { IDataModelIDbGameServer } from '../DataModel/DataModelIDbGameServer';
 import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { IPlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
 import { IDataModelIDbTaskName } from '../DataModel/DataModelIDbTaskName';

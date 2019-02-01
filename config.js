@@ -411,12 +411,12 @@ System.config({
     "app-common-build.js": [
       "Common/ArrayInStorage.js",
       "Common/DataModel/ClubDataModel.js",
+      "Common/DataModel/DataModelIDbGameServer.js",
       "Common/DataModel/DataModelIDbMatchday.js",
       "Common/DataModel/DataModelIDbTaskConfiguration.js",
       "Common/DataModel/DataModelIDbTaskExecution.js",
       "Common/DataModel/DataModelIDbTaskName.js",
       "Common/DataModel/DataModelIDbTaskStatus.js",
-      "Common/DataModel/GameServerDataModel.js",
       "Common/DataModel/IDataModelImportedTransfersOfMatchday.js",
       "Common/DataModel/PersistClubMessagingDataModel.js",
       "Common/DataModel/PersistMatchdayMessagingDataModel.js",
