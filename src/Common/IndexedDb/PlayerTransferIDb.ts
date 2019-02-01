@@ -1,5 +1,5 @@
 import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
-import { IPlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
+import { IDataModelIDbPlayerTransfer } from '../DataModel/PlayerTransferDataModel';
 import { GameServerIDb } from './GameServerIDb';
 import { IGameServer } from "../IGameServer";
 import { IMatchday } from '../IMatchday';
@@ -23,7 +23,7 @@ export class PlayerTransferIDb implements IPlayerTransfer {
     return this.source
       .playerTransfers
       .get(this.idValue)
-      .then((result: IPlayerTransferDataModel) => result.gameServerId);
+      .then((result: IDataModelIDbPlayerTransfer) => result.gameServerId);
   }
 
   public gameServer(): Promise<IGameServer> {
@@ -45,7 +45,7 @@ export class PlayerTransferIDb implements IPlayerTransfer {
     return this.source
       .playerTransfers
       .get(this.idValue)
-      .then((result: IPlayerTransferDataModel) => result.externalTransferId);
+      .then((result: IDataModelIDbPlayerTransfer) => result.externalTransferId);
   }
 
   public day(): Promise<Number> {
@@ -73,7 +73,7 @@ export class PlayerTransferIDb implements IPlayerTransfer {
     return this.source
       .playerTransfers
       .get(this.idValue)
-      .then((result: IPlayerTransferDataModel) => result.matchdayId);
+      .then((result: IDataModelIDbPlayerTransfer) => result.matchdayId);
   }
 
   public matchday(): Promise<IMatchday> {
@@ -95,24 +95,24 @@ export class PlayerTransferIDb implements IPlayerTransfer {
     return this.source
       .playerTransfers
       .get(this.idValue)
-      .then((result: IPlayerTransferDataModel) => result.position);
+      .then((result: IDataModelIDbPlayerTransfer) => result.position);
   }
   public age(): Promise<Number> {
     return this.source
       .playerTransfers
       .get(this.idValue)
-      .then((result: IPlayerTransferDataModel) => result.age);
+      .then((result: IDataModelIDbPlayerTransfer) => result.age);
   }
   public strength(): Promise<Number> {
     return this.source
       .playerTransfers
       .get(this.idValue)
-      .then((result: IPlayerTransferDataModel) => result.strength);
+      .then((result: IDataModelIDbPlayerTransfer) => result.strength);
   }
   public price(): Promise<Number> {
     return this.source
       .playerTransfers
       .get(this.idValue)
-      .then((result: IPlayerTransferDataModel) => result.price);
+      .then((result: IDataModelIDbPlayerTransfer) => result.price);
   }
 }

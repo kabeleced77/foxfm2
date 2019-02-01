@@ -1,4 +1,4 @@
-export interface IPlayerTransferDataModel {
+export interface IDataModelIDbPlayerTransfer {
   id?: Number;
   gameServerId: Number;
   matchdayId: Number;
@@ -9,7 +9,7 @@ export interface IPlayerTransferDataModel {
   price: Number;
 }
 
-export class PlayerTransferDataModel implements IPlayerTransferDataModel {
+export class DataModelIDbPlayerTransfer implements IDataModelIDbPlayerTransfer {
   public id: Number;
   public gameServerId: Number;
   public matchdayId: Number;

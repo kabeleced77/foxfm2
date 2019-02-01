@@ -5,7 +5,7 @@ import { IDataModelIDbTaskConfiguration } from '../DataModel/DataModelIDbTaskCon
 import { IDataModelIDbTaskStatus } from '../DataModel/DataModelIDbTaskStatus';
 import { IDataModelIDbGameServer } from '../DataModel/DataModelIDbGameServer';
 import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
-import { IPlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
+import { IDataModelIDbPlayerTransfer } from '../DataModel/PlayerTransferDataModel';
 import { IDataModelIDbTaskName } from '../DataModel/DataModelIDbTaskName';
 import { IDataModelIDbTaskExecution } from '../DataModel/DataModelIDbTaskExecution';
 import { IDataModelImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';
@@ -14,7 +14,7 @@ export class FoxfmIndexedDb extends Dexie {
   public matchdays: Dexie.Table<IDataModelIDbMatchday, Number>;
   public clubs: Dexie.Table<IClubDataModel, Number>;
   public gameServers: Dexie.Table<IDataModelIDbGameServer, Number>;
-  public playerTransfers: Dexie.Table<IPlayerTransferDataModel, Number>;
+  public playerTransfers: Dexie.Table<IDataModelIDbPlayerTransfer, Number>;
   public taskNames: Dexie.Table<IDataModelIDbTaskName, Number>;
   public taskConfigurations: Dexie.Table<IDataModelIDbTaskConfiguration, Number>;
   public taskStatuses: Dexie.Table<IDataModelIDbTaskStatus, Number>;

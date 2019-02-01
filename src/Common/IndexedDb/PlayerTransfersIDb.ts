@@ -1,4 +1,4 @@
-import { PlayerTransferDataModel } from '../DataModel/PlayerTransferDataModel';
+import { DataModelIDbPlayerTransfer } from '../DataModel/PlayerTransferDataModel';
 import { IPlayerTransfers } from '../IPlayerTransfers';
 import { PlayerTransferIDb } from './PlayerTransferIDb';
 import { IPlayerTransfer } from "../IPlayerTransfer";
@@ -29,7 +29,7 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
   ): Promise<void | IPlayerTransfer> {
     return this.dataBase
       .playerTransfers
-      .add(new PlayerTransferDataModel(
+      .add(new DataModelIDbPlayerTransfer(
         gameServerId,
         matchdayId,
         externalTransferId,
