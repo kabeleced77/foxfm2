@@ -9,7 +9,7 @@ export interface IPlayerTransferDataModel {
   price: Number;
 }
 
-export class PlayerTransferDateModel implements IPlayerTransferDataModel {
+export class PlayerTransferDataModel implements IPlayerTransferDataModel {
   public id: Number;
   public gameServerId: Number;
   public matchdayId: Number;
