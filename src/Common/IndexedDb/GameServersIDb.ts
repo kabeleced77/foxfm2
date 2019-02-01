@@ -1,4 +1,4 @@
-import { GameServerDataModel } from '../DataModel/GameServerDataModel';
+import { DataModelIDbGameServer } from '../DataModel/GameServerDataModel';
 import { GameServerIDb } from './GameServerIDb';
 import { IGameServer } from "../IGameServer";
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
@@ -25,7 +25,7 @@ export class GameServersIDb implements IGameServers {
   public add(name: String): Promise<void | IGameServer> {
     return this.dataBase
       .gameServers
-      .add(new GameServerDataModel(name))
+      .add(new DataModelIDbGameServer(name))
       .then(id => {
         return new GameServerIDb(this.dataBase, id);
       })

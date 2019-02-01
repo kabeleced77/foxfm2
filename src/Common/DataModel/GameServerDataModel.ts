@@ -1,9 +1,9 @@
-export interface IGameServerDataModel {
+export interface IDataModelIDbGameServer {
   id?: Number;
   uri: String;
 }
 
-export class GameServerDataModel implements IGameServerDataModel {
+export class DataModelIDbGameServer implements IDataModelIDbGameServer {
   public id: Number;
   public uri: String;
 

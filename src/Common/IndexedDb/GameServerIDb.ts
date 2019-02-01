@@ -1,4 +1,4 @@
-import { IGameServerDataModel } from '../DataModel/GameServerDataModel';
+import { IDataModelIDbGameServer } from '../DataModel/GameServerDataModel';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IGameServer } from '../IGameServer';
 
@@ -18,6 +18,6 @@ export class GameServerIDb implements IGameServer {
     return this.source
       .gameServers
       .get(this.idValue)
-      .then((result: IGameServerDataModel) => result.uri);
+      .then((result: IDataModelIDbGameServer) => result.uri);
   }
 }
