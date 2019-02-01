@@ -8,7 +8,7 @@ import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { IDataModelIDbPlayerTransfer } from '../DataModel/DataModelIDbPlayerTransfer';
 import { IDataModelIDbTaskName } from '../DataModel/DataModelIDbTaskName';
 import { IDataModelIDbTaskExecution } from '../DataModel/DataModelIDbTaskExecution';
-import { IDataModelIDbImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';
+import { IDataModelIDbImportedTransfersOfMatchday } from '../DataModel/DataModelIDbImportedTransfersOfMatchday';
 
 export class FoxfmIndexedDb extends Dexie {
   public matchdays: Dexie.Table<IDataModelIDbMatchday, Number>;

@@ -1,6 +1,6 @@
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IMatchday } from '../IMatchday';
-import { IDataModelIDbImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';
+import { IDataModelIDbImportedTransfersOfMatchday } from '../DataModel/DataModelIDbImportedTransfersOfMatchday';
 import { MatchdayIDb } from './MatchdayIDb';
 import { IImportedTransfersOfMatchday } from '../IImportedTransfersOfMatchday';
 

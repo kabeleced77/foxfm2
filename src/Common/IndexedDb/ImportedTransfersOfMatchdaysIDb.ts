@@ -4,7 +4,7 @@ import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IImportedTransfersOfMatchdays } from '../IImportedTransfersOfMatchdays';
 import { IImportedTransfersOfMatchday } from '../IImportedTransfersOfMatchday';
 import { ImportedTransfersOfMatchdayIDb } from './ImportedTransfersOfMatchdayIDb';
-import { DataModelIDbImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';
+import { DataModelIDbImportedTransfersOfMatchday } from '../DataModel/DataModelIDbImportedTransfersOfMatchday';
 
 export class ImportedTransfersOfMatchdaysIDb implements IImportedTransfersOfMatchdays {
   constructor(
