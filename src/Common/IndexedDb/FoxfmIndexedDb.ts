@@ -8,7 +8,7 @@ import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { IDataModelIDbPlayerTransfer } from '../DataModel/DataModelIDbPlayerTransfer';
 import { IDataModelIDbTaskName } from '../DataModel/DataModelIDbTaskName';
 import { IDataModelIDbTaskExecution } from '../DataModel/DataModelIDbTaskExecution';
-import { IDataModelImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';
+import { IDataModelIDbImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';
 
 export class FoxfmIndexedDb extends Dexie {
   public matchdays: Dexie.Table<IDataModelIDbMatchday, Number>;
@@ -19,7 +19,7 @@ export class FoxfmIndexedDb extends Dexie {
   public taskConfigurations: Dexie.Table<IDataModelIDbTaskConfiguration, Number>;
   public taskStatuses: Dexie.Table<IDataModelIDbTaskStatus, Number>;
   public taskExecutions: Dexie.Table<IDataModelIDbTaskExecution, Number>;
-  public importedTransfersOfMatchdays: Dexie.Table<IDataModelImportedTransfersOfMatchday, Number>;
+  public importedTransfersOfMatchdays: Dexie.Table<IDataModelIDbImportedTransfersOfMatchday, Number>;
 
   constructor() {
     super("foxfm");
@@ -36,7 +36,7 @@ export class FoxfmIndexedDb extends Dexie {
         taskConfigurations: "++id, &taskNameId",
         taskStatuses: "++id, &name",
         taskExecutions: "++id, &[taskNameId+startDateTime], startDateTime",
-        importedTransfersOfMatchdays: `++${nameof<IDataModelImportedTransfersOfMatchday>(o => o.id)}, &${nameof<IDataModelImportedTransfersOfMatchday>(o => o.matchdayId)}, ${nameof<IDataModelImportedTransfersOfMatchday>(o => o.dateTime)}`,
+        importedTransfersOfMatchdays: `++${nameof<IDataModelIDbImportedTransfersOfMatchday>(o => o.id)}, &${nameof<IDataModelIDbImportedTransfersOfMatchday>(o => o.matchdayId)}, ${nameof<IDataModelIDbImportedTransfersOfMatchday>(o => o.dateTime)}`,
       });
 
     // initial data population - also after upgrades and only diffs to previous version

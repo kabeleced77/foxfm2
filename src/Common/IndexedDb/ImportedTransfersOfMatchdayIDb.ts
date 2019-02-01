@@ -1,6 +1,6 @@
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IMatchday } from '../IMatchday';
-import { IDataModelImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';
+import { IDataModelIDbImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';
 import { MatchdayIDb } from './MatchdayIDb';
 import { IImportedTransfersOfMatchday } from '../IImportedTransfersOfMatchday';
 
@@ -38,6 +38,6 @@ export class ImportedTransfersOfMatchdayIDb implements IImportedTransfersOfMatch
     return this.database
       .importedTransfersOfMatchdays
       .get(this.idValue)
-      .then((result: IDataModelImportedTransfersOfMatchday) => result.dateTime);
+      .then((result: IDataModelIDbImportedTransfersOfMatchday) => result.dateTime);
   }
 }

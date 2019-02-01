@@ -4,7 +4,7 @@ import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IImportedTransfersOfMatchdays } from '../IImportedTransfersOfMatchdays';
 import { IImportedTransfersOfMatchday } from '../IImportedTransfersOfMatchday';
 import { ImportedTransfersOfMatchdayIDb } from './ImportedTransfersOfMatchdayIDb';
-import { DataModelImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';
+import { DataModelIDbImportedTransfersOfMatchday } from '../DataModel/IDataModelImportedTransfersOfMatchday';
 
 export class ImportedTransfersOfMatchdaysIDb implements IImportedTransfersOfMatchdays {
   constructor(
@@ -48,7 +48,7 @@ export class ImportedTransfersOfMatchdaysIDb implements IImportedTransfersOfMatc
             // add and return new entry
             importedTransferInDb = await this.dataBase
               .importedTransfersOfMatchdays
-              .add(new DataModelImportedTransfersOfMatchday(
+              .add(new DataModelIDbImportedTransfersOfMatchday(
                 matchday.id(),
                 dateTime,
               ))

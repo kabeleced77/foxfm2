@@ -5,7 +5,7 @@
  * If such an entry exists, transfers of the matchday have already been imported.
  * 
  */
-export interface IDataModelImportedTransfersOfMatchday {
+export interface IDataModelIDbImportedTransfersOfMatchday {
   id?: Number;
 
   /**
@@ -18,7 +18,7 @@ export interface IDataModelImportedTransfersOfMatchday {
   dateTime: Date;
 }
 
-export class DataModelImportedTransfersOfMatchday implements IDataModelImportedTransfersOfMatchday {
+export class DataModelIDbImportedTransfersOfMatchday implements IDataModelIDbImportedTransfersOfMatchday {
   public id: Number;
 
   constructor(
