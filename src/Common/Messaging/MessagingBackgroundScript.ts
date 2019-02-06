@@ -15,6 +15,8 @@ import { MessagingMessageTypeIndexedDbAddClub } from './MessagingMessageTypeInde
 import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageTypeIndexedDbAddMatchday';
 import { IMatchday } from '../IMatchday';
 import { UserInteractionImportPlayerTransfers } from '../../BackgroundPage/PlayerTransfers/UserInteractionImportPlayerTransfers';
+import { RegisteredLoggingModule } from '../Logger/RegisteredLoggingModule';
+import { LogLevelDebug, LogLevelError } from '../Logger/LogLevel';
 
 export class MessagingBackgroundScript implements IMessaging<Object> {
   private portName: String;
@@ -45,7 +47,14 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
           case new MessagingMessageTypeIndexedDbAddMatchday().name:
             const matchday = await this.addMatchdayToIndexedDb(<IPersistMatchdayMessagingDataModel>message.content);
 
-            new UserInteractionImportPlayerTransfers(this.indexedDb, this.logger).import(matchday);
+            new UserInteractionImportPlayerTransfers(
+              this.indexedDb,
+              new EasyLogger(
+                this.logger.logger(),
+                new RegisteredLoggingModule(
+                  nameof(UserInteractionImportPlayerTransfers),
+                  new LogLevelError())))
+              .import(matchday);
 
             break;
           case new MessagingMessageTypeIndexedDbAddClub().name:
