@@ -1,4 +1,4 @@
-import { DataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
+import { DataModelIDbMatchday, IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { IMatchday } from '../IMatchday';
 import { IMatchdays } from '../IMatchdays';
 import { IEasyLogger } from '../Logger/EasyLogger';
@@ -11,11 +11,14 @@ export class MatchdaysIDb implements IMatchdays {
     private logger: IEasyLogger,
   ) { }
 
-  public matchdays(): Promise<IMatchday[]> {
+  public matchdays(season?: Number): Promise<IMatchday[]> {
+    const seasonMin = season === undefined ? 0 : season;
+    const seasonMax = season === undefined ? Number.MAX_SAFE_INTEGER : season.valueOf();
     let mds: IMatchday[] = [];
     return this.dataBase
       .matchdays
-      .toCollection()
+      .where(nameof<IDataModelIDbMatchday>(o => o.season))
+      .between(seasonMin.valueOf(), seasonMax.valueOf(), true, true)
       .eachPrimaryKey((pk: Number) => mds.push(new MatchdayIDb(this.dataBase, pk)))
       .then(() => mds);
   }
@@ -29,8 +32,8 @@ export class MatchdaysIDb implements IMatchdays {
           let matchdaysInDb = this.dataBase.matchdays.filter(m =>
             true
             && m.gameServerId === gameServer!.id!
-            && m.season=== gameSeason
-            && m.day=== gameDay
+            && m.season === gameSeason
+            && m.day === gameDay
           );
           if (await matchdaysInDb.count() === 1) {
             let matchdayInDb = await matchdaysInDb!.first();
