@@ -4,13 +4,28 @@ import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IImportedTransfersOfMatchdays } from '../IImportedTransfersOfMatchdays';
 import { IImportedTransfersOfMatchday } from '../IImportedTransfersOfMatchday';
 import { ImportedTransfersOfMatchdayIDb } from './ImportedTransfersOfMatchdayIDb';
-import { DataModelIDbImportedTransfersOfMatchday } from '../DataModel/DataModelIDbImportedTransfersOfMatchday';
+import { DataModelIDbImportedTransfersOfMatchday, IDataModelIDbImportedTransfersOfMatchday } from '../DataModel/DataModelIDbImportedTransfersOfMatchday';
 
 export class ImportedTransfersOfMatchdaysIDb implements IImportedTransfersOfMatchdays {
   constructor(
     private dataBase: FoxfmIndexedDb,
     private logger: IEasyLogger,
   ) { }
+
+  public imported(
+    matchday: IMatchday,
+  ): Promise<Boolean> {
+
+    return new Promise<Boolean>((resolve, reject) => {
+      const count = this.dataBase
+        .importedTransfersOfMatchdays
+        .where(nameof<IDataModelIDbImportedTransfersOfMatchday>(o => o.matchdayId))
+        .equals(matchday.id().valueOf())
+        .count();
+
+      resolve(count.then(c => c > 0));
+    });
+  }
 
   public add(
     matchday: IMatchday,
