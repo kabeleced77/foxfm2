@@ -2,6 +2,7 @@ import { ILogger } from "./Logger";
 import { IRegisteredLoggingModule } from "./RegisteredLoggingModule";
 
 export interface IEasyLogger {
+  logger(): ILogger;
   info(msg: String): void;
   warn(msg: String): void;
   debug(msg: String): void;
@@ -18,6 +19,9 @@ export class EasyLogger implements IEasyLogger {
     this.log.registerModuleForLogging(loggingModule);
   }
 
+  public logger(): ILogger {
+    return this.log;
+  }
   info(msg: String): void {
     this.log.info(this.loggingModule.name().toString(), msg.toString());
   }
