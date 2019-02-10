@@ -47,7 +47,6 @@ export class ImportedPlayerTransfers implements IImportedPlayerTransfers {
       this.log.debug(`starting import from server '${serverUri}' of season ${matchdaySeason}-${matchdayDay}`);
       await this.save(
         matchdayId,
-        serverId,
         serverUri,
         matchdayDay);
     } catch (e) {
@@ -57,7 +56,6 @@ export class ImportedPlayerTransfers implements IImportedPlayerTransfers {
 
   private async save(
     matchdayId: Number,
-    serverId: Number,
     serverUri: String,
     day: Number,
   ): Promise<void> {
@@ -89,7 +87,6 @@ export class ImportedPlayerTransfers implements IImportedPlayerTransfers {
 
           if (cells.length > Math.max(colIdxNumber, colIdxPosition, colIdxAge, colIdxStrength, colIdxPrice)) {
             await playerTransfersIDb.add(
-              serverId,
               matchdayId,
               this.stringToNumberArray(cells.item(colIdxNumber)!.innerHTML),
               cells.item(colIdxPosition)!.innerHTML,

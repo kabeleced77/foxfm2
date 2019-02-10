@@ -1,6 +1,5 @@
 export interface IDataModelIDbPlayerTransfer {
   id?: Number;
-  gameServerId: Number;
   matchdayId: Number;
   externalTransferId: Number;
   position: String;
@@ -13,7 +12,6 @@ export class DataModelIDbPlayerTransfer implements IDataModelIDbPlayerTransfer {
   public id: Number;
 
   constructor(
-    public gameServerId: Number,
     public matchdayId: Number,
     public externalTransferId: Number,
     public position: String,
