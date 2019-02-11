@@ -1,5 +1,4 @@
 import { IAwp } from "./Toolkit/Awp";
-import { IStrengthLimits } from "./StrengthLimits";
 import { IStrengthsLimits } from "./StrengthsLimits";
 
 export interface IStrengthLevel {
