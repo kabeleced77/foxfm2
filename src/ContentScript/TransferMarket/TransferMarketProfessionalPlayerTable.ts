@@ -16,6 +16,15 @@ import { IHtmlTableColumnByXpath } from '../../Common/Toolkit/HtmlTableColumnByX
 import { ISetting } from '../../Common/Toolkit/Setting';
 import { IUrl } from '../../Common/Toolkit/Url';
 
+/**
+ * Extend the table showing the professional player transfers by
+ *   - a new column showing the current AWP
+ *   - a new column showing the difference AWP to the next level
+ *   - a new column showing the next level
+ *   - extend existing columng "Strength" by the actual strength based on current AWP
+ * 
+ * All extensions can be confiured, i.e. turned on or off.
+ */
 export class TransferMarketProfessionalPlayerTable implements IExtendWebElement {
   private readonly url: IUrl;
   private readonly table: IHtmlTable;
