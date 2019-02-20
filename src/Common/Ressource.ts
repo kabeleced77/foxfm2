@@ -68,6 +68,8 @@ export class RessourceCommonMatchdays extends Ressource { constructor() { super(
 export class RessourceCommonTableExtensionsHeaderAwp extends Ressource { constructor() { super("commonTableExtensions_headerAwp"); } }
 export class RessourceCommonTableExtensionsHeaderAwpDiff extends Ressource { constructor() { super("commonTableExtensions_headerAwpDiff"); } }
 export class RessourceCommonTableExtensionsHeaderNextStrength extends Ressource { constructor() { super("commonTableExtensions_headerNextStrength"); } }
+export class RessourceCommonTableExtensionsHeaderTransferPriceCurrentStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_currentStrength"); } }
+export class RessourceCommonTableExtensionsHeaderTransferPriceNextStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_nextStrength"); } }
 
 export class RessourceSettingsPageAddonName extends Ressource { constructor() { super("addonName"); } }
 export class RessourceSettingsPageIntro extends Ressource { constructor() { super("settingsIntro"); } }
@@ -95,6 +97,8 @@ export class RessourceCommonSettingsAddColumnAwp extends Ressource { constructor
 export class RessourceCommonSettingsAddColumnAwpDiff extends Ressource { constructor() { super("commonSettings_addColumnAwpDiff"); } }
 export class RessourceCommonSettingsAddColumnNextStrength extends Ressource { constructor() { super("commonSettings_addColumnNextStrength"); } }
 export class RessourceCommonSettingsExtendColumnStrength extends Ressource { constructor() { super("commonSettings_extendColumnStrength"); } }
+export class RessourceCommonSettingsAddColumnTransferPriceCurrentStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_currentStrength"); } }
+export class RessourceCommonSettingsAddColumnTransferPriceNextStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_nextStrength"); } }
 
 export class RessourceTeamTableSettingsMenu extends Ressource { constructor() { super("teamTableSettings_menu"); } }
 export class RessourceTeamTableSettingsHeader extends Ressource { constructor() { super("teamTableSettings_header"); } }

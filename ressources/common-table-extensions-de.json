@@ -7,5 +7,11 @@
   },
   "commonTableExtensions_headerNextStrength": {
     "message": "Nächste St"
+  },
+  "commonTableExtensions_header_transferPrice_currentStrength": {
+    "message": "Transferpreis (akt. St.)"
+  },
+  "commonTableExtensions_header_transferPrice_nextStrength": {
+    "message": "Transferpreis (nächste St.)"
   }
 }

@@ -10,5 +10,11 @@
   },
   "commonSettings_extendColumnStrength": {
     "message": "Erweitere die 'Stärke' Spalte um die aktuelle Stärke."
+  },
+  "commonSettings_extendColumn_transferPrice_currentStrength":{
+    "message": "Füge Spalte 'Transferpreis (Akt. St.)' hinzu. Zeigt den Verkaufspreis auf Basis der importierten Transferpreise für Alter, AKTUELLE Stärke und Position an. Erfordert Aktivierung von Feature 'Importiere Spielertransfers'."
+  },
+  "commonSettings_extendColumn_transferPrice_nextStrength":{
+    "message": "Füge Spalte 'Transferpreis (Nächste St.)' hinzu. Zeigt den Verkaufspreis auf Basis der importierten Transferpreise für Alter, NÄCHSTE Stärke und Position an. Erfordert Aktivierung von Feature 'Importiere Spielertransfers'."
   }
 }

@@ -208,7 +208,10 @@ new FoxfmContentScript(
             false,
             false,
             false,
-            false))),
+            false,
+            false,
+            false,
+          ))),
       // Extend transfer market - possible offer table
       new TransferMarketOfferPlayerTable(
         new TransferOfferWebPageUrl(),

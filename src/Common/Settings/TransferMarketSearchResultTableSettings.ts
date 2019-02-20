@@ -1,4 +1,6 @@
 export interface ITransferMarketSearchResultTableSettings {
+  addTransferPriceStrengthColumnActivated(): Boolean;
+  addTransferPriceNextStrengthColumnActivated(): Boolean;
   extendStrengthColumnActivated(): Boolean;
   addAwpColumnActivated(): Boolean;
   addAwpDiffColumnActivated(): Boolean;
@@ -17,6 +19,8 @@ export class TransferMarketSearchResultTableSettings implements ITransferMarketS
     addAwpColumn: Boolean,
     addAwpDiffColumn: Boolean,
     addNextStrengthColumn: Boolean,
+    private readonly addColumnTransferPriceCurrentStrength: Boolean,
+    private readonly addColumnTransferPriceNextStrength: Boolean,
   ) {
     this.extendStrengthColumn = extendStrengthColumn;
     this.addAwpColumn = addAwpColumn;
@@ -36,12 +40,20 @@ export class TransferMarketSearchResultTableSettings implements ITransferMarketS
   public addNextStrengthColumnActivated(): Boolean {
     return this.addNextStrengthColumn;
   }
+  public addTransferPriceNextStrengthColumnActivated() {
+    return this.addColumnTransferPriceCurrentStrength;
+  }
+  public addTransferPriceStrengthColumnActivated() {
+    return this.addColumnTransferPriceNextStrength;
+  }
   public fromJson(jsonString: String): ITransferMarketSearchResultTableSettings {
     return new TransferMarketSearchResultTableSettings(
       jsonString["extendStrengthColumn"],
       jsonString["addAwpColumn"],
       jsonString["addAwpDiffColumn"],
-      jsonString["addNextStrengthColumn"]
+      jsonString["addNextStrengthColumn"],
+      jsonString[nameof(this.addColumnTransferPriceCurrentStrength)],
+      jsonString[nameof(this.addColumnTransferPriceNextStrength)],
     )
   }
 }

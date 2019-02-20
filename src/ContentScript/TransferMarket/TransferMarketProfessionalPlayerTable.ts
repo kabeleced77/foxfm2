@@ -3,6 +3,8 @@ import {
   RessourceCommonTableExtensionsHeaderAwp,
   RessourceCommonTableExtensionsHeaderAwpDiff,
   RessourceCommonTableExtensionsHeaderNextStrength,
+  RessourceCommonTableExtensionsHeaderTransferPriceCurrentStrength,
+  RessourceCommonTableExtensionsHeaderTransferPriceNextStrength,
 } from '../../Common/Ressource';
 import { ITransferMarketSearchResultTableSettings } from '../../Common/Settings/TransferMarketSearchResultTableSettings';
 import { IStrengthLevel } from '../../Common/StrengthLevel';
@@ -22,6 +24,8 @@ import { IUrl } from '../../Common/Toolkit/Url';
  *   - a new column showing the difference AWP to the next level
  *   - a new column showing the next level
  *   - extend existing columng "Strength" by the actual strength based on current AWP
+ *   - a new column showing transfer price of current level
+ *   - a new column showing transfer price of next level
  * 
  * All extensions can be confiured, i.e. turned on or off.
  */
@@ -34,6 +38,8 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
   private readonly ressourceTableHeaderAwp: IRessource;
   private readonly ressourceTableHeaderAwpDiff: IRessource;
   private readonly ressourceTableHeaderNextStrength: IRessource;
+  private readonly ressourceTableHeaderTransferPriceCurrentStrength: IRessource;
+  private readonly ressourceTableHeaderTransferPriceNextStrength: IRessource;
 
   constructor(
     targetUrl: IUrl,
@@ -50,6 +56,8 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
     this.ressourceTableHeaderAwp = new RessourceCommonTableExtensionsHeaderAwp();
     this.ressourceTableHeaderAwpDiff = new RessourceCommonTableExtensionsHeaderAwpDiff();
     this.ressourceTableHeaderNextStrength = new RessourceCommonTableExtensionsHeaderNextStrength();
+    this.ressourceTableHeaderTransferPriceCurrentStrength = new RessourceCommonTableExtensionsHeaderTransferPriceCurrentStrength();
+    this.ressourceTableHeaderTransferPriceNextStrength = new RessourceCommonTableExtensionsHeaderTransferPriceNextStrength();
   }
 
   public targetUrl(): IUrl {
@@ -63,8 +71,17 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
         let addAwpDiff = setting.addAwpDiffColumnActivated();
         let addNextStrength = setting.addNextStrengthColumnActivated();
         let extendStrength = setting.extendStrengthColumnActivated();
+        let addTransferPriceOfCurrentLevel = setting.addTransferPriceStrengthColumnActivated();
+        let addTransferPriceOfNextLevel = setting.addTransferPriceNextStrengthColumnActivated();
 
-        if (addAwp || addAwpDiff || addNextStrength || extendStrength) {
+        if (false
+          || addAwp
+          || addAwpDiff
+          || addNextStrength
+          || extendStrength
+          || addTransferPriceOfCurrentLevel
+          || addTransferPriceOfNextLevel) {
+
           this.strengthLevels
             .strengthLevels()
             .then((strengthLevels: IStrengthLevel[]) => {
@@ -91,6 +108,20 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                     columnNumber++));
               }
               if (extendStrength) this.extendStrengthColumn(strengthLevels);
+              if (addTransferPriceOfCurrentLevel) {
+                this.table.addColumn(
+                  new HtmlTableColumn(
+                    new HtmlElement("th", [], "", []),
+                    strengthLevels.map((sl, i) => { return i === 0 ? this.header(this.ressourceTableHeaderTransferPriceCurrentStrength.value()) : this.element(`<not-supported-yet>`, i); }),
+                    columnNumber++));
+              }
+              if (addTransferPriceOfNextLevel) {
+                this.table.addColumn(
+                  new HtmlTableColumn(
+                    new HtmlElement("th", [], "", []),
+                    strengthLevels.map((sl, i) => { return i === 0 ? this.header(this.ressourceTableHeaderTransferPriceNextStrength.value()) : this.element(`<not-supported-yet>`, i); }),
+                    columnNumber++));
+              }
             });
         }
       });
