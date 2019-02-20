@@ -23,8 +23,15 @@ export class FoxfmBackground {
     try {
       this.log.info(this.thisModule, "S t a r t e d");
       this.createContextMenu();
-      let messaging = new MessagingBackgroundScript("", this.indexedDb, new EasyLogger(this.log, new RegisteredLoggingModule("MessagingBackgroundScript", new LogLevelError())));
-      messaging.connect();
+      new MessagingBackgroundScript(
+        "",
+        this.indexedDb,
+        new EasyLogger(
+          this.log,
+          new RegisteredLoggingModule(
+            "MessagingBackgroundScript",
+            new LogLevelError())))
+        .connect();
       await this.tasks.run();
     }
     catch (e) {
