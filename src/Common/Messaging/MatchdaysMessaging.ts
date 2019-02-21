@@ -4,7 +4,7 @@ import {
 } from '../DataModel/PersistMatchdayMessagingDataModel';
 import { IMatchday } from '../IMatchday';
 import { IMatchdays } from '../IMatchdays';
-import { IMessaging } from './Messaging';
+import { IMessaging } from "./IMessaging";
 import { MessagingMessage } from './MessagingMessage';
 import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageTypeIndexedDbAddMatchday';
 

@@ -1,4 +1,4 @@
-import { IMessagingMessageTypeDataModel } from './MessagingMessageType';
+import { IMessagingMessageTypeDataModel } from "./IMessagingMessageTypeDataModel";
 
 export class MessagingMessageTypeIndexedDbAddClub implements IMessagingMessageTypeDataModel {
   public name: String;

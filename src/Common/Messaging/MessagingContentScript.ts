@@ -1,4 +1,4 @@
-import { IMessaging } from './Messaging';
+import { IMessaging } from "./IMessaging";
 import { IMessagingPort } from './MessagingPort';
 import { IEasyLogger } from '../Logger/EasyLogger';
 

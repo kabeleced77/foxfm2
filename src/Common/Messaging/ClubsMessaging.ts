@@ -1,7 +1,7 @@
 import { PersistClubMessagingDataModel, IPersistClubMessagingDataModel } from '../DataModel/PersistClubMessagingDataModel';
 import { IClub } from '../IClub';
 import { IClubs } from '../IClubs';
-import { IMessaging } from './Messaging';
+import { IMessaging } from "./IMessaging";
 import { MessagingMessage } from './MessagingMessage';
 import { MessagingMessageTypeIndexedDbAddClub } from './MessagingMessageTypeIndexedDbAddClub';
 

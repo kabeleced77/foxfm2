@@ -1,10 +1,12 @@
-import { IMessagingMessageTypeDataModel } from './MessagingMessageType';
+import { IMessagingMessageTypeDataModel } from "./IMessagingMessageTypeDataModel";
+import { IMessagingMessage } from "./IMessagingMessage";
 
-export interface IMessagingMessage<T> {
-  type: IMessagingMessageTypeDataModel;
-  content: T;
-}
-
+/**
+ * Implementation of the interface of a message which can be sent through a messaging system.
+ * 
+ * An instance of this type will be serialised and sent. As the serialisation will serialise 
+ * only properties they are defined public.
+ */
 export class MessagingMessage<T> implements IMessagingMessage<T> {
   public type: IMessagingMessageTypeDataModel;
   public content: T;
