@@ -10,7 +10,7 @@ import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageType
 
 export class MatchdaysMessaging implements IMatchdays {
   constructor(
-    private readonly dataSource: IMessaging<Object>,
+    private readonly dataSource: IMessaging<Object, Object>,
   ) { }
 
   public matchdays(): Promise<IMatchday[]> {
@@ -23,7 +23,7 @@ export class MatchdaysMessaging implements IMatchdays {
     gameDay: Number,
     date: Date,
   ): Promise<IMatchday> {
-    this.dataSource.send(
+    return <Promise<IMatchday>>this.dataSource.send(
       new MessagingMessage<IPersistMatchdayMessagingDataModel>(
         new MessagingMessageTypeIndexedDbAddMatchday(),
         new PersistMatchdayMessagingDataModel(
@@ -31,6 +31,5 @@ export class MatchdaysMessaging implements IMatchdays {
           gameSeason,
           gameDay,
         )));
-    return new Promise(() => new Object());
   }
 }

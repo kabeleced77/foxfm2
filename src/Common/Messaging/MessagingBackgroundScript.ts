@@ -9,16 +9,17 @@ import { ClubsIDb } from '../IndexedDb/ClubsIDb';
 import { FoxfmIndexedDb } from '../IndexedDb/FoxfmIndexedDb';
 import { MatchdaysIDb } from '../IndexedDb/MatchdaysIDb';
 import { IEasyLogger, EasyLogger } from '../Logger/EasyLogger';
-import { IMessaging } from './Messaging';
-import { IMessagingMessage } from './MessagingMessage';
+import { IMessaging } from "./IMessaging";
+import { IMessagingMessage } from "./IMessagingMessage";
 import { MessagingMessageTypeIndexedDbAddClub } from './MessagingMessageTypeIndexedDbAddClub';
 import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageTypeIndexedDbAddMatchday';
 import { IMatchday } from '../IMatchday';
 import { UserInteractionImportPlayerTransfers } from '../../BackgroundPage/PlayerTransfers/UserInteractionImportPlayerTransfers';
 import { RegisteredLoggingModule } from '../Logger/RegisteredLoggingModule';
 import { LogLevelDebug, LogLevelError } from '../Logger/LogLevel';
+import { MessagingMessageTypeIndexedDbAggregatedTransferPrices } from "./MessagingMessageTypeIndexedDbAggregatedTransferPrices";
 
-export class MessagingBackgroundScript implements IMessaging<Object> {
+export class MessagingBackgroundScript implements IMessaging<Object, Object> {
   private portName: String;
   private logger: IEasyLogger;
 
@@ -31,9 +32,14 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
     this.logger = logger;
   }
 
-  public send(message: Object) {
-    let port = chrome.runtime.connect({ name: this.portName.toString() });
-    port.postMessage(message);
+  public send(message: Object)
+    : Promise<Object> {
+
+    return new Promise((resolve, reject) => {
+      let port = chrome.runtime.connect({ name: this.portName.toString() });
+      port.onMessage.addListener((message: Object) => resolve(message));
+      port.postMessage(message);
+    });
   }
 
   public connect() {
@@ -59,9 +65,9 @@ export class MessagingBackgroundScript implements IMessaging<Object> {
             break;
           case new MessagingMessageTypeIndexedDbAddClub().name:
             let addedClub = await this.addClubToIndexedDb(<IPersistClubMessagingDataModel>message.content);
-            port.postMessage(addedClub);
+            p.postMessage(addedClub);
             break;
-          default:
+         default:
             this.logger.error(`Unsupported messaging message type: ${message.type.name}`);
         }
       });

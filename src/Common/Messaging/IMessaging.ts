@@ -1,4 +1,5 @@
 import { IMessagingMessage } from "./IMessagingMessage";
-export interface IMessaging<T> {
-  send(message: IMessagingMessage<T>);
+
+export interface IMessaging<T, R> {
+  send(message: IMessagingMessage<T>): Promise<R>;
 }

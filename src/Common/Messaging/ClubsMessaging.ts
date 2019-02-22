@@ -7,7 +7,7 @@ import { MessagingMessageTypeIndexedDbAddClub } from './MessagingMessageTypeInde
 
 export class ClubsMessaging implements IClubs {
   constructor(
-    private readonly dataSource: IMessaging<Object>,
+    private readonly dataSource: IMessaging<Object, Object>,
   ) { }
 
   public clubs(): Promise<IClub[]> {
@@ -16,7 +16,8 @@ export class ClubsMessaging implements IClubs {
 
   public add(gameServerName: String, clubName: String, externalClubId: Number):
     Promise<IClub> {
-    this.dataSource.send(
+
+    return <Promise<IClub>>this.dataSource.send(
       new MessagingMessage<IPersistClubMessagingDataModel>(
         new MessagingMessageTypeIndexedDbAddClub(),
         new PersistClubMessagingDataModel(
@@ -24,6 +25,5 @@ export class ClubsMessaging implements IClubs {
           clubName,
           externalClubId,
         )));
-    return new Promise(() => new Object());
   }
 }
