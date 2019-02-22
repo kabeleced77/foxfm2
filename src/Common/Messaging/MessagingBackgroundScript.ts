@@ -67,7 +67,11 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
             let addedClub = await this.addClubToIndexedDb(<IPersistClubMessagingDataModel>message.content);
             p.postMessage(addedClub);
             break;
-         default:
+          case new MessagingMessageTypeIndexedDbAggregatedTransferPrices().name:
+            const c = <{ "Position": String, "Age": Number, "Strength": Number }>message.content;
+            p.postMessage({ "message": `AVG for ${c.Position}:${c.Age}:${c.Strength}` });
+            break;
+          default:
             this.logger.error(`Unsupported messaging message type: ${message.type.name}`);
         }
       });
