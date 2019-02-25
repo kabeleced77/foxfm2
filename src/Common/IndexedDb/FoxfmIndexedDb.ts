@@ -31,7 +31,7 @@ export class FoxfmIndexedDb extends Dexie {
         matchdays: `++${nameof<IDataModelIDbMatchday>(o => o.id)}, &[${nameof<IDataModelIDbMatchday>(o => o.gameServerId)}+${nameof<IDataModelIDbMatchday>(o => o.season)}+${nameof<IDataModelIDbMatchday>(o => o.day)}], ${nameof<IDataModelIDbMatchday>(o => o.gameServerId)}, ${nameof<IDataModelIDbMatchday>(o => o.season)}, ${nameof<IDataModelIDbMatchday>(o => o.day)}`,
         clubs: "++id, &[gameServerId+externalId+name]",
         gameServers: "++id, uri",
-        playerTransfers: "++id, &[matchdayId+externalTransferId]",
+        playerTransfers: `++${nameof<IDataModelIDbPlayerTransfer>(o => o.id)}, &[${nameof<IDataModelIDbPlayerTransfer>(o => o.matchdayId)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.externalTransferId)}]`,
         taskNames: "++id, &name",
         taskConfigurations: "++id, &taskNameId",
         taskStatuses: "++id, &name",
