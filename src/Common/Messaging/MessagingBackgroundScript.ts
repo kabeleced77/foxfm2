@@ -18,6 +18,7 @@ import { UserInteractionImportPlayerTransfers } from '../../BackgroundPage/Playe
 import { RegisteredLoggingModule } from '../Logger/RegisteredLoggingModule';
 import { LogLevelDebug, LogLevelError } from '../Logger/LogLevel';
 import { MessagingMessageTypeIndexedDbAggregatedTransferPrices } from "./MessagingMessageTypeIndexedDbAggregatedTransferPrices";
+import { IMessagingMessageDataModelAverageTransferPrices } from '../DataModel/MessagingMessageDataModelAverageTransferPrices';
 
 export class MessagingBackgroundScript implements IMessaging<Object, Object> {
   private portName: String;
@@ -68,8 +69,8 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
             p.postMessage(addedClub);
             break;
           case new MessagingMessageTypeIndexedDbAggregatedTransferPrices().name:
-            const c = <{ "Position": String, "Age": Number, "Strength": Number }>message.content;
-            p.postMessage({ "message": `AVG for ${c.Position}:${c.Age}:${c.Strength}` });
+            const c = <IMessagingMessageDataModelAverageTransferPrices>message.content;
+            p.postMessage({ "message": `AVG for ${JSON.stringify(c.positions)}:${c.minAge}-${c.maxAge}:${c.minStrength}-${c.maxStrength}` });
             break;
           default:
             this.logger.error(`Unsupported messaging message type: ${message.type.name}`);
