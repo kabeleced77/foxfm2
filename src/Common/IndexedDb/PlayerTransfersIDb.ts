@@ -19,6 +19,7 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
   }
 
   public add(
+    gameServerId: Number,
     matchdayId: Number,
     externalTransferId: Number,
     position: String,
@@ -29,6 +30,7 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
     return this.dataBase
       .playerTransfers
       .add(new DataModelIDbPlayerTransfer(
+        gameServerId,
         matchdayId,
         externalTransferId,
         position,

@@ -1,5 +1,7 @@
 import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { IDataModelIDbPlayerTransfer } from '../DataModel/DataModelIDbPlayerTransfer';
+import { GameServerIDb } from './GameServerIDb';
+import { IGameServer } from "../IGameServer";
 import { IMatchday } from '../IMatchday';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { MatchdayIDb } from './MatchdayIDb';
@@ -16,6 +18,27 @@ export class PlayerTransferIDb implements IPlayerTransfer {
 
   public id(): Number {
     return this.idValue;
+  }
+  public gameServerId(): Promise<Number> {
+    return this.source
+      .playerTransfers
+      .get(this.idValue)
+      .then((result: IDataModelIDbPlayerTransfer) => result.gameServerId);
+  }
+
+  public gameServer(): Promise<IGameServer> {
+    return this.source.transaction("r", this.source.playerTransfers, this.source.gameServers, async () => {
+      let transferInIdb = await this.source.playerTransfers.get(this.id());
+      let gameServersInDb = this.source.gameServers.filter(gs => gs.id === transferInIdb!.gameServerId);
+      if (await gameServersInDb.count() === 1) {
+        return new GameServerIDb(
+          this.source,
+          (await gameServersInDb.first())!.id!
+        );
+      } else {
+        throw `Transfer with matchday-id '${transferInIdb!.matchdayId}' and external transfer id '${transferInIdb!.externalTransferId}: game server id: ${transferInIdb!.gameServerId}: no game server found`;
+      }
+    });
   }
 
   public externalTransferId(): Promise<Number> {
@@ -63,7 +86,7 @@ export class PlayerTransferIDb implements IPlayerTransfer {
           (await matchdaysInDb.first())!.id!
         );
       } else {
-        throw `Transfer with matchday-id '${transferInIdb!.matchdayId}' and external transfer id '${transferInIdb!.externalTransferId}: no matchday found`;
+        throw `Transfer with matchday-id '${transferInIdb!.matchdayId}' and external transfer id '${transferInIdb!.externalTransferId}: matchday id: ${transferInIdb!.gameServerId}: no matchday found`;
       }
     });
   }
