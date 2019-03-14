@@ -1,6 +1,5 @@
 import { IStrengthLevel, StrengthLevel } from "./StrengthLevel";
 import { IAwpPoints } from "./Toolkit/AwpPoints";
-import { IStrengthsLimits } from "./StrengthsLimits";
 import { IStrengthValues } from "./StrengthValues";
 import { IStrengthsLimitsSetting } from "./Settings/StrengthsLimitsSetting";
 
