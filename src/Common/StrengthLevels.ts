@@ -8,19 +8,11 @@ export interface IStrengthLevels {
 }
 
 export class StrengthLevels implements IStrengthLevels {
-  private readonly strengthsLimitsSetting: IStrengthsLimitsSetting;
-  private readonly strengthValues: IStrengthValues;
-  private readonly awps: IAwpPoints;
-
   constructor(
-    strengthsLimitsSetting: IStrengthsLimitsSetting,
-    strengthValues: IStrengthValues,
-    awps: IAwpPoints
-  ) {
-    this.strengthsLimitsSetting = strengthsLimitsSetting;
-    this.strengthValues = strengthValues;
-    this.awps = awps;
-  }
+    private readonly strengthsLimitsSetting: IStrengthsLimitsSetting,
+    private readonly strengthValues: IStrengthValues,
+    private readonly awps: IAwpPoints
+  ) { }
 
   public strengthLevels(): Promise<IStrengthLevel[]> {
     if (this.strengthValues.values().length !== this.awps.points().length)
