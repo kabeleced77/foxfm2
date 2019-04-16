@@ -12,7 +12,12 @@ export class FoxfmBackground {
   private thisModule: string = "FoxfmBackground";
   private ressourceSettings: IRessource;
 
-  constructor(private tasks: ITasks, private indexedDb: FoxfmIndexedDb, logger: ILogger) {
+  constructor(
+    private tasks: ITasks,
+    private indexedDb: FoxfmIndexedDb,
+    logger: ILogger,
+  ) {
+
     this.log = logger;
     var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
     this.log.registerModuleForLogging(loggingModule);
@@ -32,7 +37,8 @@ export class FoxfmBackground {
             "MessagingBackgroundScript",
             new LogLevelError())))
         .connect();
-      await this.tasks.run();
+      // TODO: remove task feature entirely
+      //   await this.tasks.run();
     }
     catch (e) {
       this.log.error(this.thisModule, `Error in background script: ${e.message}`);
