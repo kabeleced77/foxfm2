@@ -30,6 +30,7 @@ export class FoxfmIndexedDb extends Dexie {
         // following usages of "nameof"s are a little bit unhandy but ensure type safety for changes to underlying data models
         matchdays: `++${nameof<IDataModelIDbMatchday>(o => o.id)}, &[${nameof<IDataModelIDbMatchday>(o => o.gameServerId)}+${nameof<IDataModelIDbMatchday>(o => o.season)}+${nameof<IDataModelIDbMatchday>(o => o.day)}], ${nameof<IDataModelIDbMatchday>(o => o.gameServerId)}, ${nameof<IDataModelIDbMatchday>(o => o.season)}, ${nameof<IDataModelIDbMatchday>(o => o.day)}`,
         clubs: "++id, &[gameServerId+externalId+name]",
+        // TODO: make uri index unique -> &uri
         gameServers: "++id, uri",
         playerTransfers: `++${nameof<IDataModelIDbPlayerTransfer>(o => o.id)}, &[${nameof<IDataModelIDbPlayerTransfer>(o => o.matchdayId)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.externalTransferId)}], [${nameof<IDataModelIDbPlayerTransfer>(o => o.gameServerId)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.position)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.age)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.strength)}]`,
         taskNames: "++id, &name",
