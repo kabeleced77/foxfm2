@@ -10,8 +10,6 @@ export class SplitStringToNumbers implements ISplitString<Number, Number> {
   private readonly string: String;
   private readonly splitBy: String;
   private readonly decimalPoint: String;
-  private firstValueOfString: Number;
-  private secondValueOfString: Number;
 
   constructor(
     string: String,
@@ -24,15 +22,15 @@ export class SplitStringToNumbers implements ISplitString<Number, Number> {
   }
 
   public firstValue(): Number {
-    this.split();
+    const splittedString = this.split();
     return new NumberFromString(
-      new Value<String>(this.split()[0].trim()),
+      new Value<String>(splittedString.length >= 1 ? splittedString[0].trim() : ""),
       this.decimalPoint).value();
   }
   public secondValue(): Number {
-    this.split();
+    const splittedString = this.split();
     return new NumberFromString(
-      new Value<String>(this.split()[1].trim()),
+      new Value<String>(splittedString.length >= 2 ? splittedString[1].trim() : ""),
       this.decimalPoint).value();
   }
 
