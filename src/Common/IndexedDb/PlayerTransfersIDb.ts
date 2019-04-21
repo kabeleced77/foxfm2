@@ -1,4 +1,4 @@
-import { DataModelIDbPlayerTransfer } from '../DataModel/DataModelIDbPlayerTransfer';
+import { DataModelIDbPlayerTransfer, IDataModelIDbPlayerTransfer } from '../DataModel/DataModelIDbPlayerTransfer';
 import { IPlayerTransfers } from '../IPlayerTransfers';
 import { PlayerTransferIDb } from './PlayerTransferIDb';
 import { IPlayerTransfer } from "../IPlayerTransfer";
@@ -43,5 +43,33 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
       })
       .catch('ConstraintError', e => { })
       .catch(e => { throw `Could not add new player transfer: ${e}`; });
+  }
+
+  async average(
+    gameServerUri: String,
+    position: String,
+    age: Number,
+    strength: Number,
+  ): Promise<Number> {
+
+    let sumOfAllTransfers = 0;
+    let countOfAllTransfers = 0;
+
+    let gameServers = this.dataBase.gameServers.where('uri').equals(gameServerUri.toString());
+    if (await gameServers.count() == 1) {
+      let gameServerId = (await gameServers.first())!.id!;
+      await this.dataBase
+        .playerTransfers
+        .where(`[${nameof<IDataModelIDbPlayerTransfer>(o => o.gameServerId)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.position)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.age)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.strength)}]`)
+        .equals([gameServerId.valueOf(), position.toString(), age.valueOf(), strength.valueOf()])
+        .each(transfer => {
+          countOfAllTransfers++;
+          sumOfAllTransfers += transfer.price.valueOf();
+        });
+    } else {
+      console.warn(`Could not calculate average transfer price: invalid game server uri: ${gameServerUri}`);
+    }
+
+    return Math.round(countOfAllTransfers == 0 ? 0 : sumOfAllTransfers / countOfAllTransfers);
   }
 }

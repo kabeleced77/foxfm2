@@ -11,6 +11,10 @@ export interface IPlayerTransfers {
     strength: Number,
     price: Number,
   ): Promise<void | IPlayerTransfer>;
+  average(
+    gameServerUri: String,
+    position: String,
+    age: Number,
+    strength: Number,
+  ): Promise<Number>;
 }
-
-
