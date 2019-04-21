@@ -17,6 +17,8 @@ import { HtmlTableColumn } from '../../Common/Toolkit/HtmlTableColumn';
 import { IHtmlTableColumnByXpath } from '../../Common/Toolkit/HtmlTableColumnByXpath';
 import { ISetting } from '../../Common/Toolkit/Setting';
 import { IUrl } from '../../Common/Toolkit/Url';
+import { IPlayers } from '../../Common/IPlayers';
+import { IEasyLogger } from '../../Common/Logger/EasyLogger';
 
 /**
  * Extend the table showing the professional player transfers by
@@ -46,7 +48,9 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
     table: IHtmlTable,
     strengthColumn: IHtmlTableColumnByXpath,
     strengthLevels: IStrengthLevels,
-    settings: ISetting<ITransferMarketSearchResultTableSettings>
+    private readonly players: IPlayers,
+    settings: ISetting<ITransferMarketSearchResultTableSettings>,
+    private readonly log: IEasyLogger,
   ) {
     this.url = targetUrl;
     this.table = table;
@@ -67,6 +71,7 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
     this.settings
       .value()
       .then(setting => {
+        this.log.debug(`Based on configuration settings this page will be extended: URI: ${this.url.url()}; Settings: ${JSON.stringify(setting)}`);
         let addAwp = setting.addAwpColumnActivated();
         let addAwpDiff = setting.addAwpDiffColumnActivated();
         let addNextStrength = setting.addNextStrengthColumnActivated();
@@ -84,7 +89,7 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
 
           this.strengthLevels
             .strengthLevels()
-            .then((strengthLevels: IStrengthLevel[]) => {
+            .then(async (strengthLevels: IStrengthLevel[]) => {
               let columnNumber = 6;
               if (addAwp) {
                 this.table.addColumn(
@@ -112,7 +117,12 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                 this.table.addColumn(
                   new HtmlTableColumn(
                     new HtmlElement("th", [], "", []),
-                    strengthLevels.map((sl, i) => { return i === 0 ? this.header(this.ressourceTableHeaderTransferPriceCurrentStrength.value()) : this.element(`<not-supported-yet>`, i); }),
+                    await Promise.all((await this.players.all())
+                      .map(async (player, i) => {
+                        return i === 0
+                          ? this.header(this.ressourceTableHeaderTransferPriceCurrentStrength.value())
+                          : this.element((await player.averageTransferPrice()).valueOf().toString(), i);
+                      })),
                     columnNumber++));
               }
               if (addTransferPriceOfNextLevel) {

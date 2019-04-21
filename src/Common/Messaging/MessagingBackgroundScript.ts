@@ -16,9 +16,10 @@ import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageType
 import { IMatchday } from '../IMatchday';
 import { UserInteractionImportPlayerTransfers } from '../../BackgroundPage/PlayerTransfers/UserInteractionImportPlayerTransfers';
 import { RegisteredLoggingModule } from '../Logger/RegisteredLoggingModule';
-import { LogLevelDebug, LogLevelError } from '../Logger/LogLevel';
-import { MessagingMessageTypeIndexedDbAggregatedTransferPrices } from "./MessagingMessageTypeIndexedDbAggregatedTransferPrices";
-import { IMessagingMessageDataModelAverageTransferPrices } from '../DataModel/MessagingMessageDataModelAverageTransferPrices';
+import { LogLevelError } from '../Logger/LogLevel';
+import { MessagingMessageTypeIndexedDbTransferPricesAverage } from './MessagingMessageTypeIndexedDbTransferPricesAverage';
+import { IMessagingMessageDataModelTransferPricesAverage } from "../DataModel/IMessagingMessageDataModelTransferPricesAverage";
+import { PlayerTransfersIDb } from '../IndexedDb/PlayerTransfersIDb';
 
 export class MessagingBackgroundScript implements IMessaging<Object, Object> {
   private portName: String;
@@ -68,9 +69,12 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
             let addedClub = await this.addClubToIndexedDb(<IPersistClubMessagingDataModel>message.content);
             p.postMessage(addedClub);
             break;
-          case new MessagingMessageTypeIndexedDbAggregatedTransferPrices().name:
-            const c = <IMessagingMessageDataModelAverageTransferPrices>message.content;
-            p.postMessage({ "message": `AVG for ${JSON.stringify(c.positions)}:${c.minAge}-${c.maxAge}:${c.minStrength}-${c.maxStrength}` });
+          case new MessagingMessageTypeIndexedDbTransferPricesAverage().name:
+            const c = <IMessagingMessageDataModelTransferPricesAverage>message.content;
+
+            p.postMessage(
+              await new PlayerTransfersIDb(this.indexedDb).average(c.gameServerUri, c.position, c.age, c.strength)
+            );
             break;
           default:
             this.logger.error(`Unsupported messaging message type: ${message.type.name}`);

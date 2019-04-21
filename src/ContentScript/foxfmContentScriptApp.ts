@@ -105,9 +105,13 @@ import { TransferMarketAmateurPlayerTable } from './TransferMarket/TransferMarke
 import { TransferMarketOfferDurationSelect } from './TransferMarket/TransferMarketOfferDurationSelect';
 import { TransferMarketOfferPlayerTable } from './TransferMarket/TransferMarketOfferPlayerTable';
 import { TransferMarketProfessionalPlayerTable } from './TransferMarket/TransferMarketProfessionalPlayerTable';
+import { PlayerCategories } from '../Common/PlayerCategories';
+import { Players } from '../Common/Players';
+import { PlayerTransfersMessaging } from './TransferMarket/PlayerTransfersMessaging';
 
 var doc = window.document;
 var currentUrl = doc.location.href;
+var currentHost = doc.location.host;
 
 /****************************************************
  * Create logger used withing content script
@@ -202,6 +206,54 @@ new FoxfmContentScript(
                         new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
               "/",
               ","))),
+        // all players presented in the table 'Professional Transfer Market'
+        new Players(
+          currentHost,
+          new PlayerCategories(
+            // player position
+            new HtmlTableColumnStringValues(
+              new HtmlTableColumnByXpath(
+                new XPathHtmlTableCell(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[2]'))))),
+            ),
+            // player age
+            new HtmlTableColumnNumberValues(
+              new HtmlTableColumnByXpath(
+                new XPathHtmlTableCell(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[4]'))))),
+            ),
+            new StrengthLevels(
+              new StrengthsLimitsSetting(),
+              new StrengthValues(
+                new HtmlTableColumnByXpath(
+                  new XPathHtmlTableCell(
+                    new XPathSingleResult<HTMLTableCellElement>(
+                      new XPathAllResults(
+                        window.document,
+                        new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
+              new AwpPointsBySplittedString(
+                new SplitStringsToNumbers(
+                  new HtmlTableColumnStringValues(
+                    new HtmlTableColumnByXpath(
+                      new XPathHtmlTableCell(
+                        new XPathSingleResult<HTMLTableCellElement>(
+                          new XPathAllResults(
+                            window.document,
+                            new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
+                  "/",
+                  ","))),
+          ),
+          new PlayerTransfersMessaging(
+            messagingContentScript,
+          ),
+        ),
+        // settings
         new StorageLocal<ITransferMarketSearchResultTableSettings>(
           new SettingNameTransferMarketProfessionalsSearchResultTable(),
           new TransferMarketSearchResultTableSettings(
@@ -211,7 +263,15 @@ new FoxfmContentScript(
             false,
             false,
             false,
-          ))),
+          )),
+        // logger
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            nameof(TransferMarketProfessionalPlayerTable),
+            new LogLevelError(),
+          )
+        )),
       // Extend transfer market - possible offer table
       new TransferMarketOfferPlayerTable(
         new TransferOfferWebPageUrl(),
