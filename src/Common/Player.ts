@@ -1,7 +1,6 @@
 import { IPlayerCategory } from "./IPlayerCategory";
 import { IPlayer } from "./IPlayer";
 import { IPlayerTransfers } from "./IPlayerTransfers";
-import { IGameServer } from "./IGameServer";
 
 export class Player implements IPlayer {
   constructor(
@@ -23,5 +22,3 @@ export class Player implements IPlayer {
       );
   }
 }
-
-
