@@ -22,7 +22,6 @@ export class PlayerCategories implements IPlayerCategories {
       .strengthLevels())
       .map((strengthLevel, index) => {
         return new PlayerCategory(
-          //"LMD",
           this.positions.values()[index],
           this.ages.values()[index],
           strengthLevel,
