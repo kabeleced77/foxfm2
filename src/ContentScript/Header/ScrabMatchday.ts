@@ -1,7 +1,7 @@
 import { IMatchdays } from '../../Common/IMatchdays';
 import { IScrabWebElement } from '../../Common/Toolkit/ScrabWebElement';
 import { IUrl } from '../../Common/Toolkit/Url';
-import { IValue } from '../../Common/Toolkit/Value';
+import { IValue } from "../../Common/Toolkit/IValue";
 
 export class ScrabMatchday implements IScrabWebElement {
   private urlField: IUrl;

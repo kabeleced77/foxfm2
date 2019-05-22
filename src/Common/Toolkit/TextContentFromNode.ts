@@ -1,5 +1,5 @@
 import { IDomNodes } from './DomNodes';
-import { IValue } from './Value';
+import { IValue } from "./IValue";
 
 export class TextContentFromNode<T extends Node> implements IValue<String> {
   private readonly nodes: IDomNodes<T>;

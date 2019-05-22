@@ -1,4 +1,4 @@
-import { IValue } from "./Value";
+import { IValue } from "./IValue";
 
 export class NumberFromString implements IValue<Number> {
   private readonly string: IValue<String>;

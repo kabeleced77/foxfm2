@@ -1,7 +1,7 @@
 import { IClubs } from '../../Common/IClubs';
 import { IScrabWebElement } from '../../Common/Toolkit/ScrabWebElement';
 import { IUrl } from '../../Common/Toolkit/Url';
-import { IValue } from '../../Common/Toolkit/Value';
+import { IValue } from "../../Common/Toolkit/IValue";
 
 export class ScrabClub implements IScrabWebElement {
   private urlField: IUrl;

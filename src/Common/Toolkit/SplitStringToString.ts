@@ -1,4 +1,4 @@
-import { IValue } from './Value';
+import { IValue } from "./IValue";
 
 export class SplitStringToString implements IValue<String> {
   private readonly string: IValue<String>;

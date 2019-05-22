@@ -1,6 +1,4 @@
-export interface IValue<T> {
-  value(): T;
-}
+import { IValue } from "./IValue";
 
 export class Value<T> implements IValue<T> {
   private readonly v: T;

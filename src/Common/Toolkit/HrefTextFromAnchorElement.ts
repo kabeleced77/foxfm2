@@ -1,5 +1,5 @@
 import { IDomNodes } from './DomNodes';
-import { IValue } from './Value';
+import { IValue } from "./IValue";
 
 export class HrefTextFromAnchorElement<T extends HTMLAnchorElement> implements IValue<String> {
   private readonly nodes: IDomNodes<T>;
