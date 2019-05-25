@@ -1,12 +1,10 @@
-import { IStrengthLevel, StrengthLevel } from "./StrengthLevel";
 import { IPlayerCategory } from "./IPlayerCategory";
 
 export class PlayerCategory implements IPlayerCategory {
   constructor(
     private readonly positionValue: String,
     private readonly ageValue: Number,
-    private readonly strengthLevelValue: IStrengthLevel,
-
+    private readonly strengthValue: Number,
   ) { }
 
   public position(): String {
@@ -15,7 +13,7 @@ export class PlayerCategory implements IPlayerCategory {
   public age(): Number {
     return this.ageValue;
   }
-  public strengthLevel(): IStrengthLevel {
-    return this.strengthLevelValue;
+  public strength(): Number {
+    return this.strengthValue;
   }
 }

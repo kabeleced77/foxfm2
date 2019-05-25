@@ -18,7 +18,7 @@ export class Player implements IPlayer {
         this.gameServerUri,
         this.categoryValue.position(),
         this.categoryValue.age(),
-        this.categoryValue.strengthLevel().actualStrengthValue(),
+        this.categoryValue.strength(),
       );
   }
 }

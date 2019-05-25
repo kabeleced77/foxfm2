@@ -210,7 +210,7 @@ new FoxfmContentScript(
         new Players(
           currentHost,
           new PlayerCategories(
-            // player position
+            // player position values
             new HtmlTableColumnStringValues(
               new HtmlTableColumnByXpath(
                 new XPathHtmlTableCell(
@@ -219,7 +219,7 @@ new FoxfmContentScript(
                       window.document,
                       new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[2]'))))),
             ),
-            // player age
+            // player age values
             new HtmlTableColumnNumberValues(
               new HtmlTableColumnByXpath(
                 new XPathHtmlTableCell(
@@ -228,26 +228,14 @@ new FoxfmContentScript(
                       window.document,
                       new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[4]'))))),
             ),
-            new StrengthLevels(
-              new StrengthsLimitsSetting(),
-              new StrengthValues(
-                new HtmlTableColumnByXpath(
-                  new XPathHtmlTableCell(
-                    new XPathSingleResult<HTMLTableCellElement>(
-                      new XPathAllResults(
-                        window.document,
-                        new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
-              new AwpPointsBySplittedString(
-                new SplitStringsToNumbers(
-                  new HtmlTableColumnStringValues(
-                    new HtmlTableColumnByXpath(
-                      new XPathHtmlTableCell(
-                        new XPathSingleResult<HTMLTableCellElement>(
-                          new XPathAllResults(
-                            window.document,
-                            new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
-                  "/",
-                  ","))),
+            // player strength values
+            new StrengthValues(
+              new HtmlTableColumnByXpath(
+                new XPathHtmlTableCell(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
           ),
           new PlayerTransfersMessaging(
             messagingContentScript,
