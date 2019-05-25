@@ -7,8 +7,8 @@ export interface IXPathAllResults {
   xPathNumberOfResults(): Number;
 }
 
-// TODO: Caching the result might be an improvement. Currently the result is calculated for each method again.
 export class XPathAllResults implements IXPathAllResults {
+  private allResults: XPathResult;
   private doc: Document;
   private xPathString: IXPathString;
 
@@ -21,7 +21,10 @@ export class XPathAllResults implements IXPathAllResults {
     return this.xPathString;
   }
   public xPathAllResults(): XPathResult {
-    return this.doc.evaluate(this.xPath().xPathString().toString(), this.doc.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+    if (!this.allResults) {
+      this.allResults = this.doc.evaluate(this.xPath().xPathString().toString(), this.doc.documentElement, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+    }
+    return this.allResults;
   }
   public xPathFirstResult(): Node {
     var result = this.xPathAllResults();
