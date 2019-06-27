@@ -14,7 +14,7 @@ export class PlayerCategories implements IPlayerCategories {
     if (false
       || this.positions.values().length != this.ages.values().length
       || this.ages.values().length != this.strengths.values().length) {
-      throw new Error(`Length of 'positions', 'ages' and 'strengthLevels' differ. Cannot calculate array of categories.`);
+      throw new Error(`Length of 'positions', 'ages' and 'strengths' differ. Cannot calculate array of categories.`);
     }
 
     return this.strengths
