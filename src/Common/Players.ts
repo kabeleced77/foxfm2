@@ -2,7 +2,6 @@ import { IPlayers } from "./IPlayers";
 import { IPlayer } from "./IPlayer";
 import { IPlayerCategories } from "./IPlayerCategories";
 import { Player } from "./Player";
-import { IGameServer } from "./IGameServer";
 import { IPlayerTransfers } from "./IPlayerTransfers";
 
 export class Players implements IPlayers {
