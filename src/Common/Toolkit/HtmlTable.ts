@@ -9,9 +9,22 @@ export interface IHtmlTable {
   tableHeaders(): IHtmlElement<HTMLTableSectionElement>[];
   tableFooters(): IHtmlElement<HTMLTableSectionElement>[];
   columnGroups(): HTMLCollectionOf<HTMLTableColElement>;
-  firstTableBody(): HTMLTableSectionElement;
+  tableBody(bodyIndex: Number): HTMLTableSectionElement;
   addColumn(column: IHtmlTableColumn): IHtmlTable;
   extendColumn(column: IHtmlTableColumnByXpath, values: String[]): void;
+  /**
+   * 
+   * @param bodyIndex - index of the table body of the row
+   * @param rowIndex - index of the row where to add a new cell
+   * @param columnIndex - index of the new cell (column). Remark: this will create a new column in that row!
+   * @param element - the new element added as the new cell before the given column index
+   */
+  addNewCellToBodyRow(
+    bodyIndex: Number,
+    rowIndex: Number,
+    columnIndex: Number,
+    element: IHtmlElement<HTMLTableCellElement>,
+  ): void;
 }
 
 export class HtmlTable implements IHtmlTable {
@@ -38,10 +51,10 @@ export class HtmlTable implements IHtmlTable {
     return this.table().getElementsByTagName("colgroup");
   }
 
-  public firstTableBody(): HTMLTableSectionElement {
+  public tableBody(bodyIndex: Number): HTMLTableSectionElement {
     var tableBodies = this.table().tBodies;
     if (tableBodies.length > 0) {
-      return <HTMLTableSectionElement>tableBodies[0];
+      return <HTMLTableSectionElement>tableBodies[bodyIndex.valueOf()];
     }
     else {
       throw new Error(`HTML table has no table body.`);
@@ -57,12 +70,23 @@ export class HtmlTable implements IHtmlTable {
     return tFooters;
   }
 
+  public addNewCellToBodyRow(
+    bodyIndex: Number,
+    rowIndex: Number,
+    columnIndex: Number,
+    content: IHtmlElement<HTMLTableCellElement>,
+  ): void {
+
+    const row = this.tableBody(bodyIndex).rows[rowIndex.valueOf()];
+    row.insertBefore(content.element(), row.cells[columnIndex.valueOf()]);
+  }
+
   public addColumn(column: IHtmlTableColumn): IHtmlTable {
     return this.addColumnToTable(column);
   }
 
   public extendColumn(column: IHtmlTableColumnByXpath, values: String[]) {
-    values.forEach((value, i) => this.extendInnerHtml(document, this.firstTableBody().rows[i].cells[column.index().valueOf()], value));
+    values.forEach((value, i) => this.extendInnerHtml(document, this.tableBody(0).rows[i].cells[column.index().valueOf()], value));
   }
 
   private addColumnToTable(column: IHtmlTableColumn): IHtmlTable {
@@ -81,7 +105,7 @@ export class HtmlTable implements IHtmlTable {
     }
     column.columnElements()
       .forEach((element, i) => {
-        table.firstTableBody().rows[i].insertBefore(element.element(), table.firstTableBody().rows[i].cells[column.index().valueOf()]);
+        this.addNewCellToBodyRow(0, i, column.index(), element);
       });
     return table;
   }
