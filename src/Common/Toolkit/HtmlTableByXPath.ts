@@ -1,6 +1,4 @@
 import { ITable } from "./Table";
-import { IXPathString } from "./XPathString";
-import { IDom } from "./Dom";
 import { IFirstElementInXPathNodeOrParents } from "./FirstElementInXPathNodeOrParents";
 
 export class HtmlTableByXPath<T> implements ITable<HTMLTableElement> {
