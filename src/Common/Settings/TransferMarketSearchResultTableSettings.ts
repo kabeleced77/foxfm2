@@ -40,10 +40,10 @@ export class TransferMarketSearchResultTableSettings implements ITransferMarketS
   public addNextStrengthColumnActivated(): Boolean {
     return this.addNextStrengthColumn;
   }
-  public addTransferPriceNextStrengthColumnActivated() {
+  public addTransferPriceStrengthColumnActivated() {
     return this.addColumnTransferPriceCurrentStrength;
   }
-  public addTransferPriceStrengthColumnActivated() {
+  public addTransferPriceNextStrengthColumnActivated() {
     return this.addColumnTransferPriceNextStrength;
   }
   public fromJson(jsonString: String): ITransferMarketSearchResultTableSettings {
