@@ -10,7 +10,7 @@ export class PlayerCategories implements IPlayerCategories {
     private readonly strengths: IValues<Number>,
   ) { }
 
-  public async categories(): Promise<IPlayerCategory[]> {
+  public categories(): IPlayerCategory[] {
     if (false
       || this.positions.values().length != this.ages.values().length
       || this.ages.values().length != this.strengths.values().length) {

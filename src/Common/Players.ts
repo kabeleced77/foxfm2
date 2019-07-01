@@ -14,10 +14,10 @@ export class Players implements IPlayers {
     private readonly transfers: IPlayerTransfers,
   ) { }
 
-  public async all(): Promise<IPlayer[]> {
-    return (await this
+  public all(): IPlayer[] {
+    return this
       .playerCatogiesValue
-      .categories())
+      .categories()
       .map((playerCategory) => {
         return new Player(
           this.uri,
