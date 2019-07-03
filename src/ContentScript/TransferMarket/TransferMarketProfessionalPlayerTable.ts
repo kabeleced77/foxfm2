@@ -166,6 +166,8 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
           });
         }
       });
+    // adjust width of div containing the transfer result table to 100%
+    this.adjustWidthOfTables();
   }
 
   private addCell(
@@ -181,6 +183,22 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
         columnNumber,
         textCellContent,
       );
+  }
+
+  private adjustWidthOfTables() {
+    new XPathFirstResult<HTMLDivElement>(
+      document,
+      '//*[@id="transfermarkt"]/div[1]/div')
+      .result()
+      .style
+      .width = "100%";
+    // adjust width of header of transfer result table to 100%
+    new XPathFirstResult<HTMLTableElement>(
+      document,
+      '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[1]')
+      .result()
+      .style
+      .width = "100%";
   }
 
   private header(headerText: String): IHtmlElement<HTMLTableCellElement> {
