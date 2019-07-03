@@ -1,16 +1,21 @@
 import { IPlayerCategory } from "./IPlayerCategory";
 import { IPlayer } from "./IPlayer";
 import { IPlayerTransfers } from "./IPlayerTransfers";
+import { IStrengthLevel } from "./StrengthLevel";
 
 export class Player implements IPlayer {
   constructor(
     private readonly gameServerUri: String,
     private readonly categoryValue: IPlayerCategory,
+    private readonly strengthLevelValue: IStrengthLevel,
     private readonly transfers: IPlayerTransfers,
   ) { }
 
   public category(): IPlayerCategory {
     return this.categoryValue;
+  }
+  public strengthLevel(): IStrengthLevel {
+    return this.strengthLevelValue;
   }
   public averageTransferPrice(): Promise<Number> {
     return this.transfers

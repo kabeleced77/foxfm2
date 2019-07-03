@@ -13,12 +13,12 @@ import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
 import { HtmlAttribute, IHtmlAttribute } from '../../Common/Toolkit/HtmlAttribute';
 import { HtmlElement, IHtmlElement } from '../../Common/Toolkit/HtmlElement';
 import { IHtmlTable } from '../../Common/Toolkit/HtmlTable';
-import { HtmlTableColumn } from '../../Common/Toolkit/HtmlTableColumn';
 import { IHtmlTableColumnByXpath } from '../../Common/Toolkit/HtmlTableColumnByXpath';
 import { ISetting } from '../../Common/Toolkit/Setting';
 import { IUrl } from '../../Common/Toolkit/Url';
 import { IPlayers } from '../../Common/IPlayers';
 import { IEasyLogger } from '../../Common/Logger/EasyLogger';
+import { XPathFirstResult } from '../../Common/Toolkit/XPathFirstResult';
 
 /**
  * Extend the table showing the professional player transfers by
@@ -70,7 +70,7 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
   public extend(): void {
     this.settings
       .value()
-      .then(setting => {
+      .then(async setting => {
         this.log.debug(`Based on configuration settings this page will be extended: URI: ${this.url.url()}; Settings: ${JSON.stringify(setting)}`);
         let addAwp = setting.addAwpColumnActivated();
         let addAwpDiff = setting.addAwpDiffColumnActivated();
@@ -87,54 +87,100 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
           || addTransferPriceOfCurrentLevel
           || addTransferPriceOfNextLevel) {
 
+          //  - extend strength column
           this.strengthLevels
             .strengthLevels()
             .then(async (strengthLevels: IStrengthLevel[]) => {
-              let columnNumber = 6;
-              if (addAwp) {
-                this.table.addColumn(
-                  new HtmlTableColumn(
-                    new HtmlElement("th", [], "", []),
-                    strengthLevels.map((sl, i) => { return i === 0 ? this.header(this.ressourceTableHeaderAwp.value()) : this.element(`${sl.awp().awpPoints()}`, i); }),
-                    columnNumber++));
-              }
-              if (addAwpDiff) {
-                this.table.addColumn(
-                  new HtmlTableColumn(
-                    new HtmlElement("th", [], "", []),
-                    strengthLevels.map((sl, i) => { return i === 0 ? this.header(this.ressourceTableHeaderAwpDiff.value()) : this.element(`${sl.missingAwpsToNextStrengthValue()}`, i); }),
-                    columnNumber++));
-              }
-              if (addNextStrength) {
-                this.table.addColumn(
-                  new HtmlTableColumn(
-                    new HtmlElement("th", [], "", []),
-                    strengthLevels.map((sl, i) => { return i === 0 ? this.header(this.ressourceTableHeaderNextStrength.value()) : this.element(`${sl.nextStrengthValue()}`, i); }),
-                    columnNumber++));
-              }
               if (extendStrength) this.extendStrengthColumn(strengthLevels);
-              if (addTransferPriceOfCurrentLevel) {
-                this.table.addColumn(
-                  new HtmlTableColumn(
-                    new HtmlElement("th", [], "", []),
-                    await Promise.all((await this.players.all())
-                      .map(async (player, i) => {
-                        return i === 0
-                          ? this.header(this.ressourceTableHeaderTransferPriceCurrentStrength.value())
-                          : this.element((await player.averageTransferPrice()).valueOf().toString(), i);
-                      })),
-                    columnNumber++));
-              }
-              if (addTransferPriceOfNextLevel) {
-                this.table.addColumn(
-                  new HtmlTableColumn(
-                    new HtmlElement("th", [], "", []),
-                    strengthLevels.map((sl, i) => { return i === 0 ? this.header(this.ressourceTableHeaderTransferPriceNextStrength.value()) : this.element(`<not-supported-yet>`, i); }),
-                    columnNumber++));
-              }
             });
+
+          const columnNumberAwp = 6;
+          const columnNumberAwpDiff = 7;
+          const columnNumberNewStrengthColumn = 8;
+          const columnNumberMarketValueCurrentStrength = 9;
+          const columnNumberMarketValueNextStrength = 10;
+
+          // iterate through transfer market result table
+          // for each row - if correspondent feature is activated - do
+          //  - add AWPs
+          //  - add AWP diff to next strength
+          //  - add next strength
+          //  - add transfer price of actual strength
+          //  - add transfer price of next strength
+          (await this.players.all()).forEach(async (player, i) => {
+            // add new column displaying current AWPs
+            if (addAwp) {
+              this.addCell(
+                i,
+                columnNumberAwp,
+                i === 0
+                  ? this.header(this.ressourceTableHeaderAwp.value())
+                  : this.element(`${player.strengthLevel().awp().awpPoints()}`, i)
+              );
+            }
+            // add new column displaying diff-AWPs to next strength
+            if (addAwpDiff) {
+              this
+                .addCell(
+                  i,
+                  columnNumberAwpDiff,
+                  i === 0
+                    ? this.header(this.ressourceTableHeaderAwpDiff.value())
+                    : this.element(`${player.strengthLevel().missingAwpsToNextStrengthValue()}`, i),
+                );
+            }
+            // add new column displaying next strength
+            if (addNextStrength) {
+              this.addCell(
+                i,
+                columnNumberNewStrengthColumn,
+                i === 0
+                  ? this.header(this.ressourceTableHeaderNextStrength.value())
+                  : this.element(`${player.strengthLevel().nextStrengthValue()}`, i),
+              );
+            }
+            // add new column for average transfer price of current strength
+            if (addTransferPriceOfCurrentLevel) {
+              this
+                .table
+                .addNewCellToBodyRow(
+                  0,
+                  i,
+                  columnNumberMarketValueCurrentStrength,
+                  i === 0
+                    ? this.header(this.ressourceTableHeaderTransferPriceCurrentStrength.value())
+                    : this.element((await player.averageTransferPrice()).valueOf().toString(), i));
+            }
+            // add new column for average transfer price of current strength
+            if (addTransferPriceOfNextLevel) {
+              this
+                .table
+                .addNewCellToBodyRow(
+                  0,
+                  i,
+                  columnNumberMarketValueNextStrength,
+                  i === 0
+                    ? this.header(this.ressourceTableHeaderTransferPriceNextStrength.value())
+                    : this.element('>not-supported-yet>', i));
+            };
+          });
         }
       });
+  }
+
+  private addCell(
+    rowNumber: number,
+    columnNumber: number,
+    textCellContent: IHtmlElement<HTMLTableCellElement>,
+  ) {
+    this
+      .table
+      .addNewCellToBodyRow(
+        0,
+        rowNumber,
+        columnNumber,
+        textCellContent,
+      );
   }
 
   private header(headerText: String): IHtmlElement<HTMLTableCellElement> {

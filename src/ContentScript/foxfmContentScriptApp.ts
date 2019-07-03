@@ -209,6 +209,7 @@ new FoxfmContentScript(
         // all players presented in the table 'Professional Transfer Market'
         new Players(
           currentHost,
+          // all categories
           new PlayerCategories(
             // player position values
             new HtmlTableColumnStringValues(
@@ -237,6 +238,28 @@ new FoxfmContentScript(
                       window.document,
                       new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
           ),
+          // all AWP values
+          new StrengthLevels(
+            new StrengthsLimitsSetting(),
+            new StrengthValues(
+              new HtmlTableColumnByXpath(
+                new XPathHtmlTableCell(
+                  new XPathSingleResult<HTMLTableCellElement>(
+                    new XPathAllResults(
+                      window.document,
+                      new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
+            new AwpPointsBySplittedString(
+              new SplitStringsToNumbers(
+                new HtmlTableColumnStringValues(
+                  new HtmlTableColumnByXpath(
+                    new XPathHtmlTableCell(
+                      new XPathSingleResult<HTMLTableCellElement>(
+                        new XPathAllResults(
+                          window.document,
+                          new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
+                "/",
+                ","))),
+          // all market prices
           new PlayerTransfersMessaging(
             messagingContentScript,
           ),
