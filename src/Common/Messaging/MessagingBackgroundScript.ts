@@ -20,6 +20,8 @@ import { LogLevelError } from '../Logger/LogLevel';
 import { MessagingMessageTypeIndexedDbTransferPricesAverage } from './MessagingMessageTypeIndexedDbTransferPricesAverage';
 import { IMessagingMessageDataModelTransferPricesAverage } from "../DataModel/IMessagingMessageDataModelTransferPricesAverage";
 import { PlayerTransfersIDb } from '../IndexedDb/PlayerTransfersIDb';
+import { MessagingMessageTypeIndexedDbTransferPricesAverages } from './MessagingMessageTypeIndexedDbTransferPricesAverages';
+import { IMessagingMessageDataModelTransferPricesAverages } from '../DataModel/IMessagingMessageDataModelTransferPricesAverages';
 
 export class MessagingBackgroundScript implements IMessaging<Object, Object> {
   private portName: String;
@@ -51,6 +53,7 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
       port.onMessage.addListener(async (message: IMessagingMessage<Object>, p: chrome.runtime.Port) => {
         this.logger.info(`received message from type: ${message.type.name}`);
         this.logger.info(`received message with content: ${JSON.stringify(message.content)}`);
+        let messageToSend: Object = {};
         switch (message.type.name) {
           case new MessagingMessageTypeIndexedDbAddMatchday().name:
             const matchday = await this.addMatchdayToIndexedDb(<IPersistMatchdayMessagingDataModel>message.content);
@@ -66,18 +69,26 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
 
             break;
           case new MessagingMessageTypeIndexedDbAddClub().name:
-            let addedClub = await this.addClubToIndexedDb(<IPersistClubMessagingDataModel>message.content);
-            p.postMessage(addedClub);
+            messageToSend = await this.addClubToIndexedDb(<IPersistClubMessagingDataModel>message.content);
             break;
           case new MessagingMessageTypeIndexedDbTransferPricesAverage().name:
             const c = <IMessagingMessageDataModelTransferPricesAverage>message.content;
 
-            p.postMessage(
-              await new PlayerTransfersIDb(this.indexedDb).average(c.gameServerUri, c.position, c.age, c.strength)
-            );
+            messageToSend = await new PlayerTransfersIDb(this.indexedDb).average(c.gameServerUri, c.position, c.age, c.strength);
+            break;
+          case new MessagingMessageTypeIndexedDbTransferPricesAverages().name:
+            const c2 = <IMessagingMessageDataModelTransferPricesAverages>message.content;
+            messageToSend = await new PlayerTransfersIDb(this.indexedDb).averages(c2.gameServerUri, c2.positions, c2.minAge.valueOf(), c2.maxAge.valueOf(), c2.minStrength.valueOf(), c2.maxStrength.valueOf())
+
             break;
           default:
-            this.logger.error(`Unsupported messaging message type: ${message.type.name}`);
+            const errMsg = `Unsupported messaging message type: ${message.type.name}`;
+            this.logger.error(errMsg);
+            throw errMsg;
+        }
+        if (messageToSend !== undefined) {
+          this.logger.info(`send message with content: ${JSON.stringify(messageToSend)}`);
+          p.postMessage(messageToSend);
         }
       });
     });
