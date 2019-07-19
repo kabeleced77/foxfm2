@@ -1,7 +1,7 @@
 import { IPlayerTransfer } from "./IPlayerTransfer";
 
 export interface IPlayerTransfers {
-  playerTransfers(): Promise<IPlayerTransfer[]>;
+  all(): Promise<IPlayerTransfer[]>;
   add(
     gameServerId: Number,
     matchdayId: Number,

@@ -10,7 +10,7 @@ export class PlayerTransfersMessaging implements IPlayerTransfers {
     private readonly dataSource: IMessaging<Object, Object>,
   ) { }
 
-  public playerTransfers(): Promise<IPlayerTransfer[]> {
+  public all(): Promise<IPlayerTransfer[]> {
     throw new Error("Method not implemented.");
   }
 

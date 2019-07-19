@@ -10,7 +10,7 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
     private dataBase: FoxfmIndexedDb,
   ) { }
 
-  public playerTransfers(): Promise<IPlayerTransfer[]> {
+  public all(): Promise<IPlayerTransfer[]> {
     let vals: IPlayerTransfer[] = [];
     return this.dataBase
       .playerTransfers
