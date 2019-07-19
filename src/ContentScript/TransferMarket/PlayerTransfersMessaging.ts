@@ -14,6 +14,7 @@ export class PlayerTransfersMessaging implements IPlayerTransfers {
     throw new Error("Method not implemented.");
   }
 
+  // TODO: method (probably) not needed here -> new interface? => sub type(s) for database access?
   public add(
     gameServerId: Number,
     matchdayId: Number,
@@ -23,6 +24,17 @@ export class PlayerTransfersMessaging implements IPlayerTransfers {
     strength: Number,
     price: Number,
   ): Promise<void | IPlayerTransfer> {
+    throw new Error("Method not implemented.");
+  }
+  // TODO: method (probably) not needed here -> new interface? => sub type(s) for database access?
+  public averages(
+    gameServerUri: String,
+    positions: String[],
+    minAge: Number,
+    maxAge: Number,
+    minStrength: Number,
+    maxStrength: Number,
+  ): Promise<Map<String, Number>> {
     throw new Error("Method not implemented.");
   }
 

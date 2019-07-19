@@ -17,4 +17,12 @@ export interface IPlayerTransfers {
     age: Number,
     strength: Number,
   ): Promise<Number>;
+  averages(
+    gameServerUri: String,
+    positions: String[],
+    minAge: Number,
+    maxAge: Number,
+    minStrength: Number,
+    maxStrength: Number,
+  ): Promise<{}>;
 }

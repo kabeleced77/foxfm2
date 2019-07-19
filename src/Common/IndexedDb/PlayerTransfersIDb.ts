@@ -3,6 +3,7 @@ import { IPlayerTransfers } from '../IPlayerTransfers';
 import { PlayerTransferIDb } from './PlayerTransferIDb';
 import { IPlayerTransfer } from "../IPlayerTransfer";
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
+import { PlayerCategory } from '../PlayerCategory';
 
 export class PlayerTransfersIDb implements IPlayerTransfers {
   constructor(
@@ -71,5 +72,38 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
     }
 
     return Math.round(countOfAllTransfers == 0 ? 0 : sumOfAllTransfers / countOfAllTransfers);
+  }
+
+  public async averages(
+    gameServerUri: String,
+    positions: String[],
+    minAge: number,
+    maxAge: number,
+    minStrength: number,
+    maxStrength: number,
+  ): Promise<{}> {
+    let cAverages = {};
+    await Promise.all(positions
+      .map(async position => {
+        for (let age = minAge; age < maxAge; age++) {
+          for (let strength = minStrength; strength < maxStrength; strength++) {
+            const average = await this.average(
+              gameServerUri,
+              position,
+              age,
+              strength,
+            );
+            const category = new PlayerCategory(
+              position,
+              age,
+              strength,
+            );
+            if (average > 0) {
+              cAverages[JSON.stringify(category)] = average;
+            }
+          }
+        }
+      }));
+    return cAverages;
   }
 }
