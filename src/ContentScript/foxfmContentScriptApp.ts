@@ -208,7 +208,6 @@ new FoxfmContentScript(
               ","))),
         // all players presented in the table 'Professional Transfer Market'
         new Players(
-          currentHost,
           // all categories
           new PlayerCategories(
             // player position values
@@ -259,10 +258,17 @@ new FoxfmContentScript(
                           new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
                 "/",
                 ","))),
-          // all market prices
-          new PlayerTransfersMessaging(
-            messagingContentScript,
-          ),
+        ),
+        // all transfer prices
+        // TODO: replace mockup values by real ones
+        new PlayerTransfersMessaging(
+          messagingContentScript,
+          currentHost,
+          ["TW", "LMD"],
+          17,
+          36,
+          1,
+          27,
         ),
         // settings
         new StorageLocal<ITransferMarketSearchResultTableSettings>(

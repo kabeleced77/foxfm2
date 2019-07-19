@@ -19,6 +19,8 @@ import { IUrl } from '../../Common/Toolkit/Url';
 import { IPlayers } from '../../Common/IPlayers';
 import { IEasyLogger } from '../../Common/Logger/EasyLogger';
 import { XPathFirstResult } from '../../Common/Toolkit/XPathFirstResult';
+import { PlayerCategory } from '../../Common/PlayerCategory';
+import { IPlayerTransfersMessaging } from '../../Common/Messaging/IPlayerTransfersMessaging';
 
 /**
  * Extend the table showing the professional player transfers by
@@ -49,6 +51,7 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
     strengthColumn: IHtmlTableColumnByXpath,
     strengthLevels: IStrengthLevels,
     private readonly players: IPlayers,
+    private readonly playerTransfers: IPlayerTransfersMessaging,
     settings: ISetting<ITransferMarketSearchResultTableSettings>,
     private readonly log: IEasyLogger,
   ) {
@@ -108,62 +111,67 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
           //  - add transfer price of actual strength
           //  - add transfer price of next strength
           (await this.players.all()).forEach(async (player, i) => {
-            // add new column displaying current AWPs
-            if (addAwp) {
-              this.addCell(
-                i,
-                columnNumberAwp,
-                i === 0
-                  ? this.header(this.ressourceTableHeaderAwp.value())
-                  : this.element(`${player.strengthLevel().awp().awpPoints()}`, i)
-              );
-            }
-            // add new column displaying diff-AWPs to next strength
-            if (addAwpDiff) {
-              this
-                .addCell(
+              // add new column displaying current AWPs
+              if (addAwp) {
+                this.addCell(
                   i,
-                  columnNumberAwpDiff,
+                  columnNumberAwp,
                   i === 0
-                    ? this.header(this.ressourceTableHeaderAwpDiff.value())
-                    : this.element(`${player.strengthLevel().missingAwpsToNextStrengthValue()}`, i),
+                    ? this.header(this.ressourceTableHeaderAwp.value())
+                    : this.element(`${player.strengthLevel().awp().awpPoints()}`, i)
                 );
-            }
-            // add new column displaying next strength
-            if (addNextStrength) {
-              this.addCell(
-                i,
-                columnNumberNewStrengthColumn,
-                i === 0
-                  ? this.header(this.ressourceTableHeaderNextStrength.value())
-                  : this.element(`${player.strengthLevel().nextStrengthValue()}`, i),
-              );
-            }
-            // add new column for average transfer price of current strength
-            if (addTransferPriceOfCurrentLevel) {
-              this
-                .table
-                .addNewCellToBodyRow(
-                  0,
+              }
+              // add new column displaying diff-AWPs to next strength
+              if (addAwpDiff) {
+                this
+                  .addCell(
+                    i,
+                    columnNumberAwpDiff,
+                    i === 0
+                      ? this.header(this.ressourceTableHeaderAwpDiff.value())
+                      : this.element(`${player.strengthLevel().missingAwpsToNextStrengthValue()}`, i),
+                  );
+              }
+              // add new column displaying next strength
+              if (addNextStrength) {
+                this.addCell(
                   i,
-                  columnNumberMarketValueCurrentStrength,
+                  columnNumberNewStrengthColumn,
                   i === 0
-                    ? this.header(this.ressourceTableHeaderTransferPriceCurrentStrength.value())
-                    : this.element((await player.averageTransferPrice()).valueOf().toString(), i));
-            }
-            // add new column for average transfer price of current strength
-            if (addTransferPriceOfNextLevel) {
-              this
-                .table
-                .addNewCellToBodyRow(
-                  0,
-                  i,
-                  columnNumberMarketValueNextStrength,
-                  i === 0
-                    ? this.header(this.ressourceTableHeaderTransferPriceNextStrength.value())
-                    : this.element('>not-supported-yet>', i));
-            };
-          });
+                    ? this.header(this.ressourceTableHeaderNextStrength.value())
+                    : this.element(`${player.strengthLevel().nextStrengthValue()}`, i),
+                );
+              }
+              // add new column for average transfer price of current strength
+              if (addTransferPriceOfCurrentLevel) {
+                this
+                  .table
+                  .addNewCellToBodyRow(
+                    0,
+                    i,
+                    columnNumberMarketValueCurrentStrength,
+                    i === 0
+                      ? this.header(this.ressourceTableHeaderTransferPriceCurrentStrength.value())
+                      : this.element((await this.playerTransfers.average(player.category())).toString(), i));
+              }
+              // add new column for average transfer price of current strength
+              if (addTransferPriceOfNextLevel) {
+                const categoryNextStrength = new PlayerCategory(
+                  player.category().position(),
+                  player.category().age(),
+                  player.category().strength().valueOf() + 1,
+                )
+                this
+                  .table
+                  .addNewCellToBodyRow(
+                    0,
+                    i,
+                    columnNumberMarketValueNextStrength,
+                    i === 0
+                      ? this.header(this.ressourceTableHeaderTransferPriceNextStrength.value())
+                      : this.element((await this.playerTransfers.average(categoryNextStrength)).toString(), i));
+              };
+            });
         }
       });
     // adjust width of div containing the transfer result table to 100%

@@ -1,60 +1,48 @@
 import { IMessaging } from "../../Common/Messaging/IMessaging";
 import { MessagingMessage } from "../../Common/Messaging/MessagingMessage";
-import { IPlayerTransfers } from "../../Common/IPlayerTransfers";
-import { IPlayerTransfer } from "../../Common/IPlayerTransfer";
-import { MessagingMessageTypeIndexedDbTransferPricesAverage } from "../../Common/Messaging/MessagingMessageTypeIndexedDbTransferPricesAverage";
-import { MessagingMessageDataModelTransferPricesAverage } from "../../Common/DataModel/MessagingMessageDataModelTransferPricesAverage";
+import { IPlayerTransfersMessaging } from "../../Common/Messaging/IPlayerTransfersMessaging";
+import { IPlayerCategory } from "../../Common/IPlayerCategory";
+import { MessagingMessageTypeIndexedDbTransferPricesAverages } from "../../Common/Messaging/MessagingMessageTypeIndexedDbTransferPricesAverages";
+import { MessagingMessageDataModelTransferPricesAverages } from "../../Common/DataModel/MessagingMessageDataModelTransferPricesAverages";
 
-export class PlayerTransfersMessaging implements IPlayerTransfers {
+export class PlayerTransfersMessaging implements IPlayerTransfersMessaging {
+  private mcAverages: {};
+
   constructor(
     private readonly dataSource: IMessaging<Object, Object>,
+    private readonly gameServerUri: String,
+    private readonly positions: String[],
+    private readonly minAge: Number,
+    private readonly maxAge: Number,
+    private readonly minStrength: Number,
+    private readonly maxStrength: Number,
   ) { }
 
-  public all(): Promise<IPlayerTransfer[]> {
-    throw new Error("Method not implemented.");
+  public async averages(): Promise<{}> {
+    if (!this.mcAverages) {
+      this.mcAverages = await this.marketValues();
+    }
+    return this.mcAverages;
   }
 
-  // TODO: method (probably) not needed here -> new interface? => sub type(s) for database access?
-  public add(
-    gameServerId: Number,
-    matchdayId: Number,
-    externalTransferId: Number,
-    position: String,
-    age: Number,
-    strength: Number,
-    price: Number,
-  ): Promise<void | IPlayerTransfer> {
-    throw new Error("Method not implemented.");
-  }
-  // TODO: method (probably) not needed here -> new interface? => sub type(s) for database access?
-  public averages(
-    gameServerUri: String,
-    positions: String[],
-    minAge: Number,
-    maxAge: Number,
-    minStrength: Number,
-    maxStrength: Number,
-  ): Promise<Map<String, Number>> {
-    throw new Error("Method not implemented.");
+  public async average(category: IPlayerCategory): Promise<Number> {
+    const cAverages = await this.averages();
+    let average = cAverages[JSON.stringify(category)];
+    return average ? average : 0;
   }
 
-  public average(
-    gameServerUri: String,
-    position: String,
-    age: Number,
-    strength: Number,
-  ): Promise<Number> {
-
-    return <Promise<Number>>this
+  private marketValues(): Promise<Object> {
+    return <Promise<Object>>this
       .dataSource
-      .send(
-        new MessagingMessage(
-          new MessagingMessageTypeIndexedDbTransferPricesAverage(),
-          new MessagingMessageDataModelTransferPricesAverage(
-            gameServerUri,
-            position,
-            age,
-            strength,
-          )));
+      .send(new MessagingMessage(
+        new MessagingMessageTypeIndexedDbTransferPricesAverages(),
+        new MessagingMessageDataModelTransferPricesAverages(
+          this.gameServerUri,
+          this.positions,
+          this.minAge,
+          this.maxAge,
+          this.minStrength,
+          this.maxStrength,
+        )));
   }
 }
