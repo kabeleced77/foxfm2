@@ -9,9 +9,15 @@
     "message": "Nächste St"
   },
   "commonTableExtensions_header_transferPrice_currentStrength": {
-    "message": "Transferpreis (akt. St.)"
+    "message": "Transfer (Akt. Alter / Akt. St.)"
   },
   "commonTableExtensions_header_transferPrice_nextStrength": {
-    "message": "Transferpreis (nächste St.)"
+    "message": "Transfer (Akt. Alter / Nächste St.)"
+  },
+  "commonTableExtensions_header_transferPrice_nextAge_currentStrength": {
+    "message": "Transfer (Nächstes Alter / Akt. St.)"
+  },
+  "commonTableExtensions_header_transferPrice_nextAge_nextStrength": {
+    "message": "Transfer (Nächstes Alter / Nächste St.)"
   }
 }

@@ -1,6 +1,8 @@
 export interface ITransferMarketSearchResultTableSettings {
   addTransferPriceStrengthColumnActivated(): Boolean;
   addTransferPriceNextStrengthColumnActivated(): Boolean;
+  addTransferPriceNextAgeStrengthColumnActivated(): Boolean;
+  addTransferPriceNextAgeNextStrengthColumnActivated(): Boolean;
   extendStrengthColumnActivated(): Boolean;
   addAwpColumnActivated(): Boolean;
   addAwpDiffColumnActivated(): Boolean;
@@ -21,6 +23,8 @@ export class TransferMarketSearchResultTableSettings implements ITransferMarketS
     addNextStrengthColumn: Boolean,
     private readonly addColumnTransferPriceCurrentStrength: Boolean,
     private readonly addColumnTransferPriceNextStrength: Boolean,
+    private readonly addColumnTransferPriceNextAgeCurrentStrength: Boolean,
+    private readonly addColumnTransferPriceNextAgeNextStrength: Boolean,
   ) {
     this.extendStrengthColumn = extendStrengthColumn;
     this.addAwpColumn = addAwpColumn;
@@ -46,6 +50,12 @@ export class TransferMarketSearchResultTableSettings implements ITransferMarketS
   public addTransferPriceNextStrengthColumnActivated() {
     return this.addColumnTransferPriceNextStrength;
   }
+  public addTransferPriceNextAgeStrengthColumnActivated() {
+    return this.addColumnTransferPriceNextAgeCurrentStrength;
+  }
+  public addTransferPriceNextAgeNextStrengthColumnActivated() {
+    return this.addColumnTransferPriceNextAgeNextStrength;
+  }
   public fromJson(jsonString: String): ITransferMarketSearchResultTableSettings {
     return new TransferMarketSearchResultTableSettings(
       jsonString["extendStrengthColumn"],
@@ -54,6 +64,8 @@ export class TransferMarketSearchResultTableSettings implements ITransferMarketS
       jsonString["addNextStrengthColumn"],
       jsonString[nameof(this.addColumnTransferPriceCurrentStrength)],
       jsonString[nameof(this.addColumnTransferPriceNextStrength)],
+      jsonString[nameof(this.addColumnTransferPriceNextAgeCurrentStrength)],
+      jsonString[nameof(this.addColumnTransferPriceNextAgeNextStrength)],
     )
   }
 }

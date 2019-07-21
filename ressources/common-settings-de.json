@@ -12,9 +12,15 @@
     "message": "Erweitere die 'Stärke' Spalte um die aktuelle Stärke."
   },
   "commonSettings_extendColumn_transferPrice_currentStrength":{
-    "message": "Füge Spalte 'Transferpreis (Akt. St.)' hinzu. Zeigt den Verkaufspreis auf Basis der importierten Transferpreise für Alter, AKTUELLE Stärke und Position an. Erfordert Aktivierung von Feature 'Importiere Spielertransfers'."
+    "message": "Füge Spalte 'Transferpreis (Aktuelles Alter / Aktuelle Stärke)' hinzu. Zeigt die durchschnittlichen Verkaufspreise auf Basis der importierten Transferpreise an: aktuelles Alter, aktuelle Stärke. \nErfordert Aktivierung von Feature 'Importiere Spielertransfers'."
   },
   "commonSettings_extendColumn_transferPrice_nextStrength":{
-    "message": "Füge Spalte 'Transferpreis (Nächste St.)' hinzu. Zeigt den Verkaufspreis auf Basis der importierten Transferpreise für Alter, NÄCHSTE Stärke und Position an. Erfordert Aktivierung von Feature 'Importiere Spielertransfers'."
+    "message": "Füge Spalte 'Transferpreis (Aktuelles Alter / Nächste Stärke)' hinzu. Zeigt die durchschnittlichen Verkaufspreise auf Basis der importierten Transferpreise an: aktuelles Alter, nächste Stärke. \nErfordert Aktivierung von Feature 'Importiere Spielertransfers'."
+  },
+  "commonSettings_extendColumn_transferPrice_nextAge_currentStrength":{
+    "message": "Füge Spalte 'Transferpreis (Nächstes Alter / Aktuelle Stärke)' hinzu. Zeigt die durchschnittlichen Verkaufspreise auf Basis der importierten Transferpreise an: Alter nächste Saison, aktuelle Stärke. \nErfordert Aktivierung von Feature 'Importiere Spielertransfers'."
+  },
+  "commonSettings_extendColumn_transferPrice_nextAge_nextStrength":{
+    "message": "Füge Spalte 'Transferpreis (Nächstes Alter / Nächste Stärke)' hinzu. Zeigt die durchschnittlichen Verkaufspreise auf Basis der importierten Transferpreise an: Alter nächste Saison, nächste Stärke. \nErfordert Aktivierung von Feature 'Importiere Spielertransfers'."
   }
 }

@@ -11,10 +11,16 @@
   "commonSettings_extendColumnStrength": {
     "message": "Extend column 'Strength' with actual strength value."
   },
-  "commonSettings_extendColumn_transferPrice_currentStrength":{
-    "message": "Add Spalte 'Transfer price (curr. St.)'. Show transfer price based on last imported transfers for age, CURRENT strength and position. Requires activated feature 'Import player transfers'."
+  "commonSettings_extendColumn_transferPrice_currentStrength": {
+    "message": "Add column 'Transfer price (current age / current strength)'. Display average transfer prices based on imported transfers: current age, current strength.\nRequires activated feature 'Import player transfers'."
   },
-  "commonSettings_extendColumn_transferPrice_nextStrength":{
-    "message": "Add Spalte 'Transfer price (next St.)'. Show transfer price based on last imported transfers for age, NEXT strength and position. Requires activated feature 'Import player transfers'."
+  "commonSettings_extendColumn_transferPrice_nextStrength": {
+    "message": "Add column 'Transfer price (current age / next strength)'. Display average transfer prices based on imported transfers: current age, next strength.\nRequires activated feature 'Import player transfers'."
+  },
+  "commonSettings_extendColumn_transferPrice_nextAge_currentStrength": {
+    "message": "Add column 'Transfer price (next age / current strength)'. Display average transfer prices based on imported transfers: next age, current strength.\nRequires activated feature 'Import player transfers'."
+  },
+  "commonSettings_extendColumn_transferPrice_nextAge_nextStrength": {
+    "message": "Add column 'Transfer price (next age / next strength)'. Display average transfer prices based on imported transfers: next age, next strength.\nRequires activated feature 'Import player transfers'."
   }
 }

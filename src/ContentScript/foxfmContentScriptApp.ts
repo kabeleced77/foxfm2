@@ -280,6 +280,8 @@ new FoxfmContentScript(
             false,
             false,
             false,
+            false,
+            false,
           )),
         // logger
         new EasyLogger(

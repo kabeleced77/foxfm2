@@ -70,6 +70,8 @@ export class RessourceCommonTableExtensionsHeaderAwpDiff extends Ressource { con
 export class RessourceCommonTableExtensionsHeaderNextStrength extends Ressource { constructor() { super("commonTableExtensions_headerNextStrength"); } }
 export class RessourceCommonTableExtensionsHeaderTransferPriceCurrentStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_currentStrength"); } }
 export class RessourceCommonTableExtensionsHeaderTransferPriceNextStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_nextStrength"); } }
+export class RessourceCommonTableExtensionsHeaderTransferPriceNextAgeCurrentStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_nextAge_currentStrength"); } }
+export class RessourceCommonTableExtensionsHeaderTransferPriceNextAgeNextStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_nextAge_nextStrength"); } }
 
 export class RessourceSettingsPageAddonName extends Ressource { constructor() { super("addonName"); } }
 export class RessourceSettingsPageIntro extends Ressource { constructor() { super("settingsIntro"); } }
@@ -99,6 +101,8 @@ export class RessourceCommonSettingsAddColumnNextStrength extends Ressource { co
 export class RessourceCommonSettingsExtendColumnStrength extends Ressource { constructor() { super("commonSettings_extendColumnStrength"); } }
 export class RessourceCommonSettingsAddColumnTransferPriceCurrentStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_currentStrength"); } }
 export class RessourceCommonSettingsAddColumnTransferPriceNextStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_nextStrength"); } }
+export class RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_nextAge_currentStrength"); } }
+export class RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_nextAge_nextStrength"); } }
 
 export class RessourceTeamTableSettingsMenu extends Ressource { constructor() { super("teamTableSettings_menu"); } }
 export class RessourceTeamTableSettingsHeader extends Ressource { constructor() { super("teamTableSettings_header"); } }
