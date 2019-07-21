@@ -1,4 +1,4 @@
-import { RessourceSettingsPageIntro } from "../Common/Ressource"
+import { RessourceSettingsPageIntro } from "../../Common/Ressource"
 
 export class Welcome {
   public heading: String;

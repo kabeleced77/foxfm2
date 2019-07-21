@@ -1,19 +1,19 @@
-import { Logger, ILogger } from '../Common/Logger/Logger';
-import { IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { IRegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
-import { RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
-import { ILogLevel } from '../Common/Logger/LogLevel';
-import { LogLevel, LogLevelOff, LogLevelAll, LogLevelDebug, LogLevelError, LogLevelInfo, LogLevelWarn } from '../Common/Logger/LogLevel';
-import { RessourceSettingsPageLoggerHeading } from "../Common/Ressource"
-import { RessourceSettingsPageLoggerIntro, RessourceCommonButtonApply } from "../Common/Ressource"
-import { Mutex } from "../Common/Toolkit/Mutex";
-import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
-import { ISetting } from "../Common/Toolkit/Setting";
-import { StorageLocal } from "../Common/Toolkit/StorageLocal";
-import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
-import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
-import { EasyLogger, IEasyLogger } from '../Common/Logger/EasyLogger';
+import { Logger, ILogger } from '../../Common/Logger/Logger';
+import { IRegisteredLoggingModule } from '../../Common/Logger/RegisteredLoggingModule';
+import { RegisteredLoggingModule } from '../../Common/Logger/RegisteredLoggingModule';
+import { IRegisteredLoggingModules } from '../../Common/Logger/RegisteredLoggingModules';
+import { RegisteredLoggingModules } from '../../Common/Logger/RegisteredLoggingModules';
+import { ILogLevel } from '../../Common/Logger/LogLevel';
+import { LogLevel, LogLevelOff, LogLevelAll, LogLevelDebug, LogLevelError, LogLevelInfo, LogLevelWarn } from '../../Common/Logger/LogLevel';
+import { RessourceSettingsPageLoggerHeading } from "../../Common/Ressource"
+import { RessourceSettingsPageLoggerIntro, RessourceCommonButtonApply } from "../../Common/Ressource"
+import { Mutex } from "../../Common/Toolkit/Mutex";
+import { SettingNameLoggingModules } from "../../Common/Settings/SettingNameLoggingModules";
+import { ISetting } from "../../Common/Toolkit/Setting";
+import { StorageLocal } from "../../Common/Toolkit/StorageLocal";
+import { StorageLocalSync } from "../../Common/Toolkit/StorageLocalSync";
+import { SettingNameApplicationLogLevel } from "../../Common/Settings/SettingNameApplicationLogLevel";
+import { EasyLogger, IEasyLogger } from '../../Common/Logger/EasyLogger';
 
 export class SettingsLogging {
   private log: ILogger;

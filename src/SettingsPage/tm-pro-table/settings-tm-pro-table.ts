@@ -1,19 +1,19 @@
-import { ILogger, Logger } from '../Common/Logger/Logger';
-import { RegisteredLoggingModule, IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/Logger/RegisteredLoggingModules";
-import { ILogLevel } from '../Common/Logger/LogLevel';
-import { LogLevelError } from '../Common/Logger/LogLevel';
-import { Mutex } from "../Common/Toolkit/Mutex";
-import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
-import { StorageLocal } from "../Common/Toolkit/StorageLocal";
-import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
-import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
-import { SettingNameTeamTable } from '../Common/Settings/SettingNameTeamTable';
-import { ISetting } from '../Common/Toolkit/Setting';
-import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
-import { RessourceCommonButtonApply, RessourceTransferMarketProfessionalsTableSettingsHeader, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength, RessourceCommonSettingsAddColumnAwp, RessourceCommonSettingsAddColumnTransferPriceCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextStrength } from '../Common/Ressource';
-import { ITransferMarketSearchResultTableSettings, TransferMarketSearchResultTableSettings } from '../Common/Settings/TransferMarketSearchResultTableSettings';
-import { SettingNameTransferMarketProfessionalsSearchResultTable } from '../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable';
+import { ILogger, Logger } from '../../Common/Logger/Logger';
+import { RegisteredLoggingModule, IRegisteredLoggingModule } from '../../Common/Logger/RegisteredLoggingModule';
+import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../../Common/Logger/RegisteredLoggingModules";
+import { ILogLevel } from '../../Common/Logger/LogLevel';
+import { LogLevelError } from '../../Common/Logger/LogLevel';
+import { Mutex } from "../../Common/Toolkit/Mutex";
+import { SettingNameLoggingModules } from "../../Common/Settings/SettingNameLoggingModules";
+import { StorageLocal } from "../../Common/Toolkit/StorageLocal";
+import { StorageLocalSync } from "../../Common/Toolkit/StorageLocalSync";
+import { SettingNameApplicationLogLevel } from "../../Common/Settings/SettingNameApplicationLogLevel";
+import { SettingNameTeamTable } from '../../Common/Settings/SettingNameTeamTable';
+import { ISetting } from '../../Common/Toolkit/Setting';
+import { IEasyLogger, EasyLogger } from '../../Common/Logger/EasyLogger';
+import { RessourceCommonButtonApply, RessourceTransferMarketProfessionalsTableSettingsHeader, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength, RessourceCommonSettingsAddColumnAwp, RessourceCommonSettingsAddColumnTransferPriceCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextStrength } from '../../Common/Ressource';
+import { ITransferMarketSearchResultTableSettings, TransferMarketSearchResultTableSettings } from '../../Common/Settings/TransferMarketSearchResultTableSettings';
+import { SettingNameTransferMarketProfessionalsSearchResultTable } from '../../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable';
 
 export class SettingsTransferMarketProfessionalTable {
   private log: IEasyLogger;

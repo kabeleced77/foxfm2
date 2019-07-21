@@ -1,20 +1,20 @@
-import { ILogger, Logger } from '../Common/Logger/Logger';
-import { RegisteredLoggingModule, IRegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/Logger/RegisteredLoggingModules";
-import { ILogLevel } from '../Common/Logger/LogLevel';
-import { LogLevelError } from '../Common/Logger/LogLevel';
-import { Mutex } from "../Common/Toolkit/Mutex";
-import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
-import { StorageLocal } from "../Common/Toolkit/StorageLocal";
-import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
-import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
-import { TeamTableSetting, ITeamTableSetting } from '../Common/Settings/TeamTableSetting';
-import { SettingNameTeamTable } from '../Common/Settings/SettingNameTeamTable';
-import { ISetting } from '../Common/Toolkit/Setting';
-import { IEasyLogger, EasyLogger } from '../Common/Logger/EasyLogger';
-import { ITransferOfferTableSettings, TransferOfferTableSettings } from '../Common/Settings/TransferOfferTableSettings';
-import { SettingNameTransferTablePossibleOffers } from '../Common/Settings/SettingNameTransferTablePossibleOffers';
-import { RessourceTransferMarketOfferTableSettingsHeader, RessourceCommonButtonApply, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength } from '../Common/Ressource';
+import { ILogger, Logger } from '../../Common/Logger/Logger';
+import { RegisteredLoggingModule, IRegisteredLoggingModule } from '../../Common/Logger/RegisteredLoggingModule';
+import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../../Common/Logger/RegisteredLoggingModules";
+import { ILogLevel } from '../../Common/Logger/LogLevel';
+import { LogLevelError } from '../../Common/Logger/LogLevel';
+import { Mutex } from "../../Common/Toolkit/Mutex";
+import { SettingNameLoggingModules } from "../../Common/Settings/SettingNameLoggingModules";
+import { StorageLocal } from "../../Common/Toolkit/StorageLocal";
+import { StorageLocalSync } from "../../Common/Toolkit/StorageLocalSync";
+import { SettingNameApplicationLogLevel } from "../../Common/Settings/SettingNameApplicationLogLevel";
+import { TeamTableSetting, ITeamTableSetting } from '../../Common/Settings/TeamTableSetting';
+import { SettingNameTeamTable } from '../../Common/Settings/SettingNameTeamTable';
+import { ISetting } from '../../Common/Toolkit/Setting';
+import { IEasyLogger, EasyLogger } from '../../Common/Logger/EasyLogger';
+import { ITransferOfferTableSettings, TransferOfferTableSettings } from '../../Common/Settings/TransferOfferTableSettings';
+import { SettingNameTransferTablePossibleOffers } from '../../Common/Settings/SettingNameTransferTablePossibleOffers';
+import { RessourceTransferMarketOfferTableSettingsHeader, RessourceCommonButtonApply, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength } from '../../Common/Ressource';
 
 export class SettingsTransferMarketOfferTable {
   private log: IEasyLogger;

@@ -1,24 +1,24 @@
-import { ILogger, Logger } from '../Common/Logger/Logger';
-import { ILogLevel, LogLevelError } from '../Common/Logger/LogLevel';
-import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
+import { ILogger, Logger } from '../../Common/Logger/Logger';
+import { ILogLevel, LogLevelError } from '../../Common/Logger/LogLevel';
+import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../../Common/Logger/RegisteredLoggingModule';
+import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../../Common/Logger/RegisteredLoggingModules';
 import {
   RessourceCommonButtonApply,
   RessourceStadiumAddOffsetPrices,
   RessourceStadiumAddOverallPrices,
   RessourceStadiumHeading,
-} from '../Common/Ressource';
-import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
-import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
-import { IStadiumBlocksSetting, StadiumBlocksSetting } from '../Common/Settings/StadiumBlocksSetting';
+} from '../../Common/Ressource';
+import { SettingNameApplicationLogLevel } from '../../Common/Settings/SettingNameApplicationLogLevel';
+import { SettingNameLoggingModules } from '../../Common/Settings/SettingNameLoggingModules';
+import { IStadiumBlocksSetting, StadiumBlocksSetting } from '../../Common/Settings/StadiumBlocksSetting';
 import {
   IStadiumOverallEntryPricesSetting,
   StadiumOverallEntryPricesSetting,
-} from '../Common/Settings/StadiumOverallEntryPricesSetting';
-import { StadiumOverallEntryPrices } from '../Common/StadiumOverallEntryPrices';
-import { Mutex } from '../Common/Toolkit/Mutex';
-import { StorageLocal } from '../Common/Toolkit/StorageLocal';
-import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
+} from '../../Common/Settings/StadiumOverallEntryPricesSetting';
+import { StadiumOverallEntryPrices } from '../../Common/StadiumOverallEntryPrices';
+import { Mutex } from '../../Common/Toolkit/Mutex';
+import { StorageLocal } from '../../Common/Toolkit/StorageLocal';
+import { StorageLocalSync } from '../../Common/Toolkit/StorageLocalSync';
 
 export class SettingsStadium {
   private thisModule: string = "SettingsStadium";

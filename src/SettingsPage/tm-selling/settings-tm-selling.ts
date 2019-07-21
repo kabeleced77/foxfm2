@@ -1,10 +1,10 @@
-import { ArrayInStorage } from '../Common/ArrayInStorage';
-import { EasyLogger, IEasyLogger } from '../Common/Logger/EasyLogger';
-import { Logger } from '../Common/Logger/Logger';
-import { LogLevelError } from '../Common/Logger/LogLevel';
-import { ILogLevel } from '../Common/Logger/LogLevel';
-import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
+import { ArrayInStorage } from '../../Common/ArrayInStorage';
+import { EasyLogger, IEasyLogger } from '../../Common/Logger/EasyLogger';
+import { Logger } from '../../Common/Logger/Logger';
+import { LogLevelError } from '../../Common/Logger/LogLevel';
+import { ILogLevel } from '../../Common/Logger/LogLevel';
+import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../../Common/Logger/RegisteredLoggingModule';
+import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../../Common/Logger/RegisteredLoggingModules';
 import {
   IRessource,
   RessourceCommonButtonApply,
@@ -17,41 +17,41 @@ import {
   RessourceTransferMarketSellingSettingsPlayerInformationPageSetFocus,
   RessourceTransferMarketSellingSettingsPlayerTransferMarketPageSetFocus,
   RessourceTransferMarketSellingSettingsPlayerTransferMarketPlayerPageSetFocus,
-} from '../Common/Ressource';
-import { FocusElementSetting, IFocusElementSetting } from '../Common/Settings/FocusElementSetting';
-import { FocusElementsSetting, IFocusElementsSetting } from '../Common/Settings/FocusElementsSetting';
+} from '../../Common/Ressource';
+import { FocusElementSetting, IFocusElementSetting } from '../../Common/Settings/FocusElementSetting';
+import { FocusElementsSetting, IFocusElementsSetting } from '../../Common/Settings/FocusElementsSetting';
 import {
   PlayerTransferMarketPageFocusElementSettingName,
-} from '../Common/Settings/PlayerTransferMarketPageFocusElementSettingName';
-import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
-import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
+} from '../../Common/Settings/PlayerTransferMarketPageFocusElementSettingName';
+import { SettingNameApplicationLogLevel } from '../../Common/Settings/SettingNameApplicationLogLevel';
+import { SettingNameLoggingModules } from '../../Common/Settings/SettingNameLoggingModules';
 import {
   SettingNamePlayerInformationWebPageFocusElement,
-} from '../Common/Settings/SettingNamePlayerInformationWebPageFocusElement';
-import { SettingNameTransferMarketSellingDuration } from '../Common/Settings/SettingNameTransferMarketDuration';
+} from '../../Common/Settings/SettingNamePlayerInformationWebPageFocusElement';
+import { SettingNameTransferMarketSellingDuration } from '../../Common/Settings/SettingNameTransferMarketDuration';
 import {
   ITransferMarketSellingDurationSettings,
   TransferMarketSellingDurationSettings,
-} from '../Common/Settings/TransferMarketSellingDurationSettings';
+} from '../../Common/Settings/TransferMarketSellingDurationSettings';
 import {
   PlayerInformationPageFocusElementSettingDefaultValue,
-} from '../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue';
+} from '../../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue';
 import {
   PlayerTransferMarketPageFocusElementSettingDefaultValue,
-} from '../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue';
+} from '../../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue';
 import {
   TransferMarketSellingDurationSettingsDefaultValue,
-} from '../Common/SettingsDefaultValues/TransferMarketSellingDurationSettingsDefaultValue';
-import { Mutex } from '../Common/Toolkit/Mutex';
-import { ISetting } from '../Common/Toolkit/Setting';
-import { StorageLocal } from '../Common/Toolkit/StorageLocal';
-import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
-import { CheckboxViewModel } from '../Common/ViewModels/CheckboxViewModel';
-import { CheckboxWithSelectViewModel, ICheckboxWithSelectViewModel } from '../Common/ViewModels/CheckboxWithSelectViewModel';
-import { FocusElementViewModel, IFocusElementViewModel } from '../Common/ViewModels/FocusElementViewModel';
-import { ISelectViewModel, SelectViewModel } from '../Common/ViewModels/SelectViewModel';
-import { PlayerTransferMarketPlayerPageFocusElementSettingName } from '../Common/Settings/PlayerTransferMarketPlayerPageFocusElementSettingName';
-import { PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue } from '../Common/SettingsDefaultValues/PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue';
+} from '../../Common/SettingsDefaultValues/TransferMarketSellingDurationSettingsDefaultValue';
+import { Mutex } from '../../Common/Toolkit/Mutex';
+import { ISetting } from '../../Common/Toolkit/Setting';
+import { StorageLocal } from '../../Common/Toolkit/StorageLocal';
+import { StorageLocalSync } from '../../Common/Toolkit/StorageLocalSync';
+import { CheckboxViewModel } from '../../Common/ViewModels/CheckboxViewModel';
+import { CheckboxWithSelectViewModel, ICheckboxWithSelectViewModel } from '../../Common/ViewModels/CheckboxWithSelectViewModel';
+import { FocusElementViewModel, IFocusElementViewModel } from '../../Common/ViewModels/FocusElementViewModel';
+import { ISelectViewModel, SelectViewModel } from '../../Common/ViewModels/SelectViewModel';
+import { PlayerTransferMarketPlayerPageFocusElementSettingName } from '../../Common/Settings/PlayerTransferMarketPlayerPageFocusElementSettingName';
+import { PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue } from '../../Common/SettingsDefaultValues/PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue';
 
 export class SettingsTransferMarketSelling {
   private log: IEasyLogger;
