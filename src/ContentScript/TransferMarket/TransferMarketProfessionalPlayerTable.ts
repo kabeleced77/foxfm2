@@ -248,14 +248,14 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
     new XPathFirstResult<HTMLDivElement>(
       document,
       '//*[@id="transfermarkt"]/div[1]/div')
-      .result()
+      .node()
       .style
       .width = "100%";
     // adjust width of header of transfer result table to 100%
     new XPathFirstResult<HTMLTableElement>(
       document,
       '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[1]')
-      .result()
+      .node()
       .style
       .width = "100%";
   }

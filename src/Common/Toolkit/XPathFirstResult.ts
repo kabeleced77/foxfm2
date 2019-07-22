@@ -11,7 +11,7 @@ export class XPathFirstResult<T extends Node> implements IXPathFirstResult<T> {
   public xPathString(): String {
     return this.xPathStringValue;
   }
-  public result(): T {
+  public node(): T {
     if (!this.firstResult) {
       const firstNode = this
         .doc

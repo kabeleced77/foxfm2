@@ -8,7 +8,7 @@ export class HtmlSelectValue implements IValue<String> {
 
   public value(): String {
     return this.moSelect
-      .result()
+      .node()
       .value;
   }
 }
