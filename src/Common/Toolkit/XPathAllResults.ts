@@ -5,6 +5,7 @@ export interface IXPathAllResults {
   xPathFirstResult(): Node;
   xPathAllResults(): XPathResult;
   xPathNumberOfResults(): Number;
+  allNodes(): Node[];
 }
 
 export class XPathAllResults implements IXPathAllResults {
@@ -33,6 +34,18 @@ export class XPathAllResults implements IXPathAllResults {
     } else {
       throw new Error(`No result for XPath '${this.xPath().xPathString()}'.`);
     }
+  }
+  public allNodes(): Node[] {
+    const cXPathResults = this.xPathAllResults();
+    const iXPathResultsLength = cXPathResults.snapshotLength;
+    const cNodes = new Array<Node>(iXPathResultsLength);
+    for (let cIndex = 0; cIndex < iXPathResultsLength; cIndex++) {
+      const node = cXPathResults.snapshotItem(cIndex);
+      if (node) {
+        cNodes.push(node)
+      }
+    }
+    return cNodes;
   }
   public xPathNumberOfResults(): Number {
     return this.xPathAllResults().snapshotLength;
