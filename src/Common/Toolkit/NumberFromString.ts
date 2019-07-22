@@ -3,7 +3,7 @@ import { IValue } from "./IValue";
 export class NumberFromString implements IValue<Number> {
   constructor(
     private readonly string: IValue<String>,
-    private readonly decimalPoint: String
+    private readonly decimalPoint: String = '.',
   ) { }
 
   public value(): Number {
