@@ -4,6 +4,7 @@ import { IPlayerTransfersMessaging } from "../../Common/Messaging/IPlayerTransfe
 import { IPlayerCategory } from "../../Common/IPlayerCategory";
 import { MessagingMessageTypeIndexedDbTransferPricesAverages } from "../../Common/Messaging/MessagingMessageTypeIndexedDbTransferPricesAverages";
 import { MessagingMessageDataModelTransferPricesAverages } from "../../Common/DataModel/MessagingMessageDataModelTransferPricesAverages";
+import { IValues } from "../../Common/Toolkit/Values";
 
 export class PlayerTransfersMessaging implements IPlayerTransfersMessaging {
   private mcAverages: {};
@@ -11,7 +12,7 @@ export class PlayerTransfersMessaging implements IPlayerTransfersMessaging {
   constructor(
     private readonly dataSource: IMessaging<Object, Object>,
     private readonly gameServerUri: String,
-    private readonly positions: String[],
+    private readonly positions: IValues<String>,
     private readonly minAge: Number,
     private readonly maxAge: Number,
     private readonly minStrength: Number,
@@ -38,7 +39,7 @@ export class PlayerTransfersMessaging implements IPlayerTransfersMessaging {
         new MessagingMessageTypeIndexedDbTransferPricesAverages(),
         new MessagingMessageDataModelTransferPricesAverages(
           this.gameServerUri,
-          this.positions,
+          this.positions.values(),
           this.minAge,
           this.maxAge,
           this.minStrength,

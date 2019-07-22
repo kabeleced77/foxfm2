@@ -108,6 +108,7 @@ import { TransferMarketProfessionalPlayerTable } from './TransferMarket/Transfer
 import { PlayerCategories } from '../Common/PlayerCategories';
 import { Players } from '../Common/Players';
 import { PlayerTransfersMessaging } from './TransferMarket/PlayerTransfersMessaging';
+import { LabelsOfCheckedCheckboxes } from "../Common/Toolkit/LabelsOfCheckedCheckboxes";
 
 var doc = window.document;
 var currentUrl = doc.location.href;
@@ -264,7 +265,13 @@ new FoxfmContentScript(
         new PlayerTransfersMessaging(
           messagingContentScript,
           currentHost,
-          ["TW", "LMD"],
+          new LabelsOfCheckedCheckboxes(
+            new XPathAllResults(
+              doc,
+              new XPathString(
+                '//*[@id="transfermarkt"]/div[1]/form/div/table/tbody/tr[1]/td/table/tbody/tr/td[1]/table/tbody/tr[1]/td[2]/table//input[@type="checkbox"]',
+              )
+            )),
           17,
           36,
           1,
