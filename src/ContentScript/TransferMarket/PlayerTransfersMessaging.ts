@@ -5,6 +5,7 @@ import { IPlayerCategory } from "../../Common/IPlayerCategory";
 import { MessagingMessageTypeIndexedDbTransferPricesAverages } from "../../Common/Messaging/MessagingMessageTypeIndexedDbTransferPricesAverages";
 import { MessagingMessageDataModelTransferPricesAverages } from "../../Common/DataModel/MessagingMessageDataModelTransferPricesAverages";
 import { IValues } from "../../Common/Toolkit/Values";
+import { IValue } from "../../Common/Toolkit/IValue";
 
 export class PlayerTransfersMessaging implements IPlayerTransfersMessaging {
   private mcAverages: {};
@@ -13,10 +14,10 @@ export class PlayerTransfersMessaging implements IPlayerTransfersMessaging {
     private readonly dataSource: IMessaging<Object, Object>,
     private readonly gameServerUri: String,
     private readonly positions: IValues<String>,
-    private readonly minAge: Number,
-    private readonly maxAge: Number,
-    private readonly minStrength: Number,
-    private readonly maxStrength: Number,
+    private readonly minAge: IValue<Number>,
+    private readonly maxAge: IValue<Number>,
+    private readonly minStrength: IValue<Number>,
+    private readonly maxStrength: IValue<Number>,
   ) { }
 
   public async averages(): Promise<{}> {
@@ -40,10 +41,10 @@ export class PlayerTransfersMessaging implements IPlayerTransfersMessaging {
         new MessagingMessageDataModelTransferPricesAverages(
           this.gameServerUri,
           this.positions.values(),
-          this.minAge,
-          this.maxAge,
-          this.minStrength,
-          this.maxStrength,
+          this.minAge.value(),
+          this.maxAge.value(),
+          this.minStrength.value(),
+          this.maxStrength.value(),
         )));
   }
 }

@@ -109,6 +109,8 @@ import { PlayerCategories } from '../Common/PlayerCategories';
 import { Players } from '../Common/Players';
 import { PlayerTransfersMessaging } from './TransferMarket/PlayerTransfersMessaging';
 import { LabelsOfCheckedCheckboxes } from "../Common/Toolkit/LabelsOfCheckedCheckboxes";
+import { HtmlSelectValue } from '../Common/Toolkit/HtmlSelectValue';
+import { XPathFirstResult } from '../Common/Toolkit/XPathFirstResult';
 
 var doc = window.document;
 var currentUrl = doc.location.href;
@@ -261,7 +263,6 @@ new FoxfmContentScript(
                 ","))),
         ),
         // all transfer prices
-        // TODO: replace mockup values by real ones
         new PlayerTransfersMessaging(
           messagingContentScript,
           currentHost,
@@ -272,10 +273,38 @@ new FoxfmContentScript(
                 '//*[@id="transfermarkt"]/div[1]/form/div/table/tbody/tr[1]/td/table/tbody/tr/td[1]/table/tbody/tr[1]/td[2]/table//input[@type="checkbox"]',
               )
             )),
-          17,
-          36,
-          1,
-          27,
+          new NumberFromString(
+            new HtmlSelectValue(
+              new XPathFirstResult(
+                doc,
+                '//*[@id="alt_von"]',
+              ),
+            ),
+            ""),
+          new NumberFromString(
+            new HtmlSelectValue(
+              new XPathFirstResult(
+                doc,
+                '//*[@id="alt_bis"]',
+              ),
+            ),
+            ""),
+          new NumberFromString(
+            new HtmlSelectValue(
+              new XPathFirstResult(
+                doc,
+                '//*[@id="staerke_von"]',
+              ),
+            ),
+            ""),
+          new NumberFromString(
+            new HtmlSelectValue(
+              new XPathFirstResult(
+                doc,
+                '//*[@id="staerke_bis"]',
+              ),
+            ),
+            ""),
         ),
         // settings
         new StorageLocal<ITransferMarketSearchResultTableSettings>(

@@ -2,6 +2,7 @@ import { IMessaging } from "../../../Common/Messaging/IMessaging";
 import { PlayerCategory } from "../../../Common/PlayerCategory";
 import { PlayerTransfersMessaging } from "../../../ContentScript/TransferMarket/PlayerTransfersMessaging";
 import { Values } from "../../../Common/Toolkit/Values";
+import { Value } from "../../../Common/Toolkit/Value";
 
 const mockMessaging = jest.genMockFromModule<IMessaging<Object, Object>>("../../../Common/Messaging/IMessaging");
 const gameServerUri = "www.unit.test.org";
@@ -20,10 +21,10 @@ test("Get average transfer price of exisiting player category", async () => {
     mockMessaging,
     gameServerUri,
     new Values([""]),
-    17,
-    27,
-    1,
-    5);
+    new Value(17),
+    new Value(27),
+    new Value(1),
+    new Value(5));
 
   const average = await sut
     .average(
@@ -40,10 +41,10 @@ test("Get '0' when player category is not existing", async () => {
     mockMessaging,
     gameServerUri,
     new Values([""]),
-    17,
-    27,
-    1,
-    5);
+    new Value(17),
+    new Value(27),
+    new Value(1),
+    new Value(5));
 
   const playerCategory3 = new PlayerCategory("RM", 19, 6);
   const average = await sut
