@@ -1,16 +1,10 @@
 import { IValue } from "./IValue";
 
 export class NumberFromString implements IValue<Number> {
-  private readonly string: IValue<String>;
-  private readonly decimalPoint: String;
-
   constructor(
-    string: IValue<String>,
-    decimalPoint: String
-  ) {
-    this.string = string;
-    this.decimalPoint = decimalPoint;
-  }
+    private readonly string: IValue<String>,
+    private readonly decimalPoint: String
+  ) { }
 
   public value(): Number {
     return this.getNumberFromString(this.string.value(), this.decimalPoint.valueOf());
