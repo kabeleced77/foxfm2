@@ -116,6 +116,9 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
           const columnNumberMarketValueNextAgeCurrentStrength = 11;
           const columnNumberMarketValueNextAgeNextStrength = 12;
 
+          // TODO: bad but currently no other idea: call here to fill cache - requires implementation knowledge of used class
+          await this.playerTransfers.averages();
+
           // iterate through transfer market result table
           // for each row - if correspondent feature is activated - do
           //  - add AWPs
