@@ -1,9 +1,9 @@
-import { RessourceSettingsPageIntro } from "../../Common/Ressource"
+import { RessourceSettingsPageApplicationHeader } from "../../Common/Ressource"
 
 export class Application {
   public heading: String;
 
   constructor() {
-    this.heading = new RessourceSettingsPageIntro().value().valueOf();
+    this.heading = new RessourceSettingsPageApplicationHeader().value().valueOf();
   }
 }
