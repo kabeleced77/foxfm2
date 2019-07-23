@@ -1,6 +1,6 @@
 import { RessourceSettingsPageIntro } from "../../Common/Ressource"
 
-export class Welcome {
+export class Application {
   public heading: String;
 
   constructor() {
