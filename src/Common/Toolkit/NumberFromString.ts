@@ -7,28 +7,23 @@ export class NumberFromString implements IValue<Number> {
   ) { }
 
   public value(): Number {
-    return this.getNumberFromString(this.string.value(), this.decimalPoint.valueOf());
-  }
-
-  private getNumberFromString(str: String, decimalPoint: String): Number {
-    let sNum;
     let num: Number = 0;
-    // infoMessage(4, 'getNumberFromString(): started: string: ' + str);
-    if (str) {
-      switch (decimalPoint) {
+    let numberString = this.string.value();
+    if (numberString) {
+      switch (this.decimalPoint) {
         case '.':
-          sNum = str
+          numberString = numberString
             .replace(/\,/g, '') // remove thousands separator
           break;
         case ',':
         /* falls through */
         default:
-          sNum = str
+          numberString = numberString
             .replace(/\./g, '') // remove thousands separator
             .replace(',', '.'); // replace decimal separator 
           break;
       }
-      num = parseFloat(sNum);
+      num = parseFloat(numberString.toString());
     }
     return num;
   }
