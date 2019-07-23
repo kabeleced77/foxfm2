@@ -17,13 +17,15 @@ export class NumberFromString implements IValue<Number> {
     if (str) {
       switch (decimalPoint) {
         case '.':
-          sNum = str;
+          sNum = str
+            .replace(/\,/g, '') // remove thousands separator
           break;
         case ',':
         /* falls through */
         default:
-          sNum = str.replace(/\./g, '');
-          sNum = sNum.replace(/\,/g, '.');
+          sNum = str
+            .replace(/\./g, '') // remove thousands separator
+            .replace(',', '.'); // replace decimal separator 
           break;
       }
       num = parseFloat(sNum);
