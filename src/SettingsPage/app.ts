@@ -28,7 +28,7 @@ export class App {
   configureRouter(config: RouterConfiguration, router: Router) {
     config.title = this.ressourceSettingsPageAddonName;
     config.map([
-      { route: ['', 'SettingsPage/welcome/welcome'], name: 'welcome', moduleId: 'SettingsPage/welcome/welcome', nav: false, title: 'Welcome' },
+      { route: ['', 'SettingsPage/app-main/app-main'], name: 'app-main', moduleId: 'SettingsPage/app-main/app-main', nav: false, title: 'Welcome' },
       { route: 'SettingsPage/stadium/settings-stadium', name: 'settings-stadium', moduleId: 'SettingsPage/stadium/settings-stadium', nav: true, title: this.ressourceStadium },
       { route: 'SettingsPage/logging/settings-logging', name: 'settings-logging', moduleId: 'SettingsPage/logging/settings-logging', nav: false, title: "Logging" },
       { route: 'SettingsPage/team-table/settings-teamtable', name: 'settings-teamtable', moduleId: 'SettingsPage/team-table/settings-teamtable', nav: true, title: this.ressourceTeamTable },
