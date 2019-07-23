@@ -1,6 +1,5 @@
 import { Router, RouterConfiguration } from 'aurelia-router'
-import { RessourceStadium } from "../Common/Ressource"
-import { RessourceSettingsPageAddonName, RessourceTeamTableSettingsMenu, RessourceTransferMarketOfferTableSettingsMenu, RessourceTransferMarketProfessionalsTableSettingsMenu, RessourceTransferMarketAmateurTableSettingsMenu, RessourceStrengthAwpLimitsSettingsMenu, RessourceTransferMarketSellingSettingsMenu } from "../Common/Ressource"
+import { RessourceStadium, RessourceCommonAppName, RessourceTeamTableSettingsMenu, RessourceTransferMarketSellingSettingsMenu, RessourceTransferMarketAmateurTableSettingsMenu, RessourceTransferMarketProfessionalsTableSettingsMenu, RessourceTransferMarketOfferTableSettingsMenu, RessourceStrengthAwpLimitsSettingsMenu } from "../Common/Ressource"
 
 export class App {
   router: Router;
@@ -15,7 +14,7 @@ export class App {
   ressourceStrengthAwpLimits: string;
 
   constructor() {
-    this.ressourceSettingsPageAddonName = new RessourceSettingsPageAddonName().value().valueOf();
+    this.ressourceSettingsPageAddonName = new RessourceCommonAppName().value().valueOf();
     this.ressourceStadium = new RessourceStadium().value().valueOf();
     this.ressourceTeamTable = new RessourceTeamTableSettingsMenu().value().valueOf();
     this.ressourceTmSelling = new RessourceTransferMarketSellingSettingsMenu().value().valueOf();
