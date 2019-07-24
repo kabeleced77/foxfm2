@@ -4,20 +4,16 @@ export interface IFoxfmSetting {
 }
 
 export class FoxfmSetting implements IFoxfmSetting {
-  private readonly persistLocally: Boolean;
-
   constructor(
-    persistInBrowser: Boolean,
-  ) {
-    this.persistLocally = persistInBrowser;
-  }
+    private readonly persistLocally: Boolean,
+  ) { }
 
   public persistInBrowser(): Boolean {
     return this.persistLocally;
   }
   public fromJson(jsonString: String): IFoxfmSetting {
     return new FoxfmSetting(
-      jsonString["persistLocally"]
+      jsonString[nameof(this.persistLocally)],
     )
   }
 }
