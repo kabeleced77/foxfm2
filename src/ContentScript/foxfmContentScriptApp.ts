@@ -116,7 +116,7 @@ var doc = window.document;
 var currentUrl = doc.location.href;
 var currentHost = doc.location.host;
 
-/****************************************************
+/*********************************************************************
  * Create logger used withing content script
 */
 var logger = new Logger(
@@ -130,7 +130,7 @@ var logger = new Logger(
       new RegisteredLoggingModules(
         new Array<IRegisteredLoggingModule>()))));
 
-/****************************************************
+/*********************************************************************
  * Create messaging for content script side
 */
 var messagingContentScript = new MessagingContentScript(
@@ -142,8 +142,11 @@ var messagingContentScript = new MessagingContentScript(
       new LogLevelError()
     )));
 
-/****************************************************
- * Create content script application entry poing
+/*********************************************************************
+ * Content script application which
+ * - extends web pages
+ * - focus elements on web pages
+ * - scrape data from web pages
  */
 new FoxfmContentScript(
   new StorageLocal<IFoxfmSetting>(
@@ -154,6 +157,9 @@ new FoxfmContentScript(
     new RegisteredLoggingModule(
       "foxfmApp",
       new LogLevelError())),
+  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  // * * *           E X T E N D I N G                           * * *
+  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   new ExtendWebPage(
     new Url(currentUrl),
     new Array<IExtendWebElement>(
@@ -495,10 +501,13 @@ new FoxfmContentScript(
           new RegisteredLoggingModule(
             "StadiumManagerUi",
             new LogLevelError()))))),
+  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  // * * *           F O C U S I N G                             * * *
+  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   new FocusElementOnWebPage(
     new Url(currentUrl),
     new Array<IFocusWebElement>(
-      // Extend player information - set focus
+      // Focus configured element on web page 'Player information'
       new FocusElementByXPathConfigureable(
         new PlayerInformationWebPageUrl(),
         new StorageLocal<IFocusElementsSetting>(
@@ -510,7 +519,7 @@ new FoxfmContentScript(
           new RegisteredLoggingModule(
             "FocusElementByXPathConfigureable",
             new LogLevelError()))),
-      // Extend player transfer market - focus elements
+      // Focus configured element on web page 'Player transfer market'
       new FocusElementByXPathConfigureable(
         new PlayerTransferMarketWebPageUrl(),
         new StorageLocal<IFocusElementsSetting>(
@@ -522,7 +531,7 @@ new FoxfmContentScript(
           new RegisteredLoggingModule(
             "FocusElementByXPathConfigureable",
             new LogLevelError()))),
-      // Extend player transfer market player - focus element
+      // Focus configured element on web page 'Transfer market of a player'
       new FocusElementByXPathConfigureable(
         new PlayerTransferMarketPlayerWebPageUrl(),
         new StorageLocal<IFocusElementsSetting>(
@@ -534,6 +543,9 @@ new FoxfmContentScript(
           new RegisteredLoggingModule(
             "FocusElementByXPathConfigureable",
             new LogLevelError()))))),
+  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  // * * *           S C R A P I N G                             * * *
+  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   new ScrapeWebPage(
     new Url(currentUrl),
     new Array<IScrapeWebElement>(
