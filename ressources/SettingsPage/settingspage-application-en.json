@@ -1,5 +1,8 @@
 {
   "settings_application_header": {
     "message": "On this page you can adjust the behaviour of the addon."
+  },
+  "settings_application_scrape": {
+    "message": "Foxfm saves certain values of the web site in a local database. This database is managed by the used web browser."
   }
 }

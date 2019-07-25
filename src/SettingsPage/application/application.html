@@ -1,5 +1,15 @@
 <template>
   <section class="au-animate">
     <h3>${heading}</h3>
+    <form role="form" submit.delegate="submit()">
+      <div class="form-group">
+        <div class="checkbox">
+          <label> <input type="checkbox" checked.bind="scrapingActivated">${ressourceScrape}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary " name="submit" type="submit">${ressourceButtonApply}</button>
+      </div>
+    </form>
   </section>
 </template>
