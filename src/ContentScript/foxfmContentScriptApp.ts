@@ -549,6 +549,7 @@ new FoxfmContentScript(
   new ScrapeWebPage(
     new Url(currentUrl),
     new Array<IScrapeWebElement>(
+      /* [commented as not needed for current features]
       // Scrape office/header - get club
       new ScrapeClub(
         new HeaderWebPageUrl(),
@@ -581,6 +582,7 @@ new FoxfmContentScript(
         new ClubsMessaging(
           messagingContentScript),
       ),
+      */
       // Scrape office/header - get matchday
       new ScrapeMatchday(
         new HeaderWebPageUrl(),
