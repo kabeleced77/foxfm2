@@ -1,9 +1,9 @@
 import { IClubs } from '../../Common/IClubs';
-import { IScrabWebElement } from '../../Common/Toolkit/ScrabWebElement';
+import { IScrapeWebElement } from '../../Common/Toolkit/ScrapeWebElement';
 import { IUrl } from '../../Common/Toolkit/Url';
 import { IValue } from "../../Common/Toolkit/IValue";
 
-export class ScrabClub implements IScrabWebElement {
+export class ScrapeClub implements IScrapeWebElement {
   private urlField: IUrl;
   private readonly hostname: String;
   private readonly name: IValue<String>;
@@ -25,7 +25,7 @@ export class ScrabClub implements IScrabWebElement {
   public targetUrl(): IUrl {
     return this.urlField;
   }
-  public scrab(): void {
+  public scrape(): void {
     this.clubs.add(
       this.hostname,
       this.name.value(),

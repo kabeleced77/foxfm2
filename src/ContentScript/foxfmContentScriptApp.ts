@@ -74,8 +74,8 @@ import { HtmlTableColumnNumberValues } from '../Common/Toolkit/HtmlTableColumnNu
 import { HtmlTableColumnStringValues } from '../Common/Toolkit/HtmlTableColumnStringValues';
 import { Mutex } from '../Common/Toolkit/Mutex';
 import { NumberFromString } from '../Common/Toolkit/NumberFromString';
-import { IScrabWebElement } from '../Common/Toolkit/ScrabWebElement';
-import { ScrabWebPage } from '../Common/Toolkit/ScrabWebPage';
+import { IScrapeWebElement } from '../Common/Toolkit/ScrapeWebElement';
+import { ScrapeWebPage } from '../Common/Toolkit/ScrapeWebPage';
 import { SplitStringsToNumbers } from '../Common/Toolkit/SplitStrings';
 import { SplitStringToString } from '../Common/Toolkit/SplitStringToString';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
@@ -96,8 +96,8 @@ import { TransferMarketAmateurWebPageUrl } from '../Common/Urls/TransferMarketAm
 import { TransferMarketProfessionalsUiUrl } from '../Common/Urls/TransferMarketProfessionalsUiUrl';
 import { TransferOfferWebPageUrl } from '../Common/Urls/TransferOfferWebPageUrl';
 import { FoxfmContentScript } from './FoxfmContentScript';
-import { ScrabClub } from './Header/ScrabClub';
-import { ScrabMatchday } from './Header/ScrabMatchday';
+import { ScrapeClub } from './Header/ScrapeClub';
+import { ScrapeMatchday } from './Header/ScrapeMatchday';
 import { PlayerTransferMarketDurationSelect } from './Player/PlayerTransferMarketDurationSelect';
 import { StadiumManagerUi } from './Stadium/StadiumManagerUi';
 import { TeamPlayerTable } from './Team/TeamPlayerTable';
@@ -534,11 +534,11 @@ new FoxfmContentScript(
           new RegisteredLoggingModule(
             "FocusElementByXPathConfigureable",
             new LogLevelError()))))),
-  new ScrabWebPage(
+  new ScrapeWebPage(
     new Url(currentUrl),
-    new Array<IScrabWebElement>(
-      // Scrab office/header - get club
-      new ScrabClub(
+    new Array<IScrapeWebElement>(
+      // Scrape office/header - get club
+      new ScrapeClub(
         new HeaderWebPageUrl(),
         window.location.hostname,
         new SplitStringToString(
@@ -569,8 +569,8 @@ new FoxfmContentScript(
         new ClubsMessaging(
           messagingContentScript),
       ),
-      // Scrab office/header - get matchday
-      new ScrabMatchday(
+      // Scrape office/header - get matchday
+      new ScrapeMatchday(
         new HeaderWebPageUrl(),
         window.location.hostname,
         new NumberFromString(

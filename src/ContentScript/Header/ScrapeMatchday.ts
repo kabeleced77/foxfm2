@@ -1,9 +1,9 @@
 import { IMatchdays } from '../../Common/IMatchdays';
-import { IScrabWebElement } from '../../Common/Toolkit/ScrabWebElement';
+import { IScrapeWebElement } from '../../Common/Toolkit/ScrapeWebElement';
 import { IUrl } from '../../Common/Toolkit/Url';
 import { IValue } from "../../Common/Toolkit/IValue";
 
-export class ScrabMatchday implements IScrabWebElement {
+export class ScrapeMatchday implements IScrapeWebElement {
   private urlField: IUrl;
   private readonly hostname: String;
   private day: IValue<Number>;
@@ -26,7 +26,7 @@ export class ScrabMatchday implements IScrabWebElement {
     return this.urlField;
   }
 
-  public scrab(): void {
+  public scrape(): void {
     this.matchdays.add(
       this.hostname,
       this.season.value(),
