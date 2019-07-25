@@ -19,7 +19,7 @@ export class Application {
       new FoxfmSettingName(),
       new FoxfmSetting(false),
     );
-    this.moFoxfmSetting.value().then(v => this.scrapingActivated = v.persistInBrowser());
+    this.moFoxfmSetting.value().then(v => this.scrapingActivated = v.scrape());
 
     // get all resources needed for the HTML view
     this.heading = new RessourceSettingsPageApplicationHeader().value().valueOf();

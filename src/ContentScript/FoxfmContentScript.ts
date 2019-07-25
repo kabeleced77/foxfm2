@@ -20,6 +20,6 @@ export class FoxfmContentScript {
     this.logger.info(`S t a r t e d on ${location}`);
     this.extendWebPage.extend(this.logger);
     this.focusElementOnWebPage.focus(this.logger);
-    if ((await this.settings.value()).persistInBrowser()) this.scrapeWebPage.scrape(this.logger);
+    if ((await this.settings.value()).scrape()) this.scrapeWebPage.scrape(this.logger);
   }
 }
