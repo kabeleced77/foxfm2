@@ -1,6 +1,6 @@
 import { IEasyLogger } from '../../Common/Logger/EasyLogger';
 import { ITransferMarketSellingDurationSettings } from '../../Common/Settings/TransferMarketSellingDurationSettings';
-import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
+import { IExtendWebElement } from '../../Common/Toolkit/IExtendWebElement';
 import { IHtmlSelect } from '../../Common/Toolkit/HtmlSelect';
 import { ISetting } from '../../Common/Toolkit/Setting';
 import { IUrl } from '../../Common/Toolkit/Url';

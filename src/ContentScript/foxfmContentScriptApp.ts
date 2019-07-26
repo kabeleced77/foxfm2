@@ -58,7 +58,7 @@ import { StrengthValues } from '../Common/StrengthValues';
 import { AwpPoints, AwpPointsByEpTp, AwpPointsBySplittedString } from '../Common/Toolkit/AwpPoints';
 import { Dom } from '../Common/Toolkit/Dom';
 import { DomNodesByXpath } from '../Common/Toolkit/DomNodesByXpath';
-import { IExtendWebElement } from '../Common/Toolkit/ExtendWebElement';
+import { IExtendWebElement } from '../Common/Toolkit/IExtendWebElement';
 import { ExtendWebPage } from '../Common/Toolkit/ExtendWebPage';
 import { FirstElementInXPathNodeOrParents } from '../Common/Toolkit/FirstElementInXPathNodeOrParents';
 import { FocusElementByXPathConfigureable } from '../Common/Toolkit/FocusElementByXPathConfigureable';

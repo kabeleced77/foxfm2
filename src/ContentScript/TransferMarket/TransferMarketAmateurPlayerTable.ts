@@ -7,7 +7,7 @@ import {
 import { ITransferMarketAmateurPlayerTableSettings } from '../../Common/Settings/TransferMarketAmateurPlayerTableSettings';
 import { IStrengthLevel } from '../../Common/StrengthLevel';
 import { IStrengthLevels } from '../../Common/StrengthLevels';
-import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
+import { IExtendWebElement } from '../../Common/Toolkit/IExtendWebElement';
 import { HtmlAttribute, IHtmlAttribute } from '../../Common/Toolkit/HtmlAttribute';
 import { HtmlElement, IHtmlElement } from '../../Common/Toolkit/HtmlElement';
 import { IHtmlTable } from '../../Common/Toolkit/HtmlTable';

@@ -7,7 +7,7 @@ import {
 import { ITeamTableSetting } from '../../Common/Settings/TeamTableSetting';
 import { IStrengthLevel } from '../../Common/StrengthLevel';
 import { IStrengthLevels } from '../../Common/StrengthLevels';
-import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
+import { IExtendWebElement } from '../../Common/Toolkit/IExtendWebElement';
 import { HtmlAttribute, IHtmlAttribute } from '../../Common/Toolkit/HtmlAttribute';
 import { HtmlElement, IHtmlElement } from '../../Common/Toolkit/HtmlElement';
 import { IHtmlTable } from '../../Common/Toolkit/HtmlTable';

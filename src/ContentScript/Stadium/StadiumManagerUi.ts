@@ -23,7 +23,7 @@ import { IStadiumEntryPrices } from '../../Common/StadiumEntryPrices';
 import { IStadiumOverallEntryPrices } from '../../Common/StadiumOverallEntryPrices';
 import { IDom } from '../../Common/Toolkit/Dom';
 import { DOMHelper } from '../../Common/Toolkit/DOMHelper';
-import { IExtendWebElement } from '../../Common/Toolkit/ExtendWebElement';
+import { IExtendWebElement } from '../../Common/Toolkit/IExtendWebElement';
 import { NumberHelper } from '../../Common/Toolkit/NumberHelper';
 import { IUrl } from '../../Common/Toolkit/Url';
 import { XPathAllResults } from '../../Common/Toolkit/XPathAllResults';
