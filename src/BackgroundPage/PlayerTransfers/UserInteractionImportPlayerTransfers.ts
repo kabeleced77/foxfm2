@@ -12,7 +12,7 @@ import { MatchdaysIDb } from '../../Common/IndexedDb/MatchdaysIDb';
 /**
  * Import all player transfers of a matchday and previous ones of current season:
  * 1. import player transfers of matchday (start with current one)
- * 2. check if matchday actually exists in database -> creas if not 
+ * 2. check if matchday actually exists in database -> add  if not (can happen when transfers shall be imported of a day where no login has happened)
  * 3. check if transfers have not been imported yet -> proceed if not imported yet
  * 4. show notification to user asking to start (click on notification) import of next matchday in list 
  * 5. if user clicked on notification, then start import of transfers
