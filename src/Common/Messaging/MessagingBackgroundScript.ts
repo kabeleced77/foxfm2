@@ -22,6 +22,11 @@ import { IMessagingMessageDataModelTransferPricesAverage } from "../DataModel/IM
 import { PlayerTransfersIDb } from '../IndexedDb/PlayerTransfersIDb';
 import { MessagingMessageTypeIndexedDbTransferPricesAverages } from './MessagingMessageTypeIndexedDbTransferPricesAverages';
 import { IMessagingMessageDataModelTransferPricesAverages } from '../DataModel/IMessagingMessageDataModelTransferPricesAverages';
+import { DataModelMessagingTypeImportTransfers } from './DataModelMessagingTypeImportTransfers';
+import { MatchdayConst } from '../MatchdayConst';
+import { IDataModelMessagingContentImportTransfers } from '../DataModel/DataModelMessagingContentImportTransfers';
+import { GameServerConst } from '../GameServerConst';
+import { Value } from '../Toolkit/Value';
 
 export class MessagingBackgroundScript implements IMessaging<Object, Object> {
   private portName: String;
@@ -56,8 +61,19 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
         let messageToSend: Object = {};
         switch (message.type.name) {
           case new MessagingMessageTypeIndexedDbAddMatchday().name:
-            const matchday = await this.addMatchdayToIndexedDb(<IPersistMatchdayMessagingDataModel>message.content);
+            await this.addMatchdayToIndexedDb(<IPersistMatchdayMessagingDataModel>message.content);
+            break;
 
+          case new DataModelMessagingTypeImportTransfers().name:
+            const contentImportTransfers = <IDataModelMessagingContentImportTransfers>message.content;
+            const md = new MatchdayConst(
+              new GameServerConst(
+                contentImportTransfers.gameServerUrl,
+              ),
+              new Value(contentImportTransfers.day),
+              new Value(contentImportTransfers.season),
+              contentImportTransfers.date,
+            );
             new UserInteractionImportPlayerTransfers(
               this.indexedDb,
               new EasyLogger(
@@ -65,7 +81,7 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
                 new RegisteredLoggingModule(
                   nameof(UserInteractionImportPlayerTransfers),
                   new LogLevelError())))
-              .import(matchday);
+              .import(md);
 
             break;
           case new MessagingMessageTypeIndexedDbAddClub().name:

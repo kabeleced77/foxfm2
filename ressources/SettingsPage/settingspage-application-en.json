@@ -4,5 +4,8 @@
   },
   "settings_application_scrape": {
     "message": "Foxfm saves certain values of the web site in a local database. This database is managed by the used web browser."
+  },
+  "settings_application_importTransfers": {
+    "message": "Foxfm imports the data of the transfered players of the current season. After the log on or the reload of the OFM Webpage a message will be shown. If that message will be clicked on, Foxfm will start the download of the file of the transfers. The data is saved in a local database. This database is managed by the used web browser. The imported data can be displayed in certain views (tables). This requires an extra configuration for each view."
   }
 }

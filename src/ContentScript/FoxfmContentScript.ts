@@ -4,6 +4,7 @@ import { IExtendWebPage } from '../Common/Toolkit/ExtendWebPage';
 import { IFocusElementOnWebPage } from '../Common/Toolkit/FocusElementOnWebPage';
 import { IScrapeWebPage } from '../Common/Toolkit/ScrapeWebPage';
 import { ISetting } from '../Common/Toolkit/Setting';
+import { IImports } from "../Common/Toolkit/IImports";
 
 export class FoxfmContentScript {
   constructor(
@@ -12,6 +13,7 @@ export class FoxfmContentScript {
     private readonly extendWebPage: IExtendWebPage,
     private readonly focusElementOnWebPage: IFocusElementOnWebPage,
     private readonly scrapeWebPage: IScrapeWebPage,
+    private readonly imports: IImports,
   ) { }
 
   public async main(): Promise<void> {
@@ -21,5 +23,12 @@ export class FoxfmContentScript {
     this.extendWebPage.extend(this.logger);
     this.focusElementOnWebPage.focus(this.logger);
     if ((await this.settings.value()).scrape()) this.scrapeWebPage.scrape(this.logger);
+    if ((await this.settings.value()).importTransfers()) {
+      this.imports
+        .import(this.logger)
+        .catch(reason => {
+          throw `Could not execute imports: ${reason}`;
+        });
+    }
   }
 }

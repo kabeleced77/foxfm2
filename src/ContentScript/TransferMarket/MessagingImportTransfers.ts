@@ -1,0 +1,40 @@
+import { ISetting } from '../../Common/Toolkit/Setting';
+import { IImport } from '../../Common/Toolkit/IImport';
+import { IFoxfmSetting } from '../../Common/Settings/FoxfmSetting';
+import { IMessaging } from '../../Common/Messaging/IMessaging';
+import { IDataModelMessagingContentImportTransfers, DataModelMessagingContentImportTransfers } from '../../Common/DataModel/DataModelMessagingContentImportTransfers';
+import { MessagingMessage } from '../../Common/Messaging/MessagingMessage';
+import { IMatchdayWithoutId } from '../../Common/IMatchday';
+import { DataModelMessagingTypeImportTransfers } from '../../Common/Messaging/DataModelMessagingTypeImportTransfers';
+import { IUrl } from '../../Common/Toolkit/Url';
+
+export class MessagingImportTransfers implements IImport {
+  constructor(
+    private readonly moUrl: IUrl,
+    private readonly settings: ISetting<IFoxfmSetting>,
+    private readonly messaging: IMessaging<Object, Object>,
+    private readonly matchday: IMatchdayWithoutId,
+  ) { }
+
+  public targetUrl(): IUrl {
+    return this.moUrl;
+  }
+  public async import(): Promise<void> {
+    try {
+      if ((await this.settings.value()).importTransfers()) {
+        this.messaging
+          .send(
+            new MessagingMessage<IDataModelMessagingContentImportTransfers>(
+              new DataModelMessagingTypeImportTransfers(),
+              new DataModelMessagingContentImportTransfers(
+                await (await this.matchday.gameServer()).uri(),
+                await this.matchday.day(),
+                await this.matchday.season(),
+                await this.matchday.date(),
+              )));
+      }
+    } catch (error) {
+      throw new Error(`Could not import player transfers: ${error}`);
+    }
+  }
+}

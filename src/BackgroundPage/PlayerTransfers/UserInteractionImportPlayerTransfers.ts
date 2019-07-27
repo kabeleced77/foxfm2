@@ -1,6 +1,6 @@
 import { FoxfmIndexedDb } from '../../Common/IndexedDb/FoxfmIndexedDb';
 import { IEasyLogger } from '../../Common/Logger/EasyLogger';
-import { IMatchday } from '../../Common/IMatchday';
+import { IMatchday, IMatchdayWithoutId } from '../../Common/IMatchday';
 import { ImportedPlayerTransfers } from './ImportedPlayerTransfers';
 import { IUserInteractionImportPlayerTransfers } from './IUserInteractionImportPlayerTransfers';
 import { RessourceUserInteractionImportPlayerTransfersQuestionStartImport, RessourceCommonAppName, RessourceUserInteractionImportPlayerTransfersImportingStarted, RessourceUserInteractionImportPlayerTransfersImportingFinished, IRessource } from '../../Common/Ressource';
@@ -41,11 +41,18 @@ export class UserInteractionImportPlayerTransfers implements IUserInteractionImp
   }
 
   public async import(
-    matchday: IMatchday,
+    matchday: IMatchdayWithoutId,
   ): Promise<void> {
-    this.logger.info(`matchday ${await matchday.season()}-${await matchday.day()}@${await (await matchday.gameServer()).uri()}: base matchday for player transfer import`);
+    const season = await matchday.season();
+    const day = await matchday.day();
+    const gameServerUri = await (await matchday.gameServer()).uri();
+    const date = await matchday.date();
 
-    await this.importTransfers(matchday);
+    this.logger.info(`matchday ${season}-${day}@${gameServerUri} from ${date}: base matchday for player transfer import`);
+
+    // add initial matchday to database
+    const matchdayIDb = await this.matchdaysIDb.add(gameServerUri, season, day, date);
+    await this.importTransfers(matchdayIDb);
   }
 
   private async importTransfers(

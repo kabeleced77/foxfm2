@@ -111,6 +111,11 @@ import { PlayerTransfersMessaging } from './TransferMarket/PlayerTransfersMessag
 import { LabelsOfCheckedCheckboxes } from "../Common/Toolkit/LabelsOfCheckedCheckboxes";
 import { HtmlSelectValue } from '../Common/Toolkit/HtmlSelectValue';
 import { XPathFirstResult } from '../Common/Toolkit/XPathFirstResult';
+import { Imports } from '../Common/Toolkit/Imports';
+import { MessagingImportTransfers } from './TransferMarket/MessagingImportTransfers';
+import { MatchdayConst } from '../Common/MatchdayConst';
+import { HtmlNodeTextContent } from '../Common/Toolkit/HtmlElementTextContent';
+import { GameServerConst } from '../Common/GameServerConst';
 
 var doc = window.document;
 var currentUrl = doc.location.href;
@@ -602,4 +607,42 @@ new FoxfmContentScript(
         new MatchdaysMessaging(
           messagingContentScript),
       ))),
+  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  // * * *           I M P O R T I N G                           * * *
+  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  new Imports(
+    new Url(currentUrl),
+    new Array(
+      // import player transfers only when OFM header is loaded where matchday data can be scraped
+      new MessagingImportTransfers(
+        new HeaderWebPageUrl(),
+        new StorageLocal<IFoxfmSetting>(
+          new FoxfmSettingName(),
+          new FoxfmSettingDefaultValue()),
+        messagingContentScript,
+        new MatchdayConst(
+          new GameServerConst(
+            window.location.hostname,
+          ),
+          new NumberFromString(
+            new HtmlNodeTextContent(
+              new XPathFirstResult(
+                window.document,
+                '/html/body/div[2]/div[1]/div[2]/p/span[1]',
+              )
+            )
+          ),
+          new NumberFromString(
+            new HtmlNodeTextContent(
+              new XPathFirstResult(
+                window.document,
+                '/html/body/div[2]/div[1]/div[2]/p/span[2]',
+              )
+            )
+          ),
+          new Date(),
+        )
+      )
+    ),
+  ),
 ).main().catch(e => logger.error("Content script", `error: ${e}`));
