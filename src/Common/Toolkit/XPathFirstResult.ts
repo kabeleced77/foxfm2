@@ -1,5 +1,10 @@
 import { IXPathFirstResult } from "./IXPathFirstResult";
 
+/**
+ * Finds the first node matching the XPath string.
+ * 
+ * Throws an exception if none is found.
+ */
 export class XPathFirstResult<T extends Node> implements IXPathFirstResult<T> {
   private firstResult: Node;
 
