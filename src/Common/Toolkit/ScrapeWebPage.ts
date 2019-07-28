@@ -1,5 +1,5 @@
 import { IEasyLogger } from '../Logger/EasyLogger';
-import { IScrapeWebElement } from './ScrapeWebElement';
+import { IScrapeWebElement } from "./IScrapeWebElement";
 import { IUrl } from './Url';
 
 export interface IScrapeWebPage {

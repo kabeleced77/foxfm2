@@ -1,5 +1,5 @@
 import { IMatchdays } from '../../Common/IMatchdays';
-import { IScrapeWebElement } from '../../Common/Toolkit/ScrapeWebElement';
+import { IScrapeWebElement } from "../../Common/Toolkit/IScrapeWebElement";
 import { IUrl } from '../../Common/Toolkit/Url';
 import { IValue } from "../../Common/Toolkit/IValue";
 

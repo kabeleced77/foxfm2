@@ -74,7 +74,7 @@ import { HtmlTableColumnNumberValues } from '../Common/Toolkit/HtmlTableColumnNu
 import { HtmlTableColumnStringValues } from '../Common/Toolkit/HtmlTableColumnStringValues';
 import { Mutex } from '../Common/Toolkit/Mutex';
 import { NumberFromString } from '../Common/Toolkit/NumberFromString';
-import { IScrapeWebElement } from '../Common/Toolkit/ScrapeWebElement';
+import { IScrapeWebElement } from "../Common/Toolkit/IScrapeWebElement";
 import { ScrapeWebPage } from '../Common/Toolkit/ScrapeWebPage';
 import { SplitStringsToNumbers } from '../Common/Toolkit/SplitStrings';
 import { SplitStringToString } from '../Common/Toolkit/SplitStringToString';
