@@ -1,10 +1,10 @@
-import { IGameServer } from "./IGameServer";
+import { IGameServerWithId } from "./IGameServerWithId";
 import { IMatchdayWithId } from "./IMatchdayWithId";
 
 export interface IPlayerTransfer {
   id(): Number;
   gameServerId(): Promise<Number>;
-  gameServer(): Promise<IGameServer>;
+  gameServer(): Promise<IGameServerWithId>;
   externalTransferId(): Promise<Number>;
   matchdayId(): Promise<Number>;
   matchday(): Promise<IMatchdayWithId>;

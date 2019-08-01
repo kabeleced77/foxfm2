@@ -1,6 +1,6 @@
 import { DataModelIDbGameServer } from '../DataModel/DataModelIDbGameServer';
 import { GameServerIDb } from './GameServerIDb';
-import { IGameServer } from "../IGameServer";
+import { IGameServerWithId } from "../IGameServerWithId";
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IGameServers } from '../IGameServers';
 
@@ -13,8 +13,8 @@ export class GameServersIDb implements IGameServers {
     this.dataBase = source;
   }
 
-  public gameServers(): Promise<IGameServer[]> {
-    let vals: IGameServer[] = [];
+  public gameServers(): Promise<IGameServerWithId[]> {
+    let vals: IGameServerWithId[] = [];
     return this.dataBase
       .gameServers
       .toCollection()
@@ -22,7 +22,7 @@ export class GameServersIDb implements IGameServers {
       .then(() => vals);
   }
 
-  public add(name: String): Promise<void | IGameServer> {
+  public add(name: String): Promise<void | IGameServerWithId> {
     return this.dataBase
       .gameServers
       .add(new DataModelIDbGameServer(name))

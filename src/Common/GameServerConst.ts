@@ -1,6 +1,6 @@
-import { IGameServerWithoutId } from "./IGameServer";
+import { IGameServer } from "./IGameServer";
 
-export class GameServerConst implements IGameServerWithoutId {
+export class GameServerConst implements IGameServer {
   constructor(
     private readonly msUri: String,
   ) { }

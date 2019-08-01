@@ -432,6 +432,7 @@ System.config({
       "Common/IClub.js",
       "Common/IClubs.js",
       "Common/IGameServer.js",
+      "Common/IGameServerWithId.js",
       "Common/IGameServers.js",
       "Common/IImportedTransfersOfMatchday.js",
       "Common/IImportedTransfersOfMatchdays.js",

@@ -1,7 +1,7 @@
-import { IGameServerWithoutId } from "./IGameServer";
+import { IGameServer } from "./IGameServer";
 
 export interface IMatchday {
-  gameServer(): Promise<IGameServerWithoutId>;
+  gameServer(): Promise<IGameServer>;
   day(): Promise<Number>;
   season(): Promise<Number>;
   date(): Promise<Date>;

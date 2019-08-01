@@ -2,7 +2,7 @@ import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IMatchdayWithId } from "../IMatchdayWithId";
 import { GameServerIDb } from './GameServerIDb';
-import { IGameServer } from "../IGameServer";
+import { IGameServerWithId } from "../IGameServerWithId";
 
 export class MatchdayIDb implements IMatchdayWithId {
   constructor(
@@ -22,7 +22,7 @@ export class MatchdayIDb implements IMatchdayWithId {
       .then((result: IDataModelIDbMatchday) => result.gameServerId);
   }
 
-  public gameServer(): Promise<IGameServer> {
+  public gameServer(): Promise<IGameServerWithId> {
     return this.source.transaction("r", this.source.matchdays, this.source.gameServers, async () => {
       let matchdayInIdb = await this.source.matchdays.get(this.id());
       let gameServersInDb = this.source.gameServers.filter(gs => gs.id === matchdayInIdb!.gameServerId);

@@ -1,6 +1,6 @@
-import { IGameServer } from "./IGameServer";
+import { IGameServerWithId } from "./IGameServerWithId";
 
 export interface IGameServers {
-  gameServers(): Promise<IGameServer[]>;
-  add(uri: String): Promise<void | IGameServer>;
+  gameServers(): Promise<IGameServerWithId[]>;
+  add(uri: String): Promise<void | IGameServerWithId>;
 }
