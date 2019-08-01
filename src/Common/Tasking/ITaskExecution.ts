@@ -1,6 +1,6 @@
 import { ITaskName } from "./ITaskName";
 import { ITaskStatus } from "./ITaskStatus";
-import { IMatchday } from "../IMatchday";
+import { IMatchdayWithId } from "../IMatchdayWithId";
 
 export interface ITaskExecution {
   id(): Number;
@@ -8,5 +8,5 @@ export interface ITaskExecution {
   executionStatus(): Promise<ITaskStatus>;
   startDateTime(): Promise<Date>;
   endDateTime(): Promise<Date>;
-  matchday(): Promise<IMatchday>;
+  matchday(): Promise<IMatchdayWithId>;
 }

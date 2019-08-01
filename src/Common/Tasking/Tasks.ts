@@ -5,7 +5,7 @@ import { ITaskConfigurations } from './ITaskConfigurations';
 import { ITaskStatus } from './ITaskStatus';
 import { TaskStatusFailed } from './TaskStatusFailed';
 import { ITaskExecutions } from './ITaskExecutions';
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { TaskStatusRunning } from './TaskStatusRunning';
 import { TaskStatusExecuted } from './TaskStatusExecuted';
 import { ITaskConfiguration } from './ITaskConfiguration';
@@ -14,7 +14,7 @@ export class Tasks implements ITasks {
   constructor(
     private taskConfigs: ITaskConfigurations,
     private taskExecutions: ITaskExecutions,
-    private matchday: IMatchday,
+    private matchday: IMatchdayWithId,
     private taskList: ITask[],
     private log: IEasyLogger,
   ) { }

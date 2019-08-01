@@ -1,5 +1,5 @@
 import { IGameServer } from "./IGameServer";
-import { IMatchday } from './IMatchday';
+import { IMatchdayWithId } from "./IMatchdayWithId";
 
 export interface IPlayerTransfer {
   id(): Number;
@@ -7,7 +7,7 @@ export interface IPlayerTransfer {
   gameServer(): Promise<IGameServer>;
   externalTransferId(): Promise<Number>;
   matchdayId(): Promise<Number>;
-  matchday(): Promise<IMatchday>;
+  matchday(): Promise<IMatchdayWithId>;
   position(): Promise<String>;
   age(): Promise<Number>;
   strength(): Promise<Number>;

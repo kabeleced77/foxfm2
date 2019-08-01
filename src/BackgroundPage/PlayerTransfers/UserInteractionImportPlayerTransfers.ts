@@ -1,6 +1,7 @@
 import { FoxfmIndexedDb } from '../../Common/IndexedDb/FoxfmIndexedDb';
 import { IEasyLogger } from '../../Common/Logger/EasyLogger';
-import { IMatchday, IMatchdayWithoutId } from '../../Common/IMatchday';
+import { IMatchday } from '../../Common/IMatchday';
+import { IMatchdayWithId } from "../../Common/IMatchdayWithId";
 import { ImportedPlayerTransfers } from './ImportedPlayerTransfers';
 import { IUserInteractionImportPlayerTransfers } from './IUserInteractionImportPlayerTransfers';
 import { RessourceUserInteractionImportPlayerTransfersQuestionStartImport, RessourceCommonAppName, RessourceUserInteractionImportPlayerTransfersImportingStarted, RessourceUserInteractionImportPlayerTransfersImportingFinished, IRessource } from '../../Common/Ressource';
@@ -41,7 +42,7 @@ export class UserInteractionImportPlayerTransfers implements IUserInteractionImp
   }
 
   public async import(
-    matchday: IMatchdayWithoutId,
+    matchday: IMatchday,
   ): Promise<void> {
     const season = await matchday.season();
     const day = await matchday.day();
@@ -56,7 +57,7 @@ export class UserInteractionImportPlayerTransfers implements IUserInteractionImp
   }
 
   private async importTransfers(
-    matchday: IMatchday,
+    matchday: IMatchdayWithId,
   ): Promise<void> {
 
     const season = await matchday.season();
@@ -99,7 +100,7 @@ export class UserInteractionImportPlayerTransfers implements IUserInteractionImp
     }
   }
 
-  private async addMatchday(matchday: IMatchday, season: Number, day: Number, gameServerUri: String) {
+  private async addMatchday(matchday: IMatchdayWithId, season: Number, day: Number, gameServerUri: String) {
     if (matchday.id() < 0) {
       this.logger.info(`matchday ${season}-${day}@${gameServerUri}: not in database yet - will be added now`);
       matchday = await this.matchdaysIDb.add(gameServerUri, season, day, new Date());
@@ -111,7 +112,7 @@ export class UserInteractionImportPlayerTransfers implements IUserInteractionImp
     options: { "title": string; "icon": string; "body": string; "tag": string; },
     season: Number,
     day: Number,
-    matchday: IMatchday)
+    matchday: IMatchdayWithId)
     : Promise<void> {
 
     options.body = this.resourceImportingStarted.value(`${season}-${day}`).toString();

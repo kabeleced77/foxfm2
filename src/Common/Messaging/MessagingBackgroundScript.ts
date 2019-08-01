@@ -13,7 +13,7 @@ import { IMessaging } from "./IMessaging";
 import { IMessagingMessage } from "./IMessagingMessage";
 import { MessagingMessageTypeIndexedDbAddClub } from './MessagingMessageTypeIndexedDbAddClub';
 import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageTypeIndexedDbAddMatchday';
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { UserInteractionImportPlayerTransfers } from '../../BackgroundPage/PlayerTransfers/UserInteractionImportPlayerTransfers';
 import { RegisteredLoggingModule } from '../Logger/RegisteredLoggingModule';
 import { LogLevelError } from '../Logger/LogLevel';
@@ -110,7 +110,7 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
     });
   }
 
-  private async addMatchdayToIndexedDb(matchday: IPersistMatchdayMessagingDataModel): Promise<IMatchday> {
+  private async addMatchdayToIndexedDb(matchday: IPersistMatchdayMessagingDataModel): Promise<IMatchdayWithId> {
     this.logger.debug(`add matchday to IDb: ${matchday.gameServerUrl} ${matchday.gameSeason}-${matchday.gameDay}`);
     return new MatchdaysIDb(
       this.indexedDb,

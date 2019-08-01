@@ -1,10 +1,10 @@
 import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { GameServerIDb } from './GameServerIDb';
 import { IGameServer } from "../IGameServer";
 
-export class MatchdayIDb implements IMatchday {
+export class MatchdayIDb implements IMatchdayWithId {
   constructor(
     private source: FoxfmIndexedDb,
     private idValue: Number,

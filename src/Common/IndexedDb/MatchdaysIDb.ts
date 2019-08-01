@@ -1,5 +1,5 @@
 import { DataModelIDbMatchday, IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { IMatchdays } from '../IMatchdays';
 import { IEasyLogger } from '../Logger/EasyLogger';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
@@ -11,10 +11,10 @@ export class MatchdaysIDb implements IMatchdays {
     private logger: IEasyLogger,
   ) { }
 
-  public matchdays(season?: Number): Promise<IMatchday[]> {
+  public matchdays(season?: Number): Promise<IMatchdayWithId[]> {
     const seasonMin = season === undefined ? 0 : season;
     const seasonMax = season === undefined ? Number.MAX_SAFE_INTEGER : season.valueOf();
-    let mds: IMatchday[] = [];
+    let mds: IMatchdayWithId[] = [];
     return this.dataBase
       .matchdays
       .where(nameof<IDataModelIDbMatchday>(o => o.season))
@@ -23,7 +23,7 @@ export class MatchdaysIDb implements IMatchdays {
       .then(() => mds);
   }
 
-  public add(gameServerUri: String, gameSeason: Number, gameDay: Number, date: Date): Promise<IMatchday> {
+  public add(gameServerUri: String, gameSeason: Number, gameDay: Number, date: Date): Promise<IMatchdayWithId> {
     return this.dataBase
       .transaction("rw", this.dataBase.gameServers, this.dataBase.matchdays, async () => {
         let gameServers = this.dataBase.gameServers.filter(gs => gs.uri === gameServerUri);

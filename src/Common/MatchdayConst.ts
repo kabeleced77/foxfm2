@@ -1,8 +1,8 @@
 import { IGameServerWithoutId } from "./IGameServer";
-import { IMatchdayWithoutId } from "./IMatchday";
+import { IMatchday } from "./IMatchday";
 import { IValue } from "./Toolkit/IValue";
 
-export class MatchdayConst implements IMatchdayWithoutId {
+export class MatchdayConst implements IMatchday {
   constructor(
     private readonly moGameServer: IGameServerWithoutId,
     private readonly miDay: IValue<Number>,

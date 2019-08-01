@@ -1,12 +1,12 @@
 import { IImportedTransfersOfMatchday } from './IImportedTransfersOfMatchday';
-import { IMatchday } from './IMatchday';
+import { IMatchdayWithId } from "./IMatchdayWithId";
 
 export interface IImportedTransfersOfMatchdays {
   imported(
-    matchday: IMatchday,
+    matchday: IMatchdayWithId,
   ): Promise<Boolean>;
   add(
-    matchday: IMatchday,
+    matchday: IMatchdayWithId,
     dateTime: Date,
   ): Promise<IImportedTransfersOfMatchday>;
 }

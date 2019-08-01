@@ -1,4 +1,4 @@
-import { IMatchday } from '../../Common/IMatchday';
+import { IMatchdayWithId } from "../../Common/IMatchdayWithId";
 import { FoxfmIndexedDb } from '../../Common/IndexedDb/FoxfmIndexedDb';
 import { PlayerTransfersIDb } from '../../Common/IndexedDb/PlayerTransfersIDb';
 import { IEasyLogger } from '../../Common/Logger/EasyLogger';
@@ -37,12 +37,12 @@ export class ImportedPlayerTransfers implements IImportedPlayerTransfers {
     this.ressourcePlayerTransferImportPrice = new RessourcePlayerTransferImportFieldPrice();
   }
 
-  public async import(matchday: IMatchday): Promise<void> {
+  public async import(matchday: IMatchdayWithId): Promise<void> {
     try {
       const matchdayId = matchday.id();
       const matchdaySeason = await matchday.season();
       const matchdayDay = await matchday.day();
-      const serverId = await (await matchday.gameServer()).id();
+      const serverId = await matchday.gameServerId();
       const serverUri = await (await matchday.gameServer()).uri();
       this.log.debug(`starting import from server '${serverUri}' of season ${matchdaySeason}-${matchdayDay}`);
       await this.save(

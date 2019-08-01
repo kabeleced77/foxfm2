@@ -1,4 +1,4 @@
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { IEasyLogger } from '../Logger/EasyLogger';
 import { ITask } from './ITask';
 
@@ -8,7 +8,7 @@ export class TaskLogDateTime implements ITask {
     private activationStatus: Boolean,
     private executionIntervalSeconds: Number,
     private lastExecutionsToKeepValue: Number,
-    private matchday: IMatchday,
+    private matchday: IMatchdayWithId,
     private log: IEasyLogger,
   ) {
   }

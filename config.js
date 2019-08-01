@@ -436,6 +436,7 @@ System.config({
       "Common/IImportedTransfersOfMatchday.js",
       "Common/IImportedTransfersOfMatchdays.js",
       "Common/IMatchday.js",
+      "Common/IMatchdayWithId.js",
       "Common/IMatchdays.js",
       "Common/IPlayer.js",
       "Common/IPlayerCategories.js",

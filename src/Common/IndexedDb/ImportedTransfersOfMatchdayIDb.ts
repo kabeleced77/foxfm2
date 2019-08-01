@@ -1,5 +1,5 @@
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { IDataModelIDbImportedTransfersOfMatchday } from '../DataModel/DataModelIDbImportedTransfersOfMatchday';
 import { MatchdayIDb } from './MatchdayIDb';
 import { IImportedTransfersOfMatchday } from '../IImportedTransfersOfMatchday';
@@ -15,7 +15,7 @@ export class ImportedTransfersOfMatchdayIDb implements IImportedTransfersOfMatch
     return this.idValue;
   }
 
-  public matchday(): Promise<IMatchday> {
+  public matchday(): Promise<IMatchdayWithId> {
     return this.database.transaction(
       "r",
       this.database.importedTransfersOfMatchdays,

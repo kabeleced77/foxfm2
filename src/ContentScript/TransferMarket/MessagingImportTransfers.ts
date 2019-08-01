@@ -4,7 +4,7 @@ import { IFoxfmSetting } from '../../Common/Settings/FoxfmSetting';
 import { IMessaging } from '../../Common/Messaging/IMessaging';
 import { IDataModelMessagingContentImportTransfers, DataModelMessagingContentImportTransfers } from '../../Common/DataModel/DataModelMessagingContentImportTransfers';
 import { MessagingMessage } from '../../Common/Messaging/MessagingMessage';
-import { IMatchdayWithoutId } from '../../Common/IMatchday';
+import { IMatchday } from '../../Common/IMatchday';
 import { DataModelMessagingTypeImportTransfers } from '../../Common/Messaging/DataModelMessagingTypeImportTransfers';
 import { IUrl } from '../../Common/Toolkit/Url';
 
@@ -13,7 +13,7 @@ export class MessagingImportTransfers implements IImport {
     private readonly moUrl: IUrl,
     private readonly settings: ISetting<IFoxfmSetting>,
     private readonly messaging: IMessaging<Object, Object>,
-    private readonly matchday: IMatchdayWithoutId,
+    private readonly matchday: IMatchday,
   ) { }
 
   public targetUrl(): IUrl {

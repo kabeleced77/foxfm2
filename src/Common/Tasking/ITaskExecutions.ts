@@ -1,4 +1,4 @@
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { ITaskExecution } from './ITaskExecution';
 import { ITaskStatus } from './ITaskStatus';
 
@@ -21,7 +21,7 @@ export interface ITaskExecutions {
     executionStatusName: ITaskStatus,
     startDateTime: Date,
     endDateTime: Date,
-    executionMatchday: IMatchday,
+    executionMatchday: IMatchdayWithId,
   ): Promise<ITaskExecution>;
 
   updateStatusEndDateTime(

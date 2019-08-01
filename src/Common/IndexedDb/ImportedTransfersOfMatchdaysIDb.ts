@@ -1,4 +1,4 @@
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { IEasyLogger } from '../Logger/EasyLogger';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IImportedTransfersOfMatchdays } from '../IImportedTransfersOfMatchdays';
@@ -13,7 +13,7 @@ export class ImportedTransfersOfMatchdaysIDb implements IImportedTransfersOfMatc
   ) { }
 
   public imported(
-    matchday: IMatchday,
+    matchday: IMatchdayWithId,
   ): Promise<Boolean> {
 
     return new Promise<Boolean>((resolve, reject) => {
@@ -28,7 +28,7 @@ export class ImportedTransfersOfMatchdaysIDb implements IImportedTransfersOfMatc
   }
 
   public add(
-    matchday: IMatchday,
+    matchday: IMatchdayWithId,
     dateTime: Date)
     : Promise<IImportedTransfersOfMatchday> {
 

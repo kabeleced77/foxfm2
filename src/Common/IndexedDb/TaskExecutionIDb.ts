@@ -5,7 +5,7 @@ import { ITaskStatus } from '../Tasking/ITaskStatus';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { TaskNameIDb } from './TaskNameIDb';
 import { TaskStatusIDb } from './TaskStatusIDb';
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { MatchdayIDb } from './MatchdayIDb';
 
 export class TaskExecutionIDb implements ITaskExecution {
@@ -63,7 +63,7 @@ export class TaskExecutionIDb implements ITaskExecution {
       .then((result: IDataModelIDbTaskExecution) => result.endDateTime);
   }
 
-  public matchday(): Promise<IMatchday> {
+  public matchday(): Promise<IMatchdayWithId> {
     return this.dataBase
       .transaction(
         "r",

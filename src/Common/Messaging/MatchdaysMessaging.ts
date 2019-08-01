@@ -2,7 +2,7 @@ import {
   IPersistMatchdayMessagingDataModel,
   PersistMatchdayMessagingDataModel,
 } from '../DataModel/PersistMatchdayMessagingDataModel';
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { IMatchdays } from '../IMatchdays';
 import { IMessaging } from "./IMessaging";
 import { MessagingMessage } from './MessagingMessage';
@@ -13,7 +13,7 @@ export class MatchdaysMessaging implements IMatchdays {
     private readonly dataSource: IMessaging<Object, Object>,
   ) { }
 
-  public matchdays(): Promise<IMatchday[]> {
+  public matchdays(): Promise<IMatchdayWithId[]> {
     return new Promise(() => new Object());
   }
 
@@ -22,8 +22,8 @@ export class MatchdaysMessaging implements IMatchdays {
     gameSeason: Number,
     gameDay: Number,
     date: Date,
-  ): Promise<IMatchday> {
-    return <Promise<IMatchday>>this.dataSource.send(
+  ): Promise<IMatchdayWithId> {
+    return <Promise<IMatchdayWithId>>this.dataSource.send(
       new MessagingMessage<IPersistMatchdayMessagingDataModel>(
         new MessagingMessageTypeIndexedDbAddMatchday(),
         new PersistMatchdayMessagingDataModel(

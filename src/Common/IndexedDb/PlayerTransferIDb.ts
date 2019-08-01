@@ -2,7 +2,7 @@ import { IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { IDataModelIDbPlayerTransfer } from '../DataModel/DataModelIDbPlayerTransfer';
 import { GameServerIDb } from './GameServerIDb';
 import { IGameServer } from "../IGameServer";
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { MatchdayIDb } from './MatchdayIDb';
 import { IPlayerTransfer } from '../IPlayerTransfer';
@@ -76,7 +76,7 @@ export class PlayerTransferIDb implements IPlayerTransfer {
       .then((result: IDataModelIDbPlayerTransfer) => result.matchdayId);
   }
 
-  public matchday(): Promise<IMatchday> {
+  public matchday(): Promise<IMatchdayWithId> {
     return this.source.transaction("r", this.source.playerTransfers, this.source.matchdays, async () => {
       let transferInIdb = await this.source.playerTransfers.get(this.id());
       let matchdaysInDb = this.source.matchdays.filter(m => m.id === transferInIdb!.matchdayId);

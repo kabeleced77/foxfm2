@@ -1,5 +1,5 @@
 import { DataModelIDbTaskExecution } from '../DataModel/DataModelIDbTaskExecution';
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { IEasyLogger } from '../Logger/EasyLogger';
 import { ITaskExecution } from '../Tasking/ITaskExecution';
 import { ITaskExecutions } from '../Tasking/ITaskExecutions';
@@ -86,7 +86,7 @@ export class TaskExecutionsIDb implements ITaskExecutions {
     executionStatusName: ITaskStatus,
     startDateTime: Date,
     endDateTime: Date,
-    executionMatchday: IMatchday,
+    executionMatchday: IMatchdayWithId,
   ): Promise<ITaskExecution> {
 
     this.logger.debug(`about to add new task execution to IDb: name=${taskName}, status=${executionStatusName}, date=${startDateTime}'`);

@@ -1,7 +1,7 @@
 import { ITaskExecution } from '../Tasking/ITaskExecution';
 import { ITaskName } from '../Tasking/ITaskName';
 import { ITaskStatus } from '../Tasking/ITaskStatus';
-import { IMatchday } from '../IMatchday';
+import { IMatchdayWithId } from "../IMatchdayWithId";
 import { TaskNameNotFound } from './TaskNameNotFound';
 import { TaskStatusUnknown } from '../Tasking/TaskStatusUnknown';
 
@@ -23,7 +23,7 @@ export class TaskExecutionNotFound implements ITaskExecution {
   public endDateTime(): Promise<Date> {
     return new Promise(resolve => resolve(new Date(-8640000000000000)));
   }
-  public matchday(): Promise<IMatchday> {
+  public matchday(): Promise<IMatchdayWithId> {
     throw new Error("Method not implemented.");
   }
 }

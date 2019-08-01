@@ -1,5 +1,5 @@
-import { IMatchday } from '../../Common/IMatchday';
+import { IMatchdayWithId } from "../../Common/IMatchdayWithId";
 
 export interface IImportedPlayerTransfers {
-  import(matchday: IMatchday): void;
+  import(matchday: IMatchdayWithId): void;
 }

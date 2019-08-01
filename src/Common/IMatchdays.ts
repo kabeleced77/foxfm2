@@ -1,13 +1,13 @@
-import { IMatchday } from './IMatchday';
+import { IMatchdayWithId } from "./IMatchdayWithId";
 
 export interface IMatchdays {
   matchdays(
     season?: Number,
-  ): Promise<IMatchday[]>;
+  ): Promise<IMatchdayWithId[]>;
   add(
     gameServerName: String,
     gameSeason: Number,
     gameDay: Number,
     date: Date,
-  ): Promise<IMatchday>;
+  ): Promise<IMatchdayWithId>;
 }
