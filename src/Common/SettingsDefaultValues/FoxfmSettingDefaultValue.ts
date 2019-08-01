@@ -4,7 +4,6 @@ export class FoxfmSettingDefaultValue extends FoxfmSetting {
   constructor() {
     super(
       false,
-      false,
     );
   }
 }

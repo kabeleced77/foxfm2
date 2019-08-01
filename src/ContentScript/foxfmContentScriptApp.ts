@@ -3,8 +3,6 @@ import { Logger } from '../Common/Logger/Logger';
 import { ILogLevel, LogLevelError } from '../Common/Logger/LogLevel';
 import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
-import { ClubsMessaging } from '../Common/Messaging/ClubsMessaging';
-import { MatchdaysMessaging } from '../Common/Messaging/MatchdaysMessaging';
 import { MessagingContentScript } from '../Common/Messaging/MessagingContentScript';
 import { MessagingPortIndexedDb } from '../Common/Messaging/MessagingPortIndexedDb';
 import { IFocusElementsSetting } from '../Common/Settings/FocusElementsSetting';
@@ -57,14 +55,12 @@ import { StrengthLevels } from '../Common/StrengthLevels';
 import { StrengthValues } from '../Common/StrengthValues';
 import { AwpPoints, AwpPointsByEpTp, AwpPointsBySplittedString } from '../Common/Toolkit/AwpPoints';
 import { Dom } from '../Common/Toolkit/Dom';
-import { DomNodesByXpath } from '../Common/Toolkit/DomNodesByXpath';
 import { IExtendWebElement } from '../Common/Toolkit/IExtendWebElement';
 import { ExtendWebPage } from '../Common/Toolkit/ExtendWebPage';
 import { FirstElementInXPathNodeOrParents } from '../Common/Toolkit/FirstElementInXPathNodeOrParents';
 import { FocusElementByXPathConfigureable } from '../Common/Toolkit/FocusElementByXPathConfigureable';
 import { FocusElementOnWebPage } from '../Common/Toolkit/FocusElementOnWebPage';
 import { IFocusWebElement } from '../Common/Toolkit/FocusWebElement';
-import { HrefTextFromAnchorElement } from '../Common/Toolkit/HrefTextFromAnchorElement';
 import { HtmlSelect } from '../Common/Toolkit/HtmlSelect';
 import { HtmlSelectById } from '../Common/Toolkit/HtmlSelectById';
 import { HtmlTable } from '../Common/Toolkit/HtmlTable';
@@ -74,13 +70,9 @@ import { HtmlTableColumnNumberValues } from '../Common/Toolkit/HtmlTableColumnNu
 import { HtmlTableColumnStringValues } from '../Common/Toolkit/HtmlTableColumnStringValues';
 import { Mutex } from '../Common/Toolkit/Mutex';
 import { NumberFromString } from '../Common/Toolkit/NumberFromString';
-import { IScrapeWebElement } from "../Common/Toolkit/IScrapeWebElement";
-import { ScrapeWebPage } from '../Common/Toolkit/ScrapeWebPage';
 import { SplitStringsToNumbers } from '../Common/Toolkit/SplitStrings';
-import { SplitStringToString } from '../Common/Toolkit/SplitStringToString';
 import { StorageLocal } from '../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../Common/Toolkit/StorageLocalSync';
-import { TextContentFromNode } from '../Common/Toolkit/TextContentFromNode';
 import { Url } from '../Common/Toolkit/Url';
 import { XPathAllResults } from '../Common/Toolkit/XPathAllResults';
 import { XPathHtmlTableCell } from '../Common/Toolkit/XPathHtmlTableCell';
@@ -96,8 +88,6 @@ import { TransferMarketAmateurWebPageUrl } from '../Common/Urls/TransferMarketAm
 import { TransferMarketProfessionalsUiUrl } from '../Common/Urls/TransferMarketProfessionalsUiUrl';
 import { TransferOfferWebPageUrl } from '../Common/Urls/TransferOfferWebPageUrl';
 import { FoxfmContentScript } from './FoxfmContentScript';
-import { ScrapeClub } from './Header/ScrapeClub';
-import { ScrapeMatchday } from './Header/ScrapeMatchday';
 import { PlayerTransferMarketDurationSelect } from './Player/PlayerTransferMarketDurationSelect';
 import { StadiumManagerUi } from './Stadium/StadiumManagerUi';
 import { TeamPlayerTable } from './Team/TeamPlayerTable';
@@ -151,7 +141,6 @@ var messagingContentScript = new MessagingContentScript(
  * Content script application which
  * - extends web pages
  * - focus elements on web pages
- * - scrape data from web pages
  */
 new FoxfmContentScript(
   new StorageLocal<IFoxfmSetting>(
@@ -548,65 +537,6 @@ new FoxfmContentScript(
           new RegisteredLoggingModule(
             "FocusElementByXPathConfigureable",
             new LogLevelError()))))),
-  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-  // * * *           S C R A P I N G                             * * *
-  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-  new ScrapeWebPage(
-    new Url(currentUrl),
-    new Array<IScrapeWebElement>(
-      /* [commented as not needed for current features]
-      // Scrape office/header - get club
-      new ScrapeClub(
-        new HeaderWebPageUrl(),
-        window.location.hostname,
-        new SplitStringToString(
-          new SplitStringToString(
-            new HrefTextFromAnchorElement(
-              new DomNodesByXpath<HTMLAnchorElement>(
-                new XPathAllResults(
-                  window.document,
-                  new XPathString('/html/body/div[2]/div[1]/div[2]/div[1]/a')))),
-            "/",
-            5),
-          /^(\d+)-(.*)$/, // splits the url to the club in 5 parts -> last one is name of club
-          3),
-        new NumberFromString(
-          new SplitStringToString(
-            new SplitStringToString(
-              new HrefTextFromAnchorElement(
-                new DomNodesByXpath<HTMLAnchorElement>(
-                  new XPathAllResults(
-                    window.document,
-                    new XPathString('/html/body/div[2]/div[1]/div[2]/div[1]/a')))),
-              "/",
-              5),
-            "-",
-            1),
-          ","
-        ),
-        new ClubsMessaging(
-          messagingContentScript),
-      ),
-      */
-      // Scrape office/header - get matchday
-      new ScrapeMatchday(
-        new HeaderWebPageUrl(),
-        window.location.hostname,
-        new NumberFromString(
-          new TextContentFromNode(
-            new DomNodesByXpath<HTMLSpanElement>(
-              new XPathAllResults(
-                window.document,
-                new XPathString('/html/body/div[2]/div[1]/div[2]/p/span[1]')))), ","),
-        new NumberFromString(
-          new TextContentFromNode(
-            new DomNodesByXpath<HTMLSpanElement>(
-              new XPathAllResults(
-                window.document,
-                new XPathString('/html/body/div[2]/div[1]/div[2]/p/span[2]')))), ","),
-        new MatchdaysMessaging(
-          messagingContentScript),
-      ))),
   // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   // * * *           I M P O R T I N G                           * * *
   // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

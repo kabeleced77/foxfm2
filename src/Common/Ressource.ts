@@ -74,7 +74,6 @@ export class RessourceCommonTableExtensionsHeaderTransferPriceNextAgeCurrentStre
 export class RessourceCommonTableExtensionsHeaderTransferPriceNextAgeNextStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_nextAge_nextStrength"); } }
 
 export class RessourceSettingsPageApplicationHeader extends Ressource { constructor() { super("settings_application_header"); } }
-export class RessourceSettingsPageApplicationScrape extends Ressource { constructor() { super("settings_application_scrape"); } }
 export class RessourceSettingsPageApplicationImportTransfers extends Ressource { constructor() { super("settings_application_importTransfers"); } }
 
 export class RessourceSettingsPageLoggerHeading extends Ressource { constructor() { super("loggerSettingHeading"); } }
