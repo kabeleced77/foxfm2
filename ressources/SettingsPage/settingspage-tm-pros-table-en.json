@@ -4,5 +4,14 @@
   },
   "transferMarketProfessionalsTableSettings_header": {
     "message": "Settings for the transfer market table to get professional players."
+  },
+  "setting_page_transfer_market_professionals_importTransfers_header":{
+    "message":"Settings of the import of the daily player transfers"
+  },
+  "setting_page_transfer_market_professionals_importTransfers_description": {
+    "message": "Foxfm is able to import the daily player transfers of the current season. After the logon on or the reload of the OFM Webpage a message will be shown. If that message will be clicked on, the download and import of the file of the transfers starts. The imported data is saved in a local database. This database is managed by the used web browser. The imported data can be displayed in certain views. This requires an extra configuration for each view."
+  },
+  "setting_page_transfer_market_professionals_importTransfers": {
+    "message": "Import daily player transfers"
   }
 }

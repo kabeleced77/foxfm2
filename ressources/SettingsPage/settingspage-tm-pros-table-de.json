@@ -4,5 +4,14 @@
   },
   "transferMarketProfessionalsTableSettings_header": {
     "message": "Einstellungen für die Tabelle, um Spieler vom Transfermarkt zu ersteigern"
+  },
+  "setting_page_transfer_market_professionals_importTransfers_header": {
+    "message": "Einstellungen des Imports der täglichen Spielertransfers"
+  },
+  "setting_page_transfer_market_professionals_importTransfers_description": {
+    "message": "Foxfm kann die täglichen Spielertransfers der aktuellen Saison importieren. Nach dem Login oder dem Neuladen der OFM Webpage erscheint eine Meldung. Mit einem Mausklick auf diese Meldung startet der Download und der Import der Spielertransfer Datei. Die importierten Daten werden in einer lokalen Datenbank abgelegt. Die Datenbank wird vom jeweiligen Webbrowser verwaltet. Die importierten Daten können in bestimmten Sichten (Tabellen) angezeigt werden. Diese Anzeige muss für jede Sicht extra konfiguriert werden."
+  },
+  "setting_page_transfer_market_professionals_importTransfers": {
+    "message": "Importiere tägliche Spielertransfer"
   }
 }

@@ -106,6 +106,9 @@ import { MessagingImportTransfers } from './TransferMarket/MessagingImportTransf
 import { MatchdayConst } from '../Common/MatchdayConst';
 import { HtmlNodeTextContent } from '../Common/Toolkit/HtmlElementTextContent';
 import { GameServerConst } from '../Common/GameServerConst';
+import { SettingNameImportTransfers } from '../Common/Settings/SettingNameImports';
+import { SettingImportTransfers } from '../Common/Settings/SettingImportTransfers';
+import { ISettingImportTransfers } from '../Common/Settings/ISettingImportTransfers';
 
 var doc = window.document;
 var currentUrl = doc.location.href;
@@ -546,9 +549,11 @@ new FoxfmContentScript(
       // import player transfers only when OFM header is loaded where matchday data can be scraped
       new MessagingImportTransfers(
         new HeaderWebPageUrl(),
-        new StorageLocal<IFoxfmSetting>(
-          new FoxfmSettingName(),
-          new FoxfmSettingDefaultValue()),
+        new StorageLocal<ISettingImportTransfers>(
+          new SettingNameImportTransfers(),
+          new SettingImportTransfers(
+            false,
+          )),
         messagingContentScript,
         new MatchdayConst(
           new GameServerConst(

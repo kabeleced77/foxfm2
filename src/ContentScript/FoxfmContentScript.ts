@@ -20,12 +20,6 @@ export class FoxfmContentScript {
     this.logger.info(`S t a r t e d on ${location}`);
     this.extendWebPage.extend(this.logger);
     this.focusElementOnWebPage.focus(this.logger);
-    if ((await this.settings.value()).importTransfers()) {
-      this.imports
-        .import(this.logger)
-        .catch(reason => {
-          throw `Could not execute imports: ${reason}`;
-        });
-    }
+    this.imports.import(this.logger).catch(reason => { throw `Could not execute imports: ${reason}`; });
   }
 }

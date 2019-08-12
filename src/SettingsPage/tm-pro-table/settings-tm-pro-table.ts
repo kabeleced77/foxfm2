@@ -11,13 +11,21 @@ import { SettingNameApplicationLogLevel } from "../../Common/Settings/SettingNam
 import { SettingNameTeamTable } from '../../Common/Settings/SettingNameTeamTable';
 import { ISetting } from '../../Common/Toolkit/Setting';
 import { IEasyLogger, EasyLogger } from '../../Common/Logger/EasyLogger';
-import { RessourceCommonButtonApply, RessourceTransferMarketProfessionalsTableSettingsHeader, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength, RessourceCommonSettingsAddColumnAwp, RessourceCommonSettingsAddColumnTransferPriceCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextStrength, RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength } from '../../Common/Ressource';
+import {
+  RessourceCommonButtonApply, RessourceTransferMarketProfessionalsTableSettingsHeader, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength, RessourceCommonSettingsAddColumnAwp, RessourceCommonSettingsAddColumnTransferPriceCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextStrength, RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength, RessourceSettingsPageTransferMarketProfessionalsImportTransfers,
+  RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader,
+  RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription
+} from '../../Common/Ressource';
 import { ITransferMarketSearchResultTableSettings, TransferMarketSearchResultTableSettings } from '../../Common/Settings/TransferMarketSearchResultTableSettings';
 import { SettingNameTransferMarketProfessionalsSearchResultTable } from '../../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable';
+import { ISettingImportTransfers } from '../../Common/Settings/ISettingImportTransfers';
+import { SettingNameImportTransfers } from '../../Common/Settings/SettingNameImports';
+import { SettingImportTransfers } from '../../Common/Settings/SettingImportTransfers';
 
 export class SettingsTransferMarketProfessionalTable {
   private log: IEasyLogger;
   private settings: ISetting<ITransferMarketSearchResultTableSettings>;
+  private settingsImport: StorageLocal<ISettingImportTransfers>;
 
   public ressourceHeading: String;
   public ressourceExtendColumngStrength: String;
@@ -29,6 +37,10 @@ export class SettingsTransferMarketProfessionalTable {
   public ressourceAddColumnTransferPriceNextAgeCurrentStrength: String;
   public ressourceAddColumnTransferPriceNextAgeNextStrength: String;
 
+  public ressourceHeadingImportTransfers: String;
+  public ressourceImportTransfersDescription: String;
+  public ressourceImportTransfers: String;
+
   public ressourceButtonApply: String;
 
   public addColumngAwpActivated: Boolean;
@@ -39,6 +51,8 @@ export class SettingsTransferMarketProfessionalTable {
   public addColumnTransferPricesNextStrengthActivated: Boolean;
   public addColumnTransferPricesNextAgeCurrentStrengthActivated: Boolean;
   public addColumnTransferPricesNextAgeNextStrengthActivated: Boolean;
+
+  public importTransfersActivated: Boolean;
 
   constructor() {
     this.log = new EasyLogger(new Logger(
@@ -68,6 +82,13 @@ export class SettingsTransferMarketProfessionalTable {
         false,
       ));
 
+    this.settingsImport = new StorageLocal<ISettingImportTransfers>(
+      new SettingNameImportTransfers(),
+      new SettingImportTransfers(
+        false,
+      )
+    );
+
     this.ressourceHeading = new RessourceTransferMarketProfessionalsTableSettingsHeader().value();
     this.ressourceExtendColumngStrength = new RessourceCommonSettingsExtendColumnStrength().value();
     this.ressourceAddColumnAwp = new RessourceCommonSettingsAddColumnAwp().value();
@@ -80,6 +101,10 @@ export class SettingsTransferMarketProfessionalTable {
 
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
 
+    this.ressourceHeadingImportTransfers = new RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader().value();
+    this.ressourceImportTransfersDescription = new RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription().value();
+    this.ressourceImportTransfers = new RessourceSettingsPageTransferMarketProfessionalsImportTransfers().value();
+
     this.settings.value().then(settings => {
       this.extendColumngStrengthActivated = settings.extendStrengthColumnActivated();
       this.addColumngAwpActivated = settings.addAwpColumnActivated();
@@ -89,7 +114,13 @@ export class SettingsTransferMarketProfessionalTable {
       this.addColumnTransferPricesNextStrengthActivated = settings.addTransferPriceNextStrengthColumnActivated();
       this.addColumnTransferPricesNextAgeCurrentStrengthActivated = settings.addTransferPriceNextAgeStrengthColumnActivated();
       this.addColumnTransferPricesNextAgeNextStrengthActivated = settings.addTransferPriceNextAgeNextStrengthColumnActivated();
-    })
+    });
+
+    this.settingsImport
+      .value()
+      .then(settings => {
+        this.importTransfersActivated = settings.activated();
+      });
   }
 
   submit() {
@@ -104,5 +135,12 @@ export class SettingsTransferMarketProfessionalTable {
         this.addColumnTransferPricesNextAgeCurrentStrengthActivated,
         this.addColumnTransferPricesNextAgeNextStrengthActivated,
       ));
+
+    this.settingsImport
+      .save(
+        new SettingImportTransfers(
+          this.importTransfersActivated,
+        )
+      );
   }
 }

@@ -1,15 +1,16 @@
 <template>
   <section class="au-animate">
-    <h3>${ressourceHeading}</h3>
     <form role="form" submit.delegate="submit()">
       <div class="form-group">
+        <!-- Settings for professional transfer market search view -->
+        <h3>${ressourceHeading}</h3>
         <div class="checkbox">
           <label> <input type="checkbox" checked.bind="extendColumngStrengthActivated">${ressourceExtendColumngStrength}</label>
         </div>
         <div class="checkbox">
           <label> <input type="checkbox" checked.bind="addColumngAwpActivated">${ressourceAddColumnAwp}</label>
         </div>
-         <div class="checkbox">
+        <div class="checkbox">
           <label> <input type="checkbox" checked.bind="addColumngAwpDiffActivated">${ressourceAddColumnAwpDiff}</label>
         </div>
         <div class="checkbox">
@@ -26,6 +27,12 @@
         </div>
         <div class="checkbox">
           <label> <input type="checkbox" checked.bind="addColumnTransferPricesNextAgeNextStrengthActivated">${ressourceAddColumnTransferPriceNextAgeNextStrength}</label>
+        </div>
+        <!-- Settings for import of transfers -->
+        <h3>${ressourceHeadingImportTransfers}</h3>
+        <h4>${ressourceImportTransfersDescription}</h4>
+        <div class="checkbox">
+          <label> <input type="checkbox" checked.bind="importTransfersActivated">${ressourceImportTransfers}</label>
         </div>
       </div>
 

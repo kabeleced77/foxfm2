@@ -1,17 +1,17 @@
 import { ISetting } from '../../Common/Toolkit/Setting';
 import { IImport } from '../../Common/Toolkit/IImport';
-import { IFoxfmSetting } from '../../Common/Settings/FoxfmSetting';
 import { IMessaging } from '../../Common/Messaging/IMessaging';
 import { IDataModelMessagingContentImportTransfers, DataModelMessagingContentImportTransfers } from '../../Common/DataModel/DataModelMessagingContentImportTransfers';
 import { MessagingMessage } from '../../Common/Messaging/MessagingMessage';
 import { IMatchday } from '../../Common/IMatchday';
 import { DataModelMessagingTypeImportTransfers } from '../../Common/Messaging/DataModelMessagingTypeImportTransfers';
 import { IUrl } from '../../Common/Toolkit/Url';
+import { ISettingImportTransfers } from '../../Common/Settings/ISettingImportTransfers';
 
 export class MessagingImportTransfers implements IImport {
   constructor(
     private readonly moUrl: IUrl,
-    private readonly settings: ISetting<IFoxfmSetting>,
+    private readonly settings: ISetting<ISettingImportTransfers>,
     private readonly messaging: IMessaging<Object, Object>,
     private readonly matchday: IMatchday,
   ) { }
@@ -21,7 +21,7 @@ export class MessagingImportTransfers implements IImport {
   }
   public async import(): Promise<void> {
     try {
-      if ((await this.settings.value()).importTransfers()) {
+      if ((await this.settings.value()).activated()) {
         this.messaging
           .send(
             new MessagingMessage<IDataModelMessagingContentImportTransfers>(

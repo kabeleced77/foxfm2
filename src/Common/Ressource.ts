@@ -74,7 +74,6 @@ export class RessourceCommonTableExtensionsHeaderTransferPriceNextAgeCurrentStre
 export class RessourceCommonTableExtensionsHeaderTransferPriceNextAgeNextStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_nextAge_nextStrength"); } }
 
 export class RessourceSettingsPageApplicationHeader extends Ressource { constructor() { super("settings_application_header"); } }
-export class RessourceSettingsPageApplicationImportTransfers extends Ressource { constructor() { super("settings_application_importTransfers"); } }
 
 export class RessourceSettingsPageLoggerHeading extends Ressource { constructor() { super("loggerSettingHeading"); } }
 export class RessourceSettingsPageLoggerIntro extends Ressource { constructor() { super("loggerSettingIntro"); } }
@@ -120,6 +119,9 @@ export class RessourceTransferMarketSellingSettingsPlayerTransferMarketPlayerPag
 
 export class RessourceTransferMarketProfessionalsTableSettingsMenu extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_menu"); } }
 export class RessourceTransferMarketProfessionalsTableSettingsHeader extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_header"); } }
+export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_header"); } }
+export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_description"); } }
+export class RessourceSettingsPageTransferMarketProfessionalsImportTransfers extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers"); } }
 
 export class RessourceTransferMarketAmateurTableSettingsMenu extends Ressource { constructor() { super("transferMarketAmateurTableSettings_menu"); } }
 export class RessourceTransferMarketAmateurTableSettingsHeader extends Ressource { constructor() { super("transferMarketAmateurTableSettings_header"); } }
