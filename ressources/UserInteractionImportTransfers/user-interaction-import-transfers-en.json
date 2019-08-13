@@ -1,6 +1,6 @@
 {
   "userInteractionImportPlayerTransfers_questionStartImport": {
-    "message": "Click here to start import of transfers of matchday $MATCHDAY$",
+    "message": "$MATCHDAY$: click here importing player transfer",
     "placeholders": {
       "matchday": {
         "content": "$1"
@@ -8,7 +8,7 @@
     }
   },
   "userInteractionImportPlayerTransfers_importingStarted": {
-    "message": "Starting import of transfers of matchday $MATCHDAY$",
+    "message": "$MATCHDAY$: player transfer import started",
     "placeholders": {
       "matchday": {
         "content": "$1"
@@ -16,7 +16,7 @@
     }
   },
   "userInteractionImportPlayerTransfers_importingFinished": {
-    "message": "Finished import of transfers of matchday $MATCHDAY$",
+    "message": "$MATCHDAY$: player transfer import finished",
     "placeholders": {
       "matchday": {
         "content": "$1"
