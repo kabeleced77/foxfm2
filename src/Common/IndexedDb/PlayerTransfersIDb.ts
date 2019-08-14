@@ -85,8 +85,8 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
     let cAverages = {};
     await Promise.all(positions
       .map(async position => {
-        for (let age = minAge; age < maxAge; age++) {
-          for (let strength = minStrength; strength < maxStrength; strength++) {
+        for (let age = minAge; age <= maxAge; age++) {
+          for (let strength = minStrength; strength <= maxStrength; strength++) {
             const average = await this.average(
               gameServerUri,
               position,
