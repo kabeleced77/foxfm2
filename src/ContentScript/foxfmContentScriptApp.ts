@@ -109,6 +109,7 @@ import { GameServerConst } from '../Common/GameServerConst';
 import { SettingNameImportTransfers } from '../Common/Settings/SettingNameImports';
 import { SettingImportTransfers } from '../Common/Settings/SettingImportTransfers';
 import { ISettingImportTransfers } from '../Common/Settings/ISettingImportTransfers';
+import { Sum } from '../Common/Toolkit/Sum';
 
 var doc = window.document;
 var currentUrl = doc.location.href;
@@ -284,14 +285,16 @@ new FoxfmContentScript(
               ),
             ),
             ""),
-          new NumberFromString(
-            new HtmlSelectValue(
-              new XPathFirstResult(
-                doc,
-                '//*[@id="alt_bis"]',
+          new Sum(
+            new NumberFromString(
+              new HtmlSelectValue(
+                new XPathFirstResult(
+                  doc,
+                  '//*[@id="alt_bis"]',
+                ),
               ),
-            ),
-            ""),
+              ""),
+            1),
           new NumberFromString(
             new HtmlSelectValue(
               new XPathFirstResult(
@@ -300,14 +303,16 @@ new FoxfmContentScript(
               ),
             ),
             ""),
-          new NumberFromString(
-            new HtmlSelectValue(
-              new XPathFirstResult(
-                doc,
-                '//*[@id="staerke_bis"]',
+          new Sum(
+            new NumberFromString(
+              new HtmlSelectValue(
+                new XPathFirstResult(
+                  doc,
+                  '//*[@id="staerke_bis"]',
+                ),
               ),
-            ),
-            ""),
+              ""),
+            1),
         ),
         // settings
         new StorageLocal<ITransferMarketSearchResultTableSettings>(

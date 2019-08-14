@@ -605,6 +605,7 @@ System.config({
       "Common/Toolkit/SplitStrings.js",
       "Common/Toolkit/StorageLocal.js",
       "Common/Toolkit/StorageLocalSync.js",
+      "Common/Toolkit/Sum.js",
       "Common/Toolkit/Table.js",
       "Common/Toolkit/TextContentFromNode.js",
       "Common/Toolkit/Url.js",
