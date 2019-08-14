@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@types/chrome": "0.0.50",
-    "@types/jest": "^24.0.13",
+    "@types/jest": "^24.0.17",
     "@types/ts-nameof": "^2.0.0",
     "aurelia-bundler": "^0.4.0",
     "aurelia-framework": "^1.1.5",
