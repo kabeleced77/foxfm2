@@ -134,7 +134,7 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                 columnNumberAwp,
                 i === 0
                   ? this.header(this.ressourceTableHeaderAwp.value())
-                  : this.element(`${player.strengthLevel().awp().awpPoints()}`, i)
+                  : this.element(`${player.strengthLevel().awp().awpPoints().toLocaleString()}`, i)
               );
             }
             // add new column displaying diff-AWPs to next strength
@@ -145,7 +145,7 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                   columnNumberAwpDiff,
                   i === 0
                     ? this.header(this.ressourceTableHeaderAwpDiff.value())
-                    : this.element(`${player.strengthLevel().missingAwpsToNextStrengthValue()}`, i),
+                    : this.element(`${player.strengthLevel().missingAwpsToNextStrengthValue().toLocaleString()}`, i),
                 );
             }
             // add new column displaying next strength
@@ -168,7 +168,7 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                   columnNumberMarketValueCurrentStrength,
                   i === 0
                     ? this.header(this.ressourceTableHeaderTransferPriceCurrentStrength.value())
-                    : this.element((await this.playerTransfers.average(player.category())).toString(), i));
+                    : this.element((await this.playerTransfers.average(player.category())).toLocaleString(), i));
             }
             // add new column for average transfer price of next strength
             if (addTransferPriceOfNextLevel) {
@@ -185,7 +185,7 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                   columnNumberMarketValueNextStrength,
                   i === 0
                     ? this.header(this.ressourceTableHeaderTransferPriceNextStrength.value())
-                    : this.element((await this.playerTransfers.average(categoryNextStrength)).toString(), i));
+                    : this.element((await this.playerTransfers.average(categoryNextStrength)).toLocaleString(), i));
             };
             // add new column for average transfer price of next age and current strength
             if (addTransferPriceOfNextAgeCurrentLevel) {
@@ -202,7 +202,7 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                   columnNumberMarketValueNextAgeCurrentStrength,
                   i === 0
                     ? this.header(this.ressourceTableHeaderTransferPriceNextAgeCurrentStrength.value())
-                    : this.element((await this.playerTransfers.average(categoryNextAgeCurrentStrength)).toString(), i));
+                    : this.element((await this.playerTransfers.average(categoryNextAgeCurrentStrength)).toLocaleString(), i));
             }
             // add new column for average transfer price of next age and next strength
             if (addTransferPriceOfNextAgeNextLevel) {
@@ -219,7 +219,7 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                   columnNumberMarketValueNextAgeNextStrength,
                   i === 0
                     ? this.header(this.ressourceTableHeaderTransferPriceNextAgeNextStrength.value())
-                    : this.element((await this.playerTransfers.average(categoryNextAgeNextStrength)).toString(), i));
+                    : this.element((await this.playerTransfers.average(categoryNextAgeNextStrength)).toLocaleString(), i));
             };
 
           });
