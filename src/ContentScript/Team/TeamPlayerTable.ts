@@ -93,7 +93,7 @@ export class TeamPlayerTable implements IExtendWebElement {
     this.table.addColumn(
       new HtmlTableColumn(
         this.header(this.ressourceTableHeaderAwpDiff.value()),
-        strengthLevels.map(sl => this.element(`${sl.missingAwpsToNextStrengthValue()}`)),
+        strengthLevels.map(sl => this.element(`${sl.missingAwpsToNextStrengthValue().toLocaleString()}`)),
         columnNumber));
   }
   private header(headerText: String): IHtmlElement<HTMLTableHeaderCellElement> {
