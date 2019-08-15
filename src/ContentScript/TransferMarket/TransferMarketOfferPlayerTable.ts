@@ -60,7 +60,7 @@ export class TransferMarketOfferPlayerTable implements IExtendWebElement {
                 this.table.addColumn(
                   new HtmlTableColumn(
                     this.header(this.ressourceTableHeaderAwpDiff.value(), "90px"),
-                    strengthLevels.map((sl, i) => { return this.element(`${sl.missingAwpsToNextStrengthValue()}`, i); }),
+                    strengthLevels.map((sl, i) => { return this.element(`${sl.missingAwpsToNextStrengthValue().toLocaleString()}`, i); }),
                     columnNumber++));
               }
               if (addNextStrength) {
