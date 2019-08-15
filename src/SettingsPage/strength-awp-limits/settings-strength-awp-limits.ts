@@ -55,9 +55,14 @@ export class SettingsStrengthAwpLimits {
 
     this.strengthsLimitsSetting
       .strengthsLimits()
-      .then(strengthsLimits => this.strengthsLimits = strengthsLimits
-        .strengthsLimits()
-        .map(strengthLimits => new StrengthLimitsViewModel(strengthLimits.value(), strengthLimits.awpPoints())));
+      .then(strengthsLimits =>
+        this.strengthsLimits = strengthsLimits
+          .strengthsLimits()
+          .map(strengthLimits =>
+            new StrengthLimitsViewModel(
+              strengthLimits.value().toLocaleString(),
+              strengthLimits.awpPoints().toLocaleString(),
+            )));
   }
 
   public submit() {
@@ -92,10 +97,8 @@ export class SettingsStrengthAwpLimits {
 }
 
 class StrengthLimitsViewModel {
-  public strength: Number;
-  public awps: Number;
-  constructor(strength: Number, awps: Number) {
-    this.strength = strength;
-    this.awps = awps;
-  }
+  constructor(
+    public readonly strength: String,
+    public readonly awps: String,
+  ) { }
 }
