@@ -31,7 +31,6 @@
     "gulp-zip": "^4.0.0",
     "jest": "^24.8.0",
     "jspm": "^0.16.53",
-    "lodash": "^4.17.4",
     "minimatch": "^3.0.4",
     "require-dir": "^0.3.0",
     "run-sequence": "^2.2.0",
@@ -68,5 +67,6 @@
   },
   "scripts": {
     "test": "jest"
-  }
+  },
+  "dependencies": {}
 }
