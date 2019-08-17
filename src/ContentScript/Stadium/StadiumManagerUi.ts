@@ -212,24 +212,14 @@ export class StadiumManagerUi implements IExtendWebElement {
       var ofmStadiumMinPrice = 0;
       var ofmStadiumMaxPrice = 68;
       newRowPriceLeague.addEventListener('change', (event: Event) => {
-        this.eventMouseStadiumPricing(event, strPrefPriceLeague, ofmStadiumMinPrice, ofmStadiumMaxPrice);
+        this.eventChangeStadiumPricing(event, strPrefPriceLeague, ofmStadiumMinPrice, ofmStadiumMaxPrice);
       }, false);
       newRowPriceFriendly.addEventListener('change', (event: Event) => {
-        this.eventMouseStadiumPricing(event, strPrefPriceFriendly, ofmStadiumMinPrice, ofmStadiumMaxPrice);
+        this.eventChangeStadiumPricing(event, strPrefPriceFriendly, ofmStadiumMinPrice, ofmStadiumMaxPrice);
       }, false);
       newRowPriceCup.addEventListener('change', (event: Event) => {
-        this.eventMouseStadiumPricing(event, strPrefPriceCup, ofmStadiumMinPrice, ofmStadiumMaxPrice);
+        this.eventChangeStadiumPricing(event, strPrefPriceCup, ofmStadiumMinPrice, ofmStadiumMaxPrice);
       }, false);
-      newRowPriceLeague.addEventListener('keyup', (event: KeyboardEvent) => {
-        this.eventKeyStadiumPricing(event, strPrefPriceLeague, ofmStadiumMinPrice, ofmStadiumMaxPrice);
-      }, false);
-      newRowPriceFriendly.addEventListener('keyup', (event: KeyboardEvent) => {
-        this.eventKeyStadiumPricing(event, strPrefPriceFriendly, ofmStadiumMinPrice, ofmStadiumMaxPrice);
-      }, false);
-      newRowPriceCup.addEventListener('keyup', (event: KeyboardEvent) => {
-        this.eventKeyStadiumPricing(event, strPrefPriceCup, ofmStadiumMinPrice, ofmStadiumMaxPrice);
-      }, false);
-      // create pricing table
       var pricingTable = DOMHelper.createTable("0", "1");
       pricingTable.appendChild(newRowPriceLeague);
       pricingTable.appendChild(newRowPriceFriendly);
@@ -240,50 +230,39 @@ export class StadiumManagerUi implements IExtendWebElement {
     }
   }
 
-  private eventKeyStadiumPricing(event: KeyboardEvent, pref: string, minPrice: number, maxPrice: number): void {
-    var eventTarget = event.srcElement ? event.srcElement : <HTMLElement>event.target;
-    var eventTargetId = eventTarget.id;
-    var eventKeycode = event.keyCode;
-    var eventTargetName = eventTarget.getAttribute("name");
-    if (eventKeycode >= 37 && eventKeycode <= 40) {
-      this.changeStadiumPricesOnEvent(eventTargetId, new String(eventTargetName), minPrice, maxPrice);
-    }
-  }
+  private eventChangeStadiumPricing(event: Event, pref: string, minPrice: number, maxPrice: number): void {
+    var eventTarget = <HTMLElement>event.target;
+    if (eventTarget) {
+      var eventTargetId = eventTarget.id;
+      var gameType = this.getTypeOfGame(eventTargetId);
+      // get overall ticket price
+      var overallPriceSelector = <HTMLSelectElement>document.getElementById('ddIdPrice' + gameType.name() + 'overall');
+      var overallPrice = overallPriceSelector.selectedIndex;
 
-  private eventMouseStadiumPricing(event: Event, pref: string, minPrice: number, maxPrice: number): void {
-    var eventTarget = event.srcElement ? event.srcElement : <HTMLElement>event.target;
-    var eventTargetId = eventTarget.id;
-    var eventTargetName = eventTarget.getAttribute("name");
-    this.changeStadiumPricesOnEvent(eventTargetId, new String(eventTargetName), minPrice, maxPrice);
-  }
-
-  private changeStadiumPricesOnEvent(eventTargetId: string, eventTargetName: String, minPrice: number, maxPrice: number) {
-    var gameType = this.getTypeOfGame(eventTargetId);
-    // get overall ticket price
-    var overallPriceSelector = <HTMLSelectElement>document.getElementById('ddIdPrice' + gameType.name() + 'overall');
-    var overallPrice = overallPriceSelector.selectedIndex;
-
-    this.stadiumBlocks.stadiumBlockByName(eventTargetName)
-      .then((blockOfStadium) => {
-        /* handle changes of the offset price */
-        this.logger.info(`Will handle price change of block '${blockOfStadium.name().name()}'.`);
-        var offsetPrice = this.getStadiumOffsetStadiumPriceOfBlock(gameType, blockOfStadium.name().name());
-        var newPrice = NumberHelper.coerce(minPrice, maxPrice, overallPrice + offsetPrice);
-        this.setStadiumPriceOfBlock(gameType, blockOfStadium.name().name(), newPrice);
-        this.stadiumBlocks.changeBlockEntryPricesOffset(blockOfStadium.name(), gameType, offsetPrice);
-      }).catch(() => {
-        /* if no block could be found, it is expected that the overall price had been changed --> handle changes of the overall price */
-        /* TODO: make this case "nicer" */
-        this.logger.info(`Will handle overall price change of kind '${gameType.name()}'.`);
-        this.stadiumBlocks.blocks().then((blocks) => {
-          for (var i = 0; i < blocks.blocks().length; i++) {
-            var offsetPrice = this.getStadiumOffsetStadiumPriceOfBlock(gameType, blocks.blocks()[i].name().name());
-            var newPrice = NumberHelper.coerce(minPrice, maxPrice, overallPrice + offsetPrice);
-            this.setStadiumPriceOfBlock(gameType, blocks.blocks()[i].name().name(), newPrice);
-          }
-          this.stadiumOverallEntryPrices.changeOverallEntryPrice(gameType, overallPrice);
+      var eventTargetName = eventTarget.getAttribute("name");
+      this.stadiumBlocks
+        .stadiumBlockByName(eventTargetName ? eventTargetName : "")
+        .then((blockOfStadium) => {
+          /* handle changes of the offset price */
+          this.logger.info(`Will handle price change of block '${blockOfStadium.name().name()}'.`);
+          var offsetPrice = this.getStadiumOffsetStadiumPriceOfBlock(gameType, blockOfStadium.name().name());
+          var newPrice = NumberHelper.coerce(minPrice, maxPrice, overallPrice + offsetPrice);
+          this.setStadiumPriceOfBlock(gameType, blockOfStadium.name().name(), newPrice);
+          this.stadiumBlocks.changeBlockEntryPricesOffset(blockOfStadium.name(), gameType, offsetPrice);
+        }).catch(() => {
+          /* if no block could be found, it is expected that the overall price had been changed --> handle changes of the overall price */
+          /* TODO: make this case "nicer" */
+          this.logger.info(`Will handle overall price change of kind '${gameType.name()}'.`);
+          this.stadiumBlocks.blocks().then((blocks) => {
+            for (var i = 0; i < blocks.blocks().length; i++) {
+              var offsetPrice = this.getStadiumOffsetStadiumPriceOfBlock(gameType, blocks.blocks()[i].name().name());
+              var newPrice = NumberHelper.coerce(minPrice, maxPrice, overallPrice + offsetPrice);
+              this.setStadiumPriceOfBlock(gameType, blocks.blocks()[i].name().name(), newPrice);
+            }
+            this.stadiumOverallEntryPrices.changeOverallEntryPrice(gameType, overallPrice);
+          });
         });
-      });
+    }
   }
 
   private getStadiumOffsetStadiumPriceOfBlock(gameType: IGameKind, block: String): number {
@@ -310,7 +289,7 @@ export class StadiumManagerUi implements IExtendWebElement {
           newBlockCore = 'block_price[' + block + '][epreispok]';
           break;
         default:
-          throw new Error(`Error determining the type of game ${gameType} to set the correspondent price ${price} in the block ${block}`); 
+          throw new Error(`Error determining the type of game ${gameType} to set the correspondent price ${price} in the block ${block}`);
       }
       var blockPriceSelectElement = <HTMLSelectElement>document.getElementsByName(newBlockCore)[0];
       var priceOptionElement = <HTMLOptionElement>blockPriceSelectElement.options[price];
