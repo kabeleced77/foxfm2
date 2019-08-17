@@ -37,7 +37,7 @@
     "ts-jest": "^24.0.2",
     "ts-nameof": "^3.2.0",
     "tslint": "^5.7.0",
-    "typescript": "^3.2.4",
+    "typescript": "^3.5.3",
     "vinyl-paths": "^2.1.0"
   },
   "jspm": {
