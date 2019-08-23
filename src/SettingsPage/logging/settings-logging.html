@@ -20,8 +20,8 @@
             </td>
             <td repeat.for="level of logLevels">
               <label class="radio-inline">
-                <input type="radio" name="viewApplicationLogLevel" model.bind="level" matcher.bind="logLevelMatcher" checked.bind="viewApplicationLogLevel"
-                /> ${level.name}
+                <input type="radio" name="groupApplicationLogLevel" model.bind="level" matcher.bind="logLevelMatcher"
+                  checked.bind="viewApplicationLogLevel"/> ${level.name}
               </label>
             </td>
           </tr>
@@ -32,8 +32,8 @@
             </td>
             <td repeat.for="level of logLevels">
               <label class="radio-inline">
-                <input type="radio" name="${module.name}" model.bind="level" matcher.bind="logLevelMatcher" checked.bind="module.logLevel"
-                /> ${level.name}
+                <input type="radio" name="group${module.name}" model.bind="level" matcher.bind="logLevelMatcher"
+                  checked.bind="module.logLevel"/> ${level.name}
               </label>
             </td>
           </tr>
