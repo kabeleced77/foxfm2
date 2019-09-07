@@ -18,8 +18,11 @@ export class FoxfmContentScript {
     var doc = window.document;
     var location = doc.location.href;
     this.logger.info(`S t a r t e d on ${location}`);
+    this.logger.info(`Will extend page${location}`);
     this.extendWebPage.extend(this.logger);
+    this.logger.info(`Will focuse element on page${location}`);
     this.focusElementOnWebPage.focus(this.logger);
+    this.logger.info(`Will import data${location}`);
     this.imports.import(this.logger).catch(reason => { throw `Could not execute imports: ${reason}`; });
   }
 }
