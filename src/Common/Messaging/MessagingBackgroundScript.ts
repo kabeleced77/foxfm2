@@ -14,7 +14,6 @@ import { IMessagingMessage } from "./IMessagingMessage";
 import { MessagingMessageTypeIndexedDbAddClub } from './MessagingMessageTypeIndexedDbAddClub';
 import { MessagingMessageTypeIndexedDbAddMatchday } from './MessagingMessageTypeIndexedDbAddMatchday';
 import { IMatchdayWithId } from "../IMatchdayWithId";
-import { UserInteractionImportPlayerTransfers } from '../../BackgroundPage/PlayerTransfers/UserInteractionImportPlayerTransfers';
 import { RegisteredLoggingModule } from '../Logger/RegisteredLoggingModule';
 import { LogLevelError } from '../Logger/LogLevel';
 import { MessagingMessageTypeIndexedDbTransferPricesAverage } from './MessagingMessageTypeIndexedDbTransferPricesAverage';
@@ -27,6 +26,9 @@ import { MatchdayConst } from '../MatchdayConst';
 import { IDataModelMessagingContentImportTransfers } from '../DataModel/DataModelMessagingContentImportTransfers';
 import { GameServerConst } from '../GameServerConst';
 import { Value } from '../Toolkit/Value';
+import { ImportTransfers } from '../ImportTransfers';
+import { ImportedPlayerTransfers } from '../../BackgroundPage/PlayerTransfers/ImportedPlayerTransfers';
+import { ImportedTransfersOfMatchdaysIDb } from '../IndexedDb/ImportedTransfersOfMatchdaysIDb';
 
 export class MessagingBackgroundScript implements IMessaging<Object, Object> {
   private portName: String;
@@ -66,22 +68,37 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
 
           case new DataModelMessagingTypeImportTransfers().name:
             const contentImportTransfers = <IDataModelMessagingContentImportTransfers>message.content;
-            const md = new MatchdayConst(
-              new GameServerConst(
-                contentImportTransfers.gameServerUrl,
+
+            const easyLogger = new EasyLogger(
+              this.logger.logger(),
+              new RegisteredLoggingModule(
+                nameof(ImportTransfers),
+                new LogLevelError()));
+
+            await new ImportTransfers(
+              new MatchdaysIDb(
+                this.indexedDb,
+                easyLogger,
               ),
-              new Value(contentImportTransfers.day),
-              new Value(contentImportTransfers.season),
-              contentImportTransfers.date,
+              new ImportedPlayerTransfers(
+                this.indexedDb,
+                easyLogger,
+              ),
+              new ImportedTransfersOfMatchdaysIDb(
+                this.indexedDb,
+                easyLogger,
+              ),
+              easyLogger,
+            ).import(
+              new MatchdayConst(
+                new GameServerConst(
+                  contentImportTransfers.gameServerUrl,
+                ),
+                new Value(contentImportTransfers.day),
+                new Value(contentImportTransfers.season),
+                contentImportTransfers.date,
+              )
             );
-            new UserInteractionImportPlayerTransfers(
-              this.indexedDb,
-              new EasyLogger(
-                this.logger.logger(),
-                new RegisteredLoggingModule(
-                  nameof(UserInteractionImportPlayerTransfers),
-                  new LogLevelError())))
-              .import(md);
 
             break;
           case new MessagingMessageTypeIndexedDbAddClub().name:

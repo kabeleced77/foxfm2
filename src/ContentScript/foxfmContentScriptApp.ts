@@ -581,6 +581,13 @@ new FoxfmContentScript(
             )
           ),
           new Date(),
+        ),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            nameof(MessagingImportTransfers),
+            new LogLevelError(),
+          )
         )
       )
     ),
