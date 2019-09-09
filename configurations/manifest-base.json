@@ -42,6 +42,7 @@
     }
   ],
   "web_accessible_resources": [
+    "*.png",
     "transfer/spielerwechsel_export.php"
   ],
   "options_ui": {
