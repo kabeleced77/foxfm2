@@ -9,17 +9,22 @@ export class Imports implements IImports {
     private imports: Array<IImport>,
   ) { }
 
-  public import(log: IEasyLogger): Promise<void[]> {
-    return Promise
-      .all(this.imports.map(async (poImport: IImport) => {
-        var currentUrl = this.currentUrl.url().toString();
-        var targetUrl = poImport.targetUrl().url();
-        var doImport = currentUrl.match(targetUrl) !== null;
-        log.info(`called from: ${currentUrl} compared to ${targetUrl}: ${doImport}`);
-        if (doImport) await poImport.import();
-      }))
-      .catch(reason => {
-        throw `Could not execute all imports: ${reason}`;
-      });
+  public async import(log: IEasyLogger): Promise<void[]> {
+    try {
+      return Promise
+        .all(this.imports.map(async (poImport: IImport) => {
+          var currentUrl = this.currentUrl.url().toString();
+          var targetUrl = poImport.targetUrl().url();
+          var doImport = currentUrl.match(targetUrl) !== null;
+          log.debug(`called from: ${currentUrl} compared to ${targetUrl}: ${doImport}`);
+          if (doImport) {
+            log.info(`called from: ${currentUrl}: will run import`);
+            await poImport.import();
+          }
+        }));
+    }
+    catch (reason) {
+      throw `Could not execute all imports: ${reason}`;
+    }
   }
 }
