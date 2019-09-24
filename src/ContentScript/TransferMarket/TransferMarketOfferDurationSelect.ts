@@ -33,11 +33,12 @@ export class TransferMarketOfferDurationSelect implements IExtendWebElement {
       .then(setting => {
         let changeDefaultSellingDuration = setting.activated();
 
-        if (changeDefaultSellingDuration) {
-          let currentSellingDurationIndex = this.select.select().selectedIndex;
+        const selectElement = this.select.select();
+        if (changeDefaultSellingDuration && selectElement) {
+          let currentSellingDurationIndex = selectElement.selectedIndex;
           let configuredSellingDurationIndex = setting.defaultSellingDuration();
           this.log.info(`adjustment of selling duration selection activated: will change selection index from currently '${currentSellingDurationIndex}' to '${configuredSellingDurationIndex}'`)
-          this.select.select().selectedIndex = configuredSellingDurationIndex.valueOf();
+          selectElement.selectedIndex = configuredSellingDurationIndex.valueOf();
         }
       })
       .catch(e => { throw new Error(`"Error while settings the transfer market duration: ${e}. ${e.stack}"`); });
