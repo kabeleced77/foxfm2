@@ -22,26 +22,25 @@ export class ImportTransfers implements IImportTransfers {
   public async import(
     matchday: IMatchday,
   ): Promise<void> {
-    const season = await matchday.season();
-    const day = await matchday.day();
-    const gameServerUri = await (await matchday.gameServer()).uri();
-    const date = await matchday.date();
-
-    this.logger.info(`matchday ${season}-${day}@${gameServerUri} from ${date}`);
-
     // add matchday to database
-    const matchdayIDb = await this.matchdaysIDb.add(gameServerUri, season, day, date);
+    const matchdayIDb = await this.matchdaysIDb.add(
+      await (await matchday.gameServer()).uri(),
+      await matchday.season(),
+      await matchday.day(),
+      await matchday.date(),
+    );
 
+    const matchdayString = await matchday.toString();
     // have the transfers of this matchday already been imported?
     if (!(await this.importedTransfersOfMatchdaysIDb.imported(matchdayIDb))) {
-      this.logger.info(`matchday ${season}-${day}@${gameServerUri} from ${date}: player transfers will be imported`);
+      this.logger.info(`matchday ${matchdayString}: player transfers will be imported`);
       // import transfers of matchday
       await this.importedTransfers.import(matchdayIDb);
       // safe last successful import
       this.importedTransfersOfMatchdaysIDb.add(matchdayIDb, new Date());
-      this.logger.info(`matchday ${season}-${day}@${gameServerUri} from ${date}: player transfers imported`);
+      this.logger.info(`matchday ${matchdayString}: player transfers imported`);
     } else {
-      this.logger.info(`matchday ${season}-${day}@${gameServerUri} from ${date}: player transfers have already been imported`);
+      this.logger.info(`matchday ${matchdayString}: player transfers have already been imported`);
     }
   }
 }
