@@ -4,6 +4,7 @@ import { IMatchdays } from '../IMatchdays';
 import { IEasyLogger } from '../Logger/EasyLogger';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { MatchdayIDb } from './MatchdayIDb';
+import { IGameServerWithId } from '../IGameServerWithId';
 
 export class MatchdaysIDb implements IMatchdays {
   constructor(
@@ -21,6 +22,24 @@ export class MatchdaysIDb implements IMatchdays {
       .between(seasonMin.valueOf(), seasonMax.valueOf(), true, true)
       .eachPrimaryKey((pk: Number) => mds.push(new MatchdayIDb(this.dataBase, pk)))
       .then(() => mds);
+  }
+
+  public async matchdaysByServerSeasonDay(
+    gameServer: IGameServerWithId,
+    season: Number,
+    day: Number,
+  ): Promise<IMatchdayWithId[]> {
+    const serverUrl = await gameServer.uri();
+    const serverId = gameServer.id();
+    this.logger.debug(`will search for matchdays by game server '${serverUrl}(Id:${serverId})', season '${season}' and day '${day}'`);
+    let mds: IMatchdayWithId[] = [];
+    await this.dataBase
+      .matchdays
+      .where(`[${nameof<IDataModelIDbMatchday>(o => o.gameServerId)}+${nameof<IDataModelIDbMatchday>(o => o.season)}+${nameof<IDataModelIDbMatchday>(o => o.day)}]`)
+      .equals([serverId.valueOf(), season.valueOf(), day.valueOf()])
+      .eachPrimaryKey((pk: Number) => mds.push(new MatchdayIDb(this.dataBase, pk)));
+    this.logger.debug(`number of found matchdays by game server '${serverUrl}(Id:${serverId})', season '${season}' and day '${day}': ${mds.length}`);
+    return mds;
   }
 
   public add(gameServerUri: String, gameSeason: Number, gameDay: Number, date: Date): Promise<IMatchdayWithId> {
