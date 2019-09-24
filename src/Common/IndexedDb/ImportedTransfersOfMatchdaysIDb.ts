@@ -1,16 +1,60 @@
 import { IMatchdayWithId } from "../IMatchdayWithId";
-import { IEasyLogger } from '../Logger/EasyLogger';
+import { IEasyLogger, EasyLogger } from '../Logger/EasyLogger';
 import { FoxfmIndexedDb } from './FoxfmIndexedDb';
 import { IImportedTransfersOfMatchdays } from '../IImportedTransfersOfMatchdays';
 import { IImportedTransfersOfMatchday } from '../IImportedTransfersOfMatchday';
 import { ImportedTransfersOfMatchdayIDb } from './ImportedTransfersOfMatchdayIDb';
 import { DataModelIDbImportedTransfersOfMatchday, IDataModelIDbImportedTransfersOfMatchday } from '../DataModel/DataModelIDbImportedTransfersOfMatchday';
+import { IMatchday } from "../IMatchday";
+import { MatchdaysIDb } from "./MatchdaysIDb";
+import { RegisteredLoggingModule } from "../Logger/RegisteredLoggingModule";
+import { LogLevelError } from "../Logger/LogLevel";
+import { GameServersIDb } from "./GameServersIDb";
 
 export class ImportedTransfersOfMatchdaysIDb implements IImportedTransfersOfMatchdays {
   constructor(
     private dataBase: FoxfmIndexedDb,
     private logger: IEasyLogger,
   ) { }
+
+  public async importedOfMatchday(
+    matchday: IMatchday,
+  ): Promise<Boolean> {
+    const matchdayString = await matchday.toString();
+    this.logger.debug(`will look up if transfers of matchday '${matchdayString}' have already been imported`);
+    let imported: Boolean = false;
+    const gameServers = await new GameServersIDb(
+      this.dataBase,
+      new EasyLogger(
+        this.logger.logger(),
+        new RegisteredLoggingModule(
+          nameof(GameServersIDb),
+          new LogLevelError(),
+        )
+      ),
+    ).gameServersByUri(await (await matchday.gameServer()).uri());
+    if (gameServers.length === 1) {
+      const matchdays = await new MatchdaysIDb(
+        this.dataBase,
+        new EasyLogger(
+          this.logger.logger(),
+          new RegisteredLoggingModule(
+            nameof(MatchdaysIDb),
+            new LogLevelError(),
+          ),
+        ),
+      ).matchdaysByServerSeasonDay(
+        gameServers[0],
+        await matchday.season(),
+        await matchday.day(),
+      );
+      if (matchdays.length > 0) {
+        imported = await this.imported(matchdays[0]);
+      }
+    }
+    this.logger.debug(`have transfers of matchday '${matchdayString}' already been imported: ${imported}`);
+    return imported;
+  }
 
   public imported(
     matchday: IMatchdayWithId,
