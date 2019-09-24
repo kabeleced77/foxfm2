@@ -10,6 +10,10 @@ import { ISettingImportTransfers } from '../../Common/Settings/ISettingImportTra
 import { IRessource, RessourceCommonAppName, RessourceUserInteractionImportPlayerTransfersQuestionStartImport, RessourceUserInteractionImportPlayerTransfersImportingStarted, RessourceUserInteractionImportPlayerTransfersImportingFinished } from '../../Common/Ressource';
 import { MyNotification } from '../../Common/Toolkit/MyNotification';
 import { IEasyLogger } from '../../Common/Logger/EasyLogger';
+import { IImportedTransfersOfMatchdaysMessaging } from '../../Common/IImportedTransfersOfMatchdaysMessaging';
+import { MatchdayConst } from '../../Common/MatchdayConst';
+import { GameServerConst } from '../../Common/GameServerConst';
+import { Value } from '../../Common/Toolkit/Value';
 
 export class MessagingImportTransfers implements IImport {
   private resourceAppName: string;
@@ -22,6 +26,7 @@ export class MessagingImportTransfers implements IImport {
     private readonly settings: ISetting<ISettingImportTransfers>,
     private readonly messaging: IMessaging<Object, Object>,
     private readonly matchday: IMatchday,
+    private readonly importedTransfersOfMatchdays: IImportedTransfersOfMatchdaysMessaging,
     private readonly logger: IEasyLogger,
   ) {
     this.resourceAppName = new RessourceCommonAppName().value().toString();
@@ -49,6 +54,7 @@ export class MessagingImportTransfers implements IImport {
           serverUri,
           season,
           day,
+          date,
         );
       }
     } catch (error) {
@@ -56,35 +62,55 @@ export class MessagingImportTransfers implements IImport {
     }
   }
 
-  private importRecursively(
+  private async importRecursively(
     serverUri: String,
     season: Number,
     day: Number,
+    date: Date,
   ) {
     if (day >= 0) {
-      // if day is >= 0 notify user to start import by clicking on notification
-      const options = this.notificationOptions(
-        this.resourceQuestionStartImport.value(`${season}-${day}`).toString(),
-        season,
-        day);
+      // if day >= 0 and transfers of this matchday have not been imported then notify user
+      if (!(await this.importedTransfersOfMatchdays.imported(
+        new MatchdayConst(
+          new GameServerConst(
+            serverUri,
+          ),
+          new Value<Number>(day),
+          new Value<Number>(season),
+          date,
+        )))
+      ) {
+        const options = this.notificationOptions(
+          this.resourceQuestionStartImport.value(`${season}-${day}`).toString(),
+          season,
+          day);
 
-      new MyNotification(
-        this.resourceAppName,
-        options,
-        async () => {
-          await this.importTransfers(
-            serverUri,
-            season,
-            day,
-            options,
-          );
-          // import transfers of next day
-          this.importRecursively(
-            serverUri,
-            season,
-            day.valueOf() - 1);
-        },
-      ).notify();
+        new MyNotification(
+          this.resourceAppName,
+          options,
+          async () => {
+            await this.importTransfers(
+              serverUri,
+              season,
+              day,
+              options,
+            );
+            // import transfers of next day
+            this.importRecursively(
+              serverUri,
+              season,
+              day.valueOf() - 1,
+              date);
+          },
+        ).notify();
+      } else {
+        // import transfers of next day
+        this.importRecursively(
+          serverUri,
+          season,
+          day.valueOf() - 1,
+          date);
+      }
     }
   }
 

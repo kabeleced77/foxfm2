@@ -110,6 +110,7 @@ import { SettingNameImportTransfers } from '../Common/Settings/SettingNameImport
 import { SettingImportTransfers } from '../Common/Settings/SettingImportTransfers';
 import { ISettingImportTransfers } from '../Common/Settings/ISettingImportTransfers';
 import { Sum } from '../Common/Toolkit/Sum';
+import { ImportedTransfersOfMatchdaysMessaging } from '../Common/ImportedTransfersOfMatchdaysMessaging';
 
 var doc = window.document;
 var currentUrl = doc.location.href;
@@ -581,6 +582,9 @@ new FoxfmContentScript(
             )
           ),
           new Date(),
+        ),
+        new ImportedTransfersOfMatchdaysMessaging(
+          messagingContentScript,
         ),
         new EasyLogger(
           logger,
