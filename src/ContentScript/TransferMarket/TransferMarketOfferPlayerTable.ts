@@ -60,14 +60,14 @@ export class TransferMarketOfferPlayerTable implements IExtendWebElement {
                 this.table.addColumn(
                   new HtmlTableColumn(
                     this.header(this.ressourceTableHeaderAwpDiff.value(), "90px"),
-                    strengthLevels.map((sl, i) => { return this.element(`${sl.missingAwpsToNextStrengthValue().toLocaleString()}`, i); }),
+                    strengthLevels.map(sl => this.element(`${sl.missingAwpsToNextStrengthValue().toLocaleString()}`)),
                     columnNumber++));
               }
               if (addNextStrength) {
                 this.table.addColumn(
                   new HtmlTableColumn(
                     this.header(this.ressourceTableHeaderNextStrength.value(), "80px"),
-                    strengthLevels.map((sl, i) => { return this.element(`${sl.nextStrengthValue()}`, i); }),
+                    strengthLevels.map(sl => this.element(`${sl.nextStrengthValue()}`)),
                     columnNumber++));
               }
               if (extendStrength) this.extendStrengthColumn(strengthLevels);
@@ -94,13 +94,12 @@ export class TransferMarketOfferPlayerTable implements IExtendWebElement {
           headerText,
           new Array(0))));
   }
-  private element(content: String, i: Number): IHtmlElement<HTMLTableCellElement> {
-    let background = i.valueOf() % 2 ? "background:#bcdba5;" : "background:#d5efbb;";
+  private element(content: String): IHtmlElement<HTMLTableCellElement> {
     return new HtmlElement(
       "td",
       new Array<IHtmlAttribute>(
         new HtmlAttribute("class", "textRight"),
-        new HtmlAttribute("style", background)),
+        new HtmlAttribute("style", "background:#bcdba5;")),
       "",
       new Array(
         new HtmlElement(
