@@ -5,4 +5,5 @@ export interface IMatchday {
   day(): Promise<Number>;
   season(): Promise<Number>;
   date(): Promise<Date>;
+  toString(): Promise<String>;
 }

@@ -22,4 +22,7 @@ export class MatchdayConst implements IMatchday {
   public async date(): Promise<Date> {
     return this.moDate;
   }
+  public async toString(): Promise<String> {
+    return new String(`Matchday['${await this.moGameServer.uri()}':${this.miSeason.value()}-${this.miDay.value()}]`);
+  }
 }

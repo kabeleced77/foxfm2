@@ -57,4 +57,10 @@ export class MatchdayIDb implements IMatchdayWithId {
       .get(this.idValue)
       .then((result: IDataModelIDbMatchday) => result.date);
   }
+  public async toString(): Promise<String> {
+    const server = this.gameServer();
+    const season = await this.season();
+    const day = await this.day();
+    return new Promise(() => { return `Matchday['${server}':${season}-${day}]`; });
+  }
 }
