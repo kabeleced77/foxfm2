@@ -29,6 +29,8 @@ import { Value } from '../Toolkit/Value';
 import { ImportTransfers } from '../ImportTransfers';
 import { ImportedPlayerTransfers } from '../../BackgroundPage/PlayerTransfers/ImportedPlayerTransfers';
 import { ImportedTransfersOfMatchdaysIDb } from '../IndexedDb/ImportedTransfersOfMatchdaysIDb';
+import { DataModelMessagingTypeTransfersImported } from './DataModelMessagingTypeTransfersImported';
+import { IDataModelMessagingContentTransfersImported } from '../DataModel/DataModelMessagingContentTransfersImported';
 
 export class MessagingBackgroundScript implements IMessaging<Object, Object> {
   private portName: String;
@@ -113,6 +115,26 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
             const c2 = <IMessagingMessageDataModelTransferPricesAverages>message.content;
             messageToSend = await new PlayerTransfersIDb(this.indexedDb).averages(c2.gameServerUri, c2.positions, c2.minAge.valueOf(), c2.maxAge.valueOf(), c2.minStrength.valueOf(), c2.maxStrength.valueOf())
 
+            break;
+          case new DataModelMessagingTypeTransfersImported().name:
+            const c3 = <IDataModelMessagingContentTransfersImported>message.content;
+            const matchday = new MatchdayConst(
+              new GameServerConst(c3.gameServerUrl),
+              new Value(c3.day),
+              new Value(c3.season),
+              c3.date);
+            messageToSend = await new ImportedTransfersOfMatchdaysIDb(
+              this.indexedDb,
+              new EasyLogger(
+                this.logger.logger(),
+                new RegisteredLoggingModule(
+                  nameof(ImportedTransfersOfMatchdaysIDb),
+                  new LogLevelError(),
+                )
+              ))
+              .importedOfMatchday(
+                matchday
+              );
             break;
           default:
             const errMsg = `Unsupported messaging message type: ${message.type.name}`;
