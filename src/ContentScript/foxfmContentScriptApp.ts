@@ -186,14 +186,14 @@ new FoxfmContentScript(
               new XPathSingleResult<HTMLTableCellElement>(
                 new XPathAllResults(
                   window.document,
-                  new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[2]'))),
+                  new XPathString('//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[2]/tbody/tr[1]/td[2]'))),
               "table"))),
         new HtmlTableColumnByXpath(
           new XPathHtmlTableCell(
             new XPathSingleResult<HTMLTableCellElement>(
               new XPathAllResults(
                 window.document,
-                new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]'))))),
+                new XPathString('//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]'))))),
         new StrengthLevels(
           new StrengthsLimitsSetting(),
           new StrengthValues(
@@ -202,7 +202,7 @@ new FoxfmContentScript(
                 new XPathSingleResult<HTMLTableCellElement>(
                   new XPathAllResults(
                     window.document,
-                    new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
+                    new XPathString('//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
           new AwpPointsBySplittedString(
             new SplitStringsToNumbers(
               new HtmlTableColumnStringValues(
@@ -211,7 +211,7 @@ new FoxfmContentScript(
                     new XPathSingleResult<HTMLTableCellElement>(
                       new XPathAllResults(
                         window.document,
-                        new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
+                        new XPathString('//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
               "/",
               ","))),
         // all players presented in the table 'Professional Transfer Market'
@@ -225,7 +225,7 @@ new FoxfmContentScript(
                   new XPathSingleResult<HTMLTableCellElement>(
                     new XPathAllResults(
                       window.document,
-                      new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[2]'))))),
+                      new XPathString('//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[2]/tbody/tr[1]/td[2]'))))),
             ),
             // player age values
             new HtmlTableColumnNumberValues(
@@ -234,7 +234,7 @@ new FoxfmContentScript(
                   new XPathSingleResult<HTMLTableCellElement>(
                     new XPathAllResults(
                       window.document,
-                      new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[4]'))))),
+                      new XPathString('//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[2]/tbody/tr[1]/td[4]'))))),
             ),
             // player strength values
             new StrengthValues(
@@ -243,7 +243,7 @@ new FoxfmContentScript(
                   new XPathSingleResult<HTMLTableCellElement>(
                     new XPathAllResults(
                       window.document,
-                      new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
+                      new XPathString('//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
           ),
           // all AWP values
           new StrengthLevels(
@@ -254,7 +254,7 @@ new FoxfmContentScript(
                   new XPathSingleResult<HTMLTableCellElement>(
                     new XPathAllResults(
                       window.document,
-                      new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
+                      new XPathString('//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[2]/tbody/tr[1]/td[5]')))))),
             new AwpPointsBySplittedString(
               new SplitStringsToNumbers(
                 new HtmlTableColumnStringValues(
@@ -263,7 +263,7 @@ new FoxfmContentScript(
                       new XPathSingleResult<HTMLTableCellElement>(
                         new XPathAllResults(
                           window.document,
-                          new XPathString('//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
+                          new XPathString('//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[2]/tbody/tr[1]/td[6]')))))),
                 "/",
                 ","))),
         ),
