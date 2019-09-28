@@ -223,10 +223,10 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
             };
 
           });
+          // adjust width of div containing the transfer result table to 100%
+          this.adjustWidthOfTables();
         }
       });
-    // adjust width of div containing the transfer result table to 100%
-    this.adjustWidthOfTables();
   }
 
   private addCell(
@@ -245,16 +245,31 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
   }
 
   private adjustWidthOfTables() {
-    new XPathFirstResult<HTMLDivElement>(
+    // adjust width of div-element surrounding transfer filter and result table/header
+    new XPathFirstResult<HTMLTableElement>(
       document,
-      '//*[@id="transfermarkt"]/div[1]/div')
+      '//*[@id="transfermarkt"]/div/form/div')
       .node()
       .style
       .width = "100%";
-    // adjust width of header of transfer result table to 100%
+    // adjust width of div-element surrounding transfer result table/header
     new XPathFirstResult<HTMLTableElement>(
       document,
-      '//*[@id="transfermarkt"]/div[1]/div/table/tbody/tr/td/table[1]')
+      '//*[@id="transfermarkt"]/div/form/div/div[2]')
+      .node()
+      .style
+      .width = "100%";
+    // adjust width of header of transfer result table
+    new XPathFirstResult<HTMLTableElement>(
+      document,
+      '//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[1]')
+      .node()
+      .style
+      .width = "100%";
+    // adjust width of transfer result table
+    new XPathFirstResult<HTMLTableElement>(
+      document,
+      '//*[@id="transfermarkt"]//div[2]/table/tbody/tr/td/table[2]')
       .node()
       .style
       .width = "100%";
