@@ -29,10 +29,11 @@ export class XPathAllResults implements IXPathAllResults {
   }
   public xPathFirstResult(): Node {
     var result = this.xPathAllResults();
-    if (result.snapshotLength > 0) {
+    const numberOfResults = result.snapshotLength;
+    if (numberOfResults > 0) {
       return result.snapshotItem(0)!;
     } else {
-      throw new Error(`No result for XPath '${this.xPath().xPathString()}'.`);
+      throw new Error(`No results for XPath '${this.xPath().xPathString()}': ${numberOfResults}`);
     }
   }
   public allNodes(): Node[] {
