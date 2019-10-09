@@ -382,7 +382,7 @@ new FoxfmContentScript(
         new HtmlSelect(
           new HtmlSelectById(
             new Dom(doc),
-            "startwoche")),
+            "trading_day")),
         new StorageLocal<ITransferMarketSellingDurationSettings>(
           new SettingNameTransferMarketSellingDuration(),
           new TransferMarketSellingDurationSettingsDefaultValue()),

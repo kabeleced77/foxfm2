@@ -223,13 +223,13 @@ export class SettingsModelViewModel2 implements ISettingsModelViewModel2 {
         settingsSellingDuration.activated(),
         this.ressourceCheckboxLabel.value()),
       new SelectViewModel<String, Number>(
-        this.initialiseListOfSellingDurations(7),
+        this.initialiseListOfSellingDurations(8),
         settingsSellingDuration.defaultSellingDuration()));
   }
 
   private initialiseListOfSellingDurations(maxSellingDuration: Number): Array<String> {
     let sellingDurations: Array<String> = [];
-    for (let index = maxSellingDuration.valueOf(); index > 0; index--) {
+    for (let index = 1; index <= maxSellingDuration.valueOf(); index++) {
       let sellingDuration: String;
       switch (index) {
         case 1:
