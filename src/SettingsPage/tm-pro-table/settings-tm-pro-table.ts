@@ -1,4 +1,4 @@
-import { ILogger, Logger } from '../../Common/Logger/Logger';
+import { Logger } from '../../Common/Logger/Logger';
 import { RegisteredLoggingModule, IRegisteredLoggingModule } from '../../Common/Logger/RegisteredLoggingModule';
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../../Common/Logger/RegisteredLoggingModules";
 import { ILogLevel } from '../../Common/Logger/LogLevel';
@@ -8,7 +8,6 @@ import { SettingNameLoggingModules } from "../../Common/Settings/SettingNameLogg
 import { StorageLocal } from "../../Common/Toolkit/StorageLocal";
 import { StorageLocalSync } from "../../Common/Toolkit/StorageLocalSync";
 import { SettingNameApplicationLogLevel } from "../../Common/Settings/SettingNameApplicationLogLevel";
-import { SettingNameTeamTable } from '../../Common/Settings/SettingNameTeamTable';
 import { ISetting } from '../../Common/Toolkit/Setting';
 import { IEasyLogger, EasyLogger } from '../../Common/Logger/EasyLogger';
 import {
