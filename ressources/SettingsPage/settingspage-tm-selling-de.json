@@ -11,9 +11,6 @@
   "transferMarketSellingSettings_improveSellingProcessSettings_header": {
     "message": "Folgende Einstellungen sollen vor allem den Spielerverkauf über die Spielerseite (klick auf Spielernamen) vereinfachen"
   },
-  "transferMarketSellingSettings_playerInformationPage_setFocus": {
-    "message": "Setze Fokus auf folgendes Element der Spielerinformationsseite (Klick auf Spielernamen) "
-  },
   "transferMarketSellingSettings_playerTransferMarketPage_setFocus": {
     "message": "Startpreis fehlerhaft: setze Fokus auf folgendes Element, wenn der eingegebene Startpreis fehlerhaft war (z.B. zu hoch) " 
   },

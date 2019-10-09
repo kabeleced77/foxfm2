@@ -14,7 +14,6 @@ import {
   RessourceTransferMarketSellingSettingsChangeDuration,
   RessourceTransferMarketSellingSettingsHeader,
   RessourceTransferMarketSellingSettingsImproveSellingProcessSettingsHeader,
-  RessourceTransferMarketSellingSettingsPlayerInformationPageSetFocus,
   RessourceTransferMarketSellingSettingsPlayerTransferMarketPageSetFocus,
   RessourceTransferMarketSellingSettingsPlayerTransferMarketPlayerPageSetFocus,
 } from '../../Common/Ressource';
@@ -25,17 +24,11 @@ import {
 } from '../../Common/Settings/PlayerTransferMarketPageFocusElementSettingName';
 import { SettingNameApplicationLogLevel } from '../../Common/Settings/SettingNameApplicationLogLevel';
 import { SettingNameLoggingModules } from '../../Common/Settings/SettingNameLoggingModules';
-import {
-  SettingNamePlayerInformationWebPageFocusElement,
-} from '../../Common/Settings/SettingNamePlayerInformationWebPageFocusElement';
 import { SettingNameTransferMarketSellingDuration } from '../../Common/Settings/SettingNameTransferMarketDuration';
 import {
   ITransferMarketSellingDurationSettings,
   TransferMarketSellingDurationSettings,
 } from '../../Common/Settings/TransferMarketSellingDurationSettings';
-import {
-  PlayerInformationPageFocusElementSettingDefaultValue,
-} from '../../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue';
 import {
   PlayerTransferMarketPageFocusElementSettingDefaultValue,
 } from '../../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue';
@@ -92,11 +85,6 @@ export class SettingsTransferMarketSelling {
       new RessourceTransferMarketSellingSettingsChangeDuration()
     );
     this.playerPageFocusElementsSettingModels = [
-      new SettingsModelViewModel(
-        new StorageLocal<IFocusElementsSetting>(
-          new SettingNamePlayerInformationWebPageFocusElement(),
-          new PlayerInformationPageFocusElementSettingDefaultValue()),
-        new RessourceTransferMarketSellingSettingsPlayerInformationPageSetFocus()),
       new SettingsModelViewModel(
         new StorageLocal<IFocusElementsSetting>(
           new PlayerTransferMarketPlayerPageFocusElementSettingName(),

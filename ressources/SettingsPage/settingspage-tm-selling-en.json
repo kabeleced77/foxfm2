@@ -11,9 +11,6 @@
   "transferMarketSellingSettings_improveSellingProcessSettings_header": {
     "message": "Following settings shall improve the selling process via the player page (click on name of player)"
   },
-  "transferMarketSellingSettings_playerInformationPage_setFocus": {
-    "message": "Focus following element on player information page (click on player name) "
-  },
   "transferMarketSellingSettings_playerTransferMarketPage_setFocus": {
     "message": "Wrong starting price: focus following web element if starting price was wrong (e.g. to high) "
   },

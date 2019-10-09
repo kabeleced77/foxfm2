@@ -114,7 +114,6 @@ export class RessourceTransferMarketSellingSettingsMenu extends Ressource { cons
 export class RessourceTransferMarketSellingSettingsHeader extends Ressource { constructor() { super("transferMarketSellingSettings_header"); } }
 export class RessourceTransferMarketSellingSettingsImproveSellingProcessSettingsHeader extends Ressource { constructor() { super("transferMarketSellingSettings_improveSellingProcessSettings_header"); } }
 export class RessourceTransferMarketSellingSettingsChangeDuration extends Ressource { constructor() { super("transferMarketSellingSettings_changeDuration"); } }
-export class RessourceTransferMarketSellingSettingsPlayerInformationPageSetFocus extends Ressource { constructor() { super("transferMarketSellingSettings_playerInformationPage_setFocus"); } }
 export class RessourceTransferMarketSellingSettingsPlayerTransferMarketPageSetFocus extends Ressource { constructor() { super("transferMarketSellingSettings_playerTransferMarketPage_setFocus"); } }
 export class RessourceTransferMarketSellingSettingsPlayerTransferMarketPlayerPageSetFocus extends Ressource { constructor() { super("transferMarketSellingSettings_playerTransferMarketPlayerPage_setFocus"); } }
 
@@ -135,7 +134,6 @@ export class RessourceStrengthAwpLimitsSettingsImportLabel extends Ressource { c
 export class RessourceStrengthAwpLimitsSettingsTableHeaderStrength extends Ressource { constructor() { super("strengthAwpLimitsSettings_tableHeaderStrength"); } }
 export class RessourceStrengthAwpLimitsSettingsTableHeaderAwps extends Ressource { constructor() { super("strengthAwpLimitsSettings_tableHeaderAwps"); } }
 
-export class RessourcePlayerInformationWebPageElementTransferMarket extends Ressource { constructor() { super("playerInformationWebPage_elementTransferMarket"); } }
 export class RessourcePlayerInformationWebPageElementExtendContract extends Ressource { constructor() { super("playerInformationWebPage_elementExtendContract"); } }
 
 export class RessourcePlayerTransferMarketPageElementCloseWindow extends Ressource { constructor() { super("playerTransferMarketPage_elementCloseWindow"); } }

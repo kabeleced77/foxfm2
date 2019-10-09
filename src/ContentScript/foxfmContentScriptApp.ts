@@ -16,9 +16,6 @@ import {
 } from '../Common/Settings/PlayerTransferMarketPlayerPageFocusElementSettingName';
 import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
 import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
-import {
-  SettingNamePlayerInformationWebPageFocusElement,
-} from '../Common/Settings/SettingNamePlayerInformationWebPageFocusElement';
 import { SettingNameTeamTable } from '../Common/Settings/SettingNameTeamTable';
 import { SettingNameTransferMarketAmateurTable } from '../Common/Settings/SettingNameTransferMarketAmateurTable';
 import { SettingNameTransferMarketSellingDuration } from '../Common/Settings/SettingNameTransferMarketDuration';
@@ -39,9 +36,6 @@ import {
 import { ITransferMarketSellingDurationSettings } from '../Common/Settings/TransferMarketSellingDurationSettings';
 import { ITransferOfferTableSettings, TransferOfferTableSettings } from '../Common/Settings/TransferOfferTableSettings';
 import { FoxfmSettingDefaultValue } from '../Common/SettingsDefaultValues/FoxfmSettingDefaultValue';
-import {
-  PlayerInformationPageFocusElementSettingDefaultValue,
-} from '../Common/SettingsDefaultValues/PlayerInformationPageFocusElementSettingDefaultValue';
 import {
   PlayerTransferMarketPageFocusElementSettingDefaultValue,
 } from '../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue';
@@ -79,7 +73,6 @@ import { XPathHtmlTableCell } from '../Common/Toolkit/XPathHtmlTableCell';
 import { XPathSingleResult } from '../Common/Toolkit/XPathSingleResult';
 import { XPathString } from '../Common/Toolkit/XPathString';
 import { HeaderWebPageUrl } from '../Common/Urls/HeaderWebPageUrl';
-import { PlayerInformationWebPageUrl } from '../Common/Urls/PlayerInformationWebPageUrl';
 import { PlayerTransferMarketPlayerWebPageUrl } from '../Common/Urls/PlayerTransferMarketPlayerWebPageUrl';
 import { PlayerTransferMarketWebPageUrl } from '../Common/Urls/PlayerTransferMarketWebPageUrl';
 import { StadiumWebPageUrl } from '../Common/Urls/StadiumWebPageUrl';
@@ -510,18 +503,6 @@ new FoxfmContentScript(
   new FocusElementOnWebPage(
     new Url(currentUrl),
     new Array<IFocusWebElement>(
-      // Focus configured element on web page 'Player information'
-      new FocusElementByXPathConfigureable(
-        new PlayerInformationWebPageUrl(),
-        new StorageLocal<IFocusElementsSetting>(
-          new SettingNamePlayerInformationWebPageFocusElement(),
-          new PlayerInformationPageFocusElementSettingDefaultValue()),
-        new Dom(doc),
-        new EasyLogger(
-          logger,
-          new RegisteredLoggingModule(
-            "FocusElementByXPathConfigureable",
-            new LogLevelError()))),
       // Focus configured element on web page 'Player transfer market'
       new FocusElementByXPathConfigureable(
         new PlayerTransferMarketWebPageUrl(),
