@@ -15,6 +15,6 @@
     "message": "Foxfm kann die täglichen Spielertransfers importieren - auch rückwirkend bis zum Beginn der aktuellen Saison. Nach dem Login oder dem Neuladen der OFM Webpage erscheint eine Meldung am unteren Bildschirm. Mit einem Mausklick auf diese Meldung startet der Download und Import der Datei mit den Spielertransfers. Die importierten Daten werden in einer lokalen Datenbank abgelegt. Die Datenbank wird vom jeweiligen Webbrowser verwaltet. Die importierten Daten können in bestimmten Sichten (Tabellen) angezeigt werden. Diese Anzeige muss für jede Sicht extra konfiguriert werden."
   },
   "setting_page_transfer_market_professionals_importTransfers": {
-    "message": "Importiere tägliche Spielertransfers. Diese Funktion benötigt eine Bestätigung, dass Meldungen von der jeweiligen OFM Seite erlaubt sind."
+    "message": "Importiere tägliche Spielertransfers. Diese Funktion benötigt eine einmalige Bestätigung, dass Meldungen (Notifications) von der OFM Website erlaubt sind."
   }
 }

@@ -308,7 +308,6 @@ System.config({
       "SettingsPage/tm-offer-table/settings-tm-offer-table.js",
       "SettingsPage/tm-pro-table/settings-tm-pro-table.html!github:systemjs/plugin-text@0.0.11.js",
       "SettingsPage/tm-pro-table/settings-tm-pro-table.js",
-      "SettingsPage/tm-selling/SettingsModelViewModel.js",
       "SettingsPage/tm-selling/settings-tm-selling.html!github:systemjs/plugin-text@0.0.11.js",
       "SettingsPage/tm-selling/settings-tm-selling.js"
     ],
