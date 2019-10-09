@@ -9,18 +9,21 @@
     "message": "Add column 'Next Strength' to the see the next expected player strength. If activated column 'AWP Diff' shows the missing AWPs to that strength."
   },
   "commonSettings_extendColumnStrength": {
-    "message": "Extend column 'Strength' with actual strength value."
+    "message": "Extend column 'Strength' with actual strength value. The actual strength is calculated based on current AWP values."
+  },
+  "commonSettings_addColumns_transferPrices_introduction": {
+    "message": "The transfer price based columns show average prices based on imported transfers. These columns require the activation of feature 'Import daily player transfers'."
   },
   "commonSettings_extendColumn_transferPrice_currentStrength": {
-    "message": "Add column 'Transfer price (current age / current strength)'. Display average transfer prices based on imported transfers: current age, current strength.\nRequires activated feature 'Import player transfers'."
+    "message": "Add column 'Transfer price (current age / current strength)'. Transfer prices for current age, current strength."
   },
   "commonSettings_extendColumn_transferPrice_nextStrength": {
-    "message": "Add column 'Transfer price (current age / next strength)'. Display average transfer prices based on imported transfers: current age, next strength.\nRequires activated feature 'Import player transfers'."
+    "message": "Add column 'Transfer price (current age / next strength)'. Transfer prices for current age, next strength."
   },
   "commonSettings_extendColumn_transferPrice_nextAge_currentStrength": {
-    "message": "Add column 'Transfer price (next age / current strength)'. Display average transfer prices based on imported transfers: next age, current strength.\nRequires activated feature 'Import player transfers'."
+    "message": "Add column 'Transfer price (next age / current strength)'. Transfer prices for next age, current strength."
   },
   "commonSettings_extendColumn_transferPrice_nextAge_nextStrength": {
-    "message": "Add column 'Transfer price (next age / next strength)'. Display average transfer prices based on imported transfers: next age, next strength.\nRequires activated feature 'Import player transfers'."
+    "message": "Add column 'Transfer price (next age / next strength)'. Transfer prices for next age, next strength."
   }
 }

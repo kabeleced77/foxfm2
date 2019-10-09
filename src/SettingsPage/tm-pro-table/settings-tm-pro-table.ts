@@ -14,7 +14,9 @@ import { IEasyLogger, EasyLogger } from '../../Common/Logger/EasyLogger';
 import {
   RessourceCommonButtonApply, RessourceTransferMarketProfessionalsTableSettingsHeader, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength, RessourceCommonSettingsAddColumnAwp, RessourceCommonSettingsAddColumnTransferPriceCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextStrength, RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength, RessourceSettingsPageTransferMarketProfessionalsImportTransfers,
   RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader,
-  RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription
+  RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription,
+  RessourceCommonSettingsAddColumnsTransferPricesIntroduction,
+  RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported
 } from '../../Common/Ressource';
 import { ITransferMarketSearchResultTableSettings, TransferMarketSearchResultTableSettings } from '../../Common/Settings/TransferMarketSearchResultTableSettings';
 import { SettingNameTransferMarketProfessionalsSearchResultTable } from '../../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable';
@@ -33,6 +35,8 @@ export class SettingsTransferMarketProfessionalTable {
   public ressourceAddColumnAwpDiff: String;
   public ressourceAddColumnNextStrength: String;
   public ressourceAddColumnTransferPriceCurrentStrength: String;
+  public ressourceAddColumnsTransferPricesIntroduction: String;
+  public ressourceWarningSlidersAreNotSupported: String;
   public ressourceAddColumnTransferPriceNextStrength: String;
   public ressourceAddColumnTransferPriceNextAgeCurrentStrength: String;
   public ressourceAddColumnTransferPriceNextAgeNextStrength: String;
@@ -94,6 +98,7 @@ export class SettingsTransferMarketProfessionalTable {
     this.ressourceAddColumnAwp = new RessourceCommonSettingsAddColumnAwp().value();
     this.ressourceAddColumnAwpDiff = new RessourceCommonSettingsAddColumnAwpDiff().value();
     this.ressourceAddColumnNextStrength = new RessourceCommonSettingsAddColumnNextStrength().value();
+    this.ressourceAddColumnsTransferPricesIntroduction = new RessourceCommonSettingsAddColumnsTransferPricesIntroduction().value();
     this.ressourceAddColumnTransferPriceCurrentStrength = new RessourceCommonSettingsAddColumnTransferPriceCurrentStrength().value();
     this.ressourceAddColumnTransferPriceNextStrength = new RessourceCommonSettingsAddColumnTransferPriceNextStrength().value();
     this.ressourceAddColumnTransferPriceNextAgeCurrentStrength = new RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength().value();
@@ -104,6 +109,7 @@ export class SettingsTransferMarketProfessionalTable {
     this.ressourceHeadingImportTransfers = new RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader().value();
     this.ressourceImportTransfersDescription = new RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription().value();
     this.ressourceImportTransfers = new RessourceSettingsPageTransferMarketProfessionalsImportTransfers().value();
+    this.ressourceWarningSlidersAreNotSupported = new RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported().value();
 
     this.settings.value().then(settings => {
       this.extendColumngStrengthActivated = settings.extendStrengthColumnActivated();
