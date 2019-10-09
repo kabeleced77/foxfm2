@@ -12,19 +12,6 @@
         </div>
       </div>
 
-      <h4>${ressourceHeadingImproveSellingProcess}</h4>
-      <template repeat.for="fe of playerPageFocusElementsViewModels">
-        <div class="form-group">
-          <div class="checkbox">
-            <label style="padding-right: 7px;">
-              <input type="checkbox" checked.bind="fe.checkbox.state">${fe.checkbox.label}</label>
-            <select value.bind="fe.select.selectedOption">
-              <option repeat.for="option of fe.select.options" model.bind="option">${option.name()}</option>
-            </select>
-          </div>
-        </div>
-      </template>
-
       <div class="form-group">
         <button class="btn btn-primary " name="submit" type="submit">${ressourceButtonApply}</button>
       </div>

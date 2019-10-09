@@ -7,14 +7,5 @@
   },
   "transferMarketSellingSettings_changeDuration": {
     "message": "Verwende folgende Standarddauer beim Verkauf von Spielern auf dem Transfermarkt "
-  },
-  "transferMarketSellingSettings_improveSellingProcessSettings_header": {
-    "message": "Folgende Einstellungen sollen vor allem den Spielerverkauf über die Spielerseite (klick auf Spielernamen) vereinfachen"
-  },
-  "transferMarketSellingSettings_playerTransferMarketPage_setFocus": {
-    "message": "Startpreis fehlerhaft: setze Fokus auf folgendes Element, wenn der eingegebene Startpreis fehlerhaft war (z.B. zu hoch) " 
-  },
-  "transferMarketSellingSettings_playerTransferMarketPlayerPage_setFocus":{
-    "message": "Spieler bereits auf Transfermarkt: setze Fokus auf folgendes Element, wenn der Spieler bereits auf dem Transfermarkt ist "
   }
 }

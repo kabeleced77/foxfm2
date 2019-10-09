@@ -112,10 +112,7 @@ export class RessourceTransferMarketOfferTableSettingsHeader extends Ressource {
 
 export class RessourceTransferMarketSellingSettingsMenu extends Ressource { constructor() { super("transferMarketSellingSettings_menu"); } }
 export class RessourceTransferMarketSellingSettingsHeader extends Ressource { constructor() { super("transferMarketSellingSettings_header"); } }
-export class RessourceTransferMarketSellingSettingsImproveSellingProcessSettingsHeader extends Ressource { constructor() { super("transferMarketSellingSettings_improveSellingProcessSettings_header"); } }
 export class RessourceTransferMarketSellingSettingsChangeDuration extends Ressource { constructor() { super("transferMarketSellingSettings_changeDuration"); } }
-export class RessourceTransferMarketSellingSettingsPlayerTransferMarketPageSetFocus extends Ressource { constructor() { super("transferMarketSellingSettings_playerTransferMarketPage_setFocus"); } }
-export class RessourceTransferMarketSellingSettingsPlayerTransferMarketPlayerPageSetFocus extends Ressource { constructor() { super("transferMarketSellingSettings_playerTransferMarketPlayerPage_setFocus"); } }
 
 export class RessourceTransferMarketProfessionalsTableSettingsMenu extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_menu"); } }
 export class RessourceTransferMarketProfessionalsTableSettingsHeader extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_header"); } }

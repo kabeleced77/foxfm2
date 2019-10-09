@@ -10,18 +10,11 @@ import {
   RessourceCommonButtonApply,
   RessourceCommonMatchday,
   RessourceCommonMatchdays,
-  RessourceCommonSelectElement,
   RessourceTransferMarketSellingSettingsChangeDuration,
   RessourceTransferMarketSellingSettingsHeader,
-  RessourceTransferMarketSellingSettingsImproveSellingProcessSettingsHeader,
-  RessourceTransferMarketSellingSettingsPlayerTransferMarketPageSetFocus,
-  RessourceTransferMarketSellingSettingsPlayerTransferMarketPlayerPageSetFocus,
 } from '../../Common/Ressource';
-import { FocusElementSetting, IFocusElementSetting } from '../../Common/Settings/FocusElementSetting';
+import { FocusElementSetting } from '../../Common/Settings/FocusElementSetting';
 import { FocusElementsSetting, IFocusElementsSetting } from '../../Common/Settings/FocusElementsSetting';
-import {
-  PlayerTransferMarketPageFocusElementSettingName,
-} from '../../Common/Settings/PlayerTransferMarketPageFocusElementSettingName';
 import { SettingNameApplicationLogLevel } from '../../Common/Settings/SettingNameApplicationLogLevel';
 import { SettingNameLoggingModules } from '../../Common/Settings/SettingNameLoggingModules';
 import { SettingNameTransferMarketSellingDuration } from '../../Common/Settings/SettingNameTransferMarketDuration';
@@ -29,9 +22,6 @@ import {
   ITransferMarketSellingDurationSettings,
   TransferMarketSellingDurationSettings,
 } from '../../Common/Settings/TransferMarketSellingDurationSettings';
-import {
-  PlayerTransferMarketPageFocusElementSettingDefaultValue,
-} from '../../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue';
 import {
   TransferMarketSellingDurationSettingsDefaultValue,
 } from '../../Common/SettingsDefaultValues/TransferMarketSellingDurationSettingsDefaultValue';
@@ -41,22 +31,17 @@ import { StorageLocal } from '../../Common/Toolkit/StorageLocal';
 import { StorageLocalSync } from '../../Common/Toolkit/StorageLocalSync';
 import { CheckboxViewModel } from '../../Common/ViewModels/CheckboxViewModel';
 import { CheckboxWithSelectViewModel, ICheckboxWithSelectViewModel } from '../../Common/ViewModels/CheckboxWithSelectViewModel';
-import { FocusElementViewModel, IFocusElementViewModel } from '../../Common/ViewModels/FocusElementViewModel';
-import { ISelectViewModel, SelectViewModel } from '../../Common/ViewModels/SelectViewModel';
-import { PlayerTransferMarketPlayerPageFocusElementSettingName } from '../../Common/Settings/PlayerTransferMarketPlayerPageFocusElementSettingName';
-import { PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue } from '../../Common/SettingsDefaultValues/PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue';
+import { IFocusElementViewModel } from '../../Common/ViewModels/FocusElementViewModel';
+import { SelectViewModel } from '../../Common/ViewModels/SelectViewModel';
 
 export class SettingsTransferMarketSelling {
   private log: IEasyLogger;
 
   public ressourceHeading: String;
-  public ressourceHeadingImproveSellingProcess: String;
   public ressourceButtonApply: String;
 
   public defaultSellingDurationViewModel: ICheckboxWithSelectViewModel<String, Number>;
   public defaultSellingDurationSettingModel: SettingsModelViewModel2;
-  public playerPageFocusElementsSettingModels: Array<SettingsModelViewModel>;
-  public playerPageFocusElementsViewModels: Array<ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>> = [];
 
   constructor() {
     this.log = new EasyLogger(
@@ -75,7 +60,6 @@ export class SettingsTransferMarketSelling {
         new LogLevelError()));
 
     this.ressourceHeading = new RessourceTransferMarketSellingSettingsHeader().value();
-    this.ressourceHeadingImproveSellingProcess = new RessourceTransferMarketSellingSettingsImproveSellingProcessSettingsHeader().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
 
     this.defaultSellingDurationSettingModel = new SettingsModelViewModel2(
@@ -84,18 +68,6 @@ export class SettingsTransferMarketSelling {
         new TransferMarketSellingDurationSettingsDefaultValue()),
       new RessourceTransferMarketSellingSettingsChangeDuration()
     );
-    this.playerPageFocusElementsSettingModels = [
-      new SettingsModelViewModel(
-        new StorageLocal<IFocusElementsSetting>(
-          new PlayerTransferMarketPlayerPageFocusElementSettingName(),
-          new PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue()),
-        new RessourceTransferMarketSellingSettingsPlayerTransferMarketPlayerPageSetFocus()),
-      new SettingsModelViewModel(
-        new StorageLocal<IFocusElementsSetting>(
-          new PlayerTransferMarketPageFocusElementSettingName(),
-          new PlayerTransferMarketPageFocusElementSettingDefaultValue()),
-        new RessourceTransferMarketSellingSettingsPlayerTransferMarketPageSetFocus()),
-    ];
     this.initialiseSettings();
   }
 
@@ -104,13 +76,6 @@ export class SettingsTransferMarketSelling {
     this.defaultSellingDurationSettingModel.settingsModel().save(new TransferMarketSellingDurationSettings(
       viewModel.checkbox.state,
       viewModel.select.selectedOption));
-
-    this.playerPageFocusElementsSettingModels.forEach(async settingsModelViewModel => {
-      let viewModel = await settingsModelViewModel.viewModel();
-      settingsModelViewModel.settingsModel().update(value => {
-        return this.updateFocusElemensSetting(value, viewModel);
-      });
-    });
   }
 
   private updateFocusElemensSetting(value: IFocusElementsSetting, viewModel: ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>): IFocusElementsSetting {
@@ -125,61 +90,12 @@ export class SettingsTransferMarketSelling {
 
   private async initialiseSettings(): Promise<void> {
     this.defaultSellingDurationViewModel = await this.defaultSellingDurationSettingModel.viewModel();
-    this.playerPageFocusElementsSettingModels.forEach(async e => this.playerPageFocusElementsViewModels.push(await e.viewModel()));
   }
-}
-
-export interface ISettingsModelViewModel {
-  settingsModel(): ISetting<IFocusElementsSetting>;
-  viewModel(): Promise<ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>>;
 }
 
 export interface ISettingsModelViewModel2 {
   settingsModel(): ISetting<ITransferMarketSellingDurationSettings>;
   viewModel(): Promise<ICheckboxWithSelectViewModel<String, Number>>;
-}
-
-export class SettingsModelViewModel implements ISettingsModelViewModel {
-  private settings: ISetting<IFocusElementsSetting>;
-  private settingsViewModel: Promise<ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>>;
-  private ressourceCheckboxLabel: IRessource;
-  private ressourceSelectElement: IRessource;
-
-  constructor(settings: ISetting<IFocusElementsSetting>, checkboxLabel: IRessource) {
-    this.settings = settings;
-    this.settingsViewModel = this.initialiseViewModel(settings);
-    this.ressourceCheckboxLabel = checkboxLabel;
-    this.ressourceSelectElement = new RessourceCommonSelectElement();
-  }
-
-  public settingsModel(): ISetting<IFocusElementsSetting> {
-    return this.settings;
-  }
-  public async viewModel(): Promise<ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>> {
-    return this.settingsViewModel;
-  }
-
-  private async initialiseViewModel(focusElementSettings: ISetting<IFocusElementsSetting>): Promise<ICheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>> {
-    let settings = await focusElementSettings.value();
-    return new CheckboxWithSelectViewModel<IFocusElementViewModel, IFocusElementViewModel>(
-      new CheckboxViewModel(
-        settings.activated(),
-        this.ressourceCheckboxLabel.value()),
-      this.initialiseSelectViewModel(settings.elements().array()));
-  }
-  private initialiseSelectViewModel(elementsToFocus: Array<IFocusElementSetting>): ISelectViewModel<IFocusElementViewModel, IFocusElementViewModel> {
-    let elementsToFocusViewModels = elementsToFocus.map((element, i) => new FocusElementViewModel(i, element.ressourceOfElement().value()));
-    let selectElementViewModel = new FocusElementViewModel(elementsToFocusViewModels.length, this.ressourceSelectElement.value());
-    elementsToFocusViewModels.push(selectElementViewModel);
-
-    let selectedElementIndex = elementsToFocus.findIndex(element => element.activated() === true);
-    let selectedElementViewModel = selectedElementIndex >= 0 ? elementsToFocusViewModels[selectedElementIndex] : selectElementViewModel;
-
-    return new SelectViewModel<IFocusElementViewModel, IFocusElementViewModel>(
-      elementsToFocusViewModels,
-      selectedElementViewModel
-    )
-  }
 }
 
 export class SettingsModelViewModel2 implements ISettingsModelViewModel2 {

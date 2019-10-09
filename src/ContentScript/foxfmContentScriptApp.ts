@@ -8,12 +8,6 @@ import { MessagingPortIndexedDb } from '../Common/Messaging/MessagingPortIndexed
 import { IFocusElementsSetting } from '../Common/Settings/FocusElementsSetting';
 import { IFoxfmSetting } from '../Common/Settings/FoxfmSetting';
 import { FoxfmSettingName } from '../Common/Settings/FoxfmSettingName';
-import {
-  PlayerTransferMarketPageFocusElementSettingName,
-} from '../Common/Settings/PlayerTransferMarketPageFocusElementSettingName';
-import {
-  PlayerTransferMarketPlayerPageFocusElementSettingName,
-} from '../Common/Settings/PlayerTransferMarketPlayerPageFocusElementSettingName';
 import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
 import { SettingNameLoggingModules } from '../Common/Settings/SettingNameLoggingModules';
 import { SettingNameTeamTable } from '../Common/Settings/SettingNameTeamTable';
@@ -36,12 +30,6 @@ import {
 import { ITransferMarketSellingDurationSettings } from '../Common/Settings/TransferMarketSellingDurationSettings';
 import { ITransferOfferTableSettings, TransferOfferTableSettings } from '../Common/Settings/TransferOfferTableSettings';
 import { FoxfmSettingDefaultValue } from '../Common/SettingsDefaultValues/FoxfmSettingDefaultValue';
-import {
-  PlayerTransferMarketPageFocusElementSettingDefaultValue,
-} from '../Common/SettingsDefaultValues/PlayerTransferMarketPageFocusElementSettingDefaultValue';
-import {
-  PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue,
-} from '../Common/SettingsDefaultValues/PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue';
 import {
   TransferMarketSellingDurationSettingsDefaultValue,
 } from '../Common/SettingsDefaultValues/TransferMarketSellingDurationSettingsDefaultValue';
@@ -74,7 +62,6 @@ import { XPathSingleResult } from '../Common/Toolkit/XPathSingleResult';
 import { XPathString } from '../Common/Toolkit/XPathString';
 import { HeaderWebPageUrl } from '../Common/Urls/HeaderWebPageUrl';
 import { PlayerTransferMarketPlayerWebPageUrl } from '../Common/Urls/PlayerTransferMarketPlayerWebPageUrl';
-import { PlayerTransferMarketWebPageUrl } from '../Common/Urls/PlayerTransferMarketWebPageUrl';
 import { StadiumWebPageUrl } from '../Common/Urls/StadiumWebPageUrl';
 import { TeamWebPageUrl } from '../Common/Urls/TeamWebPageUrl';
 import { TransferMarketAmateurWebPageUrl } from '../Common/Urls/TransferMarketAmateurWebPageUrl';
@@ -503,30 +490,7 @@ new FoxfmContentScript(
   new FocusElementOnWebPage(
     new Url(currentUrl),
     new Array<IFocusWebElement>(
-      // Focus configured element on web page 'Player transfer market'
-      new FocusElementByXPathConfigureable(
-        new PlayerTransferMarketWebPageUrl(),
-        new StorageLocal<IFocusElementsSetting>(
-          new PlayerTransferMarketPageFocusElementSettingName(),
-          new PlayerTransferMarketPageFocusElementSettingDefaultValue()),
-        new Dom(doc),
-        new EasyLogger(
-          logger,
-          new RegisteredLoggingModule(
-            "FocusElementByXPathConfigureable",
-            new LogLevelError()))),
-      // Focus configured element on web page 'Transfer market of a player'
-      new FocusElementByXPathConfigureable(
-        new PlayerTransferMarketPlayerWebPageUrl(),
-        new StorageLocal<IFocusElementsSetting>(
-          new PlayerTransferMarketPlayerPageFocusElementSettingName(),
-          new PlayerTransferMarketPlayerPageFocusElementSettingDefaultValue()),
-        new Dom(doc),
-        new EasyLogger(
-          logger,
-          new RegisteredLoggingModule(
-            "FocusElementByXPathConfigureable",
-            new LogLevelError()))))),
+    )),
   // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   // * * *           I M P O R T I N G                           * * *
   // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

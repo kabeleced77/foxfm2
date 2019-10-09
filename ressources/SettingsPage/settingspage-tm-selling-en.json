@@ -7,14 +7,5 @@
   },
   "transferMarketSellingSettings_changeDuration":{
     "message": "Take following duration to sell a player on the transfer market "
-  },
-  "transferMarketSellingSettings_improveSellingProcessSettings_header": {
-    "message": "Following settings shall improve the selling process via the player page (click on name of player)"
-  },
-  "transferMarketSellingSettings_playerTransferMarketPage_setFocus": {
-    "message": "Wrong starting price: focus following web element if starting price was wrong (e.g. to high) "
-  },
-  "transferMarketSellingSettings_playerTransferMarketPlayerPage_setFocus":{
-    "message": "Player already on transfer market: focus following element if player has already been put on transfer market: "
   }
 }
