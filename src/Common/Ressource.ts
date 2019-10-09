@@ -116,10 +116,11 @@ export class RessourceTransferMarketSellingSettingsChangeDuration extends Ressou
 
 export class RessourceTransferMarketProfessionalsTableSettingsMenu extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_menu"); } }
 export class RessourceTransferMarketProfessionalsTableSettingsHeader extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_header"); } }
+export class RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported extends Ressource { constructor() { super("setting_page_transfer_market_professionals_warning_slidersAreNotSupported"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_header"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_description"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfers extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers"); } }
-export class RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported extends Ressource { constructor() { super("setting_page_transfer_market_professionals_warning_slidersAreNotSupported"); } }
+export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersWarningBrowserLanguageMustMatch extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_warning_browserLanguageMustMatch"); } }
 
 export class RessourceTransferMarketAmateurTableSettingsMenu extends Ressource { constructor() { super("transferMarketAmateurTableSettings_menu"); } }
 export class RessourceTransferMarketAmateurTableSettingsHeader extends Ressource { constructor() { super("transferMarketAmateurTableSettings_header"); } }

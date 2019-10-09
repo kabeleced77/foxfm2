@@ -16,7 +16,8 @@ import {
   RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader,
   RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription,
   RessourceCommonSettingsAddColumnsTransferPricesIntroduction,
-  RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported
+  RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported,
+  RessourceSettingsPageTransferMarketProfessionalsImportTransfersWarningBrowserLanguageMustMatch
 } from '../../Common/Ressource';
 import { ITransferMarketSearchResultTableSettings, TransferMarketSearchResultTableSettings } from '../../Common/Settings/TransferMarketSearchResultTableSettings';
 import { SettingNameTransferMarketProfessionalsSearchResultTable } from '../../Common/Settings/SettingNameTransferMarketProfessionalsSearchResultTable';
@@ -37,6 +38,7 @@ export class SettingsTransferMarketProfessionalTable {
   public ressourceAddColumnTransferPriceCurrentStrength: String;
   public ressourceAddColumnsTransferPricesIntroduction: String;
   public ressourceWarningSlidersAreNotSupported: String;
+  public ressourceWarningBrowserLanguageMustMatch: String;
   public ressourceAddColumnTransferPriceNextStrength: String;
   public ressourceAddColumnTransferPriceNextAgeCurrentStrength: String;
   public ressourceAddColumnTransferPriceNextAgeNextStrength: String;
@@ -110,6 +112,7 @@ export class SettingsTransferMarketProfessionalTable {
     this.ressourceImportTransfersDescription = new RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription().value();
     this.ressourceImportTransfers = new RessourceSettingsPageTransferMarketProfessionalsImportTransfers().value();
     this.ressourceWarningSlidersAreNotSupported = new RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported().value();
+    this.ressourceWarningBrowserLanguageMustMatch = new RessourceSettingsPageTransferMarketProfessionalsImportTransfersWarningBrowserLanguageMustMatch().value();
 
     this.settings.value().then(settings => {
       this.extendColumngStrengthActivated = settings.extendStrengthColumnActivated();
