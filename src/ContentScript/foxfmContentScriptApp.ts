@@ -490,6 +490,7 @@ new FoxfmContentScript(
   new FocusElementOnWebPage(
     new Url(currentUrl),
     new Array<IFocusWebElement>(
+      // <<< Put here implementation of IFocusWebElement >>>
     )),
   // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   // * * *           I M P O R T I N G                           * * *
