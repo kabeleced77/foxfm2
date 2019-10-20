@@ -6,7 +6,7 @@ var outputRoot = 'dist/';
 var exporLocalesRoot = '_locales/'
 
 module.exports = {
-  addonChrome: appName + "-" + chrome + ".crx",
+  addonChrome: appName + "-" + chrome + ".zip",
   addonFirefox: appName + "-" + firefox + ".xpi",
   root: appRoot,
   source: appRoot + '**/*.ts',
