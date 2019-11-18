@@ -108,14 +108,6 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
               if (extendStrength) this.extendStrengthColumn(strengthLevels);
             });
 
-          const columnNumberAwp = 6;
-          const columnNumberAwpDiff = 7;
-          const columnNumberNewStrengthColumn = 8;
-          const columnNumberMarketValueCurrentStrength = 9;
-          const columnNumberMarketValueNextStrength = 10;
-          const columnNumberMarketValueNextAgeCurrentStrength = 11;
-          const columnNumberMarketValueNextAgeNextStrength = 12;
-
           // TODO: bad but currently no other idea: call here to fill cache - requires implementation knowledge of used class
           await this.playerTransfers.averages();
 
@@ -127,11 +119,14 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
           //  - add transfer price of actual strength
           //  - add transfer price of next strength
           (await this.players.all()).forEach(async (player, i) => {
+            // initial column number where to start inserting the new columns
+            var columnNumber = 6;
+
             // add new column displaying current AWPs
             if (addAwp) {
               this.addCell(
                 i,
-                columnNumberAwp,
+                columnNumber++,
                 i === 0
                   ? this.header(this.ressourceTableHeaderAwp.value())
                   : this.element(`${player.strengthLevel().awp().awpPoints().toLocaleString()}`, i)
@@ -139,20 +134,19 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
             }
             // add new column displaying diff-AWPs to next strength
             if (addAwpDiff) {
-              this
-                .addCell(
-                  i,
-                  columnNumberAwpDiff,
-                  i === 0
-                    ? this.header(this.ressourceTableHeaderAwpDiff.value())
-                    : this.element(`${player.strengthLevel().missingAwpsToNextStrengthValue().toLocaleString()}`, i),
-                );
+              this.addCell(
+                i,
+                columnNumber++,
+                i === 0
+                  ? this.header(this.ressourceTableHeaderAwpDiff.value())
+                  : this.element(`${player.strengthLevel().missingAwpsToNextStrengthValue().toLocaleString()}`, i),
+              );
             }
             // add new column displaying next strength
             if (addNextStrength) {
               this.addCell(
                 i,
-                columnNumberNewStrengthColumn,
+                columnNumber++,
                 i === 0
                   ? this.header(this.ressourceTableHeaderNextStrength.value())
                   : this.element(`${player.strengthLevel().nextStrengthValue()}`, i),
@@ -160,12 +154,11 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
             }
             // add new column for average transfer price of current strength
             if (addTransferPriceOfCurrentLevel) {
-              this
-                .table
+              this.table
                 .addNewCellToBodyRow(
                   0,
                   i,
-                  columnNumberMarketValueCurrentStrength,
+                  columnNumber++,
                   i === 0
                     ? this.header(this.ressourceTableHeaderTransferPriceCurrentStrength.value())
                     : this.element((await this.playerTransfers.average(player.category())).toLocaleString(), i));
@@ -177,12 +170,11 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                 player.category().age(),
                 player.category().strength().valueOf() + 1,
               )
-              this
-                .table
+              this.table
                 .addNewCellToBodyRow(
                   0,
                   i,
-                  columnNumberMarketValueNextStrength,
+                  columnNumber++,
                   i === 0
                     ? this.header(this.ressourceTableHeaderTransferPriceNextStrength.value())
                     : this.element((await this.playerTransfers.average(categoryNextStrength)).toLocaleString(), i));
@@ -194,12 +186,11 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                 player.category().age().valueOf() + 1,
                 player.category().strength(),
               )
-              this
-                .table
+              this.table
                 .addNewCellToBodyRow(
                   0,
                   i,
-                  columnNumberMarketValueNextAgeCurrentStrength,
+                  columnNumber++,
                   i === 0
                     ? this.header(this.ressourceTableHeaderTransferPriceNextAgeCurrentStrength.value())
                     : this.element((await this.playerTransfers.average(categoryNextAgeCurrentStrength)).toLocaleString(), i));
@@ -211,12 +202,11 @@ export class TransferMarketProfessionalPlayerTable implements IExtendWebElement 
                 player.category().age().valueOf() + 1,
                 player.category().strength().valueOf() + 1,
               )
-              this
-                .table
+              this.table
                 .addNewCellToBodyRow(
                   0,
                   i,
-                  columnNumberMarketValueNextAgeNextStrength,
+                  columnNumber++,
                   i === 0
                     ? this.header(this.ressourceTableHeaderTransferPriceNextAgeNextStrength.value())
                     : this.element((await this.playerTransfers.average(categoryNextAgeNextStrength)).toLocaleString(), i));
