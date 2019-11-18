@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "foxfm2",
   "short_name": "foxfm",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "default_locale": "de",
   "description": "Foxfm stellt Informationen und Funktionen zum schnelleren und effizienteren Umgang mit dem OFM - OnlineFussballManagers bereit.",
   "permissions": [
