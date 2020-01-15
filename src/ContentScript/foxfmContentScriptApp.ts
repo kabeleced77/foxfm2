@@ -91,6 +91,11 @@ import { SettingImportTransfers } from '../Common/Settings/SettingImportTransfer
 import { ISettingImportTransfers } from '../Common/Settings/ISettingImportTransfers';
 import { Sum } from '../Common/Toolkit/Sum';
 import { ImportedTransfersOfMatchdaysMessaging } from '../Common/ImportedTransfersOfMatchdaysMessaging';
+import { ClickElementOnWebPage } from '../Common/Toolkit/ClickElementOnWebPage';
+import { IClickWebElement } from '../Common/Toolkit/IClickWebElement';
+import { LoginWebPageUrl } from '../Common/Urls/LoginWebPageUrl';
+import { DailyLoginBonusWebPageUrl } from '../Common/Urls/DailyLoginBonusWebPageUrl';
+import { ClickWebElementByXPath } from '../Common/Toolkit/ClickWebElementByXPath';
 
 var doc = window.document;
 var currentUrl = doc.location.href;
@@ -491,6 +496,42 @@ new FoxfmContentScript(
     new Url(currentUrl),
     new Array<IFocusWebElement>(
       // <<< Put here implementation of IFocusWebElement >>>
+    )),
+  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  // * * *           C L I C K I N G                             * * *
+  // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+  new ClickElementOnWebPage(
+    new Url(currentUrl),
+    new Array<IClickWebElement>(
+      // <<< Put here instances of implementation(s) of IFocusWebElement >>>
+      new ClickWebElementByXPath(
+        new LoginWebPageUrl(),
+        new XPathFirstResult<HTMLElement>(
+          doc,
+          '//*[@id="logingrafikbutton"]'
+        ),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            `${nameof(ClickWebElementByXPath)}-LoginPage`,
+            new LogLevelError()
+          )
+        )
+      ),
+      new ClickWebElementByXPath(
+        new DailyLoginBonusWebPageUrl(),
+        new XPathFirstResult<HTMLElement>(
+          doc,
+          '/html/body/div[3]/div[1]/div[2]/div[5]/div'
+        ),
+        new EasyLogger(
+          logger,
+          new RegisteredLoggingModule(
+            `${nameof(ClickWebElementByXPath)}-LoginBonusPage`,
+            new LogLevelError()
+          )
+        )
+      )
     )),
   // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
   // * * *           I M P O R T I N G                           * * *

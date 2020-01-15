@@ -30,7 +30,7 @@ export class XPathFirstResult<T extends Node> implements IXPathFirstResult<T> {
       if (firstNode) {
         this.firstResult = firstNode;
       } else {
-        throw new Error(`No result for XPath '${this.xPathString()}'.`);
+        throw new Error(`No result for XPath '${this.xPathString()}'`);
       }
     }
     return <T>this.firstResult;
