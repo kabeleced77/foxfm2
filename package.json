@@ -16,7 +16,7 @@
     "aurelia-tools": "^1.0.0",
     "conventional-changelog": "^1.1.6",
     "del": "^3.0.0",
-    "dexie": "^2.0.1",
+    "dexie": "^3.2.2",
     "graceful-fs": "^4.2.2",
     "gulp": "^3.9.1",
     "gulp-bump": "^2.8.0",
