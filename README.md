@@ -19,18 +19,23 @@ To get a copy of foxfm2 sources just clone repository.
 
 ### Setup foxfm2 build environment
 
--  Install nodejs for your OS
+-  Install `nodejs` on your OS
 
-- Install all dependencies of foxfm2 - run inside of cloned foxfm2 folder
+- Install all dependencies of `foxfm2` running following command inside the `foxfm2`-folder
 
 ``` 
 npm install
 ```
 
-- Install all jspm packages - run inside of cloned foxm2 folder
+- Install all `jspm`-packages running following command inside the `foxm2`-folder
 
 ```
 jspm install -y
+```
+Optionally run `jspm` from `foxfm2` node-packages inside the `foxfm2`-folder:
+
+```
+./node_modules/.bin/jspm install -y
 ```
 
 ### Build foxfm2 from sources
