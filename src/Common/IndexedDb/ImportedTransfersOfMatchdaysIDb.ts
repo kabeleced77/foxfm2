@@ -28,7 +28,7 @@ export class ImportedTransfersOfMatchdaysIDb implements IImportedTransfersOfMatc
       new EasyLogger(
         this.logger.logger(),
         new RegisteredLoggingModule(
-          nameof(GameServersIDb),
+          "GameServersIDb",
           new LogLevelError(),
         )
       ),
@@ -39,7 +39,7 @@ export class ImportedTransfersOfMatchdaysIDb implements IImportedTransfersOfMatc
         new EasyLogger(
           this.logger.logger(),
           new RegisteredLoggingModule(
-            nameof(MatchdaysIDb),
+            "MatchdaysIDb",
             new LogLevelError(),
           ),
         ),
@@ -63,7 +63,7 @@ export class ImportedTransfersOfMatchdaysIDb implements IImportedTransfersOfMatc
     return new Promise<Boolean>((resolve, reject) => {
       const count = this.dataBase
         .importedTransfersOfMatchdays
-        .where(nameof<IDataModelIDbImportedTransfersOfMatchday>(o => o.matchdayId))
+        .where("matchdayId")
         .equals(matchday.id().valueOf())
         .count();
 

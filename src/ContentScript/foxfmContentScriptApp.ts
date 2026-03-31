@@ -313,7 +313,7 @@ var messagingContentScript = new MessagingContentScript(
           new EasyLogger(
             logger,
             new RegisteredLoggingModule(
-              nameof(TransferMarketProfessionalPlayerTable),
+              "TransferMarketProfessionalPlayerTable",
               new LogLevelError(),
             )
           )),
@@ -536,7 +536,7 @@ var messagingContentScript = new MessagingContentScript(
           new EasyLogger(
             logger,
             new RegisteredLoggingModule(
-              nameof(MessagingImportTransfers),
+              "MessagingImportTransfers",
               new LogLevelError(),
             )
           )

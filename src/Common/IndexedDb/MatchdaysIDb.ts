@@ -18,7 +18,7 @@ export class MatchdaysIDb implements IMatchdays {
     let mds: IMatchdayWithId[] = [];
     return this.dataBase
       .matchdays
-      .where(nameof<IDataModelIDbMatchday>(o => o.season))
+      .where("season")
       .between(seasonMin.valueOf(), seasonMax.valueOf(), true, true)
       .eachPrimaryKey((pk: Number) => mds.push(new MatchdayIDb(this.dataBase, pk)))
       .then(() => mds);
@@ -35,7 +35,7 @@ export class MatchdaysIDb implements IMatchdays {
     let mds: IMatchdayWithId[] = [];
     await this.dataBase
       .matchdays
-      .where(`[${nameof<IDataModelIDbMatchday>(o => o.gameServerId)}+${nameof<IDataModelIDbMatchday>(o => o.season)}+${nameof<IDataModelIDbMatchday>(o => o.day)}]`)
+      .where(`[gameServerId+season+day]`)
       .equals([serverId.valueOf(), season.valueOf(), day.valueOf()])
       .eachPrimaryKey((pk: Number) => mds.push(new MatchdayIDb(this.dataBase, pk)));
     this.logger.debug(`number of found matchdays by game server '${serverUrl}(Id:${serverId})', season '${season}' and day '${day}': ${mds.length}`);

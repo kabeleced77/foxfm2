@@ -62,10 +62,10 @@ export class TransferMarketSearchResultTableSettings implements ITransferMarketS
       jsonString["addAwpColumn"],
       jsonString["addAwpDiffColumn"],
       jsonString["addNextStrengthColumn"],
-      jsonString[nameof(this.addColumnTransferPriceCurrentStrength)],
-      jsonString[nameof(this.addColumnTransferPriceNextStrength)],
-      jsonString[nameof(this.addColumnTransferPriceNextAgeCurrentStrength)],
-      jsonString[nameof(this.addColumnTransferPriceNextAgeNextStrength)],
+      jsonString["addColumnTransferPriceCurrentStrength"],
+      jsonString["addColumnTransferPriceNextStrength"],
+      jsonString["addColumnTransferPriceNextAgeCurrentStrength"],
+      jsonString["addColumnTransferPriceNextAgeNextStrength"],
     )
   }
 }

@@ -74,7 +74,7 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
             const easyLogger = new EasyLogger(
               this.logger.logger(),
               new RegisteredLoggingModule(
-                nameof(ImportTransfers),
+                "ImportTransfers",
                 new LogLevelError()));
 
             await new ImportTransfers(
@@ -128,7 +128,7 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
               new EasyLogger(
                 this.logger.logger(),
                 new RegisteredLoggingModule(
-                  nameof(ImportedTransfersOfMatchdaysIDb),
+                  "ImportedTransfersOfMatchdaysIDb",
                   new LogLevelError(),
                 )
               ))

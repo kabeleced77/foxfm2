@@ -22,7 +22,7 @@ export class GameServersIDb implements IGameServers {
     let gameServers: IGameServerWithId[] = [];
     await this.dataBase
       .gameServers
-      .where(`${nameof<IDataModelIDbGameServer>(o => o.uri)}`)
+      .where(`uri`)
       .equals(uri.toString())
       .eachPrimaryKey((pk: Number) => gameServers.push(new GameServerIDb(this.dataBase, pk)));
     this.logger.debug(`number of found game servers by uri '${uri}': ${gameServers.length}`);

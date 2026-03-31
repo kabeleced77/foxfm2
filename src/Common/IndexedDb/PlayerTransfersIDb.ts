@@ -61,7 +61,7 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
       let gameServerId = (await gameServers.first())!.id!;
       await this.dataBase
         .playerTransfers
-        .where(`[${nameof<IDataModelIDbPlayerTransfer>(o => o.gameServerId)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.position)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.age)}+${nameof<IDataModelIDbPlayerTransfer>(o => o.strength)}]`)
+        .where(`[gameServerId+position+age+strength]`)
         .equals([gameServerId.valueOf(), position.toString(), age.valueOf(), strength.valueOf()])
         .each(transfer => {
           countOfAllTransfers++;
