@@ -69,8 +69,8 @@ export default function Logging({ logger }: { logger: ILogger }) {
   const ressourceIntro = new RessourceSettingsPageLoggerIntro().value();
   return (
     <div>
-      <h3>${ressourceHeading}</h3>
-      <h4>${ressourceIntro}</h4>
+      <h3>{ressourceHeading}</h3>
+      <h4>{ressourceIntro}</h4>
       <LoggingLevel
         module="Application"
         selectedLogLevel={appLogLevel}
