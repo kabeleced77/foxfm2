@@ -1,23 +1,23 @@
 export interface ILogLevel {
-  name(): String;
-  level(): Number;
+  name(): string;
+  level(): number;
   update(level: ILogLevel): void;
   fromJson(jsonString: String): ILogLevel;
 }
 
 export class LogLevel implements ILogLevel {
-  private levelName: String;
-  private levelNumber: Number;
+  private levelName: string;
+  private levelNumber: number;
 
-  constructor(name: String, level: Number) {
+  constructor(name: string, level: number) {
     this.levelName = name;
     this.levelNumber = level;
   }
 
-  public name(): String {
+  public name(): string {
     return this.levelName;
   }
-  public level(): Number {
+  public level(): number {
     return this.levelNumber;
   }
   public update(level: ILogLevel): void {
@@ -35,6 +35,15 @@ export class LogLevelInfo extends LogLevel { constructor() { super("Info", 2); }
 export class LogLevelWarn extends LogLevel { constructor() { super("Warn", 3); } }
 export class LogLevelDebug extends LogLevel { constructor() { super("Debug", 4); } }
 export class LogLevelAll extends LogLevel { constructor() { super("All", 99); } }
+
+export const LogLevels: Array<ILogLevel> = [
+  new LogLevelOff(),
+  new LogLevelError(),
+  new LogLevelInfo(),
+  new LogLevelWarn(),
+  new LogLevelDebug(),
+  new LogLevelAll(),
+];
 
 // export class LogLevelOff implements ILogLevel {
 //   private levelName: String = "Off";

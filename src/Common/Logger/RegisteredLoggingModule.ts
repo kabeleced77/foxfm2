@@ -1,22 +1,22 @@
 import { ILogLevel } from "./LogLevel"
 
 export interface IRegisteredLoggingModule {
-  name(): String;
+  name(): string;
   logLevel(): ILogLevel;
   changeLogLevel(level: ILogLevel): void;
   fromJson(jsonString: String): IRegisteredLoggingModule;
 }
 
 export class RegisteredLoggingModule implements IRegisteredLoggingModule {
-  private moduleName: String;
+  private moduleName: string;
   private moduleLogLevel: ILogLevel;
 
-  constructor(name: String, logLevel: ILogLevel) {
+  constructor(name: string, logLevel: ILogLevel) {
     this.moduleName = name;
     this.moduleLogLevel = logLevel;
   }
 
-  public name(): String {
+  public name(): string {
     return this.moduleName;
   }
 
