@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import webExtension, { readJsonFile } from "vite-plugin-web-extension";
+import mergeJsonPlugin from "./vite-plugins/mergeJsonPlugin";
 
 function generateManifest() {
   const manifest = readJsonFile("src/manifest.json");
@@ -19,6 +20,12 @@ export default defineConfig({
     react(),
     webExtension({
       manifest: generateManifest,
+    }),
+    mergeJsonPlugin({
+      sourceFolder: "_locales", // Example: your locales folder
+      outputFolder: "dist/_locales",    // Example: output folder
+      outputFileName: "messages.json",   // Example: output file name
+      suffixSeparator: "-", // Optional: separator for suffixes in file names
     }),
   ],
 });
