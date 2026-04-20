@@ -30,7 +30,7 @@ const logger = new Logger(
   ),
 );
 
-ReactDOM.createRoot(document.body).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Logging logger={logger} />
   </React.StrictMode>,
