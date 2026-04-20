@@ -81,39 +81,18 @@ const SettingsPage: React.FC = () => {
             Home
           </a>
           <a
-            href="#showcase"
+            href="#stadium"
             onClick={w3_close}
             className="w3-bar-item w3-button w3-hover-white"
           >
-            Showcase
+            Stadium
           </a>
           <a
-            href="#services"
+            href="#logging"
             onClick={w3_close}
             className="w3-bar-item w3-button w3-hover-white"
           >
-            Services
-          </a>
-          <a
-            href="#designers"
-            onClick={w3_close}
-            className="w3-bar-item w3-button w3-hover-white"
-          >
-            Designers
-          </a>
-          <a
-            href="#packages"
-            onClick={w3_close}
-            className="w3-bar-item w3-button w3-hover-white"
-          >
-            Packages
-          </a>
-          <a
-            href="#contact"
-            onClick={w3_close}
-            className="w3-bar-item w3-button w3-hover-white"
-          >
-            Contact
+            Logging
           </a>
         </div>
       </nav>
@@ -144,7 +123,7 @@ const SettingsPage: React.FC = () => {
       {/* !PAGE CONTENT! */}
       <div className="w3-main" style={{ marginLeft: 340, marginRight: 40 }}>
         {/* Header */}
-        <div className="w3-container" style={{ marginTop: 80 }} id="showcase">
+        <div className="w3-container" style={{ marginTop: 80 }} id="stadium">
           <h1 className="w3-jumbo">
             <b>Foxfm Settings</b>
           </h1>
@@ -196,8 +175,8 @@ const SettingsPage: React.FC = () => {
           </div>
         )}
 
-        {/* Packages / Pricing Tables */}
-        <div className="w3-container" id="packages" style={{ marginTop: 75 }}>
+        {/* Logging Settings*/}
+        <div className="w3-container" id="logging" style={{ marginTop: 75 }}>
           <h1 className="w3-xxxlarge w3-text-red">
             <b>Logging Settings.</b>
           </h1>
