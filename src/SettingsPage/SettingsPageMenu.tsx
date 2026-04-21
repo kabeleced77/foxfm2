@@ -6,13 +6,13 @@ export interface MenuSection {
   content: ReactNode;
 }
 
-interface SettingsPageProps {
+interface SettingsPageMenuProps {
   menuSections: MenuSection[];
   headerContent?: ReactNode;
   footerContent?: ReactNode;
 }
 
-const SettingsPage: React.FC<SettingsPageProps> = ({
+const SettingsPageMenu: React.FC<SettingsPageMenuProps> = ({
   menuSections,
   headerContent,
   footerContent,
@@ -136,4 +136,4 @@ const SettingsPage: React.FC<SettingsPageProps> = ({
   );
 };
 
-export default SettingsPage;
+export default SettingsPageMenu;

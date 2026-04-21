@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import SettingsPage, { MenuSection } from "./SettingsPageMenu";
+import SettingsPageMenu, { MenuSection } from "./SettingsPageMenu";
 import StadiumSection from "./StadiumSection";
 import Logging from "./logging/Logging";
 import { Logger } from "../Common/Logger/Logger";
@@ -75,6 +75,6 @@ const menuSections: MenuSection[] = [
 
 ReactDOM.createRoot(document.body).render(
   <React.StrictMode>
-    <SettingsPage menuSections={menuSections} headerContent={headerContent} />
+    <SettingsPageMenu menuSections={menuSections} headerContent={headerContent} />
   </React.StrictMode>,
 );
