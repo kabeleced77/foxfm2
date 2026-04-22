@@ -5,7 +5,7 @@ export interface IStadiumBlocks {
   blockByName(name: String): IStadiumBlock;
   blocksPricesOffsetActivated(): boolean;
   activateBlocksPricesOffset(status: boolean): void;
-  fromJson(jsonString: String): IStadiumBlocks;
+  fromJson(json: any): IStadiumBlocks;
 }
 
 export class StadiumBlocks implements IStadiumBlocks {
@@ -41,10 +41,10 @@ export class StadiumBlocks implements IStadiumBlocks {
     }
   }
 
-  public fromJson(jsonString: String): IStadiumBlocks {
+  public fromJson(json: any): IStadiumBlocks {
     if (this.stadiumBlocks.length) {
       return new StadiumBlocks(
-        jsonString["stadiumBlocks"].map((block: String, i: number) => {
+        json.stadiumBlocks.map((block: any, i: number) => {
           return this.stadiumBlocks[i].fromJson(block);
         })
       );
