@@ -1,27 +1,27 @@
 import { IStadiumEntryPrices } from './StadiumEntryPrices'
 
 export interface IStadiumOverallEntryPrices {
-  activated(): Boolean;
-  activate(status: Boolean): void;
+  activated(): boolean;
+  activate(status: boolean): void;
   prices(): IStadiumEntryPrices;
   updatePrices(prices: IStadiumEntryPrices): void;
   fromJson(jsonString: String): IStadiumOverallEntryPrices;
 }
 
 export class StadiumOverallEntryPrices implements IStadiumOverallEntryPrices {
-  private overallPricesActivated: Boolean;
+  private overallPricesActivated: boolean;
   private overallPrices: IStadiumEntryPrices;
 
-  constructor(activated: Boolean, prices: IStadiumEntryPrices) {
+  constructor(activated: boolean, prices: IStadiumEntryPrices) {
     this.overallPricesActivated = activated;
     this.overallPrices = prices;
   }
 
-  public activated(): Boolean {
+  public activated(): boolean {
     return this.overallPricesActivated;
   }
 
-  public activate(status: Boolean): void {
+  public activate(status: boolean): void {
     this.overallPricesActivated = status;
   }
 

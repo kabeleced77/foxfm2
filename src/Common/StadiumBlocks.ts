@@ -3,8 +3,8 @@ import { IStadiumBlock } from './StadiumBlock';
 export interface IStadiumBlocks {
   blocks(): Array<IStadiumBlock>;
   blockByName(name: String): IStadiumBlock;
-  blocksPricesOffsetActivated(): Boolean;
-  activateBlocksPricesOffset(status: Boolean): void;
+  blocksPricesOffsetActivated(): boolean;
+  activateBlocksPricesOffset(status: boolean): void;
   fromJson(jsonString: String): IStadiumBlocks;
 }
 
@@ -19,11 +19,11 @@ export class StadiumBlocks implements IStadiumBlocks {
     return this.stadiumBlocks;
   }
 
-  public blocksPricesOffsetActivated(): Boolean {
+  public blocksPricesOffsetActivated(): boolean {
     return this.stadiumBlocks.every((block: IStadiumBlock) => block.pricesOffsetActivated().valueOf());
   }
 
-  public activateBlocksPricesOffset(status: Boolean): void {
+  public activateBlocksPricesOffset(status: boolean): void {
     this.stadiumBlocks.forEach((block: IStadiumBlock) => block.activatePricesOffset(status));
   }
 
