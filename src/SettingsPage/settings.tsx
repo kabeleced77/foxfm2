@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import SettingsPageMenu, { MenuSection } from "./SettingsPageMenu";
-import StadiumSection from "./StadiumSection";
+import StadiumSection from "./stadium/StadiumSection";
 import Logging from "./logging/Logging";
 import { Logger } from "../Common/Logger/Logger";
 import { ILogLevel, LogLevelError } from "../Common/Logger/LogLevel";
@@ -41,7 +41,7 @@ const headerContent = (
   </div>
 );
 
-const stadiumContent = <StadiumSection />;
+const stadiumContent = <StadiumSection logger={logger} />;
 
 const loggingContent = (
   <>
