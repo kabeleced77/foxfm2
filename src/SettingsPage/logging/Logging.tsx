@@ -69,24 +69,29 @@ export default function Logging({ logger }: { logger: ILogger }) {
   const ressourceIntro = new RessourceSettingsPageLoggerIntro().value();
   return (
     <div>
-      <h3>{ressourceHeading}</h3>
-      <h4>{ressourceIntro}</h4>
-      <LoggingLevel
-        module="Application"
-        selectedLogLevel={appLogLevel}
-        onChange={onChangeLogLevelForApplication}
-      />
-
-      {loggingModules.modules().map((module) => (
+      <h1 className="w3-xxxlarge w3-text-red">
+        <b>{ressourceHeading}</b>
+      </h1>
+      <hr style={{ width: 50, border: "5px solid red" }} className="w3-round" />
+      <p>{ressourceIntro}</p>
+      <div className="w3-row-padding">
         <LoggingLevel
-          key={module.name()}
-          module={module.name()}
-          selectedLogLevel={module.logLevel()}
-          onChange={(logLevel) =>
-            onChangeLogLevelForLoggingModule(module.name(), logLevel)
-          }
+          module="Application"
+          selectedLogLevel={appLogLevel}
+          onChange={onChangeLogLevelForApplication}
         />
-      ))}
+
+        {loggingModules.modules().map((module) => (
+          <LoggingLevel
+            key={module.name()}
+            module={module.name()}
+            selectedLogLevel={module.logLevel()}
+            onChange={(logLevel) =>
+              onChangeLogLevelForLoggingModule(module.name(), logLevel)
+            }
+          />
+        ))}
+      </div>
     </div>
   );
 }

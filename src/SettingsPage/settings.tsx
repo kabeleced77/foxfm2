@@ -43,23 +43,6 @@ const headerContent = (
 
 const stadiumContent = <StadiumSection logger={logger} />;
 
-const loggingContent = (
-  <>
-    <h1 className="w3-xxxlarge w3-text-red">
-      <b>Logging Settings.</b>
-    </h1>
-    <hr style={{ width: 50, border: "5px solid red" }} className="w3-round" />
-    <p>
-      The logging settings allow you to configure the logging behavior of the
-      application. You can choose which logging modules are active and set the
-      logging level for each module.
-    </p>
-    <div className="w3-row-padding">
-      <Logging logger={logger} />
-    </div>
-  </>
-);
-
 const menuSections: MenuSection[] = [
   {
     id: "stadium",
@@ -69,7 +52,7 @@ const menuSections: MenuSection[] = [
   {
     id: "logging",
     label: "Logging",
-    content: loggingContent,
+    content: <Logging logger={logger} />,
   },
 ];
 
