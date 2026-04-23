@@ -1,0 +1,11 @@
+{
+  "settings_application_header": {
+    "message": "Auf dieser Seite können Einstellungen an den Funktionen des Addon vorgenommen werden."
+  },
+  "settings_application_name": {
+    "message": "Foxfm"
+  },
+  "settings_application_home": {
+    "message": "Startseite"
+  }
+}

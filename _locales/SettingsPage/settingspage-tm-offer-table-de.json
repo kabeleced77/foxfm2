@@ -1,0 +1,8 @@
+{
+  "transferMarketOfferTableSettings_menu": {
+    "message": "TM Angebote"
+  },
+  "transferMarketOfferTableSettings_header": {
+    "message": "Einstellungen für die Tabelle, um Spieler auf den Transfermarkt zu stellen"
+  }
+}

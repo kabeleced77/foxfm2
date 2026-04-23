@@ -1,0 +1,11 @@
+{
+  "ofmTeamPageCurrentStrength": {
+    "message": "Current Strength"
+  },
+  "ofmTeamPageAwpsToNextStrength": {
+    "message": "AWPs Diff"
+  },
+  "ofmTeamPageNextStrength": {
+    "message": "Next Strength"
+  }
+}

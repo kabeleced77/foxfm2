@@ -1,0 +1,29 @@
+{
+  "commonSettings_addColumnAwp": {
+    "message": "Zeige Spalte 'AWP'. Aktuelle AWPs werden angezeigt."
+  },
+  "commonSettings_addColumnAwpDiff": {
+    "message": "Zeige Spalte 'AWP Diff'. Fehlende AWPs zur nächsten Stärke werden angezeigt."
+  },
+  "commonSettings_addColumnNextStrength": {
+    "message": "Zeige Spalte 'Nächste Stärke'. Nächste zu erwartende Spielerstärke wird angezeigt. Spalte 'AWP Diff' zeigt die noch fehlenden AWPs zu dieser Stärke an."
+  },
+  "commonSettings_extendColumnStrength": {
+    "message": "Erweitere Spalte 'Stärke' um die eigentliche Stärke. Die eigentliche Stärke wird auf Basis der aktuellen AWP Werte berrechnet."
+  },
+  "commonSettings_addColumns_transferPrices_introduction": {
+    "message": "Die Transferpreisspalten enthalten durchschnittliche Verkaufspreise basierend auf den importierten Transferpreisen. Erfordert Aktivierung des Features 'Importiere tägliche Spielertransfers'."
+  },
+  "commonSettings_extendColumn_transferPrice_currentStrength": {
+    "message": "Zeige Spalte 'Transferpreis (aktuelles Alter / aktuelle Stärke)'. Transferpreise des aktuellen Alters, der aktuellen Stärke."
+  },
+  "commonSettings_extendColumn_transferPrice_nextStrength": {
+    "message": "Zeige Spalte 'Transferpreis (aktuelles Alter / nächste Stärke)'. Transferpreise des aktuellen Alters, der nächsten Stärke."
+  },
+  "commonSettings_extendColumn_transferPrice_nextAge_currentStrength": {
+    "message": "Zeige Spalte 'Transferpreis (nächstes Alter / aktuelle Stärke)'. Transferpreise des nächsten Alters, der aktuellen Stärke."
+  },
+  "commonSettings_extendColumn_transferPrice_nextAge_nextStrength": {
+    "message": "Zeige Spalte 'Transferpreis (nächstes Alter / nächste Stärke)'. Transferpreise des nächsten Alters, der nächsten Stärke."
+  }
+}
