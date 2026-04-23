@@ -5,9 +5,9 @@ import { RegisteredLoggingModule } from "../../Common/Logger/RegisteredLoggingMo
 import { EasyLogger } from "../../Common/Logger/EasyLogger";
 import {
   RessourceCommonButtonApply,
+  RessourceStadium,
   RessourceStadiumAddOffsetPrices,
   RessourceStadiumAddOverallPrices,
-  RessourceStadiumHeading,
 } from "../../Common/Ressource";
 import { StadiumBlocksSetting } from "../../Common/Settings/StadiumBlocksSetting";
 import { StadiumOverallEntryPricesSetting } from "../../Common/Settings/StadiumOverallEntryPricesSetting";
@@ -35,19 +35,6 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({ logger }) => {
     () => new StadiumOverallEntryPricesSetting(),
   );
   const [stadiumBlocks] = useState(() => new StadiumBlocksSetting());
-
-  const [ressourceHeading] = useState(() =>
-    new RessourceStadiumHeading().value(),
-  );
-  const [ressourceStadiumAddOverallPrices] = useState(() =>
-    new RessourceStadiumAddOverallPrices().value(),
-  );
-  const [ressourceStadiumAddOffsetPrices] = useState(() =>
-    new RessourceStadiumAddOffsetPrices().value(),
-  );
-  const [ressourceButtonApply] = useState(() =>
-    new RessourceCommonButtonApply().value(),
-  );
 
   useEffect(() => {
     // Load initial settings
@@ -85,7 +72,7 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({ logger }) => {
   return (
     <>
       <h1 className="w3-xxxlarge w3-text-red">
-        <b>{ressourceHeading}</b>
+        <b>{new RessourceStadium().value().toString()}</b>
       </h1>
       <hr style={{ width: 50, border: "5px solid red" }} className="w3-round" />
 
@@ -103,7 +90,7 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({ logger }) => {
                       setStadiumOverallPricesActivated(e.target.checked)
                     }
                   />{" "}
-                  {ressourceStadiumAddOverallPrices}
+                  {new RessourceStadiumAddOverallPrices().value()},
                 </label>
                 <div style={{ marginLeft: "20px", marginTop: "10px" }}>
                   <label>
@@ -115,7 +102,7 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({ logger }) => {
                       }
                       disabled={!stadiumOverallPricesActivated}
                     />{" "}
-                    {ressourceStadiumAddOffsetPrices}
+                    {new RessourceStadiumAddOffsetPrices().value()},
                   </label>
                 </div>
               </div>
@@ -123,7 +110,7 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({ logger }) => {
 
             <div className="form-group">
               <button type="submit" className="w3-button w3-red">
-                {ressourceButtonApply}
+                {new RessourceCommonButtonApply().value()}
               </button>
             </div>
           </form>

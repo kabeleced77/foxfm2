@@ -74,12 +74,13 @@ export class RessourceCommonTableExtensionsHeaderTransferPriceNextAgeCurrentStre
 export class RessourceCommonTableExtensionsHeaderTransferPriceNextAgeNextStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_nextAge_nextStrength"); } }
 
 export class RessourceSettingsPageApplicationHeader extends Ressource { constructor() { super("settings_application_header"); } }
+export class RessourceSettingsPageApplicationSettings extends Ressource { constructor() { super("settings_application_settings"); } }
+export class RessourceSettingsPageApplicationHome extends Ressource { constructor() { super("settings_application_home"); } }
 
-export class RessourceSettingsPageLoggerHeading extends Ressource { constructor() { super("loggerSettingHeading"); } }
+export class RessourceSettingsPageLogger extends Ressource { constructor() { super("loggerSettingLogger"); } }
 export class RessourceSettingsPageLoggerIntro extends Ressource { constructor() { super("loggerSettingIntro"); } }
 
 export class RessourceStadium extends Ressource { constructor() { super("stadium"); } }
-export class RessourceStadiumHeading extends Ressource { constructor() { super("stadiumSettings"); } }
 export class RessourceStadiumLeague extends Ressource { constructor() { super("league"); } }
 export class RessourceStadiumFriendly extends Ressource { constructor() { super("friendly"); } }
 export class RessourceStadiumCup extends Ressource { constructor() { super("cup"); } }

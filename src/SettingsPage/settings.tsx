@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import SettingsPageMenu, { MenuSection } from "./SettingsPageMenu";
+import SettingsPageMenu from "./SettingsPageMenu";
 import StadiumSection from "./stadium/StadiumSection";
 import Logging from "./logging/Logging";
 import { Logger } from "../Common/Logger/Logger";
@@ -18,6 +18,7 @@ import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import "./w3.css";
 import "./w3-colors-flat.css";
 import "./custom.css";
+import { RessourceCommonAppName, RessourceSettingsPageApplicationSettings, RessourceSettingsPageLogger, RessourceStadium } from "../Common/Ressource";
 
 const logger = new Logger(
   new StorageLocal<ILogLevel>(
@@ -39,19 +40,19 @@ ReactDOM.createRoot(document.body).render(
       menuSections={[
         {
           id: "stadium",
-          label: "Stadium",
+          label: new RessourceStadium().value().toString(),
           content: <StadiumSection logger={logger} />,
         },
         {
           id: "logging",
-          label: "Logging",
+          label: new RessourceSettingsPageLogger().value().toString(),
           content: <Logging logger={logger} />,
         },
       ]}
       headerContent={
         <div className="w3-container" id="showcase">
           <h1 className="w3-jumbo">
-            <b>Foxfm Settings</b>
+            <b>{new RessourceCommonAppName().value().toString()} {new RessourceSettingsPageApplicationSettings().value().toString()}</b>
           </h1>
         </div>
       }

@@ -2,8 +2,8 @@
   "settings_application_header": {
     "message": "On this page you can adjust the behaviour of the addon."
   },
-  "settings_application_name": {
-    "message": "Foxfm"
+  "settings_application_settings": {
+    "message": "Settings"
   },
   "settings_application_home": {
     "message": "Home"

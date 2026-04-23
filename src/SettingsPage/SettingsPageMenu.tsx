@@ -1,4 +1,5 @@
 import React, { useState, useEffect, ReactNode } from "react";
+import { RessourceCommonAppName, RessourceSettingsPageApplicationHome } from "../Common/Ressource";
 
 export interface MenuSection {
   id: string;
@@ -18,10 +19,12 @@ const SettingsPageMenu: React.FC<SettingsPageMenuProps> = ({
   footerContent,
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const applicationName = new RessourceCommonAppName().value().toString();
+  const homeLabel = new RessourceSettingsPageApplicationHome().value().toString();
 
   useEffect(() => {
-    document.title = "foxfm - Settings";
-  }, []);
+    document.title = `${applicationName} - Settings`;
+  }, [applicationName]);
 
   const w3_open = () => setSidebarOpen(true);
   const w3_close = () => setSidebarOpen(false);
@@ -45,7 +48,7 @@ const SettingsPageMenu: React.FC<SettingsPageMenuProps> = ({
         </a>
         <div className="w3-container">
           <h3 className="w3-padding-64">
-            <b>Foxfm</b>
+            <b>{applicationName}</b>
           </h3>
         </div>
         <div className="w3-bar-block">
@@ -54,7 +57,7 @@ const SettingsPageMenu: React.FC<SettingsPageMenuProps> = ({
             onClick={w3_close}
             className="w3-bar-item w3-button w3-hover-white"
           >
-            Home
+            {homeLabel}
           </a>
           {menuSections.map((section) => (
             <a
@@ -78,7 +81,7 @@ const SettingsPageMenu: React.FC<SettingsPageMenuProps> = ({
         >
           ☰
         </a>
-        <span>Foxfm</span>
+        <span>{applicationName}</span>
       </header>
 
       {/* Overlay effect when opening sidebar on small screens */}

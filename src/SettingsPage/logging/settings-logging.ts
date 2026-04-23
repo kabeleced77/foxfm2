@@ -5,7 +5,7 @@ import { IRegisteredLoggingModules } from '../../Common/Logger/RegisteredLogging
 import { RegisteredLoggingModules } from '../../Common/Logger/RegisteredLoggingModules';
 import { ILogLevel } from '../../Common/Logger/LogLevel';
 import { LogLevel, LogLevelOff, LogLevelAll, LogLevelDebug, LogLevelError, LogLevelInfo, LogLevelWarn } from '../../Common/Logger/LogLevel';
-import { RessourceSettingsPageLoggerHeading } from "../../Common/Ressource"
+import { RessourceSettingsPageLogger } from "../../Common/Ressource"
 import { RessourceSettingsPageLoggerIntro, RessourceCommonButtonApply } from "../../Common/Ressource"
 import { Mutex } from "../../Common/Toolkit/Mutex";
 import { SettingNameLoggingModules } from "../../Common/Settings/SettingNameLoggingModules";
@@ -47,7 +47,7 @@ export class SettingsLogging {
     this.registeredLoggingModulesSetting = this.log.registeredModules();
     this.applicationLogLevel = this.log.applicationLogLevel();
 
-    this.ressourceHeading = new RessourceSettingsPageLoggerHeading().value();
+    this.ressourceHeading = new RessourceSettingsPageLogger().value();
     this.ressourceIntro = new RessourceSettingsPageLoggerIntro().value();
     this.ressourceButtonApply = new RessourceCommonButtonApply().value();
     this.initialiseViewValues();

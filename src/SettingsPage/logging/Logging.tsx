@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-  RessourceSettingsPageLoggerHeading,
+  RessourceSettingsPageLogger,
   RessourceSettingsPageLoggerIntro,
 } from "../../Common/Ressource";
 import {
@@ -65,7 +65,7 @@ export default function Logging({ logger }: { logger: ILogger }) {
         return new RegisteredLoggingModules(updatedLoggingModules);
       });
   }
-  const ressourceHeading = new RessourceSettingsPageLoggerHeading().value();
+  const ressourceHeading = new RessourceSettingsPageLogger().value();
   const ressourceIntro = new RessourceSettingsPageLoggerIntro().value();
   return (
     <div>
