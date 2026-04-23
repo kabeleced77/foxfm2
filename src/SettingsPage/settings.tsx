@@ -33,31 +33,28 @@ const logger = new Logger(
   ),
 );
 
-const headerContent = (
-  <div className="w3-container" id="showcase">
-    <h1 className="w3-jumbo">
-      <b>Foxfm Settings</b>
-    </h1>
-  </div>
-);
-
-const stadiumContent = <StadiumSection logger={logger} />;
-
-const menuSections: MenuSection[] = [
-  {
-    id: "stadium",
-    label: "Stadium",
-    content: stadiumContent,
-  },
-  {
-    id: "logging",
-    label: "Logging",
-    content: <Logging logger={logger} />,
-  },
-];
-
 ReactDOM.createRoot(document.body).render(
   <React.StrictMode>
-    <SettingsPageMenu menuSections={menuSections} headerContent={headerContent} />
+    <SettingsPageMenu
+      menuSections={[
+        {
+          id: "stadium",
+          label: "Stadium",
+          content: <StadiumSection logger={logger} />,
+        },
+        {
+          id: "logging",
+          label: "Logging",
+          content: <Logging logger={logger} />,
+        },
+      ]}
+      headerContent={
+        <div className="w3-container" id="showcase">
+          <h1 className="w3-jumbo">
+            <b>Foxfm Settings</b>
+          </h1>
+        </div>
+      }
+    />
   </React.StrictMode>,
 );
