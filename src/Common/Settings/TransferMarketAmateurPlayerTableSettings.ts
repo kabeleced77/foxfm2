@@ -1,22 +1,22 @@
 export interface ITransferMarketAmateurPlayerTableSettings {
-  addAwpColumnActivated(): Boolean;
-  extendStrengthColumnActivated(): Boolean;
-  addAwpDiffColumnActivated(): Boolean;
-  addNextStrengthColumnActivated(): Boolean;
+  addAwpColumnActivated(): boolean;
+  extendStrengthColumnActivated(): boolean;
+  addAwpDiffColumnActivated(): boolean;
+  addNextStrengthColumnActivated(): boolean;
   fromJson(jsonString: String): ITransferMarketAmateurPlayerTableSettings;
 }
 
 export class TransferMarketAmateurPlayerTableSettings implements ITransferMarketAmateurPlayerTableSettings {
-  private readonly addAwpColumn: Boolean;
-  private readonly addAwpDiffColumn: Boolean;
-  private readonly addNextStrengthColumn: Boolean;
-  private readonly extendStrengthColumn: Boolean;
+  private readonly addAwpColumn: boolean;
+  private readonly addAwpDiffColumn: boolean;
+  private readonly addNextStrengthColumn: boolean;
+  private readonly extendStrengthColumn: boolean;
 
   constructor(
-    addAwpColumn: Boolean,
-    addAwpDiffColumn: Boolean,
-    addNextStrengthColumn: Boolean,
-    extendStrengthColumn: Boolean
+    addAwpColumn: boolean,
+    addAwpDiffColumn: boolean,
+    addNextStrengthColumn: boolean,
+    extendStrengthColumn: boolean
   ) {
     this.addAwpColumn = addAwpColumn;
     this.addAwpDiffColumn = addAwpDiffColumn;
@@ -24,16 +24,16 @@ export class TransferMarketAmateurPlayerTableSettings implements ITransferMarket
     this.extendStrengthColumn = extendStrengthColumn;
   }
 
-  public addAwpColumnActivated(): Boolean {
+  public addAwpColumnActivated(): boolean {
     return this.addAwpColumn;
   }
-  public addAwpDiffColumnActivated(): Boolean {
+  public addAwpDiffColumnActivated(): boolean {
     return this.addAwpDiffColumn;
   }
-  public addNextStrengthColumnActivated(): Boolean {
+  public addNextStrengthColumnActivated(): boolean {
     return this.addNextStrengthColumn;
   }
-  public extendStrengthColumnActivated(): Boolean {
+  public extendStrengthColumnActivated(): boolean {
     return this.extendStrengthColumn;
   }
   public fromJson(jsonString: String): TransferMarketAmateurPlayerTableSettings {
