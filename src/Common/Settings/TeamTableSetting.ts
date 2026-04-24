@@ -1,32 +1,32 @@
 export interface ITeamTableSetting {
-  extendStrengthColumnActivated(): Boolean;
-  addAwpDiffColumnActivated(): Boolean;
-  addNextStrengthColumnActivated(): Boolean;
+  extendStrengthColumnActivated(): boolean;
+  addAwpDiffColumnActivated(): boolean;
+  addNextStrengthColumnActivated(): boolean;
   fromJson(jsonString: String): ITeamTableSetting;
 }
 
 export class TeamTableSetting implements ITeamTableSetting {
-  private readonly extendStrengthColumn: Boolean;
-  private readonly addAwpDiffColumn: Boolean;
-  private readonly addNextStrengthColumn: Boolean;
+  private readonly extendStrengthColumn: boolean;
+  private readonly addAwpDiffColumn: boolean;
+  private readonly addNextStrengthColumn: boolean;
 
   constructor(
-    extendStrengthColumn: Boolean,
-    addAwpDiffColumn: Boolean,
-    addNextStrengthColumn: Boolean,
+    extendStrengthColumn: boolean,
+    addAwpDiffColumn: boolean,
+    addNextStrengthColumn: boolean,
   ) {
     this.extendStrengthColumn = extendStrengthColumn;
     this.addAwpDiffColumn = addAwpDiffColumn;
     this.addNextStrengthColumn = addNextStrengthColumn;
   }
 
-  public extendStrengthColumnActivated(): Boolean {
+  public extendStrengthColumnActivated(): boolean {
     return this.extendStrengthColumn;
   }
-  public addAwpDiffColumnActivated(): Boolean {
+  public addAwpDiffColumnActivated(): boolean {
     return this.addAwpDiffColumn;
   }
-  public addNextStrengthColumnActivated(): Boolean {
+  public addNextStrengthColumnActivated(): boolean {
     return this.addNextStrengthColumn;
   }
   public fromJson(jsonString: String): ITeamTableSetting {
