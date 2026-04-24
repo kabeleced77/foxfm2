@@ -73,7 +73,7 @@ export class RessourceCommonTableExtensionsHeaderTransferPriceNextStrength exten
 export class RessourceCommonTableExtensionsHeaderTransferPriceNextAgeCurrentStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_nextAge_currentStrength"); } }
 export class RessourceCommonTableExtensionsHeaderTransferPriceNextAgeNextStrength extends Ressource { constructor() { super("commonTableExtensions_header_transferPrice_nextAge_nextStrength"); } }
 
-export class RessourceSettingsPageApplicationHeader extends Ressource { constructor() { super("settings_application_header"); } }
+export class RessourceSettingsPageApplicationIntro extends Ressource { constructor() { super("settings_application_intro"); } }
 export class RessourceSettingsPageApplicationSettings extends Ressource { constructor() { super("settings_application_settings"); } }
 export class RessourceSettingsPageApplicationHome extends Ressource { constructor() { super("settings_application_home"); } }
 

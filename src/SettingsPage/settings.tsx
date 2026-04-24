@@ -19,7 +19,14 @@ import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import "./w3.css";
 import "./w3-colors-flat.css";
 import "./custom.css";
-import { RessourceCommonAppName, RessourceSettingsPageApplicationSettings, RessourceSettingsPageLogger, RessourceStadium, RessourceTeamTableSettingsMenu } from "../Common/Ressource";
+import {
+  RessourceCommonAppName,
+  RessourceSettingsPageApplicationIntro,
+  RessourceSettingsPageApplicationSettings,
+  RessourceSettingsPageLogger,
+  RessourceStadium,
+  RessourceTeamTableSettingsMenu,
+} from "../Common/Ressource";
 
 const logger = new Logger(
   new StorageLocal<ILogLevel>(
@@ -58,8 +65,14 @@ ReactDOM.createRoot(document.body).render(
       headerContent={
         <div className="w3-container" id="showcase">
           <h1 className="w3-jumbo">
-            <b>{new RessourceCommonAppName().value().toString()} {new RessourceSettingsPageApplicationSettings().value().toString()}</b>
+            <b>
+              {new RessourceCommonAppName().value().toString()}{" "}
+              {new RessourceSettingsPageApplicationSettings()
+                .value()
+                .toString()}
+            </b>
           </h1>
+          {new RessourceSettingsPageApplicationIntro().value().toString()}
         </div>
       }
     />
