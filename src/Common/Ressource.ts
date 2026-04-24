@@ -77,19 +77,28 @@ export class RessourceSettingsPageApplicationIntro extends Ressource { construct
 export class RessourceSettingsPageApplicationSettings extends Ressource { constructor() { super("settings_application_settings"); } }
 export class RessourceSettingsPageApplicationHome extends Ressource { constructor() { super("settings_application_home"); } }
 
-export class RessourceSettingsPageLogger extends Ressource { constructor() { super("loggerSettingLogger"); } }
-export class RessourceSettingsPageLoggerIntro extends Ressource { constructor() { super("loggerSettingIntro"); } }
+export class RessourceSettingsPageLoggerMenu extends Ressource { constructor() { super("settingsLogger_menu"); } }
+export class RessourceSettingsPageLoggerHeader extends Ressource { constructor() { super("settingsLogger_header"); } }
+export class RessourceSettingsPageLoggerIntro extends Ressource { constructor() { super("settingsLogger_intro"); } }
+
+export class RessourceSettingsPageStadiumMenu extends Ressource { constructor() { super("settingsStadium_menu"); } }
+export class RessourceSettingsPageStadiumHeader extends Ressource { constructor() { super("settingsStadium_header"); } }
+export class RessourceSettingsPageStadiumIntro extends Ressource { constructor() { super("settingsStadium_intro"); } }
+export class RessourceSettingsPageStadiumAddOverallPrices extends Ressource { constructor() { super("settingsStadium_addOverallPrices"); } }
+export class RessourceSettingsPageStadiumAddOffsetPrices extends Ressource { constructor() { super("settingsStadium_addOffsetPrices"); } }
+
+export class RessourceSettingsPageTeamTableMenu extends Ressource { constructor() { super("settingsTeamTable_menu"); } }
+export class RessourceSettingsPageTeamTableHeader extends Ressource { constructor() { super("settingsTeamTable_header"); } }
+export class RessourceSettingsPageTeamTableIntro extends Ressource { constructor() { super("settingsTeamTable_intro"); } }
 
 export class RessourceStadium extends Ressource { constructor() { super("stadium"); } }
 export class RessourceStadiumLeague extends Ressource { constructor() { super("league"); } }
 export class RessourceStadiumFriendly extends Ressource { constructor() { super("friendly"); } }
 export class RessourceStadiumCup extends Ressource { constructor() { super("cup"); } }
 export class RessourceStadiumCurrencySign extends Ressource { constructor() { super("currencySign"); } }
-export class RessourceStadiumAddOverallPrices extends Ressource { constructor() { super("addOverallPrices"); } }
 export class RessourceStadiumOverallPriceLeague extends Ressource { constructor() { super("generalPriceLeague"); } }
 export class RessourceStadiumOverallPriceFriendly extends Ressource { constructor() { super("generalPriceFriendly"); } }
 export class RessourceStadiumOverallPriceCup extends Ressource { constructor() { super("generalPriceCup"); } }
-export class RessourceStadiumAddOffsetPrices extends Ressource { constructor() { super("addOffsetPrices"); } }
 export class RessourceStadiumOffset extends Ressource { constructor() { super("offset"); } }
 export class RessourceStadiumOffsetPriceLeague extends Ressource { constructor() { super("offsetPriceLeague"); } }
 export class RessourceStadiumOffsetPriceFriendly extends Ressource { constructor() { super("offsetPriceFriendly"); } }
@@ -104,9 +113,6 @@ export class RessourceCommonSettingsAddColumnTransferPriceCurrentStrength extend
 export class RessourceCommonSettingsAddColumnTransferPriceNextStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_nextStrength"); } }
 export class RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_nextAge_currentStrength"); } }
 export class RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_nextAge_nextStrength"); } }
-
-export class RessourceTeamTableSettingsMenu extends Ressource { constructor() { super("teamTableSettings_menu"); } }
-export class RessourceTeamTableSettingsHeader extends Ressource { constructor() { super("teamTableSettings_header"); } }
 
 export class RessourceTransferMarketOfferTableSettingsMenu extends Ressource { constructor() { super("transferMarketOfferTableSettings_menu"); } }
 export class RessourceTransferMarketOfferTableSettingsHeader extends Ressource { constructor() { super("transferMarketOfferTableSettings_header"); } }

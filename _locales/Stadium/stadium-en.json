@@ -2,9 +2,6 @@
   "stadium": {
     "message": "Stadium"
   },
-  "stadiumSettings": {
-    "message": "Stadium Settings"
-  },
   "league": {
     "message": "League: "
   },
@@ -17,9 +14,6 @@
   "currencySign": {
     "message": "£"
   },
-  "addOverallPrices": {
-    "message": "Add function 'Overall stadium prices'. Changing the overall price will change the entry prices of all blocks of the correspondent kind of game."
-  },
   "generalPriceLeague": {
     "message": "General entry price: League"
   },
@@ -28,9 +22,6 @@
   },
   "generalPriceCup": {
     "message": "General entry price: Cup"
-  },
-  "addOffsetPrices": {
-    "message": "Add function 'Block offset prices'. The offset price of a block will be added to the overall stadium price of the correspondent kind of game."
   },
   "offset": {
     "message": "Offset"

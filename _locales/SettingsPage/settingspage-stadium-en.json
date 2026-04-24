@@ -1,0 +1,17 @@
+{
+  "settingsStadium_menu": {
+    "message": "Stadium"
+  },
+  "settingsStadium_header": {
+    "message": "Stadium"
+  },
+  "settingsStadium_intro": {
+    "message": "The following settings are for the stadium."
+  },
+  "settingsStadium_addOverallPrices": {
+    "message": "Add function 'Overall stadium prices'. Changing the overall price will change the entry prices of all blocks of the correspondent kind of game."
+  },
+  "settingsStadium_addOffsetPrices": {
+    "message": "Add function 'Block offset prices'. The offset price of a block will be added to the overall stadium price of the correspondent kind of game."
+  }
+}

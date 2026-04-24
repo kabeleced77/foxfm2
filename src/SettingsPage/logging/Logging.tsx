@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-  RessourceSettingsPageLogger,
+  RessourceSettingsPageLoggerHeader,
   RessourceSettingsPageLoggerIntro,
 } from "../../Common/Ressource";
 import {
@@ -19,6 +19,7 @@ import {
   IRegisteredLoggingModules,
   RegisteredLoggingModules,
 } from "../../Common/Logger/RegisteredLoggingModules";
+import Section from "../Components/Section";
 
 export default function Logging({ logger }: { logger: ILogger }) {
   const [appLogLevel, setAppLogLevel] = useState<ILogLevel>(new LogLevelInfo());
@@ -65,15 +66,15 @@ export default function Logging({ logger }: { logger: ILogger }) {
         return new RegisteredLoggingModules(updatedLoggingModules);
       });
   }
-  const ressourceHeading = new RessourceSettingsPageLogger().value();
-  const ressourceIntro = new RessourceSettingsPageLoggerIntro().value();
   return (
     <div>
       <h1 className="w3-xxxlarge w3-text-red">
-        <b>{ressourceHeading}</b>
+        <b>{new RessourceSettingsPageLoggerHeader().value()}</b>
       </h1>
       <hr style={{ width: 50, border: "5px solid red" }} className="w3-round" />
-      <p>{ressourceIntro}</p>
+      <Section>
+        <p>{new RessourceSettingsPageLoggerIntro().value()}</p>
+      </Section>
       <div className="w3-row-padding">
         <LoggingLevel
           module="Application"

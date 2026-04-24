@@ -1,8 +1,11 @@
 {
-  "teamTableSettings_menu": {
+  "settingsTeamTable_menu": {
     "message": "Team Table"
   },
-  "teamTableSettings_header": {
-    "message": "Settings for the team table"
+  "settingsTeamTable_header": {
+    "message": "Team Table"
+  },
+  "settingsTeamTable_intro": {
+    "message": "Here you can customize the settings for the team table."
   }
 }

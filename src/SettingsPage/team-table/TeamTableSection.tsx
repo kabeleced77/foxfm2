@@ -4,11 +4,12 @@ import { LogLevelError } from "../../Common/Logger/LogLevel";
 import { RegisteredLoggingModule } from "../../Common/Logger/RegisteredLoggingModule";
 import { EasyLogger } from "../../Common/Logger/EasyLogger";
 import {
-  RessourceTeamTableSettingsHeader,
   RessourceCommonButtonApply,
   RessourceCommonSettingsExtendColumnStrength,
   RessourceCommonSettingsAddColumnAwpDiff,
   RessourceCommonSettingsAddColumnNextStrength,
+  RessourceSettingsPageTeamTableIntro,
+  RessourceSettingsPageTeamTableHeader,
 } from "../../Common/Ressource";
 import {
   ITeamTableSetting,
@@ -16,6 +17,7 @@ import {
 } from "../../Common/Settings/TeamTableSetting";
 import { SettingNameTeamTable } from "../../Common/Settings/SettingNameTeamTable";
 import { StorageLocal } from "../../Common/Toolkit/StorageLocal";
+import Section from "../Components/Section";
 
 interface ITeamTableSectionProps {
   logger: ILogger;
@@ -75,9 +77,12 @@ const TeamTableSection: React.FC<ITeamTableSectionProps> = ({ logger }) => {
   return (
     <>
       <h1 className="w3-xxxlarge w3-text-red">
-        <b>{new RessourceTeamTableSettingsHeader().value().toString()}</b>
+        <b>{new RessourceSettingsPageTeamTableHeader().value().toString()}</b>
       </h1>
       <hr style={{ width: 50, border: "5px solid red" }} className="w3-round" />
+      <Section>
+        <b>{new RessourceSettingsPageTeamTableIntro().value().toString()}</b>
+      </Section>
 
       {/* Team Table Settings Form */}
       {resourcesLoaded && (

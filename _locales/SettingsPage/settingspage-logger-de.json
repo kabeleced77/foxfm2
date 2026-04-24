@@ -1,8 +1,11 @@
 {
-  "loggerSettingLogger": {
+  "settingsLogger_menu": {
     "message": "Logger"
   },
-  "loggerSettingIntro": {
-    "message": "Auf dieser Seite können Einstellungen an den Funktionen des Addon Logger vorgenommen werden."
+  "settingsLogger_header": {
+    "message": "Logger"
+  },
+  "settingsLogger_intro": {
+    "message": "Einstellungen für den Addon Logger. Hauptsächlich für die interne Fehleranalyse benötigt."
   }
 }

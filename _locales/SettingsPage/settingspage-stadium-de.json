@@ -1,0 +1,17 @@
+{
+  "settingsStadium_menu": {
+    "message": "Stadion"
+  },
+  "settingsStadium_header": {
+    "message": "Stadion"
+  },
+  "settingsStadium_intro": {
+    "message": "Im folgenden werden die Einstellungen für das Stadion vorgenommen."
+  },
+  "settingsStadium_addOverallPrices": {
+    "message": "Füge Funktion 'Allgemeine Stadiumspreise' ein. Die Eintrittspreise für das entsprechende Spiel werden für alle Blöcke auf einmal geändert."
+  },
+  "settingsStadium_addOffsetPrices": {
+    "message": "Füge Funktion 'Aufpreis Stadiumblock' ein. Die Aufpreis des jeweiligen Blocks für das entsprechende Spiel, wird dem allgemeinen Stadiumspreis hinzuaddiert."
+  }
+}

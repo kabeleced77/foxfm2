@@ -2,9 +2,6 @@
   "stadium": {
     "message": "Stadion"
   },
-  "stadiumSettings": {
-    "message": "Stadion Einstellungen"
-  },
   "league": {
     "message": "Liga: "
   },
@@ -17,9 +14,6 @@
   "currencySign": {
     "message": "€"
   },
-  "addOverallPrices": {
-    "message": "Füge Funktion 'Allgemeine Stadiumspreise' ein. Die Eintrittspreise für das entsprechende Spiel werden für alle Blöcke auf einmal geändert."
-  },
   "generalPriceLeague": {
     "message": "Allg. Eintrittspreis: Liga"
   },
@@ -28,9 +22,6 @@
   },
   "generalPriceCup": {
     "message": "Allg. Eintrittspreis: OFM-Pokal"
-  },
-  "addOffsetPrices": {
-    "message": "Füge Funktion 'Aufpreis Stadiumblock' ein. Die Aufpreis des jeweiligen Blocks für das entsprechende Spiel, wird dem allgemeinen Stadiumspreis hinzuaddiert."
   },
   "offset": {
     "message": "Aufschlag"

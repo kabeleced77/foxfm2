@@ -23,9 +23,9 @@ import {
   RessourceCommonAppName,
   RessourceSettingsPageApplicationIntro,
   RessourceSettingsPageApplicationSettings,
-  RessourceSettingsPageLogger,
-  RessourceStadium,
-  RessourceTeamTableSettingsMenu,
+  RessourceSettingsPageLoggerMenu,
+  RessourceSettingsPageStadiumMenu,
+  RessourceSettingsPageTeamTableMenu,
 } from "../Common/Ressource";
 
 const logger = new Logger(
@@ -48,17 +48,17 @@ ReactDOM.createRoot(document.body).render(
       menuSections={[
         {
           id: "stadium",
-          label: new RessourceStadium().value().toString(),
+          label: new RessourceSettingsPageStadiumMenu().value().toString(),
           content: <StadiumSection logger={logger} />,
         },
         {
           id: "team-table",
-          label: new RessourceTeamTableSettingsMenu().value().toString(),
+          label: new RessourceSettingsPageTeamTableMenu().value().toString(),
           content: <TeamTableSection logger={logger} />,
         },
         {
           id: "logging",
-          label: new RessourceSettingsPageLogger().value().toString(),
+          label: new RessourceSettingsPageLoggerMenu().value().toString(),
           content: <Logging logger={logger} />,
         },
       ]}

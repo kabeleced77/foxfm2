@@ -5,13 +5,15 @@ import { RegisteredLoggingModule } from "../../Common/Logger/RegisteredLoggingMo
 import { EasyLogger } from "../../Common/Logger/EasyLogger";
 import {
   RessourceCommonButtonApply,
-  RessourceStadium,
-  RessourceStadiumAddOffsetPrices,
-  RessourceStadiumAddOverallPrices,
+  RessourceSettingsPageStadiumAddOffsetPrices,
+  RessourceSettingsPageStadiumAddOverallPrices,
+  RessourceSettingsPageStadiumHeader,
+  RessourceSettingsPageStadiumIntro,
 } from "../../Common/Ressource";
 import { StadiumBlocksSetting } from "../../Common/Settings/StadiumBlocksSetting";
 import { StadiumOverallEntryPricesSetting } from "../../Common/Settings/StadiumOverallEntryPricesSetting";
 import { IStadiumOverallEntryPrices } from "../../Common/StadiumOverallEntryPrices";
+import Section from "../Components/Section";
 
 interface StadiumSectionProps {
   logger: ILogger;
@@ -72,9 +74,12 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({ logger }) => {
   return (
     <>
       <h1 className="w3-xxxlarge w3-text-red">
-        <b>{new RessourceStadium().value().toString()}</b>
+        <b>{new RessourceSettingsPageStadiumHeader().value().toString()}</b>
       </h1>
       <hr style={{ width: 50, border: "5px solid red" }} className="w3-round" />
+      <Section>
+        <b>{new RessourceSettingsPageStadiumIntro().value().toString()}</b>
+      </Section>
 
       {/* Stadium Settings Form */}
       {resourcesLoaded && (
@@ -90,7 +95,7 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({ logger }) => {
                       setStadiumOverallPricesActivated(e.target.checked)
                     }
                   />{" "}
-                  {new RessourceStadiumAddOverallPrices().value()},
+                  {new RessourceSettingsPageStadiumAddOverallPrices().value()},
                 </label>
                 <div style={{ marginLeft: "20px", marginTop: "10px" }}>
                   <label>
@@ -102,7 +107,7 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({ logger }) => {
                       }
                       disabled={!stadiumOverallPricesActivated}
                     />{" "}
-                    {new RessourceStadiumAddOffsetPrices().value()},
+                    {new RessourceSettingsPageStadiumAddOffsetPrices().value()},
                   </label>
                 </div>
               </div>
