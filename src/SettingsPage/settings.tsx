@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import SettingsPageMenu from "./SettingsPageMenu";
 import StadiumSection from "./stadium/StadiumSection";
+import TeamTableSection from "./team-table/TeamTableSection";
 import Logging from "./logging/Logging";
 import { Logger } from "../Common/Logger/Logger";
 import { ILogLevel, LogLevelError } from "../Common/Logger/LogLevel";
@@ -18,7 +19,7 @@ import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 import "./w3.css";
 import "./w3-colors-flat.css";
 import "./custom.css";
-import { RessourceCommonAppName, RessourceSettingsPageApplicationSettings, RessourceSettingsPageLogger, RessourceStadium } from "../Common/Ressource";
+import { RessourceCommonAppName, RessourceSettingsPageApplicationSettings, RessourceSettingsPageLogger, RessourceStadium, RessourceTeamTableSettingsMenu } from "../Common/Ressource";
 
 const logger = new Logger(
   new StorageLocal<ILogLevel>(
@@ -42,6 +43,11 @@ ReactDOM.createRoot(document.body).render(
           id: "stadium",
           label: new RessourceStadium().value().toString(),
           content: <StadiumSection logger={logger} />,
+        },
+        {
+          id: "team-table",
+          label: new RessourceTeamTableSettingsMenu().value().toString(),
+          content: <TeamTableSection logger={logger} />,
         },
         {
           id: "logging",
