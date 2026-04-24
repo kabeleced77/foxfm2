@@ -45,6 +45,19 @@ const logger = new Logger(
 ReactDOM.createRoot(document.body).render(
   <React.StrictMode>
     <SettingsPageMenu
+      headerContent={
+        <div className="w3-container" id="#">
+          <h1 className="w3-jumbo">
+            <b>
+              {new RessourceCommonAppName().value().toString()} {" "}
+              {new RessourceSettingsPageApplicationSettings()
+                .value()
+                .toString()}
+            </b>
+          </h1>
+          {new RessourceSettingsPageApplicationIntro().value().toString()}
+        </div>
+      }
       menuSections={[
         {
           id: "stadium",
@@ -62,19 +75,6 @@ ReactDOM.createRoot(document.body).render(
           content: <Logging logger={logger} />,
         },
       ]}
-      headerContent={
-        <div className="w3-container" id="showcase">
-          <h1 className="w3-jumbo">
-            <b>
-              {new RessourceCommonAppName().value().toString()}{" "}
-              {new RessourceSettingsPageApplicationSettings()
-                .value()
-                .toString()}
-            </b>
-          </h1>
-          {new RessourceSettingsPageApplicationIntro().value().toString()}
-        </div>
-      }
     />
   </React.StrictMode>,
 );

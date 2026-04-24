@@ -1,5 +1,8 @@
 import React, { useState, useEffect, ReactNode } from "react";
-import { RessourceCommonAppName, RessourceSettingsPageApplicationHome } from "../Common/Ressource";
+import {
+  RessourceCommonAppName,
+  RessourceSettingsPageApplicationHome,
+} from "../Common/Ressource";
 
 export interface MenuSection {
   id: string;
@@ -8,22 +11,24 @@ export interface MenuSection {
 }
 
 interface SettingsPageMenuProps {
-  menuSections: MenuSection[];
   headerContent?: ReactNode;
+  menuSections: MenuSection[];
   footerContent?: ReactNode;
 }
 
 const SettingsPageMenu: React.FC<SettingsPageMenuProps> = ({
-  menuSections,
   headerContent,
+  menuSections,
   footerContent,
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const applicationName = new RessourceCommonAppName().value().toString();
-  const homeLabel = new RessourceSettingsPageApplicationHome().value().toString();
+  const homeLabel = new RessourceSettingsPageApplicationHome()
+    .value()
+    .toString();
 
   useEffect(() => {
-    document.title = `${applicationName} - Settings`;
+    document.title = `${applicationName}`;
   }, [applicationName]);
 
   const w3_open = () => setSidebarOpen(true);
