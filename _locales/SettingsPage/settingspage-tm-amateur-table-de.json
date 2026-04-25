@@ -1,8 +1,11 @@
 {
   "transferMarketAmateurTableSettings_menu": {
-    "message": "TM Amateure"
+    "message": "Transfer Amateure"
   },
   "transferMarketAmateurTableSettings_header": {
-    "message": "Einstellungen für die Amateur Transfermarkt Spielertabelle"
+    "message": "Transfer Amateure"
+  },
+  "transferMarketAmateurTableSettings_intro": {
+    "message": "Einstellungen für die Tabelle des Transfermarkts der Amateure."
   }
 }

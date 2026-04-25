@@ -27,7 +27,7 @@ import {
   RessourceSettingsPageLoggerMenu,
   RessourceSettingsPageStadiumMenu,
   RessourceSettingsPageTeamTableMenu,
-  RessourceTransferMarketAmateurTableSettingsMenu,
+  RessourceSettingsPageTransfersAmateurMenu,
 } from "../Common/Ressource";
 
 const logger = new Logger(
@@ -73,7 +73,7 @@ ReactDOM.createRoot(document.body).render(
         },
         {
           id: "transfer-market-amateur-table",
-          label: new RessourceTransferMarketAmateurTableSettingsMenu().value().toString(),
+          label: new RessourceSettingsPageTransfersAmateurMenu().value().toString(),
           content: <TransferMarketAmateurTableSection logger={logger} />,
         },
         {

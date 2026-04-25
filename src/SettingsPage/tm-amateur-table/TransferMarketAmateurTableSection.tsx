@@ -9,7 +9,8 @@ import {
   RessourceCommonSettingsAddColumnAwpDiff,
   RessourceCommonSettingsAddColumnNextStrength,
   RessourceCommonSettingsExtendColumnStrength,
-  RessourceTransferMarketAmateurTableSettingsHeader,
+  RessourceSettingsPageTransfersAmateurHeader,
+  RessourceSettingsPageTransfersAmateurIntro,
 } from "../../Common/Ressource";
 import {
   ITransferMarketAmateurPlayerTableSettings,
@@ -17,28 +18,41 @@ import {
 } from "../../Common/Settings/TransferMarketAmateurPlayerTableSettings";
 import { SettingNameTransferMarketAmateurTable } from "../../Common/Settings/SettingNameTransferMarketAmateurTable";
 import { StorageLocal } from "../../Common/Toolkit/StorageLocal";
+import Section from "../Components/Section";
 
 interface TransferMarketAmateurTableSectionProps {
   logger: ILogger;
 }
 
-const TransferMarketAmateurTableSection: React.FC<TransferMarketAmateurTableSectionProps> = ({ logger }) => {
+const TransferMarketAmateurTableSection: React.FC<
+  TransferMarketAmateurTableSectionProps
+> = ({ logger }) => {
   const [addAwpActivated, setAddAwpActivated] = useState(false);
   const [addAwpDiffActivated, setAddAwpDiffActivated] = useState(false);
-  const [addNextStrengthActivated, setAddNextStrengthActivated] = useState(false);
+  const [addNextStrengthActivated, setAddNextStrengthActivated] =
+    useState(false);
   const [extendStrengthActivated, setExtendStrengthActivated] = useState(false);
   const [resourcesLoaded, setResourcesLoaded] = useState(false);
 
   const easyLogger = new EasyLogger(
     logger,
-    new RegisteredLoggingModule("TransferMarketAmateurTableSection", new LogLevelError()),
+    new RegisteredLoggingModule(
+      "TransferMarketAmateurTableSection",
+      new LogLevelError(),
+    ),
   );
 
   const [settingsStorage] = useState(
-    () => new StorageLocal<ITransferMarketAmateurPlayerTableSettings>(
-      new SettingNameTransferMarketAmateurTable(),
-      new TransferMarketAmateurPlayerTableSettings(false, false, false, false),
-    ),
+    () =>
+      new StorageLocal<ITransferMarketAmateurPlayerTableSettings>(
+        new SettingNameTransferMarketAmateurTable(),
+        new TransferMarketAmateurPlayerTableSettings(
+          false,
+          false,
+          false,
+          false,
+        ),
+      ),
   );
 
   useEffect(() => {
@@ -71,9 +85,14 @@ const TransferMarketAmateurTableSection: React.FC<TransferMarketAmateurTableSect
   return (
     <>
       <h1 className="w3-xxxlarge w3-text-red">
-        <b>{new RessourceTransferMarketAmateurTableSettingsHeader().value().toString()}</b>
+        <b>
+          {new RessourceSettingsPageTransfersAmateurHeader().value().toString()}
+        </b>
       </h1>
       <hr style={{ width: 50, border: "5px solid red" }} className="w3-round" />
+      <Section>
+        {new RessourceSettingsPageTransfersAmateurIntro().value().toString()}
+      </Section>
 
       {resourcesLoaded && (
         <section style={{ marginBottom: "30px" }}>
@@ -84,8 +103,10 @@ const TransferMarketAmateurTableSection: React.FC<TransferMarketAmateurTableSect
                   <input
                     type="checkbox"
                     checked={addAwpActivated}
-                    onChange={(event) => setAddAwpActivated(event.target.checked)}
-                  />{' '}
+                    onChange={(event) =>
+                      setAddAwpActivated(event.target.checked)
+                    }
+                  />{" "}
                   {new RessourceCommonSettingsAddColumnAwp().value()}
                 </label>
               </div>
@@ -94,8 +115,10 @@ const TransferMarketAmateurTableSection: React.FC<TransferMarketAmateurTableSect
                   <input
                     type="checkbox"
                     checked={addAwpDiffActivated}
-                    onChange={(event) => setAddAwpDiffActivated(event.target.checked)}
-                  />{' '}
+                    onChange={(event) =>
+                      setAddAwpDiffActivated(event.target.checked)
+                    }
+                  />{" "}
                   {new RessourceCommonSettingsAddColumnAwpDiff().value()}
                 </label>
               </div>
@@ -104,8 +127,10 @@ const TransferMarketAmateurTableSection: React.FC<TransferMarketAmateurTableSect
                   <input
                     type="checkbox"
                     checked={addNextStrengthActivated}
-                    onChange={(event) => setAddNextStrengthActivated(event.target.checked)}
-                  />{' '}
+                    onChange={(event) =>
+                      setAddNextStrengthActivated(event.target.checked)
+                    }
+                  />{" "}
                   {new RessourceCommonSettingsAddColumnNextStrength().value()}
                 </label>
               </div>
@@ -114,8 +139,10 @@ const TransferMarketAmateurTableSection: React.FC<TransferMarketAmateurTableSect
                   <input
                     type="checkbox"
                     checked={extendStrengthActivated}
-                    onChange={(event) => setExtendStrengthActivated(event.target.checked)}
-                  />{' '}
+                    onChange={(event) =>
+                      setExtendStrengthActivated(event.target.checked)
+                    }
+                  />{" "}
                   {new RessourceCommonSettingsExtendColumnStrength().value()}
                 </label>
               </div>

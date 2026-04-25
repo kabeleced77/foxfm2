@@ -91,6 +91,10 @@ export class RessourceSettingsPageTeamTableMenu extends Ressource { constructor(
 export class RessourceSettingsPageTeamTableHeader extends Ressource { constructor() { super("settingsTeamTable_header"); } }
 export class RessourceSettingsPageTeamTableIntro extends Ressource { constructor() { super("settingsTeamTable_intro"); } }
 
+export class RessourceSettingsPageTransfersAmateurMenu extends Ressource { constructor() { super("transferMarketAmateurTableSettings_menu"); } }
+export class RessourceSettingsPageTransfersAmateurHeader extends Ressource { constructor() { super("transferMarketAmateurTableSettings_header"); } }
+export class RessourceSettingsPageTransfersAmateurIntro extends Ressource { constructor() { super("transferMarketAmateurTableSettings_intro"); } }
+
 export class RessourceStadium extends Ressource { constructor() { super("stadium"); } }
 export class RessourceStadiumLeague extends Ressource { constructor() { super("league"); } }
 export class RessourceStadiumFriendly extends Ressource { constructor() { super("friendly"); } }
@@ -128,9 +132,6 @@ export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersHead
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_description"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfers extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersWarningBrowserLanguageMustMatch extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_warning_browserLanguageMustMatch"); } }
-
-export class RessourceTransferMarketAmateurTableSettingsMenu extends Ressource { constructor() { super("transferMarketAmateurTableSettings_menu"); } }
-export class RessourceTransferMarketAmateurTableSettingsHeader extends Ressource { constructor() { super("transferMarketAmateurTableSettings_header"); } }
 
 export class RessourceStrengthAwpLimitsSettingsMenu extends Ressource { constructor() { super("strengthAwpLimitsSettings_menu"); } }
 export class RessourceStrengthAwpLimitsSettingsHeader extends Ressource { constructor() { super("strengthAwpLimitsSettings_header"); } }
