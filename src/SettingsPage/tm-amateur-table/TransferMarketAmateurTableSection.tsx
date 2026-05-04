@@ -19,6 +19,7 @@ import {
 import { SettingNameTransferMarketAmateurTable } from "../../Common/Settings/SettingNameTransferMarketAmateurTable";
 import { StorageLocal } from "../../Common/Toolkit/StorageLocal";
 import Section from "../Components/Section";
+import InputCheckbox from "../Components/InputCheckbox";
 
 interface TransferMarketAmateurTableSectionProps {
   logger: ILogger;
@@ -99,55 +100,56 @@ const TransferMarketAmateurTableSection: React.FC<
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <div style={{ marginBottom: "15px" }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={addAwpActivated}
-                    onChange={(event) =>
-                      setAddAwpActivated(event.target.checked)
-                    }
-                  />{" "}
-                  {new RessourceCommonSettingsAddColumnAwp().value()}
-                </label>
+                <InputCheckbox
+                  id="add-awp"
+                  name="addAwp"
+                  label={new RessourceCommonSettingsAddColumnAwp()
+                    .value()
+                    .toString()}
+                  checked={addAwpActivated}
+                  onChange={(event) => setAddAwpActivated(event.target.checked)}
+                />
               </div>
               <div style={{ marginBottom: "15px" }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={addAwpDiffActivated}
-                    onChange={(event) =>
-                      setAddAwpDiffActivated(event.target.checked)
-                    }
-                  />{" "}
-                  {new RessourceCommonSettingsAddColumnAwpDiff().value()}
-                </label>
+                <InputCheckbox
+                  id="add-awp-diff"
+                  name="addAwpDiff"
+                  label={new RessourceCommonSettingsAddColumnAwpDiff()
+                    .value()
+                    .toString()}
+                  checked={addAwpDiffActivated}
+                  onChange={(event) =>
+                    setAddAwpDiffActivated(event.target.checked)
+                  }
+                />
               </div>
               <div style={{ marginBottom: "15px" }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={addNextStrengthActivated}
-                    onChange={(event) =>
-                      setAddNextStrengthActivated(event.target.checked)
-                    }
-                  />{" "}
-                  {new RessourceCommonSettingsAddColumnNextStrength().value()}
-                </label>
+                <InputCheckbox
+                  id="add-next-strength"
+                  name="addNextStrength"
+                  label={new RessourceCommonSettingsAddColumnNextStrength()
+                    .value()
+                    .toString()}
+                  checked={addNextStrengthActivated}
+                  onChange={(event) =>
+                    setAddNextStrengthActivated(event.target.checked)
+                  }
+                />
               </div>
               <div style={{ marginBottom: "15px" }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={extendStrengthActivated}
-                    onChange={(event) =>
-                      setExtendStrengthActivated(event.target.checked)
-                    }
-                  />{" "}
-                  {new RessourceCommonSettingsExtendColumnStrength().value()}
-                </label>
+                <InputCheckbox
+                  id="extend-strength"
+                  name="extendStrength"
+                  label={new RessourceCommonSettingsExtendColumnStrength()
+                    .value()
+                    .toString()}
+                  checked={extendStrengthActivated}
+                  onChange={(event) =>
+                    setExtendStrengthActivated(event.target.checked)
+                  }
+                />
               </div>
             </div>
-
             <div className="form-group">
               <button type="submit" className="w3-button w3-red">
                 {new RessourceCommonButtonApply().value()}
