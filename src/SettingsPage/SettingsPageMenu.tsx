@@ -127,15 +127,15 @@ const SettingsPageMenu: React.FC<SettingsPageMenuProps> = ({
           footerContent
         ) : (
           <p className="w3-right">
-            Powered by{" "}
+            Reported Issues on GitHub foxfm{" "}
             <a
-              href="https://www.w3schools.com/w3css/default.asp"
-              title="W3.CSS"
+              href="https://github.com/kabeleced77/foxfm2/issues"
+              title="Report issues on GitHub"
               target="_blank"
               rel="noopener noreferrer"
               className="w3-hover-opacity"
             >
-              w3.css
+              project-page.
             </a>
           </p>
         )}
