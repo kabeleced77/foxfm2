@@ -23,17 +23,17 @@ export default function InputCheckbox(input: IInput) {
     <>
       <label
         className={labelClass}
-        style={{ display: input.label ? "inline" : "none" }}
+        style={{ display: "block" }}
         htmlFor={input.id}
       >
         <input
           type="checkbox"
           id={input.id}
           name={input.name ? input.name : input.id}
-          className={`w3-check w3-padding-small ${input.inputClass}`}
+          className={`w3-check w3-padding-small w3-margin-right ${input.inputClass}`}
           checked={inputChecked}
           onChange={handleInputCheckedChange}
-        />{" "}
+        />
         {input.label}
       </label>
     </>
