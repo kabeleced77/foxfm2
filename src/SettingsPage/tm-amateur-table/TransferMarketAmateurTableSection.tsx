@@ -4,7 +4,6 @@ import { LogLevelError } from "../../Common/Logger/LogLevel";
 import { RegisteredLoggingModule } from "../../Common/Logger/RegisteredLoggingModule";
 import { EasyLogger } from "../../Common/Logger/EasyLogger";
 import {
-  RessourceCommonButtonApply,
   RessourceCommonSettingsAddColumnAwp,
   RessourceCommonSettingsAddColumnAwpDiff,
   RessourceCommonSettingsAddColumnNextStrength,
@@ -18,8 +17,7 @@ import {
 } from "../../Common/Settings/TransferMarketAmateurPlayerTableSettings";
 import { SettingNameTransferMarketAmateurTable } from "../../Common/Settings/SettingNameTransferMarketAmateurTable";
 import { StorageLocal } from "../../Common/Toolkit/StorageLocal";
-import InputCheckbox from "../Components/InputCheckbox";
-import Button from "../Components/Button";
+import SettingsForm from "../Components/SettingsForm";
 
 interface TransferMarketAmateurTableSectionProps {
   logger: ILogger;
@@ -33,7 +31,7 @@ const TransferMarketAmateurTableSection: React.FC<
   const [addNextStrengthActivated, setAddNextStrengthActivated] =
     useState(false);
   const [extendStrengthActivated, setExtendStrengthActivated] = useState(false);
-  const [resourcesLoaded, setResourcesLoaded] = useState(false);
+  const [settingsLoaded, setSettingsLoaded] = useState(false);
 
   const easyLogger = new EasyLogger(
     logger,
@@ -62,7 +60,7 @@ const TransferMarketAmateurTableSection: React.FC<
       setAddAwpDiffActivated(settings.addAwpDiffColumnActivated());
       setAddNextStrengthActivated(settings.addNextStrengthColumnActivated());
       setExtendStrengthActivated(settings.extendStrengthColumnActivated());
-      setResourcesLoaded(true);
+      setSettingsLoaded(true);
     });
   }, [settingsStorage]);
 
@@ -85,63 +83,54 @@ const TransferMarketAmateurTableSection: React.FC<
 
   return (
     <>
-      <h1 className="w3-xxxlarge w3-text-red">
-        <b>
-          {new RessourceSettingsPageTransfersAmateurHeader().value().toString()}
-        </b>
-      </h1>
-      <hr style={{ width: 50, border: "5px solid red" }} className="w3-round" />
-      {new RessourceSettingsPageTransfersAmateurIntro().value().toString()}
-
-      {resourcesLoaded && (
-        <form onSubmit={handleSubmit}>
-          <InputCheckbox
-            id="add-awp"
-            name="addAwp"
-            label={new RessourceCommonSettingsAddColumnAwp().value().toString()}
-            checked={addAwpActivated}
-            onChange={(event) => setAddAwpActivated(event.target.checked)}
-          />
-          <InputCheckbox
-            id="add-awp-diff"
-            name="addAwpDiff"
-            label={new RessourceCommonSettingsAddColumnAwpDiff()
-              .value()
-              .toString()}
-            checked={addAwpDiffActivated}
-            onChange={(event) => setAddAwpDiffActivated(event.target.checked)}
-          />
-          <InputCheckbox
-            id="add-next-strength"
-            name="addNextStrength"
-            label={new RessourceCommonSettingsAddColumnNextStrength()
-              .value()
-              .toString()}
-            checked={addNextStrengthActivated}
-            labelClass=""
-            onChange={(event) =>
-              setAddNextStrengthActivated(event.target.checked)
-            }
-          />
-          <InputCheckbox
-            id="extend-strength"
-            name="extendStrength"
-            label={new RessourceCommonSettingsExtendColumnStrength()
-              .value()
-              .toString()}
-            labelClass=""
-            checked={extendStrengthActivated}
-            onChange={(event) =>
-              setExtendStrengthActivated(event.target.checked)
-            }
-          />
-          <Button
-            id="apply-settings"
-            type="submit"
-            title={new RessourceCommonButtonApply().value().toString()}
-            value={new RessourceCommonButtonApply().value().toString()}
-          />
-        </form>
+      {settingsLoaded && (
+        <SettingsForm
+          header={new RessourceSettingsPageTransfersAmateurHeader()
+            .value()
+            .toString()}
+          intro={new RessourceSettingsPageTransfersAmateurIntro()
+            .value()
+            .toString()}
+          checkboxes={[
+            {
+              id: "tma-add-awp",
+              label: new RessourceCommonSettingsAddColumnAwp()
+                .value()
+                .toString(),
+              checked: addAwpActivated,
+              onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+                setAddAwpActivated(event.target.checked),
+            },
+            {
+              id: "tma-add-awp-diff",
+              label: new RessourceCommonSettingsAddColumnAwpDiff()
+                .value()
+                .toString(),
+              checked: addAwpDiffActivated,
+              onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+                setAddAwpDiffActivated(event.target.checked),
+            },
+            {
+              id: "tma-add-next-strength",
+              label: new RessourceCommonSettingsAddColumnNextStrength()
+                .value()
+                .toString(),
+              checked: addNextStrengthActivated,
+              onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+                setAddNextStrengthActivated(event.target.checked),
+            },
+            {
+              id: "tma-extend-strength",
+              label: new RessourceCommonSettingsExtendColumnStrength()
+                .value()
+                .toString(),
+              checked: extendStrengthActivated,
+              onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+                setExtendStrengthActivated(event.target.checked),
+            },
+          ]}
+          handleSubmit={handleSubmit}
+        />
       )}
     </>
   );
