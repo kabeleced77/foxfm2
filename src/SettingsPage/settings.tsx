@@ -4,7 +4,7 @@ import SettingsPageMenu from "./SettingsPageMenu";
 import SettingsStadium from "./stadium/SettingsStadium";
 import SettingsTeamTable from "./team-table/SettingsTeamTable";
 import SettingsTransferMarketAmateur from "./tm-amateur-table/SettingsTransferMarketAmateur";
-import Logging from "./logging/Logging";
+import SettingsLogging from "./logging/SettingsLogging";
 import { Logger } from "../Common/Logger/Logger";
 import { ILogLevel, LogLevelError } from "../Common/Logger/LogLevel";
 import { IRegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule";
@@ -79,7 +79,7 @@ ReactDOM.createRoot(document.body).render(
         {
           id: "logging",
           label: new RessourceSettingsPageLoggerMenu().value().toString(),
-          content: <Logging logger={logger} />,
+          content: <SettingsLogging logger={logger} />,
         },
       ]}
     />

@@ -21,7 +21,7 @@ import {
 } from "../../Common/Logger/RegisteredLoggingModules";
 import Section from "../Components/Section";
 
-export default function Logging({ logger }: { logger: ILogger }) {
+export default function SettingsLogging({ logger }: { logger: ILogger }) {
   const [appLogLevel, setAppLogLevel] = useState<ILogLevel>(new LogLevelInfo());
   const [loggingModules, setLoggingModules] =
     useState<IRegisteredLoggingModules>(
