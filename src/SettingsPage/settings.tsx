@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import SettingsPageMenu from "./SettingsPageMenu";
 import StadiumSection from "./stadium/StadiumSection";
 import TeamTableSection from "./team-table/TeamTableSection";
-import TransferMarketAmateurTableSection from "./tm-amateur-table/TransferMarketAmateurTableSection";
+import SettingsTransferMarketAmateur from "./tm-amateur-table/SettingsTransferMarketAmateur";
 import Logging from "./logging/Logging";
 import { Logger } from "../Common/Logger/Logger";
 import { ILogLevel, LogLevelError } from "../Common/Logger/LogLevel";
@@ -74,7 +74,7 @@ ReactDOM.createRoot(document.body).render(
         {
           id: "transfer-market-amateur-table",
           label: new RessourceSettingsPageTransfersAmateurMenu().value().toString(),
-          content: <TransferMarketAmateurTableSection logger={logger} />,
+          content: <SettingsTransferMarketAmateur logger={logger} />,
         },
         {
           id: "logging",

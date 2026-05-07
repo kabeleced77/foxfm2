@@ -23,7 +23,7 @@ interface TransferMarketAmateurTableSectionProps {
   logger: ILogger;
 }
 
-const TransferMarketAmateurTableSection: React.FC<
+const SettingsTransferMarketAmateur: React.FC<
   TransferMarketAmateurTableSectionProps
 > = ({ logger }) => {
   const [addAwpActivated, setAddAwpActivated] = useState(false);
@@ -136,4 +136,4 @@ const TransferMarketAmateurTableSection: React.FC<
   );
 };
 
-export default TransferMarketAmateurTableSection;
+export default SettingsTransferMarketAmateur;
