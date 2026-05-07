@@ -23,7 +23,7 @@ interface ITeamTableSectionProps {
   logger: ILogger;
 }
 
-const TeamTableSection: React.FC<ITeamTableSectionProps> = ({ logger }) => {
+const SettingsTeamTable: React.FC<ITeamTableSectionProps> = ({ logger }) => {
   const [extendColumngStrengthActivated, setExtendColumngStrengthActivated] =
     useState(false);
   const [addColumngAwpDiffActivated, setAddColumngAwpDiffActivated] =
@@ -139,4 +139,4 @@ const TeamTableSection: React.FC<ITeamTableSectionProps> = ({ logger }) => {
   );
 };
 
-export default TeamTableSection;
+export default SettingsTeamTable;
