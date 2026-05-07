@@ -19,7 +19,7 @@ interface StadiumSectionProps {
   logger: ILogger;
 }
 
-const StadiumSection: React.FC<StadiumSectionProps> = ({ logger }) => {
+const SettingsStadium: React.FC<StadiumSectionProps> = ({ logger }) => {
   const [modalImage, setModalImage] = useState<string | null>(null);
   const [modalCaption, setModalCaption] = useState<string>("");
   const [stadiumOverallPricesActivated, setStadiumOverallPricesActivated] =
@@ -167,4 +167,4 @@ const StadiumSection: React.FC<StadiumSectionProps> = ({ logger }) => {
   );
 };
 
-export default StadiumSection;
+export default SettingsStadium;

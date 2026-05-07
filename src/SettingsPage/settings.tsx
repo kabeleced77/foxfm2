@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import SettingsPageMenu from "./SettingsPageMenu";
-import StadiumSection from "./stadium/StadiumSection";
+import SettingsStadium from "./stadium/SettingsStadium";
 import SettingsTeamTable from "./team-table/SettingsTeamTable";
 import SettingsTransferMarketAmateur from "./tm-amateur-table/SettingsTransferMarketAmateur";
 import Logging from "./logging/Logging";
@@ -64,7 +64,7 @@ ReactDOM.createRoot(document.body).render(
         {
           id: "stadium",
           label: new RessourceSettingsPageStadiumMenu().value().toString(),
-          content: <StadiumSection logger={logger} />,
+          content: <SettingsStadium logger={logger} />,
         },
         {
           id: "team-table",
