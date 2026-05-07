@@ -4,7 +4,6 @@ import { LogLevelError } from "../../Common/Logger/LogLevel";
 import { RegisteredLoggingModule } from "../../Common/Logger/RegisteredLoggingModule";
 import { EasyLogger } from "../../Common/Logger/EasyLogger";
 import {
-  RessourceCommonButtonApply,
   RessourceSettingsPageStadiumAddOffsetPrices,
   RessourceSettingsPageStadiumAddOverallPrices,
   RessourceSettingsPageStadiumHeader,
@@ -13,7 +12,7 @@ import {
 import { StadiumBlocksSetting } from "../../Common/Settings/StadiumBlocksSetting";
 import { StadiumOverallEntryPricesSetting } from "../../Common/Settings/StadiumOverallEntryPricesSetting";
 import { IStadiumOverallEntryPrices } from "../../Common/StadiumOverallEntryPrices";
-import Section from "../Components/Section";
+import SettingsForm from "../Components/SettingsForm";
 
 interface StadiumSectionProps {
   logger: ILogger;
@@ -73,54 +72,26 @@ const SettingsStadium: React.FC<StadiumSectionProps> = ({ logger }) => {
 
   return (
     <>
-      <h1 className="w3-xxxlarge w3-text-red">
-        <b>{new RessourceSettingsPageStadiumHeader().value().toString()}</b>
-      </h1>
-      <hr style={{ width: 50, border: "5px solid red" }} className="w3-round" />
-      <Section>
-        <b>{new RessourceSettingsPageStadiumIntro().value().toString()}</b>
-      </Section>
-
-      {/* Stadium Settings Form */}
-      {resourcesLoaded && (
-        <section style={{ marginBottom: "30px" }}>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <div style={{ marginBottom: "15px" }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={stadiumOverallPricesActivated}
-                    onChange={(e) =>
-                      setStadiumOverallPricesActivated(e.target.checked)
-                    }
-                  />{" "}
-                  {new RessourceSettingsPageStadiumAddOverallPrices().value()},
-                </label>
-                <div style={{ marginLeft: "20px", marginTop: "10px" }}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={stadiumOffsetPricesActivated}
-                      onChange={(e) =>
-                        setStadiumOffsetPricesActivated(e.target.checked)
-                      }
-                      disabled={!stadiumOverallPricesActivated}
-                    />{" "}
-                    {new RessourceSettingsPageStadiumAddOffsetPrices().value()},
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <button type="submit" className="w3-button w3-red">
-                {new RessourceCommonButtonApply().value()}
-              </button>
-            </div>
-          </form>
-        </section>
-      )}
+    <SettingsForm
+        header={new RessourceSettingsPageStadiumHeader().value().toString()}
+        intro={new RessourceSettingsPageStadiumIntro().value().toString()}
+        checkboxes={[
+          {
+            id: "stadium-overall-prices",
+            label: new RessourceSettingsPageStadiumAddOverallPrices().value().toString(),
+            checked: stadiumOverallPricesActivated,
+            onChange: (e) => setStadiumOverallPricesActivated(e.target.checked),
+          },
+          {
+            id: "stadium-offset-prices",
+            label: new RessourceSettingsPageStadiumAddOffsetPrices().value().toString(),
+            checked: stadiumOffsetPricesActivated,
+            onChange: (e) =>
+              setStadiumOffsetPricesActivated(e.target.checked),
+          },
+        ]}
+        handleSubmit={handleSubmit}
+      />
 
       {/* Screenshot Images */}
       <div className="w3-row-padding">
