@@ -4,7 +4,6 @@ import { LogLevelError } from "../../Common/Logger/LogLevel";
 import { RegisteredLoggingModule } from "../../Common/Logger/RegisteredLoggingModule";
 import { EasyLogger } from "../../Common/Logger/EasyLogger";
 import {
-  RessourceCommonButtonApply,
   RessourceCommonSettingsExtendColumnStrength,
   RessourceCommonSettingsAddColumnAwpDiff,
   RessourceCommonSettingsAddColumnNextStrength,
@@ -17,7 +16,7 @@ import {
 } from "../../Common/Settings/TeamTableSetting";
 import { SettingNameTeamTable } from "../../Common/Settings/SettingNameTeamTable";
 import { StorageLocal } from "../../Common/Toolkit/StorageLocal";
-import Section from "../Components/Section";
+import SettingsForm from "../Components/SettingsForm";
 
 interface ITeamTableSectionProps {
   logger: ILogger;
@@ -30,7 +29,7 @@ const SettingsTeamTable: React.FC<ITeamTableSectionProps> = ({ logger }) => {
     useState(false);
   const [addColumnNextStrengthActivated, setAddColumnNextStrengthActivated] =
     useState(false);
-  const [resourcesLoaded, setResourcesLoaded] = useState(false);
+  const [settingsLoaded, setSettingsLoaded] = useState(false);
 
   const easyLogger = new EasyLogger(
     logger,
@@ -55,7 +54,7 @@ const SettingsTeamTable: React.FC<ITeamTableSectionProps> = ({ logger }) => {
       setAddColumnNextStrengthActivated(
         settings.addNextStrengthColumnActivated(),
       );
-      setResourcesLoaded(true);
+      setSettingsLoaded(true);
     });
   }, [teamTableSettings]);
 
@@ -76,64 +75,40 @@ const SettingsTeamTable: React.FC<ITeamTableSectionProps> = ({ logger }) => {
 
   return (
     <>
-      <h1 className="w3-xxxlarge w3-text-red">
-        <b>{new RessourceSettingsPageTeamTableHeader().value().toString()}</b>
-      </h1>
-      <hr style={{ width: 50, border: "5px solid red" }} className="w3-round" />
-      <Section>
-        <b>{new RessourceSettingsPageTeamTableIntro().value().toString()}</b>
-      </Section>
-
-      {/* Team Table Settings Form */}
-      {resourcesLoaded && (
-        <section style={{ marginBottom: "30px" }}>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <div style={{ marginBottom: "15px" }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={extendColumngStrengthActivated}
-                    onChange={(e) =>
-                      setExtendColumngStrengthActivated(e.target.checked)
-                    }
-                  />{" "}
-                  {new RessourceCommonSettingsExtendColumnStrength().value()}
-                </label>
-              </div>
-              <div style={{ marginBottom: "15px" }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={addColumngAwpDiffActivated}
-                    onChange={(e) =>
-                      setAddColumngAwpDiffActivated(e.target.checked)
-                    }
-                  />{" "}
-                  {new RessourceCommonSettingsAddColumnAwpDiff().value()}
-                </label>
-              </div>
-              <div style={{ marginBottom: "15px" }}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={addColumnNextStrengthActivated}
-                    onChange={(e) =>
-                      setAddColumnNextStrengthActivated(e.target.checked)
-                    }
-                  />{" "}
-                  {new RessourceCommonSettingsAddColumnNextStrength().value()}
-                </label>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <button type="submit" className="w3-button w3-red">
-                {new RessourceCommonButtonApply().value()}
-              </button>
-            </div>
-          </form>
-        </section>
+      {settingsLoaded && (
+        <SettingsForm
+          header={new RessourceSettingsPageTeamTableHeader().value().toString()}
+          intro={new RessourceSettingsPageTeamTableIntro().value().toString()}
+          checkboxes={[
+            {
+              id: "extend-column-strength",
+              label: new RessourceCommonSettingsExtendColumnStrength()
+                .value()
+                .toString(),
+              checked: extendColumngStrengthActivated,
+              onChange: (e) =>
+                setExtendColumngStrengthActivated(e.target.checked),
+            },
+            {
+              id: "add-column-awp-diff",
+              label: new RessourceCommonSettingsAddColumnAwpDiff()
+                .value()
+                .toString(),
+              checked: addColumngAwpDiffActivated,
+              onChange: (e) => setAddColumngAwpDiffActivated(e.target.checked),
+            },
+            {
+              id: "add-column-next-strength",
+              label: new RessourceCommonSettingsAddColumnNextStrength()
+                .value()
+                .toString(),
+              checked: addColumnNextStrengthActivated,
+              onChange: (e) =>
+                setAddColumnNextStrengthActivated(e.target.checked),
+            },
+          ]}
+          handleSubmit={handleSubmit}
+        />
       )}
     </>
   );
