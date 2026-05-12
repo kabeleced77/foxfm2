@@ -11,6 +11,11 @@ import {
   RessourceCommonSettingsAddColumnNextStrength,
   RessourceSettingsPageTransfersProfessionalsWarningSlidersAreNotSupported,
   RessourceSettingsPageTransfersProfessionalsIntro,
+  RessourceCommonSettingsAddColumnsTransferPricesIntroduction,
+  RessourceCommonSettingsAddColumnTransferPriceCurrentStrength,
+  RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength,
+  RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength,
+  RessourceCommonSettingsAddColumnTransferPriceNextStrength,
 } from "../../Common/Ressource";
 import {
   ITransferMarketSearchResultTableSettings,
@@ -147,9 +152,19 @@ const SettingsTransferMarketProfessional: React.FC<
             header={new RessourceSettingsPageTransfersProfessionalsHeader()
               .value()
               .toString()}
-            intro={new RessourceSettingsPageTransfersProfessionalsIntro().value().toString() + " " + new RessourceSettingsPageTransfersProfessionalsWarningSlidersAreNotSupported()
-              .value()
-              .toString()}
+            intro={
+              new RessourceSettingsPageTransfersProfessionalsIntro()
+                .value()
+                .toString() +
+              " " +
+              new RessourceSettingsPageTransfersProfessionalsWarningSlidersAreNotSupported()
+                .value()
+                .toString() +
+              " " +
+              new RessourceCommonSettingsAddColumnsTransferPricesIntroduction()
+                .value()
+                .toString()
+            }
             checkboxes={[
               {
                 id: "tmp-extend-column-strength",
@@ -185,6 +200,54 @@ const SettingsTransferMarketProfessional: React.FC<
                 checked: addColumnNextStrengthActivated,
                 onChange: (e) =>
                   setAddColumnNextStrengthActivated(e.target.checked),
+              },
+              {
+                id: "tmp-add-column-transfer-price-current-strength",
+                label:
+                  new RessourceCommonSettingsAddColumnTransferPriceCurrentStrength()
+                    .value()
+                    .toString(),
+                checked: addColumnTransferPricesCurrentStrengthActivated,
+                onChange: (e) =>
+                  setAddColumnTransferPricesCurrentStrengthActivated(
+                    e.target.checked,
+                  ),
+              },
+              {
+                id: "tmp-add-column-transfer-price-next-strength",
+                label:
+                  new RessourceCommonSettingsAddColumnTransferPriceNextStrength()
+                    .value()
+                    .toString(),
+                checked: addColumnTransferPricesNextStrengthActivated,
+                onChange: (e) =>
+                  setAddColumnTransferPricesNextStrengthActivated(
+                    e.target.checked,
+                  ),
+              },
+              {
+                id: "tmp-add-column-transfer-price-next-age-current-strength",
+                label:
+                  new RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength()
+                    .value()
+                    .toString(),
+                checked: addColumnTransferPricesNextAgeCurrentStrengthActivated,
+                onChange: (e) =>
+                  setAddColumnTransferPricesNextAgeCurrentStrengthActivated(
+                    e.target.checked,
+                  ),
+              },
+              {
+                id: "tmp-add-column-transfer-price-next-age-next-strength",
+                label:
+                  new RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength()
+                    .value()
+                    .toString(),
+                checked: addColumnTransferPricesNextAgeNextStrengthActivated,
+                onChange: (e) =>
+                  setAddColumnTransferPricesNextAgeNextStrengthActivated(
+                    e.target.checked,
+                  ),
               },
             ]}
             handleSubmit={handleSubmit}
