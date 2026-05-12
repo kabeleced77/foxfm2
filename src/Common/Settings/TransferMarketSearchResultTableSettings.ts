@@ -1,30 +1,30 @@
 export interface ITransferMarketSearchResultTableSettings {
-  addTransferPriceStrengthColumnActivated(): Boolean;
-  addTransferPriceNextStrengthColumnActivated(): Boolean;
-  addTransferPriceNextAgeStrengthColumnActivated(): Boolean;
-  addTransferPriceNextAgeNextStrengthColumnActivated(): Boolean;
-  extendStrengthColumnActivated(): Boolean;
-  addAwpColumnActivated(): Boolean;
-  addAwpDiffColumnActivated(): Boolean;
-  addNextStrengthColumnActivated(): Boolean;
+  addTransferPriceStrengthColumnActivated(): boolean;
+  addTransferPriceNextStrengthColumnActivated(): boolean;
+  addTransferPriceNextAgeStrengthColumnActivated(): boolean;
+  addTransferPriceNextAgeNextStrengthColumnActivated(): boolean;
+  extendStrengthColumnActivated(): boolean;
+  addAwpColumnActivated(): boolean;
+  addAwpDiffColumnActivated(): boolean;
+  addNextStrengthColumnActivated(): boolean;
   fromJson(jsonString: String): ITransferMarketSearchResultTableSettings;
 }
 
 export class TransferMarketSearchResultTableSettings implements ITransferMarketSearchResultTableSettings {
-  private readonly extendStrengthColumn: Boolean;
-  private readonly addAwpColumn: Boolean;
-  private readonly addAwpDiffColumn: Boolean;
-  private readonly addNextStrengthColumn: Boolean;
+  private readonly extendStrengthColumn: boolean;
+  private readonly addAwpColumn: boolean;
+  private readonly addAwpDiffColumn: boolean;
+  private readonly addNextStrengthColumn: boolean;
 
   constructor(
-    extendStrengthColumn: Boolean,
-    addAwpColumn: Boolean,
-    addAwpDiffColumn: Boolean,
-    addNextStrengthColumn: Boolean,
-    private readonly addColumnTransferPriceCurrentStrength: Boolean,
-    private readonly addColumnTransferPriceNextStrength: Boolean,
-    private readonly addColumnTransferPriceNextAgeCurrentStrength: Boolean,
-    private readonly addColumnTransferPriceNextAgeNextStrength: Boolean,
+    extendStrengthColumn: boolean,
+    addAwpColumn: boolean,
+    addAwpDiffColumn: boolean,
+    addNextStrengthColumn: boolean,
+    private readonly addColumnTransferPriceCurrentStrength: boolean,
+    private readonly addColumnTransferPriceNextStrength: boolean,
+    private readonly addColumnTransferPriceNextAgeCurrentStrength: boolean,
+    private readonly addColumnTransferPriceNextAgeNextStrength: boolean,
   ) {
     this.extendStrengthColumn = extendStrengthColumn;
     this.addAwpColumn = addAwpColumn;
@@ -32,16 +32,16 @@ export class TransferMarketSearchResultTableSettings implements ITransferMarketS
     this.addNextStrengthColumn = addNextStrengthColumn;
   }
 
-  public extendStrengthColumnActivated(): Boolean {
+  public extendStrengthColumnActivated(): boolean {
     return this.extendStrengthColumn;
   }
-  public addAwpColumnActivated(): Boolean {
+  public addAwpColumnActivated(): boolean {
     return this.addAwpColumn;
   }
-  public addAwpDiffColumnActivated(): Boolean {
+  public addAwpDiffColumnActivated(): boolean {
     return this.addAwpDiffColumn;
   }
-  public addNextStrengthColumnActivated(): Boolean {
+  public addNextStrengthColumnActivated(): boolean {
     return this.addNextStrengthColumn;
   }
   public addTransferPriceStrengthColumnActivated() {

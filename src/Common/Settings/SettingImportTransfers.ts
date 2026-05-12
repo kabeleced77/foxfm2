@@ -2,10 +2,10 @@ import { ISettingImportTransfers } from "./ISettingImportTransfers";
 
 export class SettingImportTransfers implements ISettingImportTransfers {
   constructor(
-    private readonly mbActivated: Boolean,
+    private readonly mbActivated: boolean,
   ) { }
 
-  public activated(): Boolean {
+  public activated(): boolean {
     return this.mbActivated;
   }
   public fromJson(jsonString: string): ISettingImportTransfers {

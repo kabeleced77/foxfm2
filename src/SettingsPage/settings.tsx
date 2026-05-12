@@ -4,6 +4,7 @@ import SettingsPageMenu from "./SettingsPageMenu";
 import SettingsStadium from "./stadium/SettingsStadium";
 import SettingsTeamTable from "./team-table/SettingsTeamTable";
 import SettingsTransferMarketAmateur from "./tm-amateur-table/SettingsTransferMarketAmateur";
+import SettingsTransferMarketProfessional from "./tm-pro-table/SettingsTransferMarketProfessional";
 import SettingsLogging from "./logging/SettingsLogging";
 import { Logger } from "../Common/Logger/Logger";
 import { ILogLevel, LogLevelError } from "../Common/Logger/LogLevel";
@@ -28,6 +29,7 @@ import {
   RessourceSettingsPageStadiumMenu,
   RessourceSettingsPageTeamTableMenu,
   RessourceSettingsPageTransfersAmateurMenu,
+  RessourceTransferMarketProfessionalsTableSettingsMenu,
 } from "../Common/Ressource";
 
 const logger = new Logger(
@@ -75,6 +77,11 @@ ReactDOM.createRoot(document.body).render(
           id: "transfer-market-amateur-table",
           label: new RessourceSettingsPageTransfersAmateurMenu().value().toString(),
           content: <SettingsTransferMarketAmateur logger={logger} />,
+        },
+        {
+          id: "transfer-market-professional-table",
+          label: new RessourceTransferMarketProfessionalsTableSettingsMenu().value().toString(),
+          content: <SettingsTransferMarketProfessional logger={logger} />,
         },
         {
           id: "logging",

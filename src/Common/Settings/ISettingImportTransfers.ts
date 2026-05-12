@@ -1,4 +1,4 @@
 export interface ISettingImportTransfers {
-  activated(): Boolean;
+  activated(): boolean;
   fromJson(jsonString: String): ISettingImportTransfers;
 }
