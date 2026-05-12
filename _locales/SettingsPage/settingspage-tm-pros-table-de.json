@@ -1,9 +1,12 @@
 {
   "transferMarketProfessionalsTableSettings_menu": {
-    "message": "TM Profis"
+    "message": "Transfer Profis"
   },
   "transferMarketProfessionalsTableSettings_header": {
-    "message": "Einstellungen für die Tabelle, um Spieler vom Transfermarkt zu ersteigern"
+    "message": "Transfer Profis"
+  },
+  "transferMarketProfessionalsTableSettings_intro": {
+    "message": "Einstellungen für die Tabelle des Transfermarkts der Profis."
   },
   "setting_page_transfer_market_professionals_warning_slidersAreNotSupported": {
     "message": "Achtung: Modus 'Schieberegler' wird nicht unterstützt."

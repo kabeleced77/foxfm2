@@ -1,9 +1,12 @@
 {
   "transferMarketProfessionalsTableSettings_menu": {
-    "message": "TM Professionals"
+    "message": "Transfer Professionals"
   },
   "transferMarketProfessionalsTableSettings_header": {
-    "message": "Settings for the transfer market table to get professional players."
+    "message": "Transfer Professionals"
+  },
+  "transferMarketProfessionalsTableSettings_intro": {
+    "message": "Settings for the table of the professional transfer market."
   },
   "setting_page_transfer_market_professionals_warning_slidersAreNotSupported": {
     "message": "Attention: 'Slider' mode is not supported."

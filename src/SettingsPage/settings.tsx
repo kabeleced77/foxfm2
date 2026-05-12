@@ -29,7 +29,7 @@ import {
   RessourceSettingsPageStadiumMenu,
   RessourceSettingsPageTeamTableMenu,
   RessourceSettingsPageTransfersAmateurMenu,
-  RessourceTransferMarketProfessionalsTableSettingsMenu,
+  RessourceSettingsPageTransfersProfessionalsMenu,
 } from "../Common/Ressource";
 
 const logger = new Logger(
@@ -80,7 +80,7 @@ ReactDOM.createRoot(document.body).render(
         },
         {
           id: "transfer-market-professional-table",
-          label: new RessourceTransferMarketProfessionalsTableSettingsMenu().value().toString(),
+          label: new RessourceSettingsPageTransfersProfessionalsMenu().value().toString(),
           content: <SettingsTransferMarketProfessional logger={logger} />,
         },
         {

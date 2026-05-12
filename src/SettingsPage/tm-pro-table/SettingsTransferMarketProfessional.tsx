@@ -4,22 +4,13 @@ import { LogLevelError } from "../../Common/Logger/LogLevel";
 import { RegisteredLoggingModule } from "../../Common/Logger/RegisteredLoggingModule";
 import { EasyLogger } from "../../Common/Logger/EasyLogger";
 import {
-  RessourceCommonButtonApply,
-  RessourceTransferMarketProfessionalsTableSettingsHeader,
+  RessourceSettingsPageTransfersProfessionalsHeader,
   RessourceCommonSettingsExtendColumnStrength,
   RessourceCommonSettingsAddColumnAwp,
   RessourceCommonSettingsAddColumnAwpDiff,
   RessourceCommonSettingsAddColumnNextStrength,
-  RessourceCommonSettingsAddColumnTransferPriceCurrentStrength,
-  RessourceCommonSettingsAddColumnTransferPriceNextStrength,
-  RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength,
-  RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength,
-  RessourceSettingsPageTransferMarketProfessionalsImportTransfers,
-  RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader,
-  RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription,
-  RessourceCommonSettingsAddColumnsTransferPricesIntroduction,
-  RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported,
-  RessourceSettingsPageTransferMarketProfessionalsImportTransfersWarningBrowserLanguageMustMatch,
+  RessourceSettingsPageTransfersProfessionalsWarningSlidersAreNotSupported,
+  RessourceSettingsPageTransfersProfessionalsIntro,
 } from "../../Common/Ressource";
 import {
   ITransferMarketSearchResultTableSettings,
@@ -153,10 +144,10 @@ const SettingsTransferMarketProfessional: React.FC<
       {settingsLoaded && (
         <>
           <SettingsForm
-            header={new RessourceTransferMarketProfessionalsTableSettingsHeader()
+            header={new RessourceSettingsPageTransfersProfessionalsHeader()
               .value()
               .toString()}
-            intro={new RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported()
+            intro={new RessourceSettingsPageTransfersProfessionalsIntro().value().toString() + " " + new RessourceSettingsPageTransfersProfessionalsWarningSlidersAreNotSupported()
               .value()
               .toString()}
             checkboxes={[

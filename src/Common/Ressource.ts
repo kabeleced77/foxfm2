@@ -95,6 +95,11 @@ export class RessourceSettingsPageTransfersAmateurMenu extends Ressource { const
 export class RessourceSettingsPageTransfersAmateurHeader extends Ressource { constructor() { super("transferMarketAmateurTableSettings_header"); } }
 export class RessourceSettingsPageTransfersAmateurIntro extends Ressource { constructor() { super("transferMarketAmateurTableSettings_intro"); } }
 
+export class RessourceSettingsPageTransfersProfessionalsMenu extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_menu"); } }
+export class RessourceSettingsPageTransfersProfessionalsHeader extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_header"); } }
+export class RessourceSettingsPageTransfersProfessionalsIntro extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_intro"); } }
+export class RessourceSettingsPageTransfersProfessionalsWarningSlidersAreNotSupported extends Ressource { constructor() { super("setting_page_transfer_market_professionals_warning_slidersAreNotSupported"); } }
+
 export class RessourceStadium extends Ressource { constructor() { super("stadium"); } }
 export class RessourceStadiumLeague extends Ressource { constructor() { super("league"); } }
 export class RessourceStadiumFriendly extends Ressource { constructor() { super("friendly"); } }
@@ -125,9 +130,6 @@ export class RessourceTransferMarketSellingSettingsMenu extends Ressource { cons
 export class RessourceTransferMarketSellingSettingsHeader extends Ressource { constructor() { super("transferMarketSellingSettings_header"); } }
 export class RessourceTransferMarketSellingSettingsChangeDuration extends Ressource { constructor() { super("transferMarketSellingSettings_changeDuration"); } }
 
-export class RessourceTransferMarketProfessionalsTableSettingsMenu extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_menu"); } }
-export class RessourceTransferMarketProfessionalsTableSettingsHeader extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_header"); } }
-export class RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported extends Ressource { constructor() { super("setting_page_transfer_market_professionals_warning_slidersAreNotSupported"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_header"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_description"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfers extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers"); } }

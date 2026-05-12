@@ -11,11 +11,11 @@ import { SettingNameApplicationLogLevel } from "../../Common/Settings/SettingNam
 import { ISetting } from '../../Common/Toolkit/Setting';
 import { IEasyLogger, EasyLogger } from '../../Common/Logger/EasyLogger';
 import {
-  RessourceCommonButtonApply, RessourceTransferMarketProfessionalsTableSettingsHeader, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength, RessourceCommonSettingsAddColumnAwp, RessourceCommonSettingsAddColumnTransferPriceCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextStrength, RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength, RessourceSettingsPageTransferMarketProfessionalsImportTransfers,
+  RessourceCommonButtonApply, RessourceSettingsPageTransfersProfessionalsHeader, RessourceCommonSettingsExtendColumnStrength, RessourceCommonSettingsAddColumnAwpDiff, RessourceCommonSettingsAddColumnNextStrength, RessourceCommonSettingsAddColumnAwp, RessourceCommonSettingsAddColumnTransferPriceCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextStrength, RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength, RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength, RessourceSettingsPageTransferMarketProfessionalsImportTransfers,
   RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader,
   RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription,
   RessourceCommonSettingsAddColumnsTransferPricesIntroduction,
-  RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported,
+  RessourceSettingsPageTransfersProfessionalsWarningSlidersAreNotSupported,
   RessourceSettingsPageTransferMarketProfessionalsImportTransfersWarningBrowserLanguageMustMatch
 } from '../../Common/Ressource';
 import { ITransferMarketSearchResultTableSettings, TransferMarketSearchResultTableSettings } from '../../Common/Settings/TransferMarketSearchResultTableSettings';
@@ -94,7 +94,7 @@ export class SettingsTransferMarketProfessionalTable {
       )
     );
 
-    this.ressourceHeading = new RessourceTransferMarketProfessionalsTableSettingsHeader().value();
+    this.ressourceHeading = new RessourceSettingsPageTransfersProfessionalsHeader().value();
     this.ressourceExtendColumngStrength = new RessourceCommonSettingsExtendColumnStrength().value();
     this.ressourceAddColumnAwp = new RessourceCommonSettingsAddColumnAwp().value();
     this.ressourceAddColumnAwpDiff = new RessourceCommonSettingsAddColumnAwpDiff().value();
@@ -110,7 +110,7 @@ export class SettingsTransferMarketProfessionalTable {
     this.ressourceHeadingImportTransfers = new RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader().value();
     this.ressourceImportTransfersDescription = new RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription().value();
     this.ressourceImportTransfers = new RessourceSettingsPageTransferMarketProfessionalsImportTransfers().value();
-    this.ressourceWarningSlidersAreNotSupported = new RessourceSettingsPageTransferMarketProfessionalsWarningSlidersAreNotSupported().value();
+    this.ressourceWarningSlidersAreNotSupported = new RessourceSettingsPageTransfersProfessionalsWarningSlidersAreNotSupported().value();
     this.ressourceWarningBrowserLanguageMustMatch = new RessourceSettingsPageTransferMarketProfessionalsImportTransfersWarningBrowserLanguageMustMatch().value();
 
     this.settings.value().then(settings => {
