@@ -29,8 +29,10 @@ import {
   RessourceSettingsPageStadiumMenu,
   RessourceSettingsPageTeamTableMenu,
   RessourceSettingsPageTransfersAmateurMenu,
+  RessourceSettingsPageTransfersProfessionalsImportMenu,
   RessourceSettingsPageTransfersProfessionalsMenu,
 } from "../Common/Ressource";
+import SettingsTransferMarketProfessionalImport from "./tm-pro-import/SettingsTransferMarketProfessionalImport";
 
 const logger = new Logger(
   new StorageLocal<ILogLevel>(
@@ -82,6 +84,11 @@ ReactDOM.createRoot(document.body).render(
           id: "transfer-market-professional-table",
           label: new RessourceSettingsPageTransfersProfessionalsMenu().value().toString(),
           content: <SettingsTransferMarketProfessional logger={logger} />,
+        },
+        {
+          id: "transfer-market-professional-import",
+          label: new RessourceSettingsPageTransfersProfessionalsImportMenu().value().toString(),
+          content: <SettingsTransferMarketProfessionalImport logger={logger} />,
         },
         {
           id: "logging",

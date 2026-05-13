@@ -9,9 +9,8 @@ export class SettingImportTransfers implements ISettingImportTransfers {
     return this.mbActivated;
   }
   public fromJson(jsonString: string): ISettingImportTransfers {
-    const json = JSON.parse(jsonString);
     return new SettingImportTransfers(
-      json["mbActivated"],
+      jsonString["mbActivated"],
     )
   }
 }

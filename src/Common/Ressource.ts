@@ -100,6 +100,10 @@ export class RessourceSettingsPageTransfersProfessionalsHeader extends Ressource
 export class RessourceSettingsPageTransfersProfessionalsIntro extends Ressource { constructor() { super("transferMarketProfessionalsTableSettings_intro"); } }
 export class RessourceSettingsPageTransfersProfessionalsWarningSlidersAreNotSupported extends Ressource { constructor() { super("setting_page_transfer_market_professionals_warning_slidersAreNotSupported"); } }
 
+export class RessourceSettingsPageTransfersProfessionalsImportMenu extends Ressource { constructor() { super("settings_page_transfer_market_professionals_import_menu"); } }
+export class RessourceSettingsPageTransfersProfessionalsImportHeader extends Ressource { constructor() { super("settings_page_transfer_market_professionals_import_header"); } }
+export class RessourceSettingsPageTransfersProfessionalsImportIntro extends Ressource { constructor() { super("settings_page_transfer_market_professionals_import_intro"); } }
+
 export class RessourceStadium extends Ressource { constructor() { super("stadium"); } }
 export class RessourceStadiumLeague extends Ressource { constructor() { super("league"); } }
 export class RessourceStadiumFriendly extends Ressource { constructor() { super("friendly"); } }
