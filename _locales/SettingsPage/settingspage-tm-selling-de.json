@@ -1,11 +1,14 @@
 {
-  "transferMarketSellingSettings_menu": {
-    "message": "TM Verkauf"
+  "settings_page_transfer_market_selling_menu": {
+    "message": "Transfer Verkauf"
   },
-  "transferMarketSellingSettings_header": {
+  "settings_page_transfer_market_selling_header": {
+    "message": "Transfer Verkauf"
+  },
+  "settings_page_transfer_market_selling_intro": {
     "message": "Einstellungen für den Verkauf von Spielern auf dem Transfermarkt"
   },
-  "transferMarketSellingSettings_changeDuration": {
-    "message": "Verwende folgende Standarddauer beim Verkauf von Spielern auf dem Transfermarkt "
+  "settings_page_transfer_market_selling_changeDuration": {
+    "message": "Standarddauer beim Verkauf von Spielern auf dem Transfermarkt "
   }
 }
