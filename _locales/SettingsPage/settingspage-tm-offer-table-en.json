@@ -1,8 +1,11 @@
 {
-  "transferMarketOfferTableSettings_menu": {
-    "message": "TM Offer"
+  "settings_page_transfer_market_offer_table_menu": {
+    "message": "Transfer Offers"
   },
-  "transferMarketOfferTableSettings_header": {
-    "message": "Settings for the table to put players on the transfer market."
+  "settings_page_transfer_market_offer_table_header": {
+    "message": "Transfer Offers"
+  },
+  "settings_page_transfer_market_offer_table_intro": {
+    "message": "Here you can customize the settings for the transfer offers table."
   }
 }

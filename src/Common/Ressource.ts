@@ -109,6 +109,10 @@ export class RessourceSettingsPageTransferMarketSellingHeader extends Ressource 
 export class RessourceSettingsPageTransferMarketSellingIntro extends Ressource { constructor() { super("settings_page_transfer_market_selling_intro"); } }
 export class RessourceSettingsPageTransferMarketSellingChangeDuration extends Ressource { constructor() { super("settings_page_transfer_market_selling_changeDuration"); } }
 
+export class RessourceSettingsPageTransferMarketOfferTableMenu extends Ressource { constructor() { super("settings_page_transfer_market_offer_table_menu"); } }
+export class RessourceSettingsPageTransferMarketOfferTableHeader extends Ressource { constructor() { super("settings_page_transfer_market_offer_table_header"); } }
+export class RessourceSettingsPageTransferMarketOfferTableIntro extends Ressource { constructor() { super("settings_page_transfer_market_offer_table_intro"); } }
+
 export class RessourceStadium extends Ressource { constructor() { super("stadium"); } }
 export class RessourceStadiumLeague extends Ressource { constructor() { super("league"); } }
 export class RessourceStadiumFriendly extends Ressource { constructor() { super("friendly"); } }
@@ -131,9 +135,6 @@ export class RessourceCommonSettingsAddColumnTransferPriceCurrentStrength extend
 export class RessourceCommonSettingsAddColumnTransferPriceNextStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_nextStrength"); } }
 export class RessourceCommonSettingsAddColumnTransferPriceNextAgeCurrentStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_nextAge_currentStrength"); } }
 export class RessourceCommonSettingsAddColumnTransferPriceNextAgeNextStrength extends Ressource { constructor() { super("commonSettings_extendColumn_transferPrice_nextAge_nextStrength"); } }
-
-export class RessourceTransferMarketOfferTableSettingsMenu extends Ressource { constructor() { super("transferMarketOfferTableSettings_menu"); } }
-export class RessourceTransferMarketOfferTableSettingsHeader extends Ressource { constructor() { super("transferMarketOfferTableSettings_header"); } }
 
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersHeader extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_header"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_description"); } }

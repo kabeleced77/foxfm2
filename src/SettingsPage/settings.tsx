@@ -32,8 +32,10 @@ import {
   RessourceSettingsPageTransfersProfessionalsImportMenu,
   RessourceSettingsPageTransfersProfessionalsMenu,
   RessourceSettingsPageTransferMarketSellingMenu,
+  RessourceSettingsPageTransferMarketOfferTableMenu,
 } from "../Common/Ressource";
 import SettingsTransferMarketProfessionalImport from "./tm-pro-import/SettingsTransferMarketProfessionalImport";
+import SettingsTransferMarketOfferTable from "./tm-offer-table/SettingsTransferMarketOfferTable";
 import SettingsTransferMarketSelling from "./tm-selling/SettingsTransferMarketSelling";
 
 const logger = new Logger(
@@ -86,6 +88,11 @@ ReactDOM.createRoot(document.body).render(
           id: "transfer-market-professional-table",
           label: new RessourceSettingsPageTransfersProfessionalsMenu().value().toString(),
           content: <SettingsTransferMarketProfessional logger={logger} />,
+        },
+        {
+          id: "transfer-market-offer-table",
+          label: new RessourceSettingsPageTransferMarketOfferTableMenu().value().toString(),
+          content: <SettingsTransferMarketOfferTable logger={logger} />,
         },
         {
           id: "transfer-market-selling",
