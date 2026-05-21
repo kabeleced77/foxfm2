@@ -9,7 +9,9 @@
   "scripts": {
     "test": "jest",
     "dev": "vite dev",
-    "build": "vite build"
+    "build": "vite build",
+    "build-firefox": "TARGET=firefox vite build",
+    "build-chrome": "TARGET=chrome vite build"
   },
   "dependencies": {
     "react": "^19.2.4",
@@ -24,6 +26,7 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vite-plugin-web-extension": "^4.5.0",
+    "vite-plugin-zip-pack": "^1.2.4",
     "webextension-polyfill": "^0.10.0"
   }
 }
