@@ -1,11 +1,12 @@
-import { FoxfmIndexedDb } from '../Common/IndexedDb/FoxfmIndexedDb';
-import { EasyLogger } from '../Common/Logger/EasyLogger';
-import { ILogger } from '../Common/Logger/Logger';
-import { LogLevelError } from '../Common/Logger/LogLevel';
-import { RegisteredLoggingModule } from '../Common/Logger/RegisteredLoggingModule';
-import { MessagingBackgroundScript } from '../Common/Messaging/MessagingBackgroundScript';
-import { IRessource, Ressource } from '../Common/Ressource';
-import { ITasks } from '../Common/Tasking/ITasks';
+import browser from "webextension-polyfill";
+import { FoxfmIndexedDb } from "../Common/IndexedDb/FoxfmIndexedDb";
+import { EasyLogger } from "../Common/Logger/EasyLogger";
+import { ILogger } from "../Common/Logger/Logger";
+import { LogLevelError } from "../Common/Logger/LogLevel";
+import { RegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule";
+import { MessagingBackgroundScript } from "../Common/Messaging/MessagingBackgroundScript";
+import { IRessource, Ressource } from "../Common/Ressource";
+import { ITasks } from "../Common/Tasking/ITasks";
 
 export class FoxfmBackground {
   private log: ILogger;
@@ -17,11 +18,15 @@ export class FoxfmBackground {
     private indexedDb: FoxfmIndexedDb,
     logger: ILogger,
   ) {
-
     this.log = logger;
-    var loggingModule = new RegisteredLoggingModule(this.thisModule, new LogLevelError());
+    var loggingModule = new RegisteredLoggingModule(
+      this.thisModule,
+      new LogLevelError(),
+    );
     this.log.registerModuleForLogging(loggingModule);
-    this.ressourceSettings = new Ressource("backgroundPageContextMenuAddonSettings");
+    this.ressourceSettings = new Ressource(
+      "backgroundPageContextMenuAddonSettings",
+    );
   }
 
   public async main(): Promise<void> {
@@ -35,21 +40,28 @@ export class FoxfmBackground {
           this.log,
           new RegisteredLoggingModule(
             "MessagingBackgroundScript",
-            new LogLevelError())))
-        .connect();
+            new LogLevelError(),
+          ),
+        ),
+      ).connect();
       // TODO: remove task feature entirely
       //   await this.tasks.run();
-    }
-    catch (e) {
-      this.log.error(this.thisModule, `Error in background script: ${e.message}`);
+    } catch (e) {
+      this.log.error(
+        this.thisModule,
+        `Error in background script: ${e.message}`,
+      );
     }
   }
 
   private createContextMenu() {
-    chrome.contextMenus.create({ "title": this.ressourceSettings.value().toString(), "onclick": this.contextMenuSettingCallback });
-  }
-
-  private contextMenuSettingCallback() {
-    chrome.tabs.create({ url: "settings.html" });
+    browser.contextMenus.create({
+      id: "foxfm-settings",
+      title: this.ressourceSettings.value().toString(),
+      contexts: ["page"],
+    });
+    browser.contextMenus.onClicked.addListener(() => {
+      browser.tabs.create({ url: "src/SettingsPage/settings.html" });
+    });
   }
 }
