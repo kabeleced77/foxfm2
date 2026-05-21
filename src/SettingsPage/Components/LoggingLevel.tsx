@@ -15,7 +15,7 @@ export default function LoggingLevel(loggingLevel: ILoggingLevel) {
 
   return (
     <div>
-      <label>Select log level for {loggingLevel.module}: </label>
+      <label>Log level {loggingLevel.module}: </label>
       {LogLevels.map((logLevel) => (
         <InputRadio
           key={logLevel.name()}
