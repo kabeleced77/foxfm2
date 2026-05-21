@@ -30,10 +30,11 @@ export default defineConfig({
       outputFileName: "messages.json", // Example: output file name
       suffixSeparator: "-", // Optional: separator for suffixes in file names
     }),
-    zipPack({
-      inDir: "dist",
-      outDir: ".",
-      outFileName: `foxfm-${process.env.TARGET}.${process.env.TARGET === "firefox" ? "xpi" : "zip"}`,
-    }),
+    process.env.TARGET &&
+      zipPack({
+        inDir: "dist",
+        outDir: ".",
+        outFileName: `foxfm-${process.env.TARGET}.${process.env.TARGET === "firefox" ? "xpi" : "zip"}`,
+      }),
   ],
 });
