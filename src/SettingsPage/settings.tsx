@@ -33,10 +33,12 @@ import {
   RessourceSettingsPageTransfersProfessionalsMenu,
   RessourceSettingsPageTransferMarketSellingMenu,
   RessourceSettingsPageTransferMarketOfferTableMenu,
+  RessourceStrengthAwpLimitsSettingsMenu,
 } from "../Common/Ressource";
 import SettingsTransferMarketProfessionalImport from "./tm-pro-import/SettingsTransferMarketProfessionalImport";
 import SettingsTransferMarketOfferTable from "./tm-offer-table/SettingsTransferMarketOfferTable";
 import SettingsTransferMarketSelling from "./tm-selling/SettingsTransferMarketSelling";
+import SettingsStrengthAwpLimits from "./strength-awp-limits/SettingsStrengthAwpLimits";
 
 const logger = new Logger(
   new StorageLocal<ILogLevel>(
@@ -103,6 +105,11 @@ ReactDOM.createRoot(document.body).render(
           id: "transfer-market-professional-import",
           label: new RessourceSettingsPageTransfersProfessionalsImportMenu().value().toString(),
           content: <SettingsTransferMarketProfessionalImport logger={logger} />,
+        },
+        {
+          id: "strength-awp-limits",
+          label: new RessourceStrengthAwpLimitsSettingsMenu().value().toString(),
+          content: <SettingsStrengthAwpLimits logger={logger} />,
         },
         {
           id: "logging",

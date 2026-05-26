@@ -16,5 +16,8 @@
   },
   "strengthAwpLimitsSettings_tableHeaderAwps": {
     "message": "AWPs"
+  },
+  "strengthAwpLimitsSettings_importSuccess": {
+    "message": "Import successful"
   }
 }

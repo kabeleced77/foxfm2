@@ -28,20 +28,24 @@ interface ICheckboxWithSelectProps {
 interface ISettingsForm {
   header: string;
   intro: string;
+  children?: React.ReactNode;
   checkboxes?: ICheckboxProps[];
   checkboxesWithSelect?: ICheckboxWithSelectProps[];
   handleSubmit: SubmitEventHandler<HTMLFormElement>;
   buttonId?: string;
+  buttonLabel?: string;
 }
 
 export default function SettingsForm(settings: ISettingsForm) {
   const {
     header,
     intro,
+    children,
     checkboxes = [],
     checkboxesWithSelect = [],
     handleSubmit,
     buttonId = "apply-settings",
+    buttonLabel = new RessourceCommonButtonApply().value().toString(),
   } = settings;
   return (
     <>
@@ -75,11 +79,12 @@ export default function SettingsForm(settings: ISettingsForm) {
             />
           ),
         )}
+        {children}
         <Button
           id={buttonId}
           type="submit"
-          title={new RessourceCommonButtonApply().value().toString()}
-          value={new RessourceCommonButtonApply().value().toString()}
+          title={buttonLabel}
+          value={buttonLabel}
         />
       </form>
     </>
