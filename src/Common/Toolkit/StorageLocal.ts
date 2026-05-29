@@ -56,9 +56,12 @@ export class StorageLocal<T extends ITypeInStorage<T>> implements ISetting<T> {
           this.save(this.defaultValue);
           return this.defaultValue;
         } else {
+          this.logger?.debug(
+            `${this.key().name()}: will create object from JSON value: ${JSON.stringify(value)}`
+          );
           const updatedValue = this.defaultValue.fromJson(value);
           this.logger?.debug(
-            `${this.key().name()}: will create object from JSON value: ${JSON.stringify(value)} => ${JSON.stringify(updatedValue)} `,
+            `${this.key().name()}: created object from JSON value: ${JSON.stringify(value)} => ${JSON.stringify(updatedValue)} `,
           );
           return updatedValue;
         }
