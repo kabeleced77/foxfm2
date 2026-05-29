@@ -1,5 +1,6 @@
-import { IStrengthLimits } from "./StrengthLimits"
-import { StrengthLimits } from "./StrengthLimits"
+import { IStrengthLimits } from "./StrengthLimits";
+import { StrengthLimits } from "./StrengthLimits";
+import { StrengthLimitsNotFound } from "./StrengthLimitsNotFound";
 
 export interface IStrengthsLimits {
   strengthLimits(strength: Number): IStrengthLimits;
@@ -17,11 +18,10 @@ export class StrengthsLimits implements IStrengthsLimits {
   }
 
   public strengthLimits(strength: Number): IStrengthLimits {
-    var index = this.strengthLimitsArray.findIndex(strengthLevel => strengthLevel.value() === strength);
-    if (index == -1) {
-      throw new Error(`Could not find strength level ${strength}`);
-    }
-    return this.strengthLimitsArray[index];
+    var index = this.strengthLimitsArray.findIndex((strengthLevel) => strengthLevel.value() === strength);
+    return index == -1
+      ? new StrengthLimitsNotFound()
+      : this.strengthLimitsArray[index];
   }
 
   public strengthLimitsByAwp(awps: Number): IStrengthLimits {
@@ -30,7 +30,7 @@ export class StrengthsLimits implements IStrengthsLimits {
         return this.strengthLimitsArray[i - 1];
       }
     }
-    return new StrengthLimits(-1, -1, -1);
+    return new StrengthLimitsNotFound();
   }
 
   public strengthsLimits(): Array<IStrengthLimits> {
@@ -39,18 +39,22 @@ export class StrengthsLimits implements IStrengthsLimits {
 
   public update(strengthLimits: IStrengthLimits): void {
     let levelIndex = this.strengthLimitsArray.findIndex(sl => sl.value() == strengthLimits.value());
-    this.strengthLimitsArray[levelIndex] = strengthLimits;
+    if (levelIndex == -1) {
+      this.strengthLimitsArray.push(strengthLimits);
+    } else {
+      this.strengthLimitsArray[levelIndex] = strengthLimits;
+    }
   }
 
   public fromJson(jsonString: String): IStrengthsLimits {
-    if (this.strengthLimitsArray.length) {
-      return new StrengthsLimits(
+      if (this.strengthLimitsArray.length) {
+        return new StrengthsLimits(
         jsonString["strengthLimitsArray"].map((strengthLevel: String, i: number) => {
-          return this.strengthLimitsArray[i].fromJson(strengthLevel);
+          return this.strengthLimitsArray[0].fromJson(strengthLevel);
         })
-      );
-    } else {
-      return new StrengthsLimits([]);
+        );
+      } else {
+        return new StrengthsLimits([]);
     }
   }
 }

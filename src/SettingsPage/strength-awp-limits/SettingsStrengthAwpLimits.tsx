@@ -63,7 +63,6 @@ const SettingsStrengthAwpLimits: React.FC<ISettingsStrengthAwpLimitsProps> = ({ 
   };
 
   const importStrengthLevelLimits = async (input: string) => {
-    const maxOFMLevel = 27;
     const userinput = input.replace(/\./gm, "");
     if (!userinput) {
       throw new Error("ofm.strengthlevel.importerror");
@@ -79,7 +78,7 @@ const SettingsStrengthAwpLimits: React.FC<ISettingsStrengthAwpLimitsProps> = ({ 
     for (let i = 0; i + 1 < matched.length; i += 2) {
       const strengthlevel = parseInt(matched[i], 10);
       const strengthlevelawps = parseInt(matched[i + 1], 10);
-      if (strengthlevel > 0 && strengthlevel <= maxOFMLevel) {
+      if (strengthlevel > 0) {
         strDebug += `${strengthlevel} - ${strengthlevelawps}; `;
         const currentStrengthLimits = await settingsModel.strengthLevel(strengthlevel);
         settingsModel.changeStrengthLimits(
