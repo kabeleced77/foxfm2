@@ -1,3 +1,5 @@
+import browser from "webextension-polyfill";
+
 export interface IRessource {
   key(): String;
   value(substituion?: String): String;
@@ -14,8 +16,8 @@ export class Ressource implements IRessource {
   public key(): String {
     return this.ressourceKey;
   }
-  public value(substitution?: String): String {
-    return chrome.i18n.getMessage(this.ressourceKey.valueOf(), substitution);
+  public value(substitution?: string): String {
+    return browser.i18n.getMessage(this.ressourceKey.valueOf(), substitution);
   }
   public fromJson(jsonString: String): IRessource {
     return new Ressource(jsonString["ressourceKey"]);
