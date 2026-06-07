@@ -1,34 +1,34 @@
 export interface IStrengthLimits {
-  value(): Number;
-  wage(): Number;
-  awpPoints(): Number;
+  value(): number;
+  wage(): number;
+  awpPoints(): number;
   fromJson(jsonString: String): IStrengthLimits;
 }
 
 export class StrengthLimits implements IStrengthLimits {
-  private valueOfStrength: Number;
-  private wageOfStrength: Number;
-  private awpsOfStrength: Number;
+  private valueOfStrength: number;
+  private wageOfStrength: number;
+  private awpsOfStrength: number;
 
   constructor(
-    strengthValue: Number,
-    wageOfStrength: Number,
-    awpsOfStrength: Number
+    strengthValue: number,
+    wageOfStrength: number,
+    awpsOfStrength: number
   ) {
     this.valueOfStrength = strengthValue;
     this.wageOfStrength = wageOfStrength;
     this.awpsOfStrength = awpsOfStrength;
   }
 
-  public value(): Number {
+  public value(): number {
     return this.valueOfStrength;
   }
 
-  public wage(): Number {
+  public wage(): number {
     return this.wageOfStrength;
   }
 
-  public awpPoints(): Number {
+  public awpPoints(): number {
     return this.awpsOfStrength;
   }
 

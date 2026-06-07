@@ -9,8 +9,8 @@ import { SettingNameStrengthsLimits } from './SettingNameStrengthsLimits';
 export interface IStrengthsLimitsSetting {
   strengthsLimits(): Promise<IStrengthsLimits>;
   strengthLevel(strength: Number): Promise<IStrengthLimits>;
-  changeStrengthsLimits(strengthsLimits: Array<IStrengthLimits>): void;
-  changeStrengthLimits(strengthLimits: IStrengthLimits): void;
+  changeStrengthsLimits(strengthsLimits: Array<IStrengthLimits>): Promise<void>;
+  changeStrengthLimits(strengthLimits: IStrengthLimits): Promise<void>;
 }
 
 export class StrengthsLimitsSetting implements IStrengthsLimitsSetting {
@@ -60,16 +60,19 @@ export class StrengthsLimitsSetting implements IStrengthsLimitsSetting {
       .then(strengthsLimits => strengthsLimits.strengthLimits(strength));
   }
 
-  public changeStrengthsLimits(strengthLevelsLimits: Array<IStrengthLimits>): void {
+  public async changeStrengthsLimits(strengthLevelsLimits: Array<IStrengthLimits>): Promise<void> {
+    await this.strengthsLimitsSetting.update((currentStrengthsLimits) => {
+      strengthLevelsLimits.forEach((strengthLimits) => {
+        currentStrengthsLimits.update(strengthLimits);
+      });
+      return currentStrengthsLimits;
+    });
   }
 
-  public changeStrengthLimits(strengthLimits: IStrengthLimits): void {
-    this.strengthsLimits()
-      .then(strengthsLimits => {
-        this.strengthsLimitsSetting.update(strengthsLimits => {
-          strengthsLimits.update(strengthLimits);
-          return strengthsLimits;
-        });
-      });
+  public async changeStrengthLimits(strengthLimits: IStrengthLimits): Promise<void> {
+    await this.strengthsLimitsSetting.update((currentStrengthsLimits) => {
+      currentStrengthsLimits.update(strengthLimits);
+      return currentStrengthsLimits;
+    });
   }
 }

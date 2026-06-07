@@ -33,12 +33,14 @@ import {
   RessourceSettingsPageTransfersProfessionalsMenu,
   RessourceSettingsPageTransferMarketSellingMenu,
   RessourceSettingsPageTransferMarketOfferTableMenu,
-  RessourceStrengthAwpLimitsSettingsMenu,
+  RessourceSettingsPageStrengthAwpLimitsMenu,
+  RessourceSettingsPageStrengthAwpLimitsImportMenu,
 } from "../Common/Ressource";
 import SettingsTransferMarketProfessionalImport from "./tm-pro-import/SettingsTransferMarketProfessionalImport";
 import SettingsTransferMarketOfferTable from "./tm-offer-table/SettingsTransferMarketOfferTable";
 import SettingsTransferMarketSelling from "./tm-selling/SettingsTransferMarketSelling";
-import SettingsStrengthAwpLimits from "./strength-awp-limits/SettingsStrengthAwpLimits";
+import SettingsStrengthAwpImport from "./strength-awp-limits/SettingsStrengthAwpsImport";
+import SettingsStrengthAwps from "./strength-awp-limits/SettingsStrengthAwps";
 
 const logger = new Logger(
   new StorageLocal<ILogLevel>(
@@ -107,9 +109,14 @@ ReactDOM.createRoot(document.body).render(
           content: <SettingsTransferMarketProfessionalImport logger={logger} />,
         },
         {
-          id: "strength-awp-limits",
-          label: new RessourceStrengthAwpLimitsSettingsMenu().value().toString(),
-          content: <SettingsStrengthAwpLimits logger={logger} />,
+          id: "strength-awps-edit",
+          label: `${new RessourceSettingsPageStrengthAwpLimitsMenu().value().toString()}`,
+          content: <SettingsStrengthAwps logger={logger} />,
+        },
+        {
+          id: "strength-awps-import",
+          label: `${new RessourceSettingsPageStrengthAwpLimitsImportMenu().value().toString()}`,
+          content: <SettingsStrengthAwpImport logger={logger} />,
         },
         {
           id: "logging",

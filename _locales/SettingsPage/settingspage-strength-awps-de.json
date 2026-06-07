@@ -1,0 +1,20 @@
+{
+  "settings_page_strength_awps_menu": {
+    "message": "AWPs"
+  },
+  "settings_page_strength_awps_header": {
+    "message": "AWPs"
+  },
+  "settings_page_strength_awps_intro": {
+    "message": "Im folgenden kann man die aktuellen AWP-Werte ansehen und aktualisieren."
+  },
+  "settings_page_strength_awps_success": {
+    "message": "AWPs erfolgreich aktualisiert"
+  },
+  "settings_page_strength_awps_table_header_strength": {
+    "message": "Stärke"
+  },
+  "settings_page_strength_awps_table_header_awps": {
+    "message": "AWPs"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "settings_page_strength_awps_menu": {
+    "message": "AWPs"
+  },
+  "settings_page_strength_awps_header": {
+    "message": "AWPs"
+  },
+  "settings_page_strength_awps_intro": {
+    "message": "The following list shows the currently used AWP strength limits. AWP strength limits can be viewed and new ones imported. The import of one, several or all strengths is supported. The import of a strength must always be given in pairs of strength number and AWP count. For example, if strengths 2, 3 and 4 with the AWP values 222, 333 and 444 are to be imported, the following import value must be specified: 2 222 3 333 4 444."
+  },
+  "settings_page_strength_awps_success": {
+    "message": "AWPs successfully updated"
+  },
+  "settings_page_strength_awps_table_header_strength": {
+    "message": "Strength"
+  },
+  "settings_page_strength_awps_table_header_awps": {
+    "message": "AWPs"
+  }
+}

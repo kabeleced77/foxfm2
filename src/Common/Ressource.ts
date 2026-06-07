@@ -113,6 +113,19 @@ export class RessourceSettingsPageTransferMarketOfferTableMenu extends Ressource
 export class RessourceSettingsPageTransferMarketOfferTableHeader extends Ressource { constructor() { super("settings_page_transfer_market_offer_table_header"); } }
 export class RessourceSettingsPageTransferMarketOfferTableIntro extends Ressource { constructor() { super("settings_page_transfer_market_offer_table_intro"); } }
 
+export class RessourceSettingsPageStrengthAwpLimitsMenu extends Ressource { constructor() { super("settings_page_strength_awps_menu"); } }
+export class RessourceSettingsPageStrengthAwpLimitsHeader extends Ressource { constructor() { super("settings_page_strength_awps_header"); } }
+export class RessourceSettingsPageStrengthAwpLimitsIntro extends Ressource { constructor() { super("settings_page_strength_awps_intro"); } }
+export class RessourceSettingsPageStrengthAwpLimitsSuccess extends Ressource { constructor() { super("settings_page_strength_awps_success"); } }
+export class RessourceSettingsPageStrengthAwpLimitsTableHeaderStrength extends Ressource { constructor() { super("settings_page_strength_awps_table_header_strength"); } }
+export class RessourceSettingsPageStrengthAwpLimitsTableHeaderAwps extends Ressource { constructor() { super("settings_page_strength_awps_table_header_awps"); } }
+
+export class RessourceSettingsPageStrengthAwpLimitsImportMenu extends Ressource { constructor() { super("strengthAwpLimitsSettings_menu"); } }
+export class RessourceSettingsPageStrengthAwpLimitsImportHeader extends Ressource { constructor() { super("strengthAwpLimitsSettings_header"); } }
+export class RessourceSettingsPageStrengthAwpLimitsImportIntro extends Ressource { constructor() { super("strengthAwpLimitsSettings_intro"); } }
+export class RessourceSettingsPageStrengthAwpLimitsImportLabel extends Ressource { constructor() { super("strengthAwpLimitsSettings_importLabel"); } }
+export class RessourceSettingsPageStrengthAwpLimitsImportSuccess extends Ressource { constructor() { super("strengthAwpLimitsSettings_importSuccess"); } }
+
 export class RessourceStadium extends Ressource { constructor() { super("stadium"); } }
 export class RessourceStadiumLeague extends Ressource { constructor() { super("league"); } }
 export class RessourceStadiumFriendly extends Ressource { constructor() { super("friendly"); } }
@@ -140,14 +153,6 @@ export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersHead
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersDescription extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_description"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfers extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers"); } }
 export class RessourceSettingsPageTransferMarketProfessionalsImportTransfersWarningBrowserLanguageMustMatch extends Ressource { constructor() { super("setting_page_transfer_market_professionals_importTransfers_warning_browserLanguageMustMatch"); } }
-
-export class RessourceStrengthAwpLimitsSettingsMenu extends Ressource { constructor() { super("strengthAwpLimitsSettings_menu"); } }
-export class RessourceStrengthAwpLimitsSettingsHeader extends Ressource { constructor() { super("strengthAwpLimitsSettings_header"); } }
-export class RessourceStrengthAwpLimitsSettingsIntro extends Ressource { constructor() { super("strengthAwpLimitsSettings_intro"); } }
-export class RessourceStrengthAwpLimitsSettingsImportLabel extends Ressource { constructor() { super("strengthAwpLimitsSettings_importLabel"); } }
-export class RessourceStrengthAwpLimitsSettingsTableHeaderStrength extends Ressource { constructor() { super("strengthAwpLimitsSettings_tableHeaderStrength"); } }
-export class RessourceStrengthAwpLimitsSettingsTableHeaderAwps extends Ressource { constructor() { super("strengthAwpLimitsSettings_tableHeaderAwps"); } }
-export class RessourceStrengthAwpLimitsSettingsImportSuccess extends Ressource { constructor() { super("strengthAwpLimitsSettings_importSuccess"); } }
 
 export class RessourcePlayerInformationWebPageElementExtendContract extends Ressource { constructor() { super("playerInformationWebPage_elementExtendContract"); } }
 

@@ -1,0 +1,17 @@
+{
+  "strengthAwpLimitsSettings_menu": {
+    "message": "AWPs Import"
+  },
+  "strengthAwpLimitsSettings_header": {
+    "message": "AWPs Import"
+  },
+  "strengthAwpLimitsSettings_intro": {
+    "message": "Der Import unterstützt eine, mehrere oder alle Stärken. Es können auch neue Stärken importiert werden. Der Import erwartet die Stärkenummer und die dazugehörige AWP Anzahl getrennt von einem Leerzeichen. Beispiel: folgender Importtext aktualisiert die Stärken 2 (AWPs: 222), 3 (AWPs: 333), 4 (AWPs: 444) und fügt eine neue Stärke 55 (AWPs: 55555) hinzu: 2 222 3 333 4 444 55 55555 ."
+  },
+  "strengthAwpLimitsSettings_importLabel": {
+    "message": "Stärkegrenzen (Zahlenpaare von Stärke AWPs, z.B. 3 333)"
+  },
+  "strengthAwpLimitsSettings_importSuccess": {
+    "message": "Import erfolgreich"
+  }
+}
