@@ -30,7 +30,7 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
   ): Promise<void | IPlayerTransfer> {
     return this.dataBase
       .playerTransfers
-      .add(new DataModelIDbPlayerTransfer(
+      .add(JSON.parse(JSON.stringify(new DataModelIDbPlayerTransfer(
         gameServerId,
         matchdayId,
         externalTransferId,
@@ -38,7 +38,7 @@ export class PlayerTransfersIDb implements IPlayerTransfers {
         age,
         strength,
         price,
-      ))
+      ))))
       .then(id => {
         return new PlayerTransferIDb(this.dataBase, id);
       })

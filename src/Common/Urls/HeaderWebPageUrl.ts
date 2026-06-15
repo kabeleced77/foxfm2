@@ -4,7 +4,7 @@ export class HeaderWebPageUrl implements IUrl {
   private urlField: RegExp;
 
   constructor() {
-    this.urlField = /\/head-int/;
+    this.urlField = /game/;
   }
   public url(): RegExp {
     return this.urlField;

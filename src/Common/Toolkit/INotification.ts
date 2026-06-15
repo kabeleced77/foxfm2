@@ -1,3 +1,3 @@
 export interface INotification {
-  notify(): void;
+  notify(): Promise<void>;
 }

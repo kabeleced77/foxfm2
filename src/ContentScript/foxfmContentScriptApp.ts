@@ -512,19 +512,21 @@ var messagingContentScript = new MessagingContentScript(
             new GameServerConst(
               window.location.hostname,
             ),
+            // matchday number
             new NumberFromString(
               new HtmlNodeTextContent(
                 new XPathFirstResult(
                   window.document,
-                  '/html/body/div[2]/div[1]/div[2]/p/span[1]',
+                  '/html/body/div/div/div/div[1]/div[3]/div[2]/div[1]/span[2]/span[2]'
                 )
               )
             ),
+            // season 
             new NumberFromString(
               new HtmlNodeTextContent(
                 new XPathFirstResult(
                   window.document,
-                  '/html/body/div[2]/div[1]/div[2]/p/span[2]',
+                  '/html/body/div/div/div/div[1]/div[3]/div[2]/div[1]/span[1]/span[2]'
                 )
               )
             ),

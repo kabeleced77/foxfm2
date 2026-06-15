@@ -1,3 +1,4 @@
+import browser from "webextension-polyfill";
 import { ISetting } from '../../Common/Toolkit/Setting';
 import { IImport } from '../../Common/Toolkit/IImport';
 import { IMessaging } from '../../Common/Messaging/IMessaging';
@@ -65,7 +66,7 @@ export class MessagingImportTransfers implements IImport {
   private async importRecursively(
     serverUri: String,
     season: Number,
-    day: Number,
+    day:Number,
     date: Date,
   ) {
     if (day >= 0) {
@@ -80,12 +81,14 @@ export class MessagingImportTransfers implements IImport {
           date,
         )))
       ) {
+        this.logger.debug(`transfers of matchday ${season}-${day}@${serverUri} have not been imported yet, will ask user if he wants to import them now`);
         const options = this.notificationOptions(
           this.resourceQuestionStartImport.value(`${season}-${day}`).toString(),
           season,
           day);
 
-        new MyNotification(
+        this.logger.debug(`will create notification`);
+        await(new MyNotification(
           this.resourceAppName,
           options,
           async () => {
@@ -102,7 +105,8 @@ export class MessagingImportTransfers implements IImport {
               day.valueOf() - 1,
               date);
           },
-        ).notify();
+          this.logger,
+        ).notify());
       } else {
         // import transfers of next day
         this.importRecursively(
@@ -120,7 +124,7 @@ export class MessagingImportTransfers implements IImport {
     day: Number,
   ): NotificationOptions {
     return {
-      "icon": chrome.runtime.getURL("foxfm64.png"),
+      "icon": browser.runtime.getURL("icon/64.png"),
       "body": body,
       "tag": `notify-transfer-download-${season}-${day}`
     };
@@ -132,6 +136,7 @@ export class MessagingImportTransfers implements IImport {
     day: Number,
     options: NotificationOptions,
   ): Promise<void> {
+    this.logger.debug(`will import transfers of matchday ${season}-${day}@${gameServerUri}`);
     // notify user import is about to start
     options.body = this.resourceImportingStarted.value(`${season}-${day}`).toString();
     new MyNotification(

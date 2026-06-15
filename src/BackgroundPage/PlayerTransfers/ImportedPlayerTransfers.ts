@@ -1,3 +1,4 @@
+import { IImportedTransfersOfMatchdays } from '../../Common/IImportedTransfersOfMatchdays';
 import { IMatchdayWithId } from "../../Common/IMatchdayWithId";
 import { FoxfmIndexedDb } from '../../Common/IndexedDb/FoxfmIndexedDb';
 import { PlayerTransfersIDb } from '../../Common/IndexedDb/PlayerTransfersIDb';
@@ -37,29 +38,33 @@ export class ImportedPlayerTransfers implements IImportedPlayerTransfers {
     this.ressourcePlayerTransferImportPrice = new RessourcePlayerTransferImportFieldPrice();
   }
 
-  public async import(matchday: IMatchdayWithId): Promise<void> {
+  public async import(
+    matchday: IMatchdayWithId,
+    importedTransfersOfMatchdaysIDb: IImportedTransfersOfMatchdays,
+  ): Promise<void> {
     try {
-      const matchdayId = matchday.id();
       const matchdaySeason = await matchday.season();
       const matchdayDay = await matchday.day();
       const serverId = await matchday.gameServerId();
       const serverUri = await (await matchday.gameServer()).uri();
       this.log.debug(`starting import from server '${serverUri}' of season ${matchdaySeason}-${matchdayDay}`);
       await this.save(
-        matchdayId,
+        matchday,
         serverId,
         serverUri,
-        matchdayDay);
+        matchdayDay,
+        importedTransfersOfMatchdaysIDb);
     } catch (e) {
       throw new Error(`Running task: ${e}`);
     }
   }
 
   private async save(
-    matchdayId: Number,
+    matchday: IMatchdayWithId,
     serverId: Number,
     serverUri: String,
     day: Number,
+    importedTransfersOfMatchdaysIDb: IImportedTransfersOfMatchdays,
   ): Promise<void> {
 
     let transferTable = (await this.playerTransferTable(serverUri, day)).table();
@@ -83,22 +88,34 @@ export class ImportedPlayerTransfers implements IImportedPlayerTransfers {
 
       // start from second row
       if (transferTable.rows.length > 1) {
-        for (let i = 1; i < transferTable.rows.length; i++) {
-          const iThRow = transferTable.rows.item(i)!;
-          let cells = iThRow.cells;
+        this.dataBase.transaction(
+          "rw",
+          this.dataBase.playerTransfers,
+          this.dataBase.importedTransfersOfMatchdays,
+          async () => {
+            for (let i = 1; i < transferTable.rows.length; i++) {
+              const iThRow = transferTable.rows.item(i)!;
+              let cells = iThRow.cells;
 
-          if (cells.length > Math.max(colIdxNumber, colIdxPosition, colIdxAge, colIdxStrength, colIdxPrice)) {
-            await playerTransfersIDb.add(
-              serverId,
-              matchdayId,
-              this.stringToNumberArray(cells.item(colIdxNumber)!.innerHTML),
-              cells.item(colIdxPosition)!.innerHTML,
-              this.stringToNumberArray(cells.item(colIdxAge)!.innerHTML),
-              this.stringToNumberArray(cells.item(colIdxStrength)!.innerHTML),
-              this.stringToNumberArray(cells.item(colIdxPrice)!.innerHTML),
-            );
-          }
-        }
+              if (
+                cells.length >
+                Math.max(colIdxNumber, colIdxPosition, colIdxAge, colIdxStrength, colIdxPrice)
+              ) {
+                await playerTransfersIDb.add(
+                  serverId,
+                  matchday.id(),
+                  this.stringToNumberArray(cells.item(colIdxNumber)!.innerHTML),
+                  cells.item(colIdxPosition)!.innerHTML,
+                  this.stringToNumberArray(cells.item(colIdxAge)!.innerHTML),
+                  this.stringToNumberArray(cells.item(colIdxStrength)!.innerHTML),
+                  this.stringToNumberArray(cells.item(colIdxPrice)!.innerHTML),
+                );
+              }
+            }
+            // safe last successful import
+            await importedTransfersOfMatchdaysIDb.add(matchday, new Date());
+          },
+        );
       }
     }
   }

@@ -1,4 +1,4 @@
-import { DataModelIDbMatchday, IDataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
+import { DataModelIDbMatchday } from '../DataModel/DataModelIDbMatchday';
 import { IMatchdayWithId } from "../IMatchdayWithId";
 import { IMatchdays } from '../IMatchdays';
 import { IEasyLogger } from '../Logger/EasyLogger';
@@ -61,12 +61,15 @@ export class MatchdaysIDb implements IMatchdays {
           } else {
             return this.dataBase
               .matchdays
-              .add(new DataModelIDbMatchday(
-                gameServer!.id!,
-                gameSeason,
-                gameDay,
-                date,
-              ))
+              .add(
+                JSON.parse(
+                  JSON.stringify(
+                    new DataModelIDbMatchday(
+                      gameServer!.id!,
+                      gameSeason,
+                      gameDay,
+                      date,
+                    ))))
               .then(id => {
                 this.logger.debug(`added to IDb: new matchday: '${gameServerUri} ${gameSeason}-${gameDay}'`);
                 return new MatchdayIDb(

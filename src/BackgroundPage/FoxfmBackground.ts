@@ -1,12 +1,17 @@
 import browser from "webextension-polyfill";
 import { FoxfmIndexedDb } from "../Common/IndexedDb/FoxfmIndexedDb";
 import { EasyLogger } from "../Common/Logger/EasyLogger";
-import { ILogger } from "../Common/Logger/Logger";
-import { LogLevelError } from "../Common/Logger/LogLevel";
+import { ILogger, Logger } from "../Common/Logger/Logger";
+import { ILogLevel, LogLevelError } from "../Common/Logger/LogLevel";
 import { RegisteredLoggingModule } from "../Common/Logger/RegisteredLoggingModule";
 import { MessagingBackgroundScript } from "../Common/Messaging/MessagingBackgroundScript";
 import { IRessource, Ressource } from "../Common/Ressource";
-import { ITasks } from "../Common/Tasking/ITasks";
+import { IRegisteredLoggingModules, RegisteredLoggingModules } from "../Common/Logger/RegisteredLoggingModules";
+import { SettingNameApplicationLogLevel } from "../Common/Settings/SettingNameApplicationLogLevel";
+import { SettingNameLoggingModules } from "../Common/Settings/SettingNameLoggingModules";
+import { Mutex } from "../Common/Toolkit/Mutex";
+import { StorageLocal } from "../Common/Toolkit/StorageLocal";
+import { StorageLocalSync } from "../Common/Toolkit/StorageLocalSync";
 
 export class FoxfmBackground {
   private log: ILogger;
@@ -14,16 +19,24 @@ export class FoxfmBackground {
   private ressourceSettings: IRessource;
 
   constructor(
-    private tasks: ITasks,
     private indexedDb: FoxfmIndexedDb,
-    logger: ILogger,
   ) {
-    this.log = logger;
-    var loggingModule = new RegisteredLoggingModule(
-      this.thisModule,
-      new LogLevelError(),
+    /****************************************************
+     * Create logger used within background script
+     */
+    this.log = new Logger(
+      new StorageLocal<ILogLevel>(new SettingNameApplicationLogLevel(), new LogLevelError()),
+      new StorageLocalSync<IRegisteredLoggingModules>(
+        new Mutex<IRegisteredLoggingModules>(),
+        new StorageLocal<IRegisteredLoggingModules>(
+          new SettingNameLoggingModules(),
+          new RegisteredLoggingModules([]),
+        ),
+      ),
     );
-    this.log.registerModuleForLogging(loggingModule);
+    this.log.registerModuleForLogging(
+      new RegisteredLoggingModule(this.thisModule, new LogLevelError()),
+    );
     this.ressourceSettings = new Ressource(
       "backgroundPageContextMenuAddonSettings",
     );
@@ -40,17 +53,14 @@ export class FoxfmBackground {
           this.log,
           new RegisteredLoggingModule(
             "MessagingBackgroundScript",
-            new LogLevelError(),
+            new LogLevelError()
           ),
         ),
       ).connect();
       // TODO: remove task feature entirely
       //   await this.tasks.run();
-    } catch (e) {
-      this.log.error(
-        this.thisModule,
-        `Error in background script: ${e.message}`,
-      );
+    } catch (e: unknown) {
+      this.log.error(this.thisModule, `Error in background script: ${(e as Error).message}`);
     }
   }
 
@@ -58,7 +68,7 @@ export class FoxfmBackground {
     browser.contextMenus.create({
       id: "foxfm-settings",
       title: this.ressourceSettings.value().toString(),
-      contexts: ["page"],
+      contexts: ["page", "frame"],
     });
     browser.contextMenus.onClicked.addListener(() => {
       browser.tabs.create({ url: "src/SettingsPage/settings.html" });

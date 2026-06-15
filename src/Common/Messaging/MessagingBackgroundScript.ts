@@ -77,6 +77,8 @@ export class MessagingBackgroundScript implements IMessaging<Object, Object> {
                 "ImportTransfers",
                 new LogLevelError()));
 
+            easyLogger.info(`will import transfers of matchday ${contentImportTransfers.season}-${contentImportTransfers.day}@${contentImportTransfers.gameServerUrl} from date ${contentImportTransfers.date}`);
+
             await new ImportTransfers(
               new MatchdaysIDb(
                 this.indexedDb,

@@ -19,28 +19,29 @@ export class ImportTransfers implements IImportTransfers {
     private logger: IEasyLogger,
   ) { }
 
-  public async import(
-    matchday: IMatchday,
-  ): Promise<void> {
-    // add matchday to database
-    const matchdayIDb = await this.matchdaysIDb.add(
-      await (await matchday.gameServer()).uri(),
-      await matchday.season(),
-      await matchday.day(),
-      await matchday.date(),
-    );
+  public async import(matchday: IMatchday): Promise<void> {
+    try {
+      this.logger.info(`will now prepare import of transfers`);
+      // add matchday to database
+      const matchdayIDb = await this.matchdaysIDb.add(
+        await (await matchday.gameServer()).uri(),
+        await matchday.season(),
+        await matchday.day(),
+        await matchday.date(),
+      );
 
-    const matchdayString = await matchday.toString();
-    // have the transfers of this matchday already been imported?
-    if (!(await this.importedTransfersOfMatchdaysIDb.imported(matchdayIDb))) {
-      this.logger.info(`matchday ${matchdayString}: player transfers will be imported`);
-      // import transfers of matchday
-      await this.importedTransfers.import(matchdayIDb);
-      // safe last successful import
-      this.importedTransfersOfMatchdaysIDb.add(matchdayIDb, new Date());
-      this.logger.info(`matchday ${matchdayString}: player transfers imported`);
-    } else {
-      this.logger.info(`matchday ${matchdayString}: player transfers have already been imported`);
+      const matchdayString = await matchday.toString();
+      // have the transfers of this matchday already been imported?
+      if (!(await this.importedTransfersOfMatchdaysIDb.imported(matchdayIDb))) {
+        this.logger.info(`matchday ${matchdayString}: player transfers will be imported`);
+        // import transfers of matchday
+        await this.importedTransfers.import(matchdayIDb, this.importedTransfersOfMatchdaysIDb);
+        this.logger.info(`matchday ${matchdayString}: player transfers imported`);
+      } else {
+        this.logger.info(`matchday ${matchdayString}: player transfers have already been imported`);
+      }
+    } catch (error) {
+      throw new Error(`Could not import player transfers: ${error}`);
     }
   }
 }
