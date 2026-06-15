@@ -9,6 +9,7 @@
   "scripts": {
     "test": "jest",
     "dev": "vite dev",
+    "dev-firefox": "TARGET=firefox vite dev",
     "build": "vite build",
     "build-firefox": "TARGET=firefox vite build",
     "build-chrome": "TARGET=chrome vite build"
