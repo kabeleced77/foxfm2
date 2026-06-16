@@ -1,15 +1,19 @@
-import IInput from 'OptionsPage/Interfaces/IInput'
-import React, { useState } from 'react'
+import IInput from '../Interfaces/IInput';
+import React, { useState } from 'react';
 
 export default function Input(input: IInput) {
-  const [inputValue, setInputValue] = useState(input.value)
+  const [inputValue, setInputValue] = useState(input.value);
 
-  function handleInputValueChange(e: { target: { value: React.SetStateAction<string> } }) {
-    setInputValue(e.target.value)
+  function handleInputValueChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const checked = event.target.value;
+    setInputValue(checked);
+    if (input.onChange) {
+      input.onChange(event);
+    }
   }
 
-  const labelClass = input.labelClass ? input.labelClass : 'w3-margin-top'
-  const inputClass = `w3-input w3-border w3-light-grey w3-padding-small ${input.inputClass}`
+  const labelClass = input.labelClass ? input.labelClass : 'w3-margin-top';
+  const inputClass = `w3-input w3-border w3-light-grey w3-padding-small ${input.inputClass}`;
   return (
     <div style={{ display: input.visible === false ? 'none' : '' }}>
       <label
@@ -28,5 +32,5 @@ export default function Input(input: IInput) {
         onChange={handleInputValueChange}
       />
     </div>
-  )
+  );
 }
