@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { ILogger } from "../../Common/Logger/Logger";
-import { LogLevelError } from "../../Common/Logger/LogLevel";
-import { RegisteredLoggingModule } from "../../Common/Logger/RegisteredLoggingModule";
-import { EasyLogger } from "../../Common/Logger/EasyLogger";
+import React, { JSX, useEffect, useState } from 'react';
+import { ILogger } from '../../Common/Logger/Logger';
+import { LogLevelError } from '../../Common/Logger/LogLevel';
+import { RegisteredLoggingModule } from '../../Common/Logger/RegisteredLoggingModule';
+import { EasyLogger } from '../../Common/Logger/EasyLogger';
 import {
   RessourceCommonButtonApply,
   RessourceSettingsPageStrengthAwpLimitsHeader,
   RessourceSettingsPageStrengthAwpLimitsIntro,
   RessourceSettingsPageStrengthAwpLimitsTableHeaderAwps,
   RessourceSettingsPageStrengthAwpLimitsTableHeaderStrength,
-} from "../../Common/Ressource";
-import { StrengthsLimitsSetting } from "../../Common/Settings/StrengthsLimitsSetting";
-import { StrengthLimits } from "../../Common/StrengthLimits";
-import SettingsForm from "../Components/SettingsForm";
+} from '../../Common/Ressource';
+import { StrengthsLimitsSetting } from '../../Common/Settings/StrengthsLimitsSetting';
+import { StrengthLimits } from '../../Common/StrengthLimits';
+import SettingsForm from '../Components/SettingsForm';
 
 interface ISettingsStrengthAwpRowsProps {
   logger: ILogger;
@@ -34,7 +34,7 @@ const SettingsStrengthAwps: React.FC<ISettingsStrengthAwpRowsProps> = ({ logger 
 
   const easyLogger = new EasyLogger(
     logger,
-    new RegisteredLoggingModule("SettingsStrengthAwpRows", new LogLevelError()),
+    new RegisteredLoggingModule('SettingsStrengthAwpRows', new LogLevelError()),
   );
 
   const parseLocalizedNumber = (s: string) => {
@@ -42,7 +42,7 @@ const SettingsStrengthAwps: React.FC<ISettingsStrengthAwpRowsProps> = ({ logger 
     const trimmed = s.trim();
     if (trimmed.length === 0) return NaN;
 
-    const digitsOnly = trimmed.replace(/\D/g, "");
+    const digitsOnly = trimmed.replace(/\D/g, '');
     return digitsOnly.length > 0 ? Number(digitsOnly) : NaN;
   };
 
@@ -74,7 +74,7 @@ const SettingsStrengthAwps: React.FC<ISettingsStrengthAwpRowsProps> = ({ logger 
       const parsed = parseLocalizedNumber(limit.awps);
       const awpsValue = Number.isNaN(parsed) ? NaN : Math.trunc(parsed);
       if (Number.isNaN(awpsValue)) {
-        throw new Error("ofm.strengthlevel.importerror");
+        throw new Error('ofm.strengthlevel.importerror');
       }
       return new StrengthLimits(limit.strength, limit.wage, awpsValue);
     });
@@ -91,7 +91,7 @@ const SettingsStrengthAwps: React.FC<ISettingsStrengthAwpRowsProps> = ({ logger 
       setFeedbackIsError(false);
       setFeedbackMessage(new RessourceCommonButtonApply().value().toString());
     } catch (error) {
-      const message = error instanceof Error ? error.message : "ofm.strengthlevel.importerror";
+      const message = error instanceof Error ? error.message : 'ofm.strengthlevel.importerror';
       easyLogger.debug(`Save failed: ${message}`);
       setFeedbackIsError(true);
       setFeedbackMessage(message);
@@ -109,34 +109,76 @@ const SettingsStrengthAwps: React.FC<ISettingsStrengthAwpRowsProps> = ({ logger 
           buttonLabel={new RessourceCommonButtonApply().value().toString()}
         >
           {feedbackMessage && (
-            <div className={feedbackIsError ? "w3-text-red" : "w3-text-green"} style={{ marginBottom: 16 }}>
+            <div
+              className={feedbackIsError ? 'w3-text-red' : 'w3-text-green'}
+              style={{ marginBottom: 16 }}
+            >
               {feedbackMessage}
             </div>
           )}
 
-          <table className="table table-striped">
+          <table className="w3-table-all w3-centered">
             <thead>
-              <tr>
-                <th>{new RessourceSettingsPageStrengthAwpLimitsTableHeaderStrength().value().toString()}</th>
-                <th>{new RessourceSettingsPageStrengthAwpLimitsTableHeaderAwps().value().toString()}</th>
+              <tr className="w3-light-grey">
+                {(() => {
+                  const pairsPerRow = 3;
+                  const headers: JSX.Element[] = [];
+                  for (let i = 0; i < pairsPerRow; i++) {
+                    headers.push(
+                      <th key={`h-strength-${i}`}>
+                        {new RessourceSettingsPageStrengthAwpLimitsTableHeaderStrength()
+                          .value()
+                          .toString()}
+                      </th>,
+                    );
+                    headers.push(
+                      <th key={`h-awps-${i}`}>
+                        {new RessourceSettingsPageStrengthAwpLimitsTableHeaderAwps()
+                          .value()
+                          .toString()}
+                      </th>,
+                    );
+                  }
+                  return headers;
+                })()}
               </tr>
             </thead>
             <tbody>
-              {strengthsLimits.map((limit) => (
-                <tr key={limit.strength}>
-                  <td>{limit.strengthLabel}</td>
-                  <td>
-                    <input
-                      id={`awps-${limit.strength}`}
-                      type="text"
-                      inputMode="numeric"
-                      value={limit.awps}
-                      onChange={(e) => updateAwpsValue(limit.strength, e.target.value)}
-                      style={{ width: 120 }}
-                    />
-                  </td>
-                </tr>
-              ))}
+              {(() => {
+                const pairsPerRow = 3;
+
+                const rows: StrengthLimitsViewModel[][] = [];
+                // split the strengthsLimits into rows of pairsPerRow
+                for (let i = 0; i < strengthsLimits.length; i += pairsPerRow)
+                  rows.push(strengthsLimits.slice(i, i + pairsPerRow));
+
+                return rows.map((row, rowIndex) => (
+                  <tr key={`row-${rowIndex}`}>
+                    {row.map((limit) => (
+                      <React.Fragment key={limit.strength}>
+                        <td>{limit.strengthLabel}</td>
+                        <td>
+                          <input
+                            id={`awps-${limit.strength}`}
+                            type="text"
+                            inputMode="numeric"
+                            value={limit.awps}
+                            onChange={(e) => updateAwpsValue(limit.strength, e.target.value)}
+                            style={{ width: 120 }}
+                          />
+                        </td>
+                      </React.Fragment>
+                    ))}
+                    {row.length < pairsPerRow &&
+                      Array.from({ length: pairsPerRow - row.length }).map((_, idx) => (
+                        <React.Fragment key={`empty-${idx}`}>
+                          <td />
+                          <td />
+                        </React.Fragment>
+                      ))}
+                  </tr>
+                ));
+              })()}
             </tbody>
           </table>
         </SettingsForm>
