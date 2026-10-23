@@ -25,7 +25,7 @@
     "@vitejs/plugin-react": "^6.0.4",
     "dexie": "^2.0.4",
     "typescript": "^5.9.3",
-    "vite": "^8.1.5",
+    "vite": "^8.3.5",
     "vite-plugin-web-extension": "^4.5.1",
     "vite-plugin-zip-pack": "^1.2.4",
     "webextension-polyfill": "^0.10.0"
