@@ -69,7 +69,8 @@ import { TransferMarketProfessionalsUiUrl } from '../Common/Urls/TransferMarketP
 import { TransferOfferWebPageUrl } from '../Common/Urls/TransferOfferWebPageUrl';
 import { FoxfmContentScript } from './FoxfmContentScript';
 import { PlayerTransferMarketDurationSelect } from './Player/PlayerTransferMarketDurationSelect';
-import { StadiumManagerUi } from './Stadium/StadiumManagerUi';
+import { ElementPicker } from './ElementPicker';
+import { StadiumSidePanelBridge } from './Stadium/StadiumSidePanelBridge';
 import { TeamPlayerTable } from './Team/TeamPlayerTable';
 import { TransferMarketAmateurPlayerTable } from './TransferMarket/TransferMarketAmateurPlayerTable';
 import { TransferMarketOfferDurationSelect } from './TransferMarket/TransferMarketOfferDurationSelect';
@@ -476,14 +477,15 @@ var messagingContentScript = new MessagingContentScript(
               false,
               false,
               false))),
-        // Extend stadium
-        new StadiumManagerUi(
-          new Dom(doc),
+        // Extend stadium: connection to the side panel
+        new StadiumSidePanelBridge(
           new StadiumWebPageUrl(),
+          new ElementPicker(doc),
+          doc,
           new EasyLogger(
             logger,
             new RegisteredLoggingModule(
-              "StadiumManagerUi",
+              "StadiumSidePanelBridge",
               new LogLevelError()))))),
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     // * * *           F O C U S I N G                             * * *

@@ -17,6 +17,7 @@ export class FoxfmBackground {
   private log: ILogger;
   private thisModule: string = "FoxfmBackground";
   private ressourceSettings: IRessource;
+  private ressourceStadiumPanel: IRessource;
 
   constructor(
     private indexedDb: FoxfmIndexedDb,
@@ -39,6 +40,9 @@ export class FoxfmBackground {
     );
     this.ressourceSettings = new Ressource(
       "backgroundPageContextMenuAddonSettings",
+    );
+    this.ressourceStadiumPanel = new Ressource(
+      "backgroundPageContextMenuStadiumPanel",
     );
   }
 
@@ -70,8 +74,18 @@ export class FoxfmBackground {
       title: this.ressourceSettings.value().toString(),
       contexts: ["page", "frame"],
     });
-    browser.contextMenus.onClicked.addListener(() => {
-      browser.tabs.create({ url: "src/SettingsPage/settings.html" });
+    browser.contextMenus.create({
+      id: "foxfm-stadium-panel",
+      title: this.ressourceStadiumPanel.value().toString(),
+      contexts: ["page", "frame"],
+    });
+    browser.contextMenus.onClicked.addListener((info) => {
+      if (info.menuItemId === "foxfm-stadium-panel") {
+        // opening the sidebar is only allowed directly inside the handler of a user action
+        browser.sidebarAction?.open();
+      } else {
+        browser.tabs.create({ url: "src/SettingsPage/settings.html" });
+      }
     });
   }
 }

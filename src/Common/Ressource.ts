@@ -86,8 +86,30 @@ export class RessourceSettingsPageLoggerIntro extends Ressource { constructor() 
 export class RessourceSettingsPageStadiumMenu extends Ressource { constructor() { super("settingsStadium_menu"); } }
 export class RessourceSettingsPageStadiumHeader extends Ressource { constructor() { super("settingsStadium_header"); } }
 export class RessourceSettingsPageStadiumIntro extends Ressource { constructor() { super("settingsStadium_intro"); } }
-export class RessourceSettingsPageStadiumAddOverallPrices extends Ressource { constructor() { super("settingsStadium_addOverallPrices"); } }
-export class RessourceSettingsPageStadiumAddOffsetPrices extends Ressource { constructor() { super("settingsStadium_addOffsetPrices"); } }
+
+export class RessourceSidePanelStadiumTitle extends Ressource { constructor() { super("sidePanelStadium_title"); } }
+export class RessourceSidePanelStadiumHintNotStadiumPage extends Ressource { constructor() { super("sidePanelStadium_hintNotStadiumPage"); } }
+export class RessourceSidePanelStadiumTabPrices extends Ressource { constructor() { super("sidePanelStadium_tabPrices"); } }
+export class RessourceSidePanelStadiumTabXPaths extends Ressource { constructor() { super("sidePanelStadium_tabXPaths"); } }
+export class RessourceSidePanelStadiumPricesIntro extends Ressource { constructor() { super("sidePanelStadium_pricesIntro"); } }
+export class RessourceSidePanelStadiumBasePrices extends Ressource { constructor() { super("sidePanelStadium_basePrices"); } }
+export class RessourceSidePanelStadiumBlock extends Ressource { constructor() { super("sidePanelStadium_block"); } }
+export class RessourceSidePanelStadiumKindLeague extends Ressource { constructor() { super("sidePanelStadium_kindLeague"); } }
+export class RessourceSidePanelStadiumKindFriendly extends Ressource { constructor() { super("sidePanelStadium_kindFriendly"); } }
+export class RessourceSidePanelStadiumKindCup extends Ressource { constructor() { super("sidePanelStadium_kindCup"); } }
+export class RessourceSidePanelStadiumApplyHint extends Ressource { constructor() { super("sidePanelStadium_applyHint"); } }
+export class RessourceSidePanelStadiumApplyResult extends Ressource { constructor() { super("sidePanelStadium_applyResult"); } }
+export class RessourceSidePanelStadiumApplyFailed extends Ressource { constructor() { super("sidePanelStadium_applyFailed"); } }
+export class RessourceSidePanelStadiumXPathsIntro extends Ressource { constructor() { super("sidePanelStadium_xPathsIntro"); } }
+export class RessourceSidePanelStadiumXPathsPicking extends Ressource { constructor() { super("sidePanelStadium_xPathsPicking"); } }
+export class RessourceSidePanelStadiumXPathsPickNotSelect extends Ressource { constructor() { super("sidePanelStadium_xPathsPickNotSelect"); } }
+export class RessourceSidePanelStadiumXPathsResetAll extends Ressource { constructor() { super("sidePanelStadium_xPathsResetAll"); } }
+export class RessourceSidePanelStadiumTransfer extends Ressource { constructor() { super("sidePanelStadium_transfer"); } }
+export class RessourceSidePanelStadiumTransferTooltip extends Ressource { constructor() { super("sidePanelStadium_transferTooltip"); } }
+
+export class RessourceSidePanelXPathPickTooltip extends Ressource { constructor() { super("sidePanelXPath_pickTooltip"); } }
+export class RessourceSidePanelXPathCancelPickTooltip extends Ressource { constructor() { super("sidePanelXPath_cancelPickTooltip"); } }
+export class RessourceSidePanelXPathConfirmTooltip extends Ressource { constructor() { super("sidePanelXPath_confirmTooltip"); } }
 
 export class RessourceSettingsPageTeamTableMenu extends Ressource { constructor() { super("settingsTeamTable_menu"); } }
 export class RessourceSettingsPageTeamTableHeader extends Ressource { constructor() { super("settingsTeamTable_header"); } }

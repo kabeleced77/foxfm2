@@ -1,0 +1,7 @@
+{
+  "sidePanelXPath_pickTooltip": {
+    "message": "Pick the element on the OFM page with a mouse click (saved right away)"
+  },
+  "sidePanelXPath_cancelPickTooltip": { "message": "Cancel picking" },
+  "sidePanelXPath_confirmTooltip": { "message": "Confirm change (Enter)" }
+}

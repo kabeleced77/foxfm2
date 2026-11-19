@@ -1,0 +1,44 @@
+{
+  "sidePanelStadium_title": { "message": "Stadionpreise" },
+  "sidePanelStadium_hintNotStadiumPage": {
+    "message": "Öffne die Stadion-Seite des Online Fussball Managers, um die Preise einzustellen."
+  },
+  "sidePanelStadium_tabPrices": { "message": "Preise" },
+  "sidePanelStadium_tabXPaths": { "message": "Erweitert" },
+  "sidePanelStadium_pricesIntro": {
+    "message": "Der Preis eines Blocks ergibt sich aus dem Basispreis plus dem Aufpreis des Blocks. Änderungen werden sofort auf die OFM-Seite übernommen."
+  },
+  "sidePanelStadium_basePrices": { "message": "Basis" },
+  "sidePanelStadium_block": {
+    "message": "Block $BLOCK$",
+    "placeholders": { "block": { "content": "$1" } }
+  },
+  "sidePanelStadium_kindLeague": { "message": "Liga" },
+  "sidePanelStadium_kindFriendly": { "message": "Friendly" },
+  "sidePanelStadium_kindCup": { "message": "Pokal" },
+  "sidePanelStadium_applyHint": {
+    "message": "Die Preise werden nur in die Auswahlfelder eingetragen. Speichere sie anschließend auf der OFM-Seite selbst."
+  },
+  "sidePanelStadium_applyResult": {
+    "message": "$RESULT$ Preise auf der Seite gesetzt.",
+    "placeholders": { "result": { "content": "$1" } }
+  },
+  "sidePanelStadium_applyFailed": {
+    "message": "Nicht gesetzt (XPath prüfen, siehe Erweitert):"
+  },
+  "sidePanelStadium_xPathsIntro": {
+    "message": "XPaths der Preis-Auswahlfelder auf der OFM-Stadionseite. Nur ändern, wenn sich die OFM-Seite geändert hat. Ein leeres Feld setzt den Standardwert."
+  },
+  "sidePanelStadium_xPathsPicking": {
+    "message": "Bewege die Maus auf der OFM-Seite über das gewünschte Auswahlfeld und klicke darauf. Esc bricht ab (die OFM-Seite muss dafür den Fokus haben), alternativ das Fadenkreuz erneut anklicken."
+  },
+  "sidePanelStadium_xPathsPickNotSelect": {
+    "message": "Das gewählte Element ist ein <$TAG$>, erwartet wird ein Auswahlfeld (select).",
+    "placeholders": { "tag": { "content": "$1" } }
+  },
+  "sidePanelStadium_xPathsResetAll": { "message": "Standardwerte" },
+  "sidePanelStadium_transfer": { "message": "Übertragen" },
+  "sidePanelStadium_transferTooltip": {
+    "message": "Trägt alle im Sidepanel eingestellten Preise (Basis- und Aufpreise) noch einmal in die Auswahlfelder der OFM-Seite ein, z. B. nach dem Neuladen der Seite. Danach müssen sie auf der OFM-Seite noch gespeichert werden."
+  }
+}

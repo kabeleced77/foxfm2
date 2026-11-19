@@ -1,5 +1,8 @@
 {
   "backgroundPageContextMenuAddonSettings": {
     "message": "foxfm"
+  },
+  "backgroundPageContextMenuStadiumPanel": {
+    "message": "foxfm stadium prices"
   }
 }

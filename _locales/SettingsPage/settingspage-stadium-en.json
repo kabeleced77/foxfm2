@@ -6,12 +6,6 @@
     "message": "Stadium"
   },
   "settingsStadium_intro": {
-    "message": "The following settings are for the stadium."
-  },
-  "settingsStadium_addOverallPrices": {
-    "message": "Add function 'Overall stadium prices'. Changing the overall price will change the entry prices of all blocks of the correspondent kind of game."
-  },
-  "settingsStadium_addOffsetPrices": {
-    "message": "Add function 'Block offset prices'. The offset price of a block will be added to the overall stadium price of the correspondent kind of game."
+    "message": "The stadium prices are set in the foxfm sidebar. Open it via the browser menu View → Sidebar → foxfm, via the context menu on an OFM page (entry 'foxfm stadium prices') or with a keyboard shortcut which you can set under Extensions → Manage Extension Shortcuts. On the OFM stadium page you enter the base prices and the offset prices per block there; every change is applied to the select fields of the page right away. In section 'Advanced' the XPaths of the price select fields can be adjusted in case the OFM page changes."
   }
 }

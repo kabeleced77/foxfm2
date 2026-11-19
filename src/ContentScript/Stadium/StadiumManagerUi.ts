@@ -30,6 +30,7 @@ import { XPathAllResults } from '../../Common/Toolkit/XPathAllResults';
 import { IXPathHtmlTableCell, XPathHtmlTableCell } from '../../Common/Toolkit/XPathHtmlTableCell';
 import { XPathSingleResult } from '../../Common/Toolkit/XPathSingleResult';
 import { XPathString } from '../../Common/Toolkit/XPathString';
+import { IStadiumXPathsReader, StadiumXPathNames } from '../../Common/StadiumXPaths';
 
 export class StadiumManagerUi implements IExtendWebElement {
   private dom: IDom;
@@ -42,6 +43,7 @@ export class StadiumManagerUi implements IExtendWebElement {
   private ofmStadiumOffsetMaxPrice = 68;
   private stadiumOverallEntryPrices: IStadiumOverallEntryPricesSetting;
   private stadiumBlocks: IStadiumBlocksSetting;
+  private stadiumXPaths: IStadiumXPathsReader;
   /* ressources */
   private ressourceStadiumCurrencySign: String;
   private ressourceStadiumLeague: String;
@@ -58,10 +60,12 @@ export class StadiumManagerUi implements IExtendWebElement {
   constructor(
     dom: IDom,
     webPageUrl: IUrl,
+    stadiumXPaths: IStadiumXPathsReader,
     logger: IEasyLogger
   ) {
     this.dom = dom;
     this.webPageUrl = webPageUrl;
+    this.stadiumXPaths = stadiumXPaths;
     this.logger = logger;
     this.stadiumBlocks = new StadiumBlocksSetting();
     this.stadiumOverallEntryPrices = new StadiumOverallEntryPricesSetting();
@@ -91,29 +95,36 @@ export class StadiumManagerUi implements IExtendWebElement {
   }
   public addPricingControlElements(): void {
     this.logger.info("will extend stadium according to activated settings")
-    this.stadiumOverallEntryPrices
-      .overallEntryPrices()
-      .then((overallEntryPrices) => {
-        if (overallEntryPrices.activated()) {
-          this.showOverallPricingControlElementsINTERN(overallEntryPrices);
-          this.stadiumBlocks.blocks()
-            .then((blocks: IStadiumBlocks) => {
-              if (blocks.blocksPricesOffsetActivated()) {
-                blocks.blocks().forEach(block => {
-                  var tribuneTableCell = new XPathHtmlTableCell(
-                    new XPathSingleResult<HTMLTableCellElement>(
-                      new XPathAllResults(document,
-                        new XPathString(block.xPathToTribune()))));
-                  this.addStadiumEntryPricesOffsetControls(block.name().name(), block.pricesOffset(), tribuneTableCell);
-                });
-              }
-            })
-            .catch(e => { throw new Error(`Could not add controls for stadium blocks offset prices: ${e}`); });
-        }
-      })
+    this.stadiumXPaths
+      .xPaths()
+      .then(xPaths => this.stadiumOverallEntryPrices
+        .overallEntryPrices()
+        .then((overallEntryPrices) => {
+          if (overallEntryPrices.activated()) {
+            this.showOverallPricingControlElementsINTERN(
+              overallEntryPrices,
+              xPaths[StadiumXPathNames.overallPricesTable]);
+            this.stadiumBlocks.blocks()
+              .then((blocks: IStadiumBlocks) => {
+                if (blocks.blocksPricesOffsetActivated()) {
+                  blocks.blocks().forEach(block => {
+                    var tribuneTableCell = new XPathHtmlTableCell(
+                      new XPathSingleResult<HTMLTableCellElement>(
+                        new XPathAllResults(document,
+                          new XPathString(xPaths[StadiumXPathNames.blockTribune(block.name().name())]))));
+                    this.addStadiumEntryPricesOffsetControls(block.name().name(), block.pricesOffset(), tribuneTableCell);
+                  });
+                }
+              })
+              .catch(e => { throw new Error(`Could not add controls for stadium blocks offset prices: ${e}`); });
+          }
+        }))
       .catch(e => { this.logger.error(`Could not add controls for stadium overall prices: ${e}`); });
   }
-  private showOverallPricingControlElementsINTERN(overallEntryPrices: IStadiumOverallEntryPrices): void {
+  private showOverallPricingControlElementsINTERN(
+    overallEntryPrices: IStadiumOverallEntryPrices,
+    overallPricesTableXPath: string,
+  ): void {
     var overallPricingTable = this.createPricingTable(
       'overall',
       overallEntryPrices.prices(),
@@ -130,7 +141,7 @@ export class StadiumManagerUi implements IExtendWebElement {
     // IMPORTANT: the last item of the XPATH must be 'table' or if included 'tbody'!
     var tblStadiumTribunes = new XPathSingleResult<HTMLTableElement>(
       new XPathAllResults(document,
-        new XPathString("/html/body/div[1]/div/form/table")))
+        new XPathString(overallPricesTableXPath)))
       .element();
 
     if (tblStadiumTribunes) {

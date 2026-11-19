@@ -59,8 +59,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
                 new GameKindCup(),
                 0
               )
-            ),
-            "/html/body/div[1]/div/form/table/tbody/tr[3]/td/table/tbody/tr[1]/td[1]/div/div/table/tbody/tr/td/table/tbody/tr[1]/td"
+            )
           ),
           new StadiumBlock(
             new StadiumBlockName2(),
@@ -78,8 +77,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
                 new GameKindCup(),
                 0
               )
-            ),
-            "/html/body/div[1]/div/form/table/tbody/tr[3]/td/table/tbody/tr[1]/td[2]/div/div/table/tbody/tr/td/table/tbody/tr[1]/td"
+            )
           ),
           new StadiumBlock(
             new StadiumBlockName3(),
@@ -97,8 +95,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
                 new GameKindCup(),
                 0
               )
-            ),
-            "/html/body/div[1]/div/form/table/tbody/tr[3]/td/table/tbody/tr[2]/td[1]/div/div/table/tbody/tr/td/table/tbody/tr[1]/td"
+            )
           ),
           new StadiumBlock(
             new StadiumBlockName4(),
@@ -116,8 +113,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
                 new GameKindCup(),
                 0
               )
-            ),
-            "/html/body/div[1]/div/form/table/tbody/tr[3]/td/table/tbody/tr[2]/td[2]/div/div/table/tbody/tr/td/table/tbody/tr[1]/td"
+            )
           )
         ])
     );
@@ -183,8 +179,7 @@ export class StadiumBlocksSetting implements IStadiumBlocksSetting {
           return new StadiumBlock(
             block.name(),
             block.pricesOffsetActivated(),
-            stadiumEntryPrices,
-            block.xPathToTribune()
+            stadiumEntryPrices
           );
         } else {
           return block;

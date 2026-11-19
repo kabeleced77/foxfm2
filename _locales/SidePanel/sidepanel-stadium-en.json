@@ -1,0 +1,44 @@
+{
+  "sidePanelStadium_title": { "message": "Stadium prices" },
+  "sidePanelStadium_hintNotStadiumPage": {
+    "message": "Open the stadium page of the Online Football Manager to set the prices."
+  },
+  "sidePanelStadium_tabPrices": { "message": "Prices" },
+  "sidePanelStadium_tabXPaths": { "message": "Advanced" },
+  "sidePanelStadium_pricesIntro": {
+    "message": "The price of a block is the base price plus the offset price of the block. Changes are applied to the OFM page right away."
+  },
+  "sidePanelStadium_basePrices": { "message": "Base" },
+  "sidePanelStadium_block": {
+    "message": "Block $BLOCK$",
+    "placeholders": { "block": { "content": "$1" } }
+  },
+  "sidePanelStadium_kindLeague": { "message": "League" },
+  "sidePanelStadium_kindFriendly": { "message": "Friendly" },
+  "sidePanelStadium_kindCup": { "message": "Cup" },
+  "sidePanelStadium_applyHint": {
+    "message": "The prices are only entered into the select fields. Afterwards save them on the OFM page itself."
+  },
+  "sidePanelStadium_applyResult": {
+    "message": "$RESULT$ prices set on the page.",
+    "placeholders": { "result": { "content": "$1" } }
+  },
+  "sidePanelStadium_applyFailed": {
+    "message": "Not set (check XPath, see Advanced):"
+  },
+  "sidePanelStadium_xPathsIntro": {
+    "message": "XPaths of the price select fields on the OFM stadium page. Only change them if the OFM page has changed. An empty field restores the default value."
+  },
+  "sidePanelStadium_xPathsPicking": {
+    "message": "Move the mouse over the desired select field on the OFM page and click it. Esc cancels (the OFM page needs the focus for that), or click the crosshair again."
+  },
+  "sidePanelStadium_xPathsPickNotSelect": {
+    "message": "The selected element is a <$TAG$>, a select field is expected.",
+    "placeholders": { "tag": { "content": "$1" } }
+  },
+  "sidePanelStadium_xPathsResetAll": { "message": "Default values" },
+  "sidePanelStadium_transfer": { "message": "Transfer" },
+  "sidePanelStadium_transferTooltip": {
+    "message": "Enters all prices set in the side panel (base and offset prices) into the select fields of the OFM page again, e.g. after the page has been reloaded. Afterwards they still have to be saved on the OFM page."
+  }
+}

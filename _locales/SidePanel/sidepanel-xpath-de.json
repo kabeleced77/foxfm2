@@ -1,0 +1,7 @@
+{
+  "sidePanelXPath_pickTooltip": {
+    "message": "Element auf der OFM-Seite per Mausklick auswählen (wird sofort gespeichert)"
+  },
+  "sidePanelXPath_cancelPickTooltip": { "message": "Auswahl abbrechen" },
+  "sidePanelXPath_confirmTooltip": { "message": "Änderung übernehmen (Enter)" }
+}

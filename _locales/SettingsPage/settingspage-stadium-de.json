@@ -6,12 +6,6 @@
     "message": "Stadion"
   },
   "settingsStadium_intro": {
-    "message": "Im folgenden werden die Einstellungen für das Stadion vorgenommen."
-  },
-  "settingsStadium_addOverallPrices": {
-    "message": "Füge Funktion 'Allgemeine Stadiumspreise' ein. Die Eintrittspreise für das entsprechende Spiel werden für alle Blöcke auf einmal geändert."
-  },
-  "settingsStadium_addOffsetPrices": {
-    "message": "Füge Funktion 'Aufpreis Stadiumblock' ein. Die Aufpreis des jeweiligen Blocks für das entsprechende Spiel, wird dem allgemeinen Stadiumspreis hinzuaddiert."
+    "message": "Die Stadionpreise werden im foxfm-Seitenbereich (Sidebar) eingestellt. Du öffnest ihn über das Browser-Menü Ansicht → Seitenleiste → foxfm, über das Kontextmenü auf einer OFM-Seite (Eintrag „foxfm Stadionpreise“) oder mit einem Tastenkürzel, das du unter Erweiterungen → Tastenkürzel verwalten festlegen kannst. Auf der Stadion-Seite des OFM trägst du dort die Basispreise und die Aufpreise je Block ein; jede Änderung wird sofort in die Auswahlfelder der Seite übernommen. Im Bereich „Erweitert“ lassen sich die XPaths der Preis-Auswahlfelder anpassen, falls sich die OFM-Seite ändert."
   }
 }

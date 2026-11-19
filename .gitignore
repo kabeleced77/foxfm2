@@ -1,6 +1,7 @@
 *.swp
 .vs
 .vscode
+*.patch
 manifest.json
 foxfm-chrome.zip
 foxfm-firefox.xpi

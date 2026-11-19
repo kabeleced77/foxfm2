@@ -7,7 +7,6 @@ export interface IStadiumBlock {
   activatePricesOffset(status: Boolean): void;
   pricesOffset(): IStadiumEntryPrices;
   updateOffsetPrices(prices: IStadiumEntryPrices): void;
-  xPathToTribune(): String;
   fromJson(jsonString: String): IStadiumBlock;
 }
 
@@ -15,18 +14,15 @@ export class StadiumBlock implements IStadiumBlock {
   private blockName: IStadiumBlockName;
   private blockPricesOffsetActivated: Boolean;
   private blockPricesOffset: IStadiumEntryPrices;
-  private xPath: String;
 
   constructor(
     name: IStadiumBlockName,
     pricesOffestActivated: Boolean,
-    pricesOffset: IStadiumEntryPrices,
-    xPathToTribune: String
+    pricesOffset: IStadiumEntryPrices
   ) {
     this.blockName = name;
     this.blockPricesOffsetActivated = pricesOffestActivated;
     this.blockPricesOffset = pricesOffset;
-    this.xPath = xPathToTribune;
   }
 
   public name(): IStadiumBlockName {
@@ -44,15 +40,11 @@ export class StadiumBlock implements IStadiumBlock {
   public activatePricesOffset(status: Boolean): void {
     this.blockPricesOffsetActivated = status;
   }
-  public xPathToTribune(): String {
-    return this.xPath;
-  }
   public fromJson(jsonString: String): IStadiumBlock {
     return new StadiumBlock(
       this.blockName.fromJson(jsonString["blockName"]),
       jsonString["blockPricesOffsetActivated"],
-      this.blockPricesOffset.fromJson(jsonString["blockPricesOffset"]),
-      jsonString["xPath"]
+      this.blockPricesOffset.fromJson(jsonString["blockPricesOffset"])
     )
   }
 }
