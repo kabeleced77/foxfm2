@@ -11,10 +11,10 @@
   "common_buttonImport": {
     "message": "Import"
   },
-  "common_matchDay": {
+  "common_matchday": {
     "message": "Matchday"
   },
-  "common_matchDays": {
+  "common_matchdays": {
     "message": "Matchdays"
   }
 }
