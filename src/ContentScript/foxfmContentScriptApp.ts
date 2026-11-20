@@ -5,7 +5,6 @@ import { IRegisteredLoggingModule, RegisteredLoggingModule } from '../Common/Log
 import { IRegisteredLoggingModules, RegisteredLoggingModules } from '../Common/Logger/RegisteredLoggingModules';
 import { MessagingContentScript } from '../Common/Messaging/MessagingContentScript';
 import { MessagingPortIndexedDb } from '../Common/Messaging/MessagingPortIndexedDb';
-import { IFocusElementsSetting } from '../Common/Settings/FocusElementsSetting';
 import { IFoxfmSetting } from '../Common/Settings/FoxfmSetting';
 import { FoxfmSettingName } from '../Common/Settings/FoxfmSettingName';
 import { SettingNameApplicationLogLevel } from '../Common/Settings/SettingNameApplicationLogLevel';
@@ -40,9 +39,6 @@ import { Dom } from '../Common/Toolkit/Dom';
 import { IExtendWebElement } from '../Common/Toolkit/IExtendWebElement';
 import { ExtendWebPage } from '../Common/Toolkit/ExtendWebPage';
 import { FirstElementInXPathNodeOrParents } from '../Common/Toolkit/FirstElementInXPathNodeOrParents';
-import { FocusElementByXPathConfigureable } from '../Common/Toolkit/FocusElementByXPathConfigureable';
-import { FocusElementOnWebPage } from '../Common/Toolkit/FocusElementOnWebPage';
-import { IFocusWebElement } from '../Common/Toolkit/FocusWebElement';
 import { HtmlSelect } from '../Common/Toolkit/HtmlSelect';
 import { HtmlSelectById } from '../Common/Toolkit/HtmlSelectById';
 import { HtmlTable } from '../Common/Toolkit/HtmlTable';
@@ -126,7 +122,6 @@ var messagingContentScript = new MessagingContentScript(
 /*********************************************************************
  * Content script application which
  * - extends web pages
- * - focus elements on web pages
  */
 (async () => {
   new FoxfmContentScript(
@@ -487,14 +482,6 @@ var messagingContentScript = new MessagingContentScript(
             new RegisteredLoggingModule(
               "StadiumSidePanelBridge",
               new LogLevelError()))))),
-    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    // * * *           F O C U S I N G                             * * *
-    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-    new FocusElementOnWebPage(
-      new Url(currentUrl),
-      new Array<IFocusWebElement>(
-        // <<< Put here implementation of IFocusWebElement >>>
-      )),
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
     // * * *           I M P O R T I N G                           * * *
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

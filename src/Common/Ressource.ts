@@ -3,7 +3,6 @@ import browser from "webextension-polyfill";
 export interface IRessource {
   key(): String;
   value(substituion?: String): String;
-  fromJson(jsonString: String): IRessource;
 }
 
 export class Ressource implements IRessource {
@@ -19,9 +18,6 @@ export class Ressource implements IRessource {
   public value(substitution?: string): String {
     return browser.i18n.getMessage(this.ressourceKey.valueOf(), substitution);
   }
-  public fromJson(jsonString: String): IRessource {
-    return new Ressource(jsonString["ressourceKey"]);
-  }
 }
 
 export class RessourcePlayerTransferImportFieldNumber implements IRessource {
@@ -29,35 +25,30 @@ export class RessourcePlayerTransferImportFieldNumber implements IRessource {
   constructor() { this.ressource = new Ressource("playerTransfer_import_field_number"); }
   public key(): String { return this.ressource.key() };
   public value(): String { return this.ressource.value(); };
-  public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
 }
 export class RessourcePlayerTransferImportFieldPosition implements IRessource {
   private readonly ressource: IRessource;
   constructor() { this.ressource = new Ressource("playerTransfer_import_field_position"); }
   public key(): String { return this.ressource.key() };
   public value(): String { return this.ressource.value(); };
-  public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
 }
 export class RessourcePlayerTransferImportFieldAge implements IRessource {
   private readonly ressource: IRessource;
   constructor() { this.ressource = new Ressource("playerTransfer_import_field_age"); }
   public key(): String { return this.ressource.key() };
   public value(): String { return this.ressource.value(); };
-  public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
 }
 export class RessourcePlayerTransferImportFieldStrength implements IRessource {
   private readonly ressource: IRessource;
   constructor() { this.ressource = new Ressource("playerTransfer_import_field_strength"); }
   public key(): String { return this.ressource.key() };
   public value(): String { return this.ressource.value(); };
-  public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
 }
 export class RessourcePlayerTransferImportFieldPrice implements IRessource {
   private readonly ressource: IRessource;
   constructor() { this.ressource = new Ressource("playerTransfer_import_field_price"); }
   public key(): String { return this.ressource.key() };
   public value(): String { return this.ressource.value(); };
-  public fromJson(jsonString: String): IRessource { return this.ressource.fromJson(jsonString); };
 }
 
 export class RessourceCommonAppName extends Ressource { constructor() { super("common_appName"); } }
